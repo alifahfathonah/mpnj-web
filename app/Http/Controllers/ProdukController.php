@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use File;
 
 class ProdukController extends Controller
 {
@@ -71,5 +72,16 @@ class ProdukController extends Controller
         $produk->save();
 
         return redirect('administrator/produk');
+    }
+
+    public function hapus($id)
+    {
+        $produk = Produk::find($id);
+        File::delete('assets/foto_produk/'.$produk->foto);
+        $hapus = Produk::where('id_produk', $id)->delete();
+
+        if ($hapus) {
+            return redirect('administrator/produk');
+        }
     }
 }
