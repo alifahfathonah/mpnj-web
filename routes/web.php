@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('administrator/produk', 'ProdukController@index');
+Route::get('administrator/produk/tambah', 'ProdukController@tambah');
+Route::post('administrator/produk/simpan', 'ProdukController@simpan');
