@@ -39,4 +39,37 @@ class ProdukController extends Controller
 
         return redirect('administrator/produk');
     }
+
+    public function edit($id)
+    {
+        $data['produk'] = Produk::find($id);
+        return view ('pelapak/produk/edit_produk', $data);
+    }
+
+    public function ubah(Request $request, $id)
+    {
+        $produk = Produk::find($id);
+        $produk->nama_produk = $request->nama_produk;
+        $produk->satuan = $request->satuan;
+        $produk->berat = $request->berat;
+        $produk->keterangan = $request->deskripsi;
+        $produk->harga_modal = $request->harga_modal;
+        $produk->harga_jual = $request->harga_jual;
+        $produk->diskon = $request->diskon;
+        $produk->stok = $request->stok;
+        $produk->pelapak_id = 1;
+
+        $foto = $request->file('foto');
+
+        if (!empty($foto)) {
+            File::delete('assets/foto_produk/'.$produk->foto);
+            $nama_foto = $foto->getClientOriginalName();
+            $foto->move('assets/foto_produk', $nama_foto);
+            $produk->foto = $nama_foto;
+        }
+
+        $produk->save();
+
+        return redirect('administrator/produk');
+    }
 }
