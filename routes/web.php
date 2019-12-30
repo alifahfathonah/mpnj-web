@@ -20,3 +20,4 @@ Route::get('administrator/produk/tambah', 'ProdukController@tambah');
 Route::post('administrator/produk/simpan', 'ProdukController@simpan');
 Route::get('administrator/produk/edit/{id}', 'ProdukController@edit');
 Route::post('administrator/produk/ubah/{id}', 'ProdukController@ubah');
+Route::get('administrator/produk/hapus/{id}', 'ProdukController@hapus');
