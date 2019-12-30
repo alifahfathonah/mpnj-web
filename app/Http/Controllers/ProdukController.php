@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Kategori_Produk;
 use Illuminate\Http\Request;
 use File;
 
@@ -16,7 +17,8 @@ class ProdukController extends Controller
 
     public function tambah()
     {
-        return view('pelapak/produk/tambah_produk');
+        $data['kategori'] = Kategori_Produk::all();
+        return view('pelapak/produk/tambah_produk', $data);
     }
 
     public function simpan(Request $request)
@@ -28,6 +30,7 @@ class ProdukController extends Controller
         Produk::create([
             'nama_produk' => $request->nama_produk,
             'satuan' => $request->satuan,
+            'kategori_produk_id' => $request->kategori,
             'berat' => $request->berat,
             'keterangan' => $request->deskripsi,
             'harga_modal' => $request->harga_modal,
@@ -44,6 +47,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $data['produk'] = Produk::find($id);
+        $data['kategori'] = Kategori_Produk::all();
         return view ('pelapak/produk/edit_produk', $data);
     }
 
@@ -51,6 +55,7 @@ class ProdukController extends Controller
     {
         $produk = Produk::find($id);
         $produk->nama_produk = $request->nama_produk;
+        $produk->kategori_produk_id = $request->kategori;
         $produk->satuan = $request->satuan;
         $produk->berat = $request->berat;
         $produk->keterangan = $request->deskripsi;
