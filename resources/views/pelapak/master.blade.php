@@ -153,6 +153,7 @@
         <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
         <script src="{{ asset('assets/admin/dist/js/adminlte.js') }}"></script>
         <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script>
+        @stack('scripts')
 </body>
 
 </html>
