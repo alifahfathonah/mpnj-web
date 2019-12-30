@@ -22,6 +22,14 @@
                             <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-sm">
                         </div>
                         <div class="form-group">
+                            <label>Kategori</label>
+                            <select name="kategori" id="kategori" class="form-control form-control-sm">
+                                @foreach ($kategori as $k)
+                                <option value="{{ $k->id_kategori_produk }}">{{ $k->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
                                     <label>Satuan</label>
