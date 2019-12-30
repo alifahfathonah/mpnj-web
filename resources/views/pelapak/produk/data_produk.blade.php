@@ -15,13 +15,12 @@
                     </h3>
                 </div>
                 <div class="card-body pad table-responsive">
-                    <a href="/administrator/produk/add" class="btn btn-primary btn-sm">Tambah</a> <br> <br>
+                    <a href="/administrator/produk/tambah" class="btn btn-primary btn-sm">Tambah</a> <br> <br>
                     <table id="tbl" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>NO</th>
                                 <th>Nama Produk</th>
-                                <th>Kategori</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -30,7 +29,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $p->nama_produk }}</td>
-                                    <td>{{ $p->kategori->nama_kategori }}</td>
                                     <td>
                                         <a href="/administrator/produk/edit/{{ $p->id_produk }}" class="btn btn-primary btn-sm">Edit</a>
                                         <a href="/administrator/produk/hapus/{{ $p->id_produk }}" class="btn btn-danger btn-sm">Hapus</a>
