@@ -31,6 +31,7 @@ class RekeningPelapakController extends Controller
             return redirect('administrator/rekening');
         }
     }
+
     public function edit($id)
     {
         $data['rekening'] = Rekening_Pelapak::find($id);
@@ -47,6 +48,15 @@ class RekeningPelapakController extends Controller
         $ubah = $rekening->save();
 
         if ($ubah) {
+            return redirect('administrator/rekening');
+        }
+    }
+
+    public function hapus($id)
+    {
+        $hapusRekening = Rekening_Pelapak::where('id_rekening', $id)->delete();
+
+        if ($hapusRekening) {
             return redirect('administrator/rekening');
         }
     }
