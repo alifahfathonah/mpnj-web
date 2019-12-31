@@ -65,10 +65,10 @@
                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="10"
                                     class="form-control form-control-sm"></textarea>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Foto</label>
                                 <input type="file" name="foto" id="foto" class="form-control form-control-sm">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <input type="submit" value="Tambah" name="tambah" id="tambah"
                                     class="btn btn-primary btn-sm">
