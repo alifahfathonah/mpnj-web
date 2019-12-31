@@ -23,11 +23,11 @@ class ProdukController extends Controller
 
     public function simpan(Request $request)
     {
-        $foto = $request->file('foto');
-        $nama_foto = $foto->getClientOriginalName();
-        $foto->move('assets/foto_produk', $nama_foto);
+        // $foto = $request->file('foto');
+        // $nama_foto = $foto->getClientOriginalName();
+        // $foto->move('assets/foto_produk', $nama_foto);
 
-        Produk::create([
+        $produk = Produk::create([
             'nama_produk' => $request->nama_produk,
             'satuan' => $request->satuan,
             'kategori_produk_id' => $request->kategori,
