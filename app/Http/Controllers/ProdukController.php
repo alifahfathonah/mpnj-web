@@ -37,9 +37,16 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'diskon' => $request->diskon,
             'stok' => $request->stok,
-            'foto' => $nama_foto,
             'pelapak_id' => '1'
         ]);
+
+        foreach ($request->document as $file) {
+            $foto = Foto_Produk::create([
+                'foto_produk' => $file,
+                'produk_id' => $produk->id_produk
+            ]);
+            // $produk->addMedia('assets/temp_foto_produk/'.$file)->toMediaCollection('document');
+        }
 
         return redirect('administrator/produk');
     }
