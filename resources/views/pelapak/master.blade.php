@@ -97,6 +97,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/administrator/rekening" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Rekening
+                                </p>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
