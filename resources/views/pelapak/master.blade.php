@@ -11,7 +11,10 @@
 
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/adminlte.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -149,6 +152,7 @@
         <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/plugins/dropzone/dropzone.js') }}"></script>
         <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
         <script src="{{ asset('assets/admin/dist/js/adminlte.js') }}"></script>
