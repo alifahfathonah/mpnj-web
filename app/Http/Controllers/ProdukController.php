@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto_Produk;
 use App\Models\Produk;
 use App\Models\Kategori_Produk;
 use Illuminate\Http\Request;
@@ -109,7 +110,7 @@ class ProdukController extends Controller
 
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
-        $file->move('assets/temp_foto_produk', $name);
+        $file->move('assets/foto_produk', $name);
 
         return response()->json([
             'name'          => $name,
@@ -119,7 +120,7 @@ class ProdukController extends Controller
 
     public function unlink(Request $request)
     {
-        File::delete('assets/temp_foto_produk/' . $request->name);
+        File::delete('assets/foto_produk/' . $request->name);
         echo "oke";
     }
 }
