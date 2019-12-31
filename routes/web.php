@@ -25,3 +25,5 @@ Route::get('administrator/produk/hapus/{id}', 'ProdukController@hapus');
 
 //rekening
 Route::get('administrator/rekening', 'RekeningPelapakController@index');
+Route::get('administrator/rekening/tambah', 'RekeningPelapakController@tambah');
+Route::post('administrator/rekening/simpan', 'RekeningPelapakController@simpan');
