@@ -48,7 +48,7 @@ class ProdukController extends Controller
     {
         $data['produk'] = Produk::find($id);
         $data['kategori'] = Kategori_Produk::all();
-        return view ('pelapak/produk/edit_produk', $data);
+        return view('pelapak/produk/edit_produk', $data);
     }
 
     public function ubah(Request $request, $id)
@@ -68,7 +68,7 @@ class ProdukController extends Controller
         $foto = $request->file('foto');
 
         if (!empty($foto)) {
-            File::delete('assets/foto_produk/'.$produk->foto);
+            File::delete('assets/foto_produk/' . $produk->foto);
             $nama_foto = $foto->getClientOriginalName();
             $foto->move('assets/foto_produk', $nama_foto);
             $produk->foto = $nama_foto;
@@ -82,11 +82,37 @@ class ProdukController extends Controller
     public function hapus($id)
     {
         $produk = Produk::find($id);
-        File::delete('assets/foto_produk/'.$produk->foto);
+        File::delete('assets/foto_produk/' . $produk->foto);
         $hapus = Produk::where('id_produk', $id)->delete();
 
         if ($hapus) {
             return redirect('administrator/produk');
         }
+    }
+
+    public function upload_foto(Request $request)
+    {
+        // $path = storage_path('assets/temp_foto_produk');
+
+        // if (!file_exists($path)) {
+        //     mkdir($path, 0777, true);
+        // }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move('assets/temp_foto_produk', $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
+    public function unlink(Request $request)
+    {
+        File::delete('assets/temp_foto_produk/' . $request->name);
+        echo "oke";
     }
 }
