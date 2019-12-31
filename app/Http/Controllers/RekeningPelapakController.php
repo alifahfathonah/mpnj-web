@@ -31,4 +31,23 @@ class RekeningPelapakController extends Controller
             return redirect('administrator/rekening');
         }
     }
+    public function edit($id)
+    {
+        $data['rekening'] = Rekening_Pelapak::find($id);
+        return view('pelapak/rekening/edit_rekening', $data);
+    }
+
+    public function ubah(Request $request, $id)
+    {
+        $rekening = Rekening_Pelapak::find($id);
+        $rekening->nama_bank = $request->nama_bank;
+        $rekening->nomor_rekening = $request->nomor_rekening;
+        $rekening->atas_nama = $request->atas_nama;
+
+        $ubah = $rekening->save();
+
+        if ($ubah) {
+            return redirect('administrator/rekening');
+        }
+    }
 }
