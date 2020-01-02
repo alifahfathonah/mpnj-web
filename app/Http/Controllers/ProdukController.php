@@ -54,7 +54,7 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        $data['produk'] = Produk::find($id);
+        $data['produk'] = Produk::with('foto_produk')->where('id_produk', $id)->first();
         $data['kategori'] = Kategori_Produk::all();
         return view('pelapak/produk/edit_produk', $data);
     }
