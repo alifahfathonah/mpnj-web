@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//produk
 Route::get('administrator/produk', 'ProdukController@index');
 Route::get('administrator/produk/tambah', 'ProdukController@tambah');
 Route::post('administrator/produk/simpan', 'ProdukController@simpan');
@@ -23,3 +24,11 @@ Route::post('administrator/produk/ubah/{id}', 'ProdukController@ubah');
 Route::get('administrator/produk/hapus/{id}', 'ProdukController@hapus');
 Route::post('administrator/produk/upload_foto', 'ProdukController@upload_foto');
 Route::post('administrator/produk/unlink', 'ProdukController@unlink');
+
+//rekening
+Route::get('administrator/rekening', 'RekeningPelapakController@index');
+Route::get('administrator/rekening/tambah', 'RekeningPelapakController@tambah');
+Route::post('administrator/rekening/simpan', 'RekeningPelapakController@simpan');
+Route::get('administrator/rekening/edit/{id}', 'RekeningPelapakController@edit');
+Route::post('administrator/rekening/ubah/{id}', 'RekeningPelapakController@ubah');
+Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus');
