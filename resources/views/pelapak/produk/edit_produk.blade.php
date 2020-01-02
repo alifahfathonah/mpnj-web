@@ -18,6 +18,10 @@
                     <form action="/administrator/produk/ubah/{{ $produk->id_produk }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
+                            <label>Pilih Foto</label>
+                            <div class="needsclick dropzone" id="document-dropzone"></div>
+                        </div>
+                        <div class="form-group">
                             <label>Nama Produk</label>
                             <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-sm" value="{{ $produk->nama_produk }}">
                         </div>
