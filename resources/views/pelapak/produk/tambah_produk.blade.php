@@ -1,7 +1,7 @@
 @extends('pelapak.master')
 
 @section('title')
-    Tambah Data Produk
+Tambah Data Produk
 @endsection
 
 @section('konten')
