@@ -73,14 +73,14 @@
                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="10"
                                     class="form-control form-control-sm">{{ $produk->keterangan }}</textarea>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Foto Saat Ini</label> <br>
-                                <img src="{{ asset('assets/foto_produk/'.$produk->foto) }}" alt="{{ $produk->foto }}" width="400">
-                            </div>
-                            <div class="form-group">
+                                <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" alt="{{ $produk->foto }}" width="400">
+                            </div> --}}
+                            {{-- <div class="form-group">
                                 <label>Ganti Foto *</label>
                                 <input type="file" name="foto" id="foto" class="form-control form-control-sm">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <input type="submit" value="Tambah" name="tambah" id="tambah"
                                     class="btn btn-primary btn-sm">
