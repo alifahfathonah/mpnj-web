@@ -1,7 +1,7 @@
 @extends('pelapak.master')
 
 @section('title')
-    Tambah Data Produk
+Tambah Data Produk
 @endsection
 
 @section('konten')
@@ -17,6 +17,10 @@
                 <div class="card-body">
                     <form action="/administrator/produk/simpan" method="post" enctype="multipart/form-data">
                         @csrf
+                        <div class="form-group">
+                            <label>Pilih Foto</label>
+                            <div class="needsclick dropzone" id="document-dropzone"></div>
+                        </div>
                         <div class="form-group">
                             <label>Nama Produk</label>
                             <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-sm">
@@ -65,10 +69,10 @@
                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="10"
                                     class="form-control form-control-sm"></textarea>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Foto</label>
                                 <input type="file" name="foto" id="foto" class="form-control form-control-sm">
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <input type="submit" value="Tambah" name="tambah" id="tambah"
                                     class="btn btn-primary btn-sm">
@@ -81,3 +85,63 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    Dropzone.autoDiscover = false;
+    $(function() {
+        // Dropzone.autoDiscover = true;
+        var uploadedDocumentMap = {}
+        var upload = new Dropzone("#document-dropzone", {
+            url: '/administrator/produk/upload_foto',
+            method:"post",
+            paramName: "file",
+            maxFilesize: 2, // MB
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success: function (file, response) {
+                $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+                uploadedDocumentMap[file.name] = response.name
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedDocumentMap[file.name]
+                    $.ajax({
+                        url: '/administrator/produk/unlink',
+                        type: 'POST',
+                        data: {
+                            'name': name
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                }
+                $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+            },
+            init: function() {
+                @if(isset($project) && $project->document)
+                    var files =
+                    {!! json_encode($project->document) !!}
+                    for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+                    }
+                @endif
+            }
+        });
+    })
+</script>
+@endpush

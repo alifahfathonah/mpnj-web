@@ -22,6 +22,8 @@ Route::post('administrator/produk/simpan', 'ProdukController@simpan');
 Route::get('administrator/produk/edit/{id}', 'ProdukController@edit');
 Route::post('administrator/produk/ubah/{id}', 'ProdukController@ubah');
 Route::get('administrator/produk/hapus/{id}', 'ProdukController@hapus');
+Route::post('administrator/produk/upload_foto', 'ProdukController@upload_foto');
+Route::post('administrator/produk/unlink', 'ProdukController@unlink');
 
 //rekening
 Route::get('administrator/rekening', 'RekeningPelapakController@index');
