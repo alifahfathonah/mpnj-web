@@ -13,4 +13,10 @@ class ProdukWebController extends Controller
         $data['produk'] = Produk::with('foto_produk')->get();
         return view('web/web_produk', $data);
     }
+
+    public function produkId($id)
+    {
+        $data['produk'] = Produk::with('foto_produk')->where('id_produk', $id)->first();
+        return view('web/web_produk_detail', $data);
+    }
 }
