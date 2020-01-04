@@ -37,3 +37,5 @@ Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@index');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
+//daftar
+Route::get('daftar', 'Web\KonsumenWebController@index');
