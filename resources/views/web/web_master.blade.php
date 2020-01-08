@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="autor__info">
                                     <p class="name">
-                                        Jhon Doe
+                                        Halo !!!
                                     </p>
                                     <p class="ammount">$20.45</p>
                                 </div>
@@ -552,6 +552,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/map.js') }}"></script>
     <!-- endinject -->
+    @stack('scripts')
 </body>
 
 </html>
