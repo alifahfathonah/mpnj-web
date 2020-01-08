@@ -44,5 +44,6 @@ Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSi
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
 Auth::routes();
+Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 Route::get('/home', 'HomeController@index')->name('home');
