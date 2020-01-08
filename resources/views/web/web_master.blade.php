@@ -22,6 +22,11 @@
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="/produk">produk</a>
                 <a class="nav-item nav-link" href="{{ route('register') }}">Daftar</a>
+                @if (Session::has('username'))
+                    <a class="nav-item nav-link" href="{{ route('keluar') }}">Logout</a>
+                @else
+                    <a class="nav-item nav-link" href="{{ route('login') }}">Login</a>
+                @endif
             </div>
         </div>
     </nav>
@@ -29,6 +34,9 @@
     <br>
 
     <div class="container">
+        @if (Session::has('username'))
+            <h2>Halo {{ Session::get('username') }}</h2>
+        @endif
         @yield('web_konten')
     </div>
 
