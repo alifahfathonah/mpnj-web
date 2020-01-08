@@ -193,7 +193,7 @@ START PRODUCTS AREA
                             <li>
                                 <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image">
                                 <p>
-                                    <a href="#">AazzTech</a>
+                                    <a href="#">{{ $p->pelapak->nama_toko }}</a>
                                 </p>
                             </li>
                             <li class="product_cat">
