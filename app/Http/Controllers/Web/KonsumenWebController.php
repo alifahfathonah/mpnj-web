@@ -28,5 +28,23 @@ class KonsumenWebController extends Controller
         return view('auth/register', $data);
     }
 
+    public function simpan(Request $request)
+    {
+        $simpan = Konsumen::create([
+            'nama_lengkap' => $request->nama_lengkap,
+            'username' => $request->username,
+            'password' => $request->password,
+            'provinsi_id' => $request->provinsi,
+            'city_id' => $request->kota,
+            'alamat' => $request->alamat,
+            'kode_pos' => $request->kode_pos,
+            'nomor_hp' => $request->nomor_hp,
+            'email' => $request->email
+        ]);
+
+        if ($simpan) {
+            return redirect('register');
+        }
+    }
 
 }
