@@ -37,3 +37,12 @@ Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@index');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
+
+//daftar
+// Route::get('daftar', 'Web\KonsumenWebController@index');
+Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSimpan');
+Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

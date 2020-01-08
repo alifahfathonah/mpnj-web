@@ -21,6 +21,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="/produk">produk</a>
+                <a class="nav-item nav-link" href="{{ route('register') }}">Daftar</a>
             </div>
         </div>
     </nav>
@@ -33,6 +34,7 @@
 
     <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/web/js/bootstrap.bundle.min.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>
