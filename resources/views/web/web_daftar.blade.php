@@ -1,103 +1,77 @@
-@extends('web.web_master')
+@extends('layouts.app')
 
-@section('web_konten')
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                Daftar
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control form-control-sm">
-                </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" id="username" class="form-control form-control-sm">
-                </div>
-                <div class="form-group">
-                    <label>Alamat</label>
-                    <textarea name="alamat" id="" cols="30" rows="10" class="form-control form-control-sm"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Kode Pos</label>
-                    <input type="text" name="kode_pos" id="kode_pos" class="form-control form-control-sm">
-                </div>
-                <div class="form-group">
-                    <label>Provinsi</label>
-                    <select name="provinsi" id="provinsi" class="form-control form-control-sm">
-                        @foreach ($provinsi->rajaongkir->results as $p)
-                            <option value="{{ $p->province_id }}">{{ $p->province }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Kota</label>
-                    <select name="kota" id="kota" class="form-control form-control-sm">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Register') }}</div>
 
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-sm">
-                </div>
-                <div class="form-group">
-                    <label>Nomor HP</label>
-                    <input type="text" name="nomor_hp" id="nomor_hp" class="form-control form-control-sm">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" class="form-control form-control-sm">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(function() {
-            $("#provinsi").on('change', function() {
-                let provinsiId = $(this).val();
-                // var settings = {
-                //     "async": true,
-                //     "crossDomain": true,
-                //     "url": "https://api.rajaongkir.com/starter/city?province=5",
-                //     "method": "GET",
-                //     "dataType": "jsonp",
-                //     "header": {
-                //         "key": "c506cdfc35a33e3d47fb068b799c0630"
-                //     }
-                // }
-                // $.ajax(settings).done(function (response) {
-                //     console.log(response);
-                // });
-
-
-                $.ajax({
-                    // url: "https://api.rajaongkir.com/starter/city?province=5",
-                    url: `kotaByProvinsiId/${provinsiId}`,
-                    type: 'GET',
-                    dataType: "json",
-                    headers: {
-                        'key': 'c506cdfc35a33e3d47fb068b799c0630',
-                        'Access-Control-Allow-Headers': '*'
-                    },
-                    success: function(response) {
-                        // console.log(response);
-                        response.rajaongkir.results.map(e => {
-                            $("#kota").append(`
-                                <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
-                            `);
-                        });
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        })
-    </script>
-@endpush
