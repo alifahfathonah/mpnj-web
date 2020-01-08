@@ -19,5 +19,5 @@ class Produk extends Model
     {
         return $this->hasOne(Kategori_Produk::class, 'id_kategori_produk', 'kategori_produk_id');
     }
-
+ 
 }
