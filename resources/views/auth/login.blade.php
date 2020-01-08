@@ -1,73 +1,94 @@
 @extends('web.web_master')
 
 @section('web_konten')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<!--================================
+        START BREADCRUMB AREA
+    =================================-->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb">
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">Masuk</a>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="page-title">Masuk ke Akun</h1>
+            </div>
+            <!-- end /.col-md-12 -->
+        </div>
+        <!-- end /.row -->
+    </div>
+    <!-- end /.container -->
+</section>
+<!--================================
+        END BREADCRUMB AREA
+    =================================-->
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control form-control-sm" name="username">
-
-                                {{-- @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror --}}
-                            </div>
+<!--================================
+            START LOGIN AREA
+    =================================-->
+<section class="login_area section--padding2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <form action="{{ route('login') }}" method="POST">
+                    <div class="cardify login">
+                        <div class="login--header">
+                            <h3>Halo, Selamat Datang</h3>
+                            <p>Kamu bisa masuk dengan Username kamu.</p>
                         </div>
+                        <!-- end .login_header -->
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" name="password">
-
-                                {{-- @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror --}}
+                        <div class="login--form">
+                            <div class="form-group">
+                                <label for="user_name">Username</label>
+                                <input id="user_name" type="text" name="username" class="text_field"
+                                    placeholder="Isi username...">
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <div class="form-group">
+                                <label for="pass">Password</label>
+                                <input id="pass" type="password" name="password" class="text_field" placeholder="Isi password...">
+                            </div>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                            {{-- <div class="form-group">
+                                <div class="custom_checkbox">
+                                    <input type="checkbox" id="ch2">
+                                    <label for="ch2">
+                                        <span class="shadow_checkbox"></span>
+                                        <span class="label_text">Remember me</span>
                                     </label>
                                 </div>
+                            </div> --}}
+
+                            <button class="btn btn--md btn--round" type="submit">Masuk</button>
+
+                            <div class="login_assist">
+                                <p class="recover">Lost your
+                                    <a href="pass-recovery.html">username</a> or
+                                    <a href="pass-recovery.html">password</a>?</p>
+                                <p class="signup">Don't have an
+                                    <a href="signup.html">account</a>?</p>
                             </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                        <!-- end .login--form -->
+                    </div>
+                    <!-- end .cardify -->
+                </form>
             </div>
+            <!-- end .col-md-6 -->
         </div>
+        <!-- end .row -->
     </div>
-</div>
+    <!-- end .container -->
+</section>
+<!--================================
+            END LOGIN AREA
+    =================================-->
 @endsection
