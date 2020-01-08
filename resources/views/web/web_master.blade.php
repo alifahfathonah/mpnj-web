@@ -133,57 +133,30 @@
                                 </div>
                                 <div class="autor__info">
                                     <p class="name">
-                                        Jhon Doe
+                                        Halo @if (Session::has('username'))
+                                            {{  Session::get('username') }}
+                                        @endif
                                     </p>
                                     <p class="ammount">$20.45</p>
                                 </div>
 
                                 <div class="dropdowns dropdown--author">
                                     <ul>
+                                        @if (Session::has('username'))
                                         <li>
-                                            <a href="author.html">
-                                                <span class="lnr lnr-user"></span>Profile</a>
+                                            <a href="/keluar">
+                                                <span class="lnr lnr-exit"></span>Keluar</a>
+                                        </li>
+                                        @else
+                                        <li>
+                                            <a href="/login">
+                                                <span class="lnr lnr-exit"></span>Masuk</a>
                                         </li>
                                         <li>
-                                            <a href="dashboard.html">
-                                                <span class="lnr lnr-home"></span> Dashboard</a>
+                                            <a href="/register">
+                                                <span class="lnr lnr-exit"></span>Daftar</a>
                                         </li>
-                                        <li>
-                                            <a href="dashboard-setting.html">
-                                                <span class="lnr lnr-cog"></span> Setting</a>
-                                        </li>
-                                        <li>
-                                            <a href="cart.html">
-                                                <span class="lnr lnr-cart"></span>Purchases</a>
-                                        </li>
-                                        <li>
-                                            <a href="favourites.html">
-                                                <span class="lnr lnr-heart"></span> Favourite</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-add-credit.html">
-                                                <span class="lnr lnr-dice"></span>Add Credits</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-statement.html">
-                                                <span class="lnr lnr-chart-bars"></span>Sale Statement</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-upload.html">
-                                                <span class="lnr lnr-upload"></span>Upload Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-manage-item.html">
-                                                <span class="lnr lnr-book"></span>Manage Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-withdrawal.html">
-                                                <span class="lnr lnr-briefcase"></span>Withdrawals</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="lnr lnr-exit"></span>Logout</a>
-                                        </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -588,6 +561,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/map.js') }}"></script>
     <!-- endinject -->
+    @stack('scripts')
 </body>
 
 </html>
