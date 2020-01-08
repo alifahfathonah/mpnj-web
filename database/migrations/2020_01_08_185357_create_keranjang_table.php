@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Keranjang extends Migration
+class CreateKeranjangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class Keranjang extends Migration
     public function up()
     {
         Schema::create('keranjang', function (Blueprint $table) {
-            $table->BigIncrements('id_keranjang');
-            $table->integer('id_produk')->unsigned();
-            $table->integer('id_konsumen')->unsigned();
+            $table->increments('id_keranjang');
+            $table->integer('produk_id')->unsigned();
+            $table->foreign('produk_id')->references('id_produk')->on('produk');
+            $table->integer('konsumen_id')->unsigned();
+            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class Keranjang extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('keranjang');
     }
 }
