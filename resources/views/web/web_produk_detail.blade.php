@@ -1479,7 +1479,7 @@
                             </li>
                             <li>
                                 <p class="data-label">Kategori</p>
-                                <p class="info">{{ $produk->kategori->nama_Kategori }}</p>
+                                <p class="info">{{ $produk->kategori->nama_kategori }}</p>
                             </li>
                         </ul>
                     </div>
