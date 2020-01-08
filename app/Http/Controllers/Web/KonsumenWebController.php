@@ -25,7 +25,7 @@ class KonsumenWebController extends Controller
             ]
         ])->getBody()->getContents();
         $data['provinsi'] = json_decode($request, false);
-        return view('Web/web_daftar', $data);
+        return view('auth/register', $data);
     }
 
 
