@@ -14,4 +14,10 @@ class Produk extends Model
     {
         return $this->hasMany(Foto_Produk::class, 'produk_id', 'id_produk');
     }
+
+    public function kategori()
+    {
+        return $this->hasOne(Kategori_Produk::class, 'id_kategori_produk', 'kategori_produk_id');
+    }
+
 }
