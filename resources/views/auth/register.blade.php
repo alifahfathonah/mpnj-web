@@ -38,6 +38,7 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <form action="{{ route('daftarSimpan') }}" method="POST">
+                    @csrf
                     <div class="cardify signup_form">
                         <div class="login--header">
                             <h3>Buat Akun Kamu Sekarang</h3>
