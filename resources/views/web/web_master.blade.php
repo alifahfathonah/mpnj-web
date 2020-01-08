@@ -142,6 +142,12 @@
 
                                 <div class="dropdowns dropdown--author">
                                     <ul>
+                                        @if (Session::has('username'))
+                                        <li>
+                                            <a href="/keluar">
+                                                <span class="lnr lnr-exit"></span>Keluar</a>
+                                        </li>
+                                        @else
                                         <li>
                                             <a href="/login">
                                                 <span class="lnr lnr-exit"></span>Masuk</a>
@@ -150,6 +156,7 @@
                                             <a href="/register">
                                                 <span class="lnr lnr-exit"></span>Daftar</a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
