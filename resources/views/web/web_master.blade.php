@@ -141,7 +141,7 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a href="/login">
                                                 <span class="lnr lnr-exit"></span>Masuk</a>
                                         </li>
                                         <li>
