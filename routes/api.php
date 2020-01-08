@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ProdukResource as ProdukResource;
+use App\Http\Resources\KategoriResource as KategoriResource;
+use App\User;
+use App\Models\Produk;
+use App\Models\Kategori_Produk;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+// Route::get('produk', 'Api\ProdukController@index');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/produk', function () {
+    return ProdukResource::collection(Produk::all());
+});
+
+Route::get('/kategori', function () {
+    return KategoriResource::collection(kategori_Produk::all());
 });
