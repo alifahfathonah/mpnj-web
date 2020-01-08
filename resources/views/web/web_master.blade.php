@@ -133,7 +133,9 @@
                                 </div>
                                 <div class="autor__info">
                                     <p class="name">
-                                        Halo !!!
+                                        Halo @if (Session::has('username'))
+                                            {{  Session::get('username') }}
+                                        @endif
                                     </p>
                                     <p class="ammount">$20.45</p>
                                 </div>
