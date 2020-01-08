@@ -47,4 +47,15 @@ class KonsumenWebController extends Controller
         }
     }
 
+    public function kotaByProvinsiId($id)
+    {
+        $request = $this->client->get('https://api.rajaongkir.com/starter/city?province='.$id, [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $kota = json_decode($request, false);
+        // print_r($kota);
+        return response()->json($kota, 200);
+    }
 }
