@@ -12,8 +12,10 @@ class ProdukController extends Controller
 {
     public function index(Produk $produk)
     {
-        $barang = $produk->all();
-
-        return response()->json($barang);
+    return response()->json([
+    'success'=>true, 
+    'message'=>'string', 
+    'data'=>Produk::all()
+        ]);
     }
 }
