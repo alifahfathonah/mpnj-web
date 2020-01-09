@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProdukCollection;
 use Illuminate\Http\Request;
 
 use App\Models\Produk;
@@ -10,12 +11,13 @@ use App\User;
 
 class ProdukController extends Controller
 {
-    public function index(Produk $produk)
+
+    Public function SemuaProduk()
     {
-    return response()->json([
-    'success'=>true, 
-    'message'=>'string', 
-    'data'=>Produk::all()
-        ]);
+        return new ProdukCollection(Produk::get());
+    }
+    public function DetailProduk($id)
+    {
+        return new ProdukCollection(Produk::where('id_produk', $id)->get());
     }
 }
