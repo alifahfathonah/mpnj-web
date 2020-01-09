@@ -48,4 +48,7 @@ Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 //keranjang
 Route::get('keranjang', 'Web\KeranjangWebController@index');
+Route::post('keranjang', 'Web\KeranjangWebController@simpan');
+Route::get('keranjang/hapus/{id}', 'Web\KeranjangWebController@hapus');
+
 Route::get('/home', 'HomeController@index')->name('home');
