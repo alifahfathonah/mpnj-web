@@ -25,6 +25,15 @@ class ProdukResource extends JsonResource
                 'id_kategori' => $this->kategori->id_kategori_produk,
                 'nama_kategori' => $this->kategori->nama_kategori,
             ],
+            'detail' => [
+                'wishlist' => $this->wishlist,
+                'satuan' => $this->satuan,
+                'berat' => $this->berat,
+                'terjual' => $this->terjual,
+                'stok_barang' => $this->stok,
+                'tipe_produk' => $this->tipe_produk,
+                'keterangan' => $this->keterangan,
+            ],
         ];
     }
 }
