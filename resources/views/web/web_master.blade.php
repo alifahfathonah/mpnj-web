@@ -87,35 +87,8 @@
                                                         <p>$60</p>
                                                     </div>
                                                 </div>
-                                                <div class="cart_product">
-                                                    <div class="product__info">
-                                                        <div class="thumbn">
-                                                            <img src="images/capro2.jpg" alt="cart product thumbnail">
-                                                        </div>
-
-                                                        <div class="info">
-                                                            <a class="title" href="single-product.html">Flounce -
-                                                                Multipurpose OpenCart Theme</a>
-                                                            <div class="cat">
-                                                                <a href="#">
-                                                                    <img src="images/catword.png" alt="">Wordpress</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="product__action">
-                                                        <a href="#">
-                                                            <span class="lnr lnr-trash"></span>
-                                                        </a>
-                                                        <p>$60</p>
-                                                    </div>
-                                                </div>
-                                                <div class="total">
-                                                    <p>
-                                                        <span>Total :</span>$80</p>
-                                                </div>
                                                 <div class="cart_action">
-                                                    <a class="go_cart" href="cart.html">View Cart</a>
+                                                    <a class="go_cart" href="/keranjang">Lihat Keranjang</a>
                                                     <a class="go_checkout" href="checkout.html">Checkout</a>
                                                 </div>
                                             </div>
