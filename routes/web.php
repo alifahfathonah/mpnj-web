@@ -46,4 +46,6 @@ Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId'
 Auth::routes();
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
+//keranjang
+Route::get('keranjang', 'Web\KeranjangWebController@index');
 Route::get('/home', 'HomeController@index')->name('home');
