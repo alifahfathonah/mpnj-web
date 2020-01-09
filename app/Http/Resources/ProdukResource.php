@@ -34,6 +34,7 @@ class ProdukResource extends JsonResource
                 'tipe_produk' => $this->tipe_produk,
                 'keterangan' => $this->keterangan,
             ],
+            'pelapak' => new PelapakResource($this->pelapak),
             'pelapak' => [
                 'id_pelapak' => $this->pelapak_id,
                 'nama_pelapak' => 'jojo',
