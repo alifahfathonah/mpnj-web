@@ -36,9 +36,12 @@ class ProdukResource extends JsonResource
             ],
             'pelapak' => new PelapakResource($this->pelapak),
             'pelapak' => [
-                'id_pelapak' => $this->pelapak_id,
-                'nama_pelapak' => 'jojo',
-
+                'id_pelapak' => $this->pelapak->id_pelapak,
+                'nama_toko' => $this->pelapak->nama_toko,
+                'rating' => $this->pelapak->rating,
+                'status_official' => $this->pelapak->status_official,
+                'alamat' => $this->pelapak->alamat,
+                'status_toko'=> $this->pelapak->status,
             ],
         ];
     }
