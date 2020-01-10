@@ -58,7 +58,11 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($keranjang as $k)
+                                        @foreach ($keranjang as $key => $val)
+                                        <tr>
+                                            <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
+                                        </tr>
+                                        @foreach ($val as $k)
                                         <tr>
                                             <td>
                                                 <input type="checkbox" name="check" id="check">
@@ -79,16 +83,19 @@
                                             <td class="bold" id="harga{{ $loop->iteration }}">
                                                 @currency($k->produk->harga_jual)
                                             </td>
-                                            <td style="width: 10%"><input type="number" name="qty" id="qty{{ $loop->iteration }}"
-                                                    class="form-control form-control-sm" value="1"
-                                                    onchange="ubahSubTotal({{ $loop->iteration }})"></td>
-                                            <td id="subHarga{{ $loop->iteration }}">@currency($k->produk->harga_jual)</td>
+                                            <td style="width: 10%"><input type="number" name="qty"
+                                                    id="qty{{ $loop->iteration }}" class="form-control form-control-sm"
+                                                    value="1" onchange="ubahSubTotal({{ $loop->iteration }})">
+                                            </td>
+                                            <td id="subHarga{{ $loop->iteration }}">@currency($k->produk->harga_jual)
+                                            </td>
                                             <td class="pending">
                                                 <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
                                                     <span>Hapus</span>
                                                 </a>
                                             </td>
                                         </tr>
+                                        @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -128,19 +135,21 @@
 
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
     function ubahSubTotal(n) {
-            let qty = $("#qty"+n).val();
-            var m = $("#harga"+n).html();
-            var split = m.split("Rp. ");
-            var p = split[1].replace('.','');
+        let qty = $("#qty"+n).val();
+        var m = $("#harga"+n).html();
+        var split = m.split("Rp. ");
+        var p = split[1].replace('.','');
 
-            $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
-        }
+        $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
 
-        function numberFormat(num) {
-            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-        }
+        $("#total").html("Rp. " + numberFormat(qty * p));
+    }
+
+    function numberFormat(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
 </script>
-@endpush
+@endpush --}}
