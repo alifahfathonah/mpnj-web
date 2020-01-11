@@ -47,7 +47,7 @@
                                 <table class="table withdraw__table">
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" name="pilih" id="pilih"></th>
+                                            <th>#</th>
                                             <th>Barang</th>
                                             <th>Kategori</th>
                                             <th>Harga</th>
@@ -58,6 +58,7 @@
                                     </thead>
 
                                     <tbody>
+                                        <?php $n = 1; ?>
                                         @foreach ($keranjang as $key => $val)
                                         <tr>
                                             <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
@@ -65,7 +66,7 @@
                                         @foreach ($val as $k)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="check" id="check">
+                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->produk_id }}">
                                             </td>
                                             <td>
                                                 <div class="product__description">
@@ -80,14 +81,14 @@
                                                 </div>
                                             </td>
                                             <td>{{ $k->produk->kategori->nama_kategori }}</td>
-                                            <td class="bold" id="harga{{ $loop->iteration }}">
+                                            <td class="bold" id="harga{{ $n }}">
                                                 @currency($k->produk->harga_jual)
                                             </td>
                                             <td style="width: 10%"><input type="number" name="qty"
-                                                    id="qty{{ $loop->iteration }}" class="form-control form-control-sm"
-                                                    value="1" onchange="ubahSubTotal({{ $loop->iteration }})">
+                                                    id="qty{{ $n }}" class="form-control form-control-sm"
+                                                    value="1">
                                             </td>
-                                            <td id="subHarga{{ $loop->iteration }}">@currency($k->produk->harga_jual)
+                                            <td id="subHarga{{ $n }}">@currency($k->produk->harga_jual)
                                             </td>
                                             <td class="pending">
                                                 <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
@@ -95,6 +96,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        <?php $n++; ?>
                                         @endforeach
                                         @endforeach
                                     </tbody>
@@ -135,21 +137,70 @@
 
 @endsection
 
-{{-- @push('scripts')
+@push('scripts')
 <script>
-    function ubahSubTotal(n) {
-        let qty = $("#qty"+n).val();
-        var m = $("#harga"+n).html();
-        var split = m.split("Rp. ");
-        var p = split[1].replace('.','');
+    $(function() {
 
-        $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
+        var jml = 0;
 
-        $("#total").html("Rp. " + numberFormat(qty * p));
-    }
+        $("input:checkbox[name=check]").on('click', function() {
+            let produk_id = [];
+            let id = $(this).val();
+            $("input:checkbox[name=check]:checked").each(function () {
+                produk_id.push($(this).val());
+            });
+
+            // $("input:checkbox[name=check]:not(:checked)").each(function() {
+            //     console.log($(this).val());
+            // });
+            // id = $(this).val();
+
+            $.ajax({
+                url: (jml != 0) ? '/keranjang/ambilHarga' : '/keranjang/hitungTotal',
+                type: 'POST',
+                data: {
+                    'produk_id': (jml != 0) ? id : produk_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (jml != 0) {
+                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
+                        jml = jml != 0 ? jml : parseInt(jml) - parseInt(response);
+                        console.log(jml);
+                    } else {
+                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
+                        jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
+                        console.log(jml);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("input[name='qty']").click(function() {
+            let n = $("input[name='qty']").index(this) + 1;
+            let qty = $("#qty"+n).val();
+            var m = $("#harga"+n).html();
+            var split = m.split("Rp. ");
+            var p = split[1].replace('.','');
+
+            let jmlSementara = parseInt(jml) + parseInt(p);
+
+            $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
+            $("#total").html("Rp. " + numberFormat(jmlSementara));
+
+            jml = jmlSementara;
+
+            console.log(jml);
+        })
+    });
 
     function numberFormat(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     }
 </script>
-@endpush --}}
+@endpush
