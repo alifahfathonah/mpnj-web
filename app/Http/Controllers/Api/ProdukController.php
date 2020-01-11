@@ -12,16 +12,6 @@ use App\User;
 
 class ProdukController extends Controller
 {
-<<<<<<< HEAD
-
-    Public function SemuaProduk()
-    {
-        return new ProdukCollection(Produk::get());
-    }
-    public function DetailProduk($id)
-    {
-        return new ProdukCollection(Produk::where('id_produk', $id)->get());
-=======
     private $produkRepository;
 
     public function __construct(ProdukRepository $produkRepository)
@@ -39,6 +29,5 @@ class ProdukController extends Controller
     {
         $produks = $this->produkRepository->findById($id_produk);
         return $produks;
->>>>>>> d30a528be2c70dfccc9acc5f45664fca90be5577
     }
 }
