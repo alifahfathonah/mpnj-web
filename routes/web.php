@@ -50,5 +50,7 @@ Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 Route::get('keranjang', 'Web\KeranjangWebController@index');
 Route::post('keranjang', 'Web\KeranjangWebController@simpan');
 Route::get('keranjang/hapus/{id}', 'Web\KeranjangWebController@hapus');
+Route::post('keranjang/hitungTotal', 'Web\KeranjangWebController@hitungTotal');
+Route::post('keranjang/ambilHarga', 'Web\KeranjangWebController@ambilHarga');
 
 Route::get('/home', 'HomeController@index')->name('home');
