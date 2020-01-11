@@ -26,4 +26,5 @@ class ProdukResource extends JsonResource
             ],
         ];
     }
+    public $preserveKeys = true;
 }
