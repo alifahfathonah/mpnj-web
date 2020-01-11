@@ -25,9 +25,5 @@ class Produk extends Model
         return $this->hasOne(Pelapak::class, 'id_pelapak', 'pelapak_id');
     }
 
-    public function pelapak()
-    {
-        return $this->hasOne('App\Models\pelapak', 'id_pelapak', 'pelapak_id');
-    }
     
 }
