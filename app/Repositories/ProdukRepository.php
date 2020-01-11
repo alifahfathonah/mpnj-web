@@ -31,7 +31,8 @@ class ProdukRepository
                         'terjual' => $produks->terjual,
                         'foto' => $produks->foto_produk->map(function ($foto) {
                             return [
-                                'id_foto_poroduk' => $foto->id_foto_produk
+                                'id_foto_poroduk' => $foto->id_foto_produk,
+                                'foto_produk' => $foto->foto_produk
                             ];
                         }),
                         'pelapak' => [
@@ -76,7 +77,8 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
-                            'alamat' => $produks->pelapak->alamat
+                            'alamat' => $produks->pelapak->alamat,
+                            'bergabung' => $produks->pelapak->created_at
                         ]
                     ];
                 }
