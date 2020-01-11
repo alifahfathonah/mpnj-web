@@ -14,8 +14,7 @@
                             <a href="#">Home</a>
                         </li>
                         <li>
-                            <a
-                                href="/kategori/{{ strtolower($produk->kategori->nama_kategori) }}">{{ $produk->kategori->nama_kategori }}</a>
+                            <a href="/kategori/{{ strtolower($produk->kategori->nama_kategori) }}">{{ $produk->kategori->nama_kategori }}</a>
                         </li>
                         <li class="active">
                             <a href="#">{{ $produk->nama_produk }}</a>
@@ -44,8 +43,7 @@
                 <div class="item-preview">
                     <div class="item__preview-slider">
                         <div class="prev-slide">
-                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing." width="750" height="430">
+                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" alt="Keep calm this isn't the end of the world, the preview is just missing." width="750" height="430">
                         </div>
                         {{-- <div class="prev-slide">
                             <img src="images/itprv.jpg"
@@ -148,22 +146,18 @@
                     <div class="item-navigation">
                         <ul class="nav nav-tabs">
                             <li>
-                                <a href="#product-details" class="active" aria-controls="product-details" role="tab"
-                                    data-toggle="tab">Item Details</a>
+                                <a href="#product-details" class="active" aria-controls="product-details" role="tab" data-toggle="tab">Item Details</a>
                             </li>
                             <li>
-                                <a href="#product-comment" aria-controls="product-comment" role="tab"
-                                    data-toggle="tab">Comments </a>
+                                <a href="#product-comment" aria-controls="product-comment" role="tab" data-toggle="tab">Comments </a>
                             </li>
                             <li>
-                                <a href="#product-review" aria-controls="product-review" role="tab"
-                                    data-toggle="tab">Reviews
+                                <a href="#product-review" aria-controls="product-review" role="tab" data-toggle="tab">Reviews
                                     <span>(35)</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#product-support" aria-controls="product-support" role="tab"
-                                    data-toggle="tab">Support</a>
+                                <a href="#product-support" aria-controls="product-support" role="tab" data-toggle="tab">Support</a>
                             </li>
                             <li>
                                 <a href="#product-faq" aria-controls="product-faq" role="tab" data-toggle="tab">item
@@ -188,8 +182,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m1.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m1.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -215,8 +208,7 @@
                                                 <div class="media">
                                                     <div class="media-left">
                                                         <a href="#">
-                                                            <img class="media-object" src="images/m2.png"
-                                                                alt="Commentator Avatar">
+                                                            <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                         </a>
                                                     </div>
                                                     <div class="media-body">
@@ -236,8 +228,7 @@
                                                 <div class="media">
                                                     <div class="media-left">
                                                         <a href="#">
-                                                            <img class="media-object" src="images/m1.png"
-                                                                alt="Commentator Avatar">
+                                                            <img class="media-object" src="images/m1.png" alt="Commentator Avatar">
                                                         </a>
                                                     </div>
                                                     <div class="media-body">
@@ -258,14 +249,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -278,8 +267,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m3.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m3.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -302,14 +290,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--sm btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -322,8 +308,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m4.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m4.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -346,14 +331,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--sm btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -366,8 +349,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m5.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m5.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -390,14 +372,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--sm btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -433,8 +413,7 @@
                                         </div>
                                         <div class="media-body">
                                             <form action="#" class="comment-reply-form">
-                                                <textarea name="reply-comment"
-                                                    placeholder="Write your comment..."></textarea>
+                                                <textarea name="reply-comment" placeholder="Write your comment..."></textarea>
                                                 <button class="btn btn--sm btn--round">Post Comment</button>
                                             </form>
                                         </div>
@@ -454,8 +433,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m1.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m1.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -500,14 +478,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -520,8 +496,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m4.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m4.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -564,14 +539,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -584,8 +557,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m5.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m5.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -628,14 +600,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -648,8 +618,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m6.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m6.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -694,14 +663,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -714,8 +681,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m7.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m7.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -758,14 +724,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -778,8 +742,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m8.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m8.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -800,16 +763,13 @@
                                                                     <span class="fa fa-star"></span>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="fa fa-star-o"
-                                                                        aria-hidden="true"></span>
+                                                                    <span class="fa fa-star-o" aria-hidden="true"></span>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="fa fa-star-o"
-                                                                        aria-hidden="true"></span>
+                                                                    <span class="fa fa-star-o" aria-hidden="true"></span>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="fa fa-star-o"
-                                                                        aria-hidden="true"></span>
+                                                                    <span class="fa fa-star-o" aria-hidden="true"></span>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -827,8 +787,7 @@
                                                 <div class="media">
                                                     <div class="media-left">
                                                         <a href="#">
-                                                            <img class="media-object" src="images/m2.png"
-                                                                alt="Commentator Avatar">
+                                                            <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                         </a>
                                                     </div>
                                                     <div class="media-body">
@@ -850,14 +809,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -870,8 +827,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m6.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m6.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -916,14 +872,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -936,8 +890,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m9.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m9.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -982,14 +935,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -1002,8 +953,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m3.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m3.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -1045,14 +995,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -1065,8 +1013,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m6.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m6.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -1111,14 +1058,12 @@
                                         <div class="media depth-2 reply-comment">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="images/m2.png"
-                                                        alt="Commentator Avatar">
+                                                    <img class="media-object" src="images/m2.png" alt="Commentator Avatar">
                                                 </a>
                                             </div>
                                             <div class="media-body">
                                                 <form action="#" class="comment-reply-form">
-                                                    <textarea class="bla" name="reply-comment"
-                                                        placeholder="Write your comment..."></textarea>
+                                                    <textarea class="bla" name="reply-comment" placeholder="Write your comment..."></textarea>
                                                     <button class="btn btn--md btn--round">Post Comment</button>
                                                 </form>
                                             </div>
@@ -1160,14 +1105,12 @@
                                         <form action="#" class="support_form">
                                             <div class="form-group">
                                                 <label for="subj">Support Subject:</label>
-                                                <input type="text" id="subj" class="text_field"
-                                                    placeholder="Enter your subject">
+                                                <input type="text" id="subj" class="text_field" placeholder="Enter your subject">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="supmsg">Support Query: </label>
-                                                <textarea class="text_field" id="supmsg"
-                                                    name="supmsg">Enter your text...</textarea>
+                                                <textarea class="text_field" id="supmsg" name="supmsg">Enter your text...</textarea>
                                             </div>
                                             <button type="submit" class="btn btn--lg btn--round">Submit Now</button>
                                         </form>
@@ -1183,17 +1126,14 @@
                                     <div class="panel accordion__single" id="panel-one">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse1" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse1"
-                                                    aria-controls="collapse1">
+                                                <a data-toggle="collapse" href="#collapse1" class="collapsed" aria-expanded="false" data-target="#collapse1" aria-controls="collapse1">
                                                     <span>How to write the changelog for theme updates?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse1" class="panel-collapse collapse" aria-labelledby="panel-one"
-                                            data-parent="#accordion">
+                                        <div id="collapse1" class="panel-collapse collapse" aria-labelledby="panel-one" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1212,17 +1152,14 @@
                                     <div class="panel accordion__single" id="panel-two">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse2" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse2"
-                                                    aria-controls="collapse2">
+                                                <a data-toggle="collapse" href="#collapse2" class="collapsed" aria-expanded="false" data-target="#collapse2" aria-controls="collapse2">
                                                     <span>Why do I need to login to purchase an item on DigiPro?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse2" class="panel-collapse collapse" aria-labelledby="panel-two"
-                                            data-parent="#accordion">
+                                        <div id="collapse2" class="panel-collapse collapse" aria-labelledby="panel-two" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1241,17 +1178,14 @@
                                     <div class="panel accordion__single" id="panel-three">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse3" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse3"
-                                                    aria-controls="collapse3">
+                                                <a data-toggle="collapse" href="#collapse3" class="collapsed" aria-expanded="false" data-target="#collapse3" aria-controls="collapse3">
                                                     <span>How to create an account on DigiPro?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse3" class="panel-collapse collapse"
-                                            aria-labelledby="panel-three" data-parent="#accordion">
+                                        <div id="collapse3" class="panel-collapse collapse" aria-labelledby="panel-three" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1270,17 +1204,14 @@
                                     <div class="panel accordion__single" id="panel-four">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse4" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse4"
-                                                    aria-controls="collapse4">
+                                                <a data-toggle="collapse" href="#collapse4" class="collapsed" aria-expanded="false" data-target="#collapse4" aria-controls="collapse4">
                                                     <span>How to write the changelog for theme updates?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse4" class="panel-collapse collapse" aria-labelledby="panel-four"
-                                            data-parent="#accordion">
+                                        <div id="collapse4" class="panel-collapse collapse" aria-labelledby="panel-four" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1299,17 +1230,14 @@
                                     <div class="panel accordion__single" id="panel-five">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse5" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse5"
-                                                    aria-controls="collapse5">
+                                                <a data-toggle="collapse" href="#collapse5" class="collapsed" aria-expanded="false" data-target="#collapse5" aria-controls="collapse5">
                                                     <span>Do you recommend using a download manager software?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse5" class="panel-collapse collapse" aria-labelledby="panel-five"
-                                            data-parent="#accordion">
+                                        <div id="collapse5" class="panel-collapse collapse" aria-labelledby="panel-five" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1328,17 +1256,14 @@
                                     <div class="panel accordion__single" id="panel-six">
                                         <div class="single_acco_title">
                                             <h4>
-                                                <a data-toggle="collapse" href="#collapse6" class="collapsed"
-                                                    aria-expanded="false" data-target="#collapse6"
-                                                    aria-controls="collapse6">
+                                                <a data-toggle="collapse" href="#collapse6" class="collapsed" aria-expanded="false" data-target="#collapse6" aria-controls="collapse6">
                                                     <span>How to purchase an item on DigiPro?</span>
                                                     <i class="lnr lnr-chevron-down indicator"></i>
                                                 </a>
                                             </h4>
                                         </div>
 
-                                        <div id="collapse6" class="panel-collapse collapse" aria-labelledby="panel-six"
-                                            data-parent="#accordion">
+                                        <div id="collapse6" class="panel-collapse collapse" aria-labelledby="panel-six" data-parent="#accordion">
                                             <div class="panel-body">
                                                 <p>Nunc placerat mi id nisi interdum mollis. Praesent pharetra, justo ut
                                                     sceleris que the mattis, leo quam aliquet congue placerat mi id nisi
@@ -1434,7 +1359,8 @@
                             </li>
                             <li>
                                 <p>
-                                    <span class="lnr lnr-bubble mcolor3"></span>Review</p>
+                                    <span class="lnr lnr-bubble mcolor3"></span>Review
+                                </p>
                                 <span>0</span>
                             </li>
                         </ul>
@@ -1498,7 +1424,7 @@
 
                             <div class="author">
                                 <h4>{{ $produk->pelapak->nama_toko }}</h4>
-                                <p>Bergabung: {{ $produk->pelapak->created_at->format('d, M Y') }}</p>
+                                <p>Bergabung: {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
                             </div>
                             <!-- end /.author -->
 
