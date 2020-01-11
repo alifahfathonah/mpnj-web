@@ -36,4 +36,16 @@ class KeranjangWebController extends Controller
             return redirect('/keranjang');
         }
     }
+
+    public function hitungTotal(Request $request)
+    {
+        $sum = Produk::whereIn('id_produk', $request->produk_id)->sum('harga_jual');
+        return $sum;
+    }
+
+    public function ambilHarga(Request $request)
+    {
+        $harga = Produk::select('harga_jual')->where('id_produk', $request->produk_id)->first();
+        return $harga->harga_jual;
+    }
 }
