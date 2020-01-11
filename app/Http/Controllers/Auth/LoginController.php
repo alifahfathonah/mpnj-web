@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Konsumen;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,33 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth/login');
+    }
+
+    public function login(Request $request)
+    {
+        $cek = Konsumen::where([
+            'username' => $request->username,
+            'password' => $request->password
+        ])->get();
+
+        if (count($cek) > 0) {
+            // session(['username' => $request->username]);
+            $request->session()->put('id_konsumen', $cek[0]->id_konsumen);
+            $request->session()->put('username', $request->username);
+            return redirect('produk');
+        } else {
+            dd('gagal');
+        }
+    }
+
+    public function keluar(Request $request)
+    {
+        $request->session()->forget('username');
+        return redirect('produk');
     }
 }
