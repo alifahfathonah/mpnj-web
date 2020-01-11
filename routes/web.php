@@ -37,3 +37,20 @@ Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@index');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
+
+//daftar
+// Route::get('daftar', 'Web\KonsumenWebController@index');
+Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSimpan');
+Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
+
+Auth::routes();
+Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
+
+//keranjang
+Route::get('keranjang', 'Web\KeranjangWebController@index');
+Route::post('keranjang', 'Web\KeranjangWebController@simpan');
+Route::get('keranjang/hapus/{id}', 'Web\KeranjangWebController@hapus');
+Route::post('keranjang/hitungTotal', 'Web\KeranjangWebController@hitungTotal');
+Route::post('keranjang/ambilHarga', 'Web\KeranjangWebController@ambilHarga');
+
+Route::get('/home', 'HomeController@index')->name('home');

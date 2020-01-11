@@ -17,7 +17,12 @@ class Produk extends Model
 
     public function kategori()
     {
-        return $this->hasOne('App\Models\Kategori_Produk', 'id_kategori_produk', 'kategori_produk_id');
+        return $this->hasOne(Kategori_Produk::class, 'id_kategori_produk', 'kategori_produk_id');
+    }
+  
+    public function pelapak()
+    {
+        return $this->hasOne(Pelapak::class, 'id_pelapak', 'pelapak_id');
     }
 
     public function pelapak()
