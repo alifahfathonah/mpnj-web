@@ -10,12 +10,4 @@ use App\User;
 
 class ProdukController extends Controller
 {
-    public function index(Produk $produk)
-    {
-    return response()->json([
-    'success'=>true, 
-    'message'=>'string', 
-    'data'=>Produk::all()
-        ]);
-    }
 }
