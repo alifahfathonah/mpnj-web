@@ -24,9 +24,9 @@ class CreateProdukTable extends Migration
             $table->integer('stok')->default(0);
             $table->longText('keterangan')->nullable();
             $table->string('foto')->nullable();
-            $table->enum('tipe_produk', ['single','varian'])->default('single');
+            $table->enum('tipe_produk', ['single', 'varian'])->default('single');
             $table->integer('pelapak_id')->unsigned();
-            $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            // $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
             $table->integer('wishlist')->default(0);
             $table->integer('terjual')->default(0);
             $table->timestamps();
