@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
 use Illuminate\Http\Request;
 
-class RegisterKonsumenController extends Controller
+class ApiRegisterKonsumenController extends Controller
 {
     public function create(request $request)
     {
