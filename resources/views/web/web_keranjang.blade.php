@@ -156,24 +156,18 @@
             // id = $(this).val();
 
             $.ajax({
-                url: (jml != 0) ? '/keranjang/ambilHarga' : '/keranjang/hitungTotal',
+                url: '/keranjang/hitungTotal',
                 type: 'POST',
                 data: {
-                    'produk_id': (jml != 0) ? id : produk_id
+                    'id_keranjang': keranjang_id
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    if (jml != 0) {
-                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
-                        jml = jml != 0 ? jml : parseInt(jml) - parseInt(response);
-                        console.log(jml);
-                    } else {
-                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
-                        jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
-                        console.log(jml);
-                    }
+                    $("#total").html("Rp. " + numberFormat(parseInt(response)));
+                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
+                    console.log(jml);
                 },
                 error: function(error) {
                     console.log(error);
