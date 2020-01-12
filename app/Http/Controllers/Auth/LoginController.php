@@ -54,6 +54,7 @@ class LoginController extends Controller
 
         if (count($cek) > 0) {
             // session(['username' => $request->username]);
+            $request->session()->put('id_konsumen', $cek[0]->id_konsumen);
             $request->session()->put('username', $request->username);
             return redirect('produk');
         } else {
