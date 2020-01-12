@@ -8,10 +8,8 @@ use App\Http\Resources\DetailProdukResource as DetailProdukResource;
 use App\Models\Produk;
 use App\Models\Kategori_Produk;
 
-//getProdukWithRepository
+//api produk dengan resource
 Route::get('/produk', 'Api\ProdukController@index');
-
-//getOneProdukWithRepository
 Route::get('/produk/{id_produk}', 'Api\ProdukController@getDetail');
 
 //getAllProdukWithResource
@@ -22,3 +20,6 @@ Route::get('/produk/{id_produk}', 'Api\ProdukController@getDetail');
 Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
+//api konsumen dengan controller
+Route::post('/konsumen', 'Api\RegisterKonsumenController@create');
+Route::put('/konsumen/{id_konsumen}', 'Api\RegisterKonsumenController@update');
