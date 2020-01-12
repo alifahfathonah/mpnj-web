@@ -175,21 +175,36 @@
             });
         });
 
-        $("input[name='qty']").click(function() {
-            let n = $("input[name='qty']").index(this) + 1;
-            let qty = $("#qty"+n).val();
-            var m = $("#harga"+n).html();
-            var split = m.split("Rp. ");
-            var p = split[1].replace('.','');
+        $("input[name='qty']").change(function() {
+            let n = $("input[name='qty']").index(this);
+            let qty = $("#qty"+parseInt(n+1)).val();
+            let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
 
-            let jmlSementara = parseInt(jml) + parseInt(p);
+            $.ajax({
+                url: '/keranjang/updateJumlah',
+                type: 'POST',
+                data: {
+                    'id_keranjang': id_cart,
+                    'qty': qty
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(qty * parseInt(response)));
+                    // $("#total").html("Rp. " + numberFormat(qty * parseInt(response)));
+                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
+                    // console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+            // $("#total").html("Rp. " + numberFormat(jmlSementara));
 
-            $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
-            $("#total").html("Rp. " + numberFormat(jmlSementara));
+            // jml = jmlSementara;
 
-            jml = jmlSementara;
-
-            console.log(jml);
+            console.log(qty);
         })
     });
 
