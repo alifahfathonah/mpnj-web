@@ -50,4 +50,24 @@ class KeranjangWebController extends Controller
         $harga = Produk::select('harga_jual')->where('id_produk', $request->produk_id)->first();
         return $harga->harga_jual;
     }
+
+    public function updateJumlah(Request $request)
+    {
+        $keranjang = Keranjang::find($request->id_keranjang);
+        $keranjang->jumlah = $request->qty;
+        $keranjang->save();
+
+        return $keranjang->harga_jual;
+    }
+
+    public function go_checkout(Request $request)
+    {
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
+
+        if ($update) {
+            return $update;
+        }
+    }
 }
