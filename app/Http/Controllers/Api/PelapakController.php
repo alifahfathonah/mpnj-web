@@ -11,7 +11,7 @@ class PelapakController extends Controller
 {
     private $pelapakRepository;
 
-    public function __construct(ProdukRepository $produkRepository)
+    public function __construct(PelapakRepository $pelapakRepository)
     {
         $this->pelapakRepository = $pelapakRepository;
     }
