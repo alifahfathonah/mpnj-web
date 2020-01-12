@@ -24,3 +24,5 @@ Route::get('/kategori', function () {
 });
 
 Route::get('/pelapak', 'Api\PelapakController@index');
+
+Route::get('/pelapak/{id_pelapak}', 'Api\PelapakController@getDetail');

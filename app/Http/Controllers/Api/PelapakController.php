@@ -21,4 +21,10 @@ class PelapakController extends Controller
         $pelapaks = $this->pelapakRepository->all();
         return $pelapaks;
     }
+
+    public function getDetail($id_pelapak)
+    {
+        $pelapaks = $this->pelapakRepository->findById($id_pelapak);
+        return $pelapaks;
+    }
 }
