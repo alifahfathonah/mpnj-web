@@ -9,7 +9,7 @@ use App\Models\Produk;
 use App\Repositories\ProdukRepository;
 use App\User;
 
-class ProdukController extends Controller
+class ApiProdukController extends Controller
 {
     private $produkRepository;
 
