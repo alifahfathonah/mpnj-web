@@ -144,10 +144,10 @@
         var jml = 0;
 
         $("input:checkbox[name=check]").on('click', function() {
-            let produk_id = [];
+            let keranjang_id = [];
             let id = $(this).val();
             $("input:checkbox[name=check]:checked").each(function () {
-                produk_id.push($(this).val());
+                keranjang_id.push($(this).val());
             });
 
             // $("input:checkbox[name=check]:not(:checked)").each(function() {
