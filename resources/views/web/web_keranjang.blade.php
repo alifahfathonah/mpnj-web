@@ -206,6 +206,33 @@
 
             console.log(qty);
         })
+
+        $("#checkout").click(function () {
+            let keranjang_id = [];
+            $("input:checkbox[name=check]:checked").each(function () {
+                keranjang_id.push($(this).val());
+            });
+
+            console.log(keranjang_id);
+
+            $.ajax({
+                url: '/keranjang/go_checkout',
+                type: 'POST',
+                data: {
+                    'id_keranjang': keranjang_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // $("#total").html("Rp. " + numberFormat(parseInt(response)));
+                    window.location.href = '/checkout';
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
     });
 
     function numberFormat(num) {
