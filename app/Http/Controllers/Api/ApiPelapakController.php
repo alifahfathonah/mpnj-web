@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\PelapakRepository;
 
-class PelapakController extends Controller
+class ApiPelapakController extends Controller
 {
     private $pelapakRepository;
 
