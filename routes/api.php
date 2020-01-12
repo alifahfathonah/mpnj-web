@@ -26,4 +26,9 @@ Route::put('/konsumen/{id_konsumen}', 'Api\RegisterKonsumenController@update');
 
 Route::get('/pelapak', 'Api\ApiPelapakController@index');
 
+<<<<<<< HEAD
 Route::get('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@getDetail');
+=======
+Route::get('/pelapak/{id_pelapak}', 'Api\PelapakController@getDetail');
+
+>>>>>>> 05293f6b974a3dba38dedb7117772e834024bcbc
