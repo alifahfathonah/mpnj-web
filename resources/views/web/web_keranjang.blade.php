@@ -66,7 +66,7 @@
                                         @foreach ($val as $k)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->produk_id }}">
+                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->id_keranjang }}">
                                             </td>
                                             <td>
                                                 <div class="product__description">
@@ -86,9 +86,9 @@
                                             </td>
                                             <td style="width: 10%"><input type="number" name="qty"
                                                     id="qty{{ $n }}" class="form-control form-control-sm"
-                                                    value="1">
+                                                    value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
                                             </td>
-                                            <td id="subHarga{{ $n }}">@currency($k->produk->harga_jual)
+                                            <td id="subHarga{{ $n }}">@currency($k->harga_jual * $k->jumlah)
                                             </td>
                                             <td class="pending">
                                                 <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
@@ -113,8 +113,8 @@
                                                     <span>total</span><span id="total">@currency($total)</span></p>
                                             </div>
 
-                                            <a href="checkout.html" class="btn btn--round btn--md checkout_link">Lanjut
-                                                Checkout</a>
+                                            <button id="checkout" type="button" class="btn btn--round btn--md checkout_link">Lanjut
+                                                Checkout</button>
                                         </div>
                                     </div>
                                     <!-- end .col-md-12 -->
