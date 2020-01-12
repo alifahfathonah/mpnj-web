@@ -39,7 +39,7 @@ class RegisterKonsumenController extends Controller
         $konsumen->nomor_hp = $request->nomor_hp;
         $konsumen->email = $request->email;
         $konsumen->status = $request->status;
-
+        
         $konsumen->save();
     }
 }
