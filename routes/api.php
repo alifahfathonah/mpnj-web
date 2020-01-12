@@ -22,8 +22,3 @@ Route::get('/produk/{id_produk}', 'Api\ProdukController@getDetail');
 Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
-
-Route::get('/pelapak', 'Api\PelapakController@index');
-
-Route::get('/pelapak/{id_pelapak}', 'Api\PelapakController@getDetail');
-
