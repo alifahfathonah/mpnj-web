@@ -20,6 +20,6 @@ Route::get('/produk/{id_produk}', 'Api\ProdukController@getDetail');
 Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
-//api konsumen dengan controller
+
 Route::post('/konsumen', 'Api\RegisterKonsumenController@create');
 Route::put('/konsumen/{id_konsumen}', 'Api\RegisterKonsumenController@update');

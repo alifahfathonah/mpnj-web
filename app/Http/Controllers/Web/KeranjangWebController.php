@@ -14,7 +14,8 @@ class KeranjangWebController extends Controller
     {
         $konsumen_id = $request->session()->get('id_konsumen', 0);
         $data['keranjang'] = Keranjang::with(['produk', 'konsumen'])->where('konsumen_id', $konsumen_id)->get()->groupBy('produk.pelapak.nama_toko');
-        $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
+        // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
+        $data['total'] = Keranjang::where('konsumen_id', $konsumen_id)->sum(DB::raw('jumlah * harga_jual'));
         return view('web/web_keranjang', $data);
     }
 
@@ -40,7 +41,7 @@ class KeranjangWebController extends Controller
 
     public function hitungTotal(Request $request)
     {
-        $sum = Produk::whereIn('id_produk', $request->produk_id)->sum('harga_jual');
+        $sum = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
         return $sum;
     }
 
@@ -48,5 +49,25 @@ class KeranjangWebController extends Controller
     {
         $harga = Produk::select('harga_jual')->where('id_produk', $request->produk_id)->first();
         return $harga->harga_jual;
+    }
+
+    public function updateJumlah(Request $request)
+    {
+        $keranjang = Keranjang::find($request->id_keranjang);
+        $keranjang->jumlah = $request->qty;
+        $keranjang->save();
+
+        return $keranjang->harga_jual;
+    }
+
+    public function go_checkout(Request $request)
+    {
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
+
+        if ($update) {
+            return $update;
+        }
     }
 }
