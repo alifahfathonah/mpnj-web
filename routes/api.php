@@ -9,8 +9,8 @@ use App\Models\Produk;
 use App\Models\Kategori_Produk;
 
 //api produk dengan resource
-Route::get('/produk', 'Api\ProdukController@index');
-Route::get('/produk/{id_produk}', 'Api\ProdukController@getDetail');
+Route::get('/produk', 'Api\ApiProdukController@index');
+Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
 
 //getAllProdukWithResource
 // Route::get('/produk', function () {
