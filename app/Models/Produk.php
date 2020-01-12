@@ -24,4 +24,6 @@ class Produk extends Model
     {
         return $this->hasOne(Pelapak::class, 'id_pelapak', 'pelapak_id');
     }
+
+    
 }
