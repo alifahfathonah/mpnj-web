@@ -66,7 +66,7 @@
                                         @foreach ($val as $k)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->produk_id }}">
+                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->id_keranjang }}">
                                             </td>
                                             <td>
                                                 <div class="product__description">
@@ -86,9 +86,9 @@
                                             </td>
                                             <td style="width: 10%"><input type="number" name="qty"
                                                     id="qty{{ $n }}" class="form-control form-control-sm"
-                                                    value="1">
+                                                    value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
                                             </td>
-                                            <td id="subHarga{{ $n }}">@currency($k->produk->harga_jual)
+                                            <td id="subHarga{{ $n }}">@currency($k->harga_jual * $k->jumlah)
                                             </td>
                                             <td class="pending">
                                                 <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
@@ -113,8 +113,8 @@
                                                     <span>total</span><span id="total">@currency($total)</span></p>
                                             </div>
 
-                                            <a href="checkout.html" class="btn btn--round btn--md checkout_link">Lanjut
-                                                Checkout</a>
+                                            <button id="checkout" type="button" class="btn btn--round btn--md checkout_link">Lanjut
+                                                Checkout</button>
                                         </div>
                                     </div>
                                     <!-- end .col-md-12 -->
@@ -144,10 +144,10 @@
         var jml = 0;
 
         $("input:checkbox[name=check]").on('click', function() {
-            let produk_id = [];
+            let keranjang_id = [];
             let id = $(this).val();
             $("input:checkbox[name=check]:checked").each(function () {
-                produk_id.push($(this).val());
+                keranjang_id.push($(this).val());
             });
 
             // $("input:checkbox[name=check]:not(:checked)").each(function() {
@@ -156,24 +156,18 @@
             // id = $(this).val();
 
             $.ajax({
-                url: (jml != 0) ? '/keranjang/ambilHarga' : '/keranjang/hitungTotal',
+                url: '/keranjang/hitungTotal',
                 type: 'POST',
                 data: {
-                    'produk_id': (jml != 0) ? id : produk_id
+                    'id_keranjang': keranjang_id
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    if (jml != 0) {
-                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
-                        jml = jml != 0 ? jml : parseInt(jml) - parseInt(response);
-                        console.log(jml);
-                    } else {
-                        $("#total").html("Rp. " + jml != 0 ? numberFormat(parseInt(response) + parseInt(jml)) : numberFormat(response));
-                        jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
-                        console.log(jml);
-                    }
+                    $("#total").html("Rp. " + numberFormat(parseInt(response)));
+                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
+                    console.log(jml);
                 },
                 error: function(error) {
                     console.log(error);
@@ -181,22 +175,64 @@
             });
         });
 
-        $("input[name='qty']").click(function() {
-            let n = $("input[name='qty']").index(this) + 1;
-            let qty = $("#qty"+n).val();
-            var m = $("#harga"+n).html();
-            var split = m.split("Rp. ");
-            var p = split[1].replace('.','');
+        $("input[name='qty']").change(function() {
+            let n = $("input[name='qty']").index(this);
+            let qty = $("#qty"+parseInt(n+1)).val();
+            let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
 
-            let jmlSementara = parseInt(jml) + parseInt(p);
+            $.ajax({
+                url: '/keranjang/updateJumlah',
+                type: 'POST',
+                data: {
+                    'id_keranjang': id_cart,
+                    'qty': qty
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(qty * parseInt(response)));
+                    // $("#total").html("Rp. " + numberFormat(qty * parseInt(response)));
+                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
+                    // console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+            // $("#total").html("Rp. " + numberFormat(jmlSementara));
 
-            $("#subHarga"+n).html("Rp. " + numberFormat(qty * p));
-            $("#total").html("Rp. " + numberFormat(jmlSementara));
+            // jml = jmlSementara;
 
-            jml = jmlSementara;
-
-            console.log(jml);
+            console.log(qty);
         })
+
+        $("#checkout").click(function () {
+            let keranjang_id = [];
+            $("input:checkbox[name=check]:checked").each(function () {
+                keranjang_id.push($(this).val());
+            });
+
+            console.log(keranjang_id);
+
+            $.ajax({
+                url: '/keranjang/go_checkout',
+                type: 'POST',
+                data: {
+                    'id_keranjang': keranjang_id
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // $("#total").html("Rp. " + numberFormat(parseInt(response)));
+                    window.location.href = '/checkout';
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
     });
 
     function numberFormat(num) {
