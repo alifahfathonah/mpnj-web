@@ -36,7 +36,7 @@ class ProdukRepository
                             ];
                         }),
                         'pelapak' => [
-                            'id_pelapak' => $produks->pelapak->nama_toko,
+                            'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
                             'alamat' => $produks->pelapak->alamat
                         ]
