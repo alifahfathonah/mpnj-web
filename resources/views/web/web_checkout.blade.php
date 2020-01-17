@@ -350,7 +350,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    window.location.href = '/sukses';
+                    window.location.href = `/sukses/${response.kode_transaksi}`;
                     // console.log(response);
                 },
                 error: function (error) {
