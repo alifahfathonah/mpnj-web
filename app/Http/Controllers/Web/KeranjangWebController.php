@@ -29,7 +29,9 @@ class KeranjangWebController extends Controller
     {
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
-            'konsumen_id' => $request->session()->get('id_konsumen', 0)
+            'konsumen_id' => $request->session()->get('id_konsumen', 0),
+	        'jumlah' => 1,
+	        'harga_jual' => $request->harga_jual
         ]);
 
         if ($simpan) {
