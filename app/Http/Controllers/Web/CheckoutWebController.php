@@ -39,3 +39,22 @@ class CheckoutWebController extends Controller
 
         return view('web/web_checkout', $data);
     }
+    
+    public function simpanTransaksi(Request $request)
+    {
+	    $konsumen_id = $request->session()->get('id_konsumen', 0);
+    	$simpanTrx = Transaksi::create([
+    		'konsumen_id' => $konsumen_id,
+		    'kode_transaksi' => 'xosdk',
+		    'waktu_transaksi' => date('Y-m-d H:i:s'),
+		    'total_bayar' => $request->totalBayar
+	    ]);
+    	if ($simpanTrx) {
+    		foreach ($request->trxDetail as $detail) {
+    			$detail['transaksi_id'] = $simpanTrx->id_transaksi;
+    			Transaksi_Detail::create($detail);
+		    }
+		    return response()->json('sukses',200);
+	    }
+    }
+}
