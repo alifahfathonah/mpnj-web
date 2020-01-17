@@ -29,3 +29,7 @@ Route::get('/pelapak', 'Api\ApiPelapakController@index');
 Route::get('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@getDetail');
 
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
+
+//keranjang
+Route::get('/keranjang', 'Api\ApiKeranjangController@index');
+Route::post('/keranjang', 'Api\ApiKeranjangController@simpan');
