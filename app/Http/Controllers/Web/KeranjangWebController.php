@@ -13,9 +13,15 @@ class KeranjangWebController extends Controller
     public function index(Request $request)
     {
         $konsumen_id = $request->session()->get('id_konsumen', 0);
-        $data['keranjang'] = Keranjang::with(['produk', 'konsumen'])->where('konsumen_id', $konsumen_id)->get()->groupBy('produk.pelapak.nama_toko');
+        $data['keranjang'] = Keranjang::with(['produk', 'konsumen'])
+	                        ->where('konsumen_id', $konsumen_id)
+	                        ->where('status', 'N')
+	                        ->get()
+	                        ->groupBy('produk.pelapak.nama_toko');
         // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
-        $data['total'] = Keranjang::where('konsumen_id', $konsumen_id)->sum(DB::raw('jumlah * harga_jual'));
+        $data['total'] = Keranjang::where('konsumen_id', $konsumen_id)
+	                    ->where('status', 'N')
+	                    ->sum(DB::raw('jumlah * harga_jual'));
         return view('web/web_keranjang', $data);
     }
 
