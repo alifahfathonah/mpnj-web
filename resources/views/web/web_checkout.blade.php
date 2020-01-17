@@ -236,3 +236,133 @@
                 END DASHBOARD AREA
         =================================-->
 @endsection
+
+@push('scripts')
+    <script>
+        function getKurir(n) {
+            let kurir = $("#pilih_kurir" + n).val();
+            $.ajax({
+                url: '/api/ongkir',
+                type: 'POST',
+                data: {
+                    'asal': $(`#dataPelapak${n}`).data('origin'),
+                    'tujuan': $(`#dataPembeli`).data('destination'),
+                    'berat': $(`#dataPelapak${n}`).data('berat'),
+                    'kurir': kurir
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    $(`.ok${n}`).remove();
+                    response.ongkir.rajaongkir.results[0].costs.map(e => {
+                        $("#kurir" + n).append(`
+                            <div class="ok${n}">
+                                <input type="radio" id="${n + e.service}" class="" name="ongkir${n}" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}">
+                                <label for="${n + e.service}">
+                                <span class="circle"></span>${e.service} - Rp. ${numberFormat(e.cost[0].value)} - ${e.cost[0].etd}  hari</label>
+                                <br>
+                            </div>
+                        `);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        function fixKurir(i) {
+            let kurir = $("#pilih_kurir" + i).val();
+            let service = $(`input[name='ongkir${i}']:checked`).data('service');
+            let ongkir = $(`input[name='ongkir${i}']:checked`).data('ongkir');
+            let etd = $(`input[name='ongkir${i}']:checked`).data('etd');
+
+            $(`#dataPelapak${i}`).data('kurir', kurir);
+            $(`#dataPelapak${i}`).data('service', service);
+            $(`#dataPelapak${i}`).data('ongkir', ongkir);
+            $(`#dataPelapak${i}`).data('etd', etd);
+
+            hitungOngkir();
+        }
+
+        function hitungOngkir() {
+            let ko = 0;
+            for (let index = 1; index <= "{{ $m }}"; index++) {
+                if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
+                    break;
+                } else {
+                    ko += $(`#dataPelapak${index}`).data('ongkir');
+                }
+            }
+            $('#totalOngkir').html("Rp. " + numberFormat(ko));
+            $("#totalBayar").html('Rp. ' + numberFormat(parseInt("{{ $total }}") + ko));
+            $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
+        }
+
+        function bayarSekarang() {
+            let dataTrxDetail = [];
+
+            for (let index = 1; index <= parseInt("{{ $m }}"); index++) {
+                if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
+                    break;
+                } else {
+                    if (index <= $(`#dataPelapak${index}`).data('jumlahbarang')) {
+                        var j = index;
+                        var k = index;
+                        while (k <= $(`#dataPelapak${index}`).data('jumlahbarang')) {
+                            dataTrxDetail.push({
+                                'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
+                                'kurir': $(`#dataPelapak${j}`).data('kurir'),
+                                'service': $(`#dataPelapak${j}`).data('service'),
+                                'ongkir': $(`#dataPelapak${j}`).data('ongkir'),
+                                'etd': $(`#dataPelapak${j}`).data('etd'),
+                                'jumlah': $(`#data_keranjang${k}`).data('jumlah'),
+                                'harga_jual': $(`#data_keranjang${k}`).data('hargajual'),
+                                'sub_total': parseInt($(`#data_keranjang${k}`).data('hargajual') * $(`#data_keranjang${k}`).data('jumlah') + $(`#dataPelapak${j}`).data('ongkir'))
+                            });
+                            k++;
+                        }
+                    } else {
+                        dataTrxDetail.push({
+                            'produk_id' : $(`#data_keranjang${index}`).data('idproduk'),
+                            'kurir': $(`#dataPelapak${index}`).data('kurir'),
+                            'service': $(`#dataPelapak${index}`).data('service'),
+                            'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
+                            'etd': $(`#dataPelapak${index}`).data('etd'),
+                            'jumlah': $(`#data_keranjang${index}`).data('jumlah'),
+                            'harga_jual': $(`#data_keranjang${index}`).data('hargajual'),
+                            'sub_total': parseInt($(`#data_keranjang${index}`).data('hargajual')) * parseInt($(`#data_keranjang${index}`).data('jumlah')) + parseInt($(`#dataPelapak${index}`).data('ongkir'))
+                        });
+                    }
+                }
+            }
+
+            $.ajax({
+                async: true,
+                url: '/simpanTransaksi',
+                type: 'POST',
+                data: {
+                    'trxDetail': dataTrxDetail,
+                    'totalBayar': $("#totalBayar").data('totalbayar')
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    window.location.href = '/sukses';
+                    // console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            // console.log(dataTrxDetail);
+        }
+
+        function numberFormat(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+        }
+    </script>
+@endpush
