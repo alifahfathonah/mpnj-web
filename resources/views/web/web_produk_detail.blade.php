@@ -1336,6 +1336,7 @@
                             <form action="/keranjang" method="post">
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
+                                <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
                                 <button type="submit" class="btn btn--lg btn--round cart-btn"><span class="lnr lnr-cart"></span> Tambah ke Keranjang</button>
                             </form>
                             {{-- <a href="#" class="btn btn--lg btn--round cart-btn">
