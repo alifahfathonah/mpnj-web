@@ -5,6 +5,7 @@
 /public/assets/images
 /public/assets/foto_produk
 /vendor
+.idea
 .env
 .env.backup
 .phpunit.result.cache

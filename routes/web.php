@@ -55,4 +55,8 @@ Route::post('keranjang/ambilHarga', 'Web\KeranjangWebController@ambilHarga');
 Route::post('keranjang/updateJumlah', 'Web\KeranjangWebController@updateJumlah');
 Route::post('keranjang/go_checkout', 'Web\KeranjangWebController@go_checkout');
 
+//checkout
+Route::get('checkout', 'Web\CheckoutWebController@index');
+Route::post('/simpanTransaksi', 'Web\CheckoutWebController@simpanTransaksi');
+
 Route::get('/home', 'HomeController@index')->name('home');
