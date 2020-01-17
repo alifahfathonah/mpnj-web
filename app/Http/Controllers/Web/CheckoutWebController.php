@@ -58,4 +58,10 @@ class CheckoutWebController extends Controller
 		    return response()->json($simpanTrx,200);
 	    }
     }
+    
+    public function sukses($kodeTrx)
+    {
+    	$data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
+    	return view('web/web_checkout_sukses', $data);
+    }
 }
