@@ -45,16 +45,17 @@ class CheckoutWebController extends Controller
 	    $konsumen_id = $request->session()->get('id_konsumen', 0);
     	$simpanTrx = Transaksi::create([
     		'konsumen_id' => $konsumen_id,
-		    'kode_transaksi' => 'xosdk',
+		    'kode_transaksi' => time(),
 		    'waktu_transaksi' => date('Y-m-d H:i:s'),
 		    'total_bayar' => $request->totalBayar
 	    ]);
     	if ($simpanTrx) {
     		foreach ($request->trxDetail as $detail) {
+    			//buat trigger ketika data masuk ke transaksi detail untuk mengurangi stok produk dan memperbarui field terjual
     			$detail['transaksi_id'] = $simpanTrx->id_transaksi;
     			Transaksi_Detail::create($detail);
 		    }
-		    return response()->json('sukses',200);
+		    return response()->json($simpanTrx,200);
 	    }
     }
 }
