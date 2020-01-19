@@ -60,11 +60,11 @@
                                     <tbody>
                                         <?php $n = 1; ?>
                                         @foreach ($keranjang as $key => $val)
-                                        <tr>
+                                        <tr id="dataCart" data-total="{{ $total  }}">
                                             <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
                                         </tr>
                                         @foreach ($val as $k)
-                                        <tr>
+                                        <tr id="data_keranjang{{ $k->id_keranjang  }}" data-subtotal="{{ $k->jumlah * $k->harga_jual  }}" data-hargajual="{{ $k->harga_jual  }}">
                                             <td>
                                                 <input type="checkbox" name="check" id="check" checked value="{{ $k->id_keranjang }}">
                                             </td>
@@ -84,7 +84,8 @@
                                             <td class="bold" id="harga{{ $n }}">
                                                 @currency($k->produk->harga_jual)
                                             </td>
-                                            <td style="width: 10%"><input type="number" name="qty"
+                                            <td style="width: 10%">
+                                                <input type="number" name="qty"
                                                     id="qty{{ $n }}" class="form-control form-control-sm"
                                                     value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
                                             </td>
