@@ -167,7 +167,6 @@
                 },
                 success: function(response) {
                     $("#total").html("Rp. " + numberFormat(parseInt(response)));
-                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
                     console.log(jml);
                 },
                 error: function(error) {
@@ -176,12 +175,14 @@
             });
         });
 
-        $("input[name='qty']").change(function() {
+        $("input[name='qty']").change(function(e) {
+            console.log(e.originalEvent.srcElement.value);
             let n = $("input[name='qty']").index(this);
             let qty = $("#qty"+parseInt(n+1)).val();
             let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
 
             $.ajax({
+                async: true,
                 url: '/keranjang/updateJumlah',
                 type: 'POST',
                 data: {
@@ -193,19 +194,12 @@
                 },
                 success: function(response) {
                     $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(qty * parseInt(response)));
-                    // $("#total").html("Rp. " + numberFormat(qty * parseInt(response)));
-                    // jml = jml != 0 ? jml : parseInt(jml) + parseInt(response);
-                    // console.log(response);
+                    $("#total").html()
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
-            // $("#total").html("Rp. " + numberFormat(jmlSementara));
-
-            // jml = jmlSementara;
-
-            console.log(qty);
         })
 
         $("#checkout").click(function () {
