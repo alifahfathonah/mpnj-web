@@ -46,7 +46,12 @@ class ApiProdukController extends Controller
         $produk->diskon = $request->diskon;
         $produk->stok = $request->stok;
         
+        $file = $request->file('foto');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move('assets/foto_produk', $name);
+
         $produk->save();
-        
     }
 }
