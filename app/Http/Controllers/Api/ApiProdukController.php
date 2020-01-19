@@ -53,5 +53,12 @@ class ApiProdukController extends Controller
         $file->move('assets/foto_produk', $name);
 
         $produk->save();
+
+        $foto = new Foto_Produk;
+        $foto->foto_produk = $name;
+        $foto->produk_id = $produk->id_produk;
+
+        $foto->save();
     }
+
 }
