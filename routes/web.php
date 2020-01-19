@@ -60,4 +60,10 @@ Route::get('checkout', 'Web\CheckoutWebController@index');
 Route::post('/simpanTransaksi', 'Web\CheckoutWebController@simpanTransaksi');
 Route::get('sukses/{kodeTrx}', 'Web\CheckoutWebController@sukses');
 
+//konfirmasi
+Route::get('konfirmasi', 'Web\KonfirmasiWebController@index');
+Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
+Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
+Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
+
 Route::get('/home', 'HomeController@index')->name('home');
