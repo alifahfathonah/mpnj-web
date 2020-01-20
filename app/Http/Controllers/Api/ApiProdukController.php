@@ -52,13 +52,21 @@ class ApiProdukController extends Controller
 
         $file->move('assets/foto_produk', $name);
 
-        $produk->save();
+        if($produk->save()){
 
         $foto = new Foto_Produk;
         $foto->foto_produk = $name;
         $foto->produk_id = $produk->id_produk;
-
         $foto->save();
+
+            $res ['pesan'] = "Tambah Data Produk Sukses!";
+            $res ['data'] = $produk;
+            $res ['foto'] = $foto;
+            return response()->json($res,201);
+        }else{
+            $res2 ['pesan'] = "Tambah Data produk Gagal!";
+            return response()->json($res2);
+        }
     }
 
 }
