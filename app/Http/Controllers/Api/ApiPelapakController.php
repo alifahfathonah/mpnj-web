@@ -20,7 +20,9 @@ class ApiPelapakController extends Controller
     public function index()
     {
         $pelapaks = $this->pelapakRepository->all();
-        return $pelapaks;
+        $res ['pesan'] = "Sukses!";
+        $res ['data'] = $pelapaks;
+        return response()->json($res);
     }
 
     public function getDetail($id_pelapak)
