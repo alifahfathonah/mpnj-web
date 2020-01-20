@@ -69,8 +69,8 @@ class ApiProdukController extends Controller
         $foto->save();
 
             $res ['pesan'] = "Tambah Data Produk Sukses!";
-            $res ['data'] = $produk;
-            $res ['foto'] = $foto;
+            $res ['data'] = [$produk,$foto];
+
             return response()->json($res,201);
         }else{
             $res2 ['pesan'] = "Tambah Data produk Gagal!";
