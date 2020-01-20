@@ -28,8 +28,17 @@ class ApiProdukController extends Controller
 
     public function getDetail($id_produk)
     {
-        $produks = $this->produkRepository->findById($id_produk);
-        return $produks;
+        $data = Produk::where('id_produk',$id_produk)->get();
+        if (count($data) > 0 ){
+            $produk = $this->produkRepository->findById($id_produk);
+            $res ['pesan'] = "Sukses!";
+            $res ['data'] = $produk;
+        return response()->json($res);
+        }else{
+            $res2 ['pesan'] = "ID Tidak Ditemukan!";
+            return response()->json($res2);
+        };
+        
     }
 
     public function create(request $request)
