@@ -29,10 +29,13 @@ Route::get('/pelapak', 'Api\ApiPelapakController@index');
 Route::get('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@getDetail');
 
 
-Route::post('/produk','Api\ApiProdukController@create');
+Route::post('/produk', 'Api\ApiProdukController@create');
 
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
 
 //keranjang
 Route::get('/keranjang', 'Api\ApiKeranjangController@index');
 Route::post('/keranjang', 'Api\ApiKeranjangController@simpan');
+Route::delete('/keranjang/{id_keranjang}', 'Api\ApiKeranjangController@hapus');
+Route::put('/keranjang/ganti_jumlah/{id_keranjang}', 'Api\ApiKeranjangController@gantiJumlah');
+Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
