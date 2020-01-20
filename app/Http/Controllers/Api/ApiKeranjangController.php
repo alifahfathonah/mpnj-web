@@ -38,8 +38,40 @@ class ApiKeranjangController extends Controller
         }
     }
 
-    // public function create(array $data)
-    // {
-    //     return $this->keranjangRepository->create($data);
-    // }
+    public function hapus($id)
+    {
+
+        $hapus = $this->keranjangRepository->delete($id);
+        if ($hapus) {
+            return response()->json('sukses', 200);
+        } else {
+            return response()->json('gagal', 400);
+        }
+    }
+
+    public function gantiJumlah(Request $request, $id)
+    {
+        $gantiJumlah = $request->jumlah;
+        $ganti = $this->keranjangRepository->updateJumlah($gantiJumlah, $id);
+        if ($ganti) {
+            return response()->json([
+                'jumlah' => $ganti
+            ], 200);
+        } else {
+            return response()->json('gagal', 400);
+        }
+    }
+
+    public function cekHarga(Request $request)
+    {
+        $cekHarga = $request->id_keranjang;
+        $cek = $this->keranjangRepository->checkPrice($cekHarga, 'id_keranjang');
+        if ($cekHarga) {
+            return response()->json([
+                'total' => $cek
+            ], 200);
+        } else {
+            return response()->json('gagal', 400);
+        }
+    }
 }
