@@ -35,7 +35,8 @@ class ApiProdukController extends Controller
             $res ['data'] = $produk;
         return response()->json($res);
         }else{
-            $res2 ['pesan'] = "ID Tidak Ditemukan!";
+            $res2 ['pesan'] = "Gagal!";
+            $res2 ['data'] = [];
             return response()->json($res2);
         };
         
