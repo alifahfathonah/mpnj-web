@@ -50,6 +50,16 @@ class ApiRegisterKonsumenController extends Controller
         $konsumen->email = $request->email;
         $konsumen->status = $request->status;
         
-        $konsumen->save();
+        if($konsumen->save()){
+            $res ['pesan'] = "Sukses!";
+            $res ['data'] = [$konsumen];
+
+            return response()->json($res);
+        }else{
+            $res2 ['pesan'] = "Gagal!";
+            $res2 ['data'] = [];
+            
+            return response()->json($res2);
+        }
     }
 }
