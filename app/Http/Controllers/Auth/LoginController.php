@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
+use App\Models\Pelapak;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -40,7 +44,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('keluar');
         $this->middleware('guest:konsumen')->except('keluar');
     }
-
     public function showLoginForm()
     {
         return view('auth/login');
@@ -90,9 +93,11 @@ class LoginController extends Controller
 //            }
 //        }
 //    }
+
     public function keluar(Request $request)
     {
-        $request->session()->forget('username');
-        return redirect('produk');
+        $role = Session::get('role');
+        Auth::guard($role)->logout();
+        return redirect('/produk');
     }
 }
