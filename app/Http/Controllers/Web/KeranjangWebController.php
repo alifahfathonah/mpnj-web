@@ -6,30 +6,44 @@ use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class KeranjangWebController extends Controller
 {
+
     public function index(Request $request)
     {
-        $konsumen_id = $request->session()->get('id_konsumen', 0);
-        $data['keranjang'] = Keranjang::with(['produk', 'konsumen'])
-	                        ->where('konsumen_id', $konsumen_id)
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+
+	    $data['keranjang'] = Keranjang::with(['produk', 'pembeli'])
+	                        ->where('pembeli_id', $konsumen_id)
+                            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
 	                        ->where('status', 'N')
 	                        ->get()
 	                        ->groupBy('produk.pelapak.nama_toko');
         // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
-        $data['total'] = Keranjang::where('konsumen_id', $konsumen_id)
+        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
 	                    ->where('status', 'N')
 	                    ->sum(DB::raw('jumlah * harga_jual'));
         return view('web/web_keranjang', $data);
+//        return $data['keranjang'];
     }
 
     public function simpan(Request $request)
     {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
-            'konsumen_id' => $request->session()->get('id_konsumen', 0),
+            'pembeli_id' => $konsumen_id,
+	        'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
 	        'jumlah' => 1,
 	        'harga_jual' => $request->harga_jual
         ]);
