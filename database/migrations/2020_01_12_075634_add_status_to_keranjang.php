@@ -14,7 +14,7 @@ class AddStatusToKeranjang extends Migration
     public function up()
     {
         Schema::table('keranjang', function (Blueprint $table) {
-            $table->enum('status', ['Y','N']);
+            $table->enum('status', ['Y','N'])->default('N');
         });
     }
 
