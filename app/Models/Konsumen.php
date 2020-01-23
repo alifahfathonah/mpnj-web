@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Konsumen extends Model
+class Konsumen extends Authenticatable
 {
     protected $table = 'konsumen';
     protected $primaryKey = 'id_konsumen';
