@@ -107,8 +107,8 @@
                                 </div>
                                 <div class="autor__info">
                                     <p class="name">
-                                        Halo @if (Session::has('username'))
-                                            {{  Session::get('username') }}
+                                        Halo @if (Auth::guard(Session::get('role'))->check())
+                                            {{  Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
                                     <p class="ammount">$20.45</p>
@@ -116,7 +116,7 @@
 
                                 <div class="dropdowns dropdown--author">
                                     <ul>
-                                        @if (Session::has('username'))
+                                        @if (Auth::guard(Session::get('role'))->check())
                                         <li>
                                             <a href="/keluar">
                                                 <span class="lnr lnr-exit"></span>Keluar</a>
