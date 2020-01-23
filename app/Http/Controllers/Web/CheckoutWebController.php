@@ -9,12 +9,15 @@ use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutWebController extends Controller
 {
     public function index(Request $request)
     {
-        $konsumen_id = $request->session()->get('id_konsumen', 0);
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
         // $data['order'] = DB::table('keranjang')
         //                 ->select('pelapak.nama_toko','produk.id_produk','konsumen.id_konsumen','keranjang.konsumen_id','keranjang.produk_id','pelapak.id_pelapak','produk.pelapak_id')
         //                 ->leftJoin('produk', 'produk.id_produk', '=', 'keranjang.produk_id')
@@ -24,12 +27,12 @@ class CheckoutWebController extends Controller
         //                 ->where('keranjang.status', 'Y')
         //                 ->get()
         //                 ->groupBy('keranjang.konsumen_id');
-        $data['order'] = Keranjang::with(['produk', 'konsumen'])
-                        ->where('konsumen_id', $konsumen_id)
+        $data['order'] = Keranjang::with(['produk', 'pembeli'])
+                        ->where('pembeli_id', $konsumen_id)
                         ->where('status', 'Y')
                         ->get()
                         ->groupBy('produk.pelapak.nama_toko');
-        $data['total'] = Keranjang::where('konsumen_id', $konsumen_id)
+        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
                         ->where('status', 'Y')
                         ->sum(DB::raw('jumlah * harga_jual'));
         $data['berat'] = DB::table("keranjang")
@@ -42,9 +45,13 @@ class CheckoutWebController extends Controller
     
     public function simpanTransaksi(Request $request)
     {
-	    $konsumen_id = $request->session()->get('id_konsumen', 0);
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
     	$simpanTrx = Transaksi::create([
-    		'konsumen_id' => $konsumen_id,
+    		'pembeli_id' => $konsumen_id,
+            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
 		    'kode_transaksi' => time(),
 		    'waktu_transaksi' => date('Y-m-d H:i:s'),
 		    'total_bayar' => $request->totalBayar
@@ -55,6 +62,7 @@ class CheckoutWebController extends Controller
     			$detail['transaksi_id'] = $simpanTrx->id_transaksi;
     			Transaksi_Detail::create($detail);
 		    }
+            Keranjang::whereIn('id_keranjang', $request->idKeranjang)->delete();
 		    return response()->json($simpanTrx,200);
 	    }
     }
