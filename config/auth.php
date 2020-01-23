@@ -46,6 +46,14 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+	    'konsumen' => [
+		    'driver' => 'session',
+		    'provider' => 'konsumen',
+	    ],
+	    'pelapak' => [
+		    'driver' => 'session',
+		    'provider' => 'pelapak',
+	    ]
     ],
 
     /*
@@ -70,6 +78,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+	    'konsumen' => [
+	    	'driver' => 'eloquent',
+		    'model' => App\Models\Konsumen::class
+	    ],
+	    'pelapak' => [
+	    	'driver' => 'eloquent',
+		    'model' => App\Models\Pelapak::class
+	    ]
 
         // 'users' => [
         //     'driver' => 'database',

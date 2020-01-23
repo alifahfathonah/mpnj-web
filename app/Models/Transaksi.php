@@ -8,7 +8,7 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['kode_transaksi','konsumen_id','waktu_transaksi','total_bayar'];
+    protected $fillable = ['kode_transaksi','pembeli_id','pembeli_type','waktu_transaksi','total_bayar'];
 	public $timestamps = false;
 
     public function transaksi_detail()
@@ -19,5 +19,10 @@ class Transaksi extends Model
     public function konsumen()
     {
     	return $this->hasOne(Konsumen::class, 'id_konsumen', 'konsumen_id');
+    }
+
+    public function pembeli()
+    {
+        return $this->morphTo();
     }
 }

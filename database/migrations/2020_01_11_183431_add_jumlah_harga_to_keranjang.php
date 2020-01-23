@@ -14,8 +14,8 @@ class AddJumlahHargaToKeranjang extends Migration
     public function up()
     {
         Schema::table('keranjang', function (Blueprint $table) {
-            $table->integer('jumlah');
-            $table->integer('harga_jual');
+            $table->integer('jumlah')->default(1);
+            $table->integer('harga_jual')->default(0);
         });
     }
 

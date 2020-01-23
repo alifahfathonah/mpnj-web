@@ -17,8 +17,9 @@ class CreateKeranjangTable extends Migration
             $table->increments('id_keranjang');
             $table->integer('produk_id')->unsigned();
             $table->foreign('produk_id')->references('id_produk')->on('produk');
-            $table->integer('konsumen_id')->unsigned();
-            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
+            $table->integer('pembeli_id');
+            $table->string('pembeli_type');
+//            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
             $table->timestamps();
         });
     }

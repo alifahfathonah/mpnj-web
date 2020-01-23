@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
+use App\Models\Pelapak;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -37,9 +41,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('keluar');
+        $this->middleware('guest:konsumen')->except('keluar');
     }
-
     public function showLoginForm()
     {
         return view('auth/login');
@@ -47,24 +51,53 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $cek = Konsumen::where([
-            'username' => $request->username,
-            'password' => $request->password
-        ])->get();
+        $credential = $request->only('username','password');
 
-        if (count($cek) > 0) {
-            // session(['username' => $request->username]);
-            $request->session()->put('id_konsumen', $cek[0]->id_konsumen);
-            $request->session()->put('username', $request->username);
+        if (Auth::guard('konsumen')->attempt($credential)) {
+            $request->session()->put('role', 'konsumen');
+            $request->session()->put('id', 'id_konsumen');
             return redirect('produk');
         } else {
-            dd('gagal');
+            if (Auth::guard('pelapak')->attempt($credential)) {
+                $request->session()->put('role', 'pelapak');
+                $request->session()->put('id', 'id_pelapak');
+                return redirect('produk');
+            }
         }
     }
 
+//    public function login(Request $request)
+//    {
+//        $cek = Konsumen::where([
+//            'username' => $request->username,
+//            'password' => $request->password
+//        ])->get();
+//
+//        if (count($cek) > 0) {
+//            // session(['username' => $request->username]);
+//            $request->session()->put('id', $cek[0]->id_konsumen);
+//            $request->session()->put('role', 'konsumen');
+//            $request->session()->put('username', $request->username);
+//            return redirect('produk');,
+
+//        } else {
+//            $cekPelapak = Pelapak::where([
+//	            'username' => $request->username,
+//	            'password' => $request->password
+//            ])->get();
+//            if (count($cekPelapak) > 0) {
+//	            $request->session()->put('id', $cekPelapak[0]->id_pelapak);
+//	            $request->session()->put('role', 'pelapak');
+//	            $request->session()->put('username', $request->username);
+//	            return redirect('produk');
+//            }
+//        }
+//    }
+
     public function keluar(Request $request)
     {
-        $request->session()->forget('username');
-        return redirect('produk');
+        $role = Session::get('role');
+        Auth::guard($role)->logout();
+        return redirect('/produk');
     }
 }
