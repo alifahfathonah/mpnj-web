@@ -69,7 +69,7 @@
                                 </table>
                                 <br>
                             </div>
-                            <h3>Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda dengan mengunggah foto bukti transafer <a href="/konfrimasi">disini</a> agar transaksi anda segera di proses. Terima Kasih :D</h3>
+                            <h3>Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda dengan mengunggah foto bukti transafer <a href="/konfirmasi">disini</a> agar transaksi anda segera di proses. Terima Kasih :D</h3>
                         </div>
                     </div>
                 </div>

@@ -49,11 +49,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="nama_pengirim">Nama Pengirim</label>
-                                            <input id="nama_pengirim" type="text" class="text_field" name="nama_pengirim" value="{{  $cek->konsumen->nama_lengkap }}" readonly>
+                                            <input id="nama_pengirim" type="text" class="text_field" name="nama_pengirim" value="{{  $cek->pembeli->nama_lengkap }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="total_bayar">Total Bayar</label>
-                                            <input id="total_bayar" type="text" class="text_field" name="total_bayar" value="@currency($cek->total_bayar)" readonly>
+                                            <input id="total_bayar" type="text" class="text_field" name="total_bayar" value="{{ $cek->total_bayar }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="rekening">Pilih Rekening</label>
