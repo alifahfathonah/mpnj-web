@@ -15,8 +15,18 @@ class Keranjang extends Model
         return $this->belongsTo(Produk::class, 'produk_id', 'id_produk');
     }
 
-    public function konsumen()
+    public function pembeli()
     {
-        return $this->belongsTo(Konsumen::class, 'konsumen_id', 'id_konsumen');
+        return $this->morphTo();
     }
+
+//    public function konsumen()
+//    {
+//        return $this->belongsTo(Konsumen::class, 'konsumen_id', 'id_konsumen');
+//    }
+//
+//    public function pelapak()
+//    {
+//	    return $this->belongsTo(Pelapak::class, 'konsumen_id', 'id_pelapak');
+//    }
 }
