@@ -303,6 +303,7 @@
 
         function bayarSekarang() {
             let dataTrxDetail = [];
+            let keranjangId = [];
 
             for (let index = 1; index <= parseInt("{{ $m }}"); index++) {
                 if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
@@ -312,6 +313,7 @@
                         var j = index;
                         var k = index;
                         while (k <= $(`#dataPelapak${index}`).data('jumlahbarang')) {
+                            keranjangId.push($(`#data_keranjang${k}`).data('idkeranjang'));
                             dataTrxDetail.push({
                                 'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
                                 'kurir': $(`#dataPelapak${j}`).data('kurir'),
@@ -325,6 +327,7 @@
                             k++;
                         }
                     } else {
+                        keranjangId.push($(`#data_keranjang${index}`).data('idkeranjang'));
                         dataTrxDetail.push({
                             'produk_id' : $(`#data_keranjang${index}`).data('idproduk'),
                             'kurir': $(`#dataPelapak${index}`).data('kurir'),
@@ -345,7 +348,8 @@
                 type: 'POST',
                 data: {
                     'trxDetail': dataTrxDetail,
-                    'totalBayar': $("#totalBayar").data('totalbayar')
+                    'totalBayar': $("#totalBayar").data('totalbayar'),
+                    'idKeranjang': keranjangId
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -359,7 +363,7 @@
                 }
             });
 
-            // console.log(dataTrxDetail);
+            console.log(keranjangId);
         }
 
         function numberFormat(num) {
