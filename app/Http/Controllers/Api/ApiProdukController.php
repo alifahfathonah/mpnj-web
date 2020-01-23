@@ -28,8 +28,18 @@ class ApiProdukController extends Controller
 
     public function getDetail($id_produk)
     {
-        $produks = $this->produkRepository->findById($id_produk);
-        return $produks;
+        $data = Produk::where('id_produk',$id_produk)->get();
+        if (count($data) > 0 ){
+            $produk = $this->produkRepository->findById($id_produk);
+            $res ['pesan'] = "Sukses!";
+            $res ['data'] = $produk;
+        return response()->json($res);
+        }else{
+            $res2 ['pesan'] = "Gagal!";
+            $res2 ['data'] = [];
+            return response()->json($res2);
+        };
+        
     }
 
     public function create(request $request)
@@ -52,13 +62,21 @@ class ApiProdukController extends Controller
 
         $file->move('assets/foto_produk', $name);
 
-        $produk->save();
+        if($produk->save()){
 
         $foto = new Foto_Produk;
         $foto->foto_produk = $name;
         $foto->produk_id = $produk->id_produk;
-
         $foto->save();
+
+            $res ['pesan'] = "Tambah Data Produk Sukses!";
+            $res ['data'] = [$produk,$foto];
+
+            return response()->json($res,201);
+        }else{
+            $res2 ['pesan'] = "Tambah Data produk Gagal!";
+            return response()->json($res2);
+        }
     }
 
 }
