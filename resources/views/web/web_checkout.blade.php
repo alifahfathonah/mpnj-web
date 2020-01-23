@@ -72,7 +72,8 @@
                                                     <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k->produk_id }}"
                                                         data-hargajual="{{ $k->harga_jual }}"
                                                         data-jumlah="{{ $k->jumlah }}"
-                                                        data-subtotal="{{ $k->jumlah * $k->harga_jual }}">
+                                                        data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
+                                                        data-idkeranjang="{{  $k->id_keranjang }}">
                                                         <td>
                                                             <div class="product__description">
                                                                 <img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}"
@@ -131,22 +132,22 @@
                             @for ($i = 0; $i < 1; $i++)
                                 <div class="information_module order_summary">
                                     <div class="toggle_title" id="dataPembeli"
-                                         data-destination="{{ $val[$i]->konsumen->city_id}}">
+                                         data-destination="{{ $val[$i]->pembeli->city_id}}">
                                         <h4>Informasi Pembeli</h4>
                                     </div>
 
                                     <ul>
                                         <li class="item">
                                             <a href="single-product.html" target="_blank">Nama</a>
-                                            <span>{{ $val[$i]->konsumen->nama_lengkap }}</span>
+                                            <span>{{ $val[$i]->pembeli->nama_lengkap }}</span>
                                         </li>
                                         <li class="item">
                                             <a href="single-product.html" target="_blank">Alamat</a>
-                                            <span>{{ $val[$i]->konsumen->alamat }}</span>
+                                            <span>{{ $val[$i]->pembeli->alamat }}</span>
                                         </li>
                                     </ul>
                                 </div>
-                        @endfor
+                            @endfor
                         <!-- end /.information_module-->
 
                             <div class="information_module order_summary">
