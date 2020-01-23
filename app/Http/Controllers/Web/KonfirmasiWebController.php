@@ -25,7 +25,7 @@ class KonfirmasiWebController extends Controller
     public function data(Request $request)
     {
     	$kode_transaksi = $request->kode_transaksi;
-    	$cek = Transaksi::with('konsumen')->where('kode_transaksi', $kode_transaksi)->first();
+    	$cek = Transaksi::with('pembeli')->where('kode_transaksi', $kode_transaksi)->first();
     	if ($cek != null) {
 //    		$this->kode = $data;
 		    return view('web/web_konfirmasi', ['cek' => $cek]);
