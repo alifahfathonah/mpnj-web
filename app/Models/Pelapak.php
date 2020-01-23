@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pelapak extends Model
+class Pelapak extends Authenticatable
 {
     protected $table = 'pelapak';
     protected $primaryKey = 'id_pelapak';
