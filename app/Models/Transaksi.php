@@ -20,4 +20,9 @@ class Transaksi extends Model
     {
     	return $this->hasOne(Konsumen::class, 'id_konsumen', 'konsumen_id');
     }
+
+    public function pembeli()
+    {
+        return $this->morphTo();
+    }
 }
