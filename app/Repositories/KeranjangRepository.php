@@ -11,7 +11,7 @@ class KeranjangRepository
     public function all()
     {
         return Keranjang::orderBy('id_keranjang')
-            ->with('konsumen', 'produk')
+            ->with('pembeli', 'produk')
             ->where('status', 'N')
             ->get()
             // ->get()
@@ -19,9 +19,9 @@ class KeranjangRepository
                 function ($keranjangs) {
                     return [
                         'id_keranjang' => $keranjangs->id_keranjang,
-                        'konsumen' => [
-                            'konsumen_id' => $keranjangs->konsumen->id_konsumen,
-                            'username' => $keranjangs->konsumen->username
+                        'pembeli' => [
+                            'pembeli_id' => $keranjangs->pembeli->getKey(),
+                            'username' => $keranjangs->pembeli->username
                         ],
                         'produk' => [
                             'produk_id' => $keranjangs->produk->id_produk,
