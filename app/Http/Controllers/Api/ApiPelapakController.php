@@ -49,6 +49,16 @@ class ApiPelapakController extends Controller
             $pelapak->saldo = $request->saldo;
             $pelapak->status = $request->status;
 
-            $pelapak->save();
+            if($pelapak->save()){
+                $res ['pesan'] = "Sukses!";
+                $res ['data'] = $pelapak;
+
+                return response()->json($res);
+            }else{
+                $res2 ['pesan'] = "gagal!";
+                $res2 ['data'] = $pelapak;
+
+                return response()->json($res2);
+            }
     }
 }
