@@ -8,7 +8,7 @@ class Keranjang extends Model
 {
     protected $table = 'keranjang';
     protected $primaryKey = 'id_keranjang';
-    protected $fillable = ['produk_id','pembeli_id','pembeli_type','jumlah','harga_jual'];
+    protected $fillable = ['produk_id', 'pembeli_id', 'pembeli_type', 'jumlah', 'harga_jual'];
 
     public function produk()
     {
@@ -20,13 +20,13 @@ class Keranjang extends Model
         return $this->morphTo();
     }
 
-//    public function konsumen()
-//    {
-//        return $this->belongsTo(Konsumen::class, 'konsumen_id', 'id_konsumen');
-//    }
-//
-//    public function pelapak()
-//    {
-//	    return $this->belongsTo(Pelapak::class, 'konsumen_id', 'id_pelapak');
-//    }
+    // public function konsumen()
+    // {
+    //     return $this->belongsTo(Konsumen::class, 'konsumen_id', 'id_konsumen');
+    // }
+
+    // public function pelapak()
+    // {
+    //     return $this->belongsTo(Pelapak::class, 'konsumen_id', 'id_pelapak');
+    // }
 }
