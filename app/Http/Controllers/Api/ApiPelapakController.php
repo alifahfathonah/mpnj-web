@@ -25,18 +25,9 @@ class ApiPelapakController extends Controller
         return response()->json($res);
     }
 
-    public function getDetail($id_pelapak)
+    public function getDetail(Pelapak $ipelapak)
     {
-        $data = Pelapak::where('id_pelapak',$id_pelapak)->get();
-        if (count($data) > 0){
-            $pelapaks = $this->pelapakRepository->findById($id_pelapak);
-            $res ['pesan'] = "Sukses!";
-            $res ['data'] = $pelapaks;
-            return response()->json($res);
-        }else{
-            $res ['pesan'] = "Gagal!";
-            $res ['data'] = [];
-            return response()->json($res);
-        }
+
+        return new PelapakResource($pelapak);
     }
 }
