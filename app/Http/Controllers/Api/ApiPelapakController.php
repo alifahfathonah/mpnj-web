@@ -26,9 +26,8 @@ class ApiPelapakController extends Controller
         return response()->json($res);
     }
 
-    public function getDetail(Pelapak $ipelapak)
+    public function getDetail(Pelapak $id_pelapak)
     {
-
-        return new PelapakResource($pelapak);
+        return new PelapakResource($id_pelapak);
     }
 }
