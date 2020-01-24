@@ -37,4 +37,9 @@ class TransaksiRepository
             )
             ->groupBy('produk.pelapak');
     }
+
+    public function create($data)
+    {
+        return Transaksi::create($data);
+    }
 }
