@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\PelapakResource;
 use App\Models\Pelapak;
 
 use App\Repositories\PelapakRepository;
