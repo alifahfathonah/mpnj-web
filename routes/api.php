@@ -39,3 +39,6 @@ Route::post('/keranjang', 'Api\ApiKeranjangController@simpan');
 Route::delete('/keranjang/{id_keranjang}', 'Api\ApiKeranjangController@hapus');
 Route::put('/keranjang/ganti_jumlah/{id_keranjang}', 'Api\ApiKeranjangController@gantiJumlah');
 Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
+
+//transaksi
+Route::get('/transaksi', 'Api\ApiTransaksiController@index');
