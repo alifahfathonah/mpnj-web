@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\PelapakResource;
 use App\Models\Pelapak;
 
 use App\Repositories\PelapakRepository;
@@ -25,18 +26,8 @@ class ApiPelapakController extends Controller
         return response()->json($res);
     }
 
-    public function getDetail($id_pelapak)
+    public function getDetail(Pelapak $id_pelapak)
     {
-        $data = Pelapak::where('id_pelapak',$id_pelapak)->get();
-        if (count($data) > 0){
-            $pelapaks = $this->pelapakRepository->findById($id_pelapak);
-            $res ['pesan'] = "Sukses!";
-            $res ['data'] = $pelapaks;
-            return response()->json($res);
-        }else{
-            $res ['pesan'] = "Gagal!";
-            $res ['data'] = [];
-            return response()->json($res);
-        }
+        return new PelapakResource($id_pelapak);
     }
 }
