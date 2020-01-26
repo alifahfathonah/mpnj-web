@@ -66,4 +66,6 @@ Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
 
+//pesanan
+Route::get('pesanan', 'Web\PesananWebController@index');
 Route::get('/home', 'HomeController@index')->name('home');
