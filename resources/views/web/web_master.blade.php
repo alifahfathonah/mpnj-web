@@ -117,6 +117,10 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
+                                            <li>
+                                                <a href="/pesanan">
+                                                    <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                            </li>
                                         <li>
                                             <a href="/keluar">
                                                 <span class="lnr lnr-exit"></span>Keluar</a>
