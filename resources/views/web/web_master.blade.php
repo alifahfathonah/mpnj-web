@@ -53,7 +53,7 @@
                     <div class="col-lg-8 offset-lg-1 col-md-9 col-6 v_middle">
                         <!-- start .author-area -->
                         <div class="author-area">
-                            <a href="signup.html" class="author-area__seller-btn inline">Become a Seller</a>
+                            <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
 
                             <div class="author__notification_area">
                                 <ul>
@@ -240,7 +240,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="signup.html" class="author-area__seller-btn inline">Become a Seller</a>
+                                    <a href="/jual" class="author-area__seller-btn inline">Jual</a>
                                 </div>
                             </div>
                         </div>
