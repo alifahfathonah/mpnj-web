@@ -177,7 +177,7 @@ START PRODUCTS AREA
                 <div class="product product--card">
 
                     <div class="product__thumbnail">
-                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image" style="height: 350px;">
+                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image" style="height: 350px;" width="361" height="230">
                         <div class="prod_btn">
                             <a href="/produk/{{ $p->id_produk }}" class="transparent btn--sm btn--round">Lihat</a>
                         </div>
