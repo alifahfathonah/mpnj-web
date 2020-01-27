@@ -2305,7 +2305,7 @@ h6 {
 
 /*-------- PRODUCT MODIFIERS --------------*/
 .product--card .product-desc {
-  height: 222px;
+  height: 100px;
   overflow: hidden;
   padding-bottom: 0;
 }
