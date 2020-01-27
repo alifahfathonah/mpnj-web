@@ -15,9 +15,11 @@ class ApiKeranjangController extends Controller
         $this->keranjangRepository = $keranjangRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $keranjangs = $this->keranjangRepository->all();
+        $role = $request->query('role');
+        $id = $request->query('id');
+        $keranjangs = $this->keranjangRepository->all($role, $id);
         return $keranjangs;
     }
 
