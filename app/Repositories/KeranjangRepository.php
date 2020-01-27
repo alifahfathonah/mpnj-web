@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class KeranjangRepository
 {
-    public function all()
+    public function all($role, $id)
     {
         return Keranjang::orderBy('id_keranjang')
             ->with('pembeli', 'produk')
+            ->where('pembeli_id', $id)
+            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
             ->where('status', 'N')
             ->get()
-            // ->get()
             ->map(
                 function ($keranjangs) {
                     return [
