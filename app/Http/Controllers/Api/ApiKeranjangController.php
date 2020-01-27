@@ -27,8 +27,9 @@ class ApiKeranjangController extends Controller
     {
         $data = array(
             'produk_id' => $request->produk_id,
-            'konsumen_id' => $request->konsumen_id,
-            'status' => $request->status,
+            'pembeli_id' => $request->pembeli_id,
+            'pembeli_type' => $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'status' => 'N',
             'jumlah' => $request->jumlah,
             'harga_jual' => $request->harga_jual
         );
