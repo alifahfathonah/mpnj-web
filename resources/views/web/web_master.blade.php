@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/trumbowyg.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
     <!-- endinject -->
@@ -520,6 +521,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/vendor/jquery/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/chart.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/grid.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>
