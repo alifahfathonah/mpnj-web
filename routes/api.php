@@ -22,7 +22,7 @@ Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
 Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
-
+Route::post('/login','Api\Auth\ApiLoginController@login');
 Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
 Route::put('/konsumen/{id_konsumen}', 'Api\ApiRegisterKonsumenController@update');
 
