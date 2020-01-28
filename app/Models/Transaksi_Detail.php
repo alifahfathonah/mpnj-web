@@ -10,4 +10,9 @@ class Transaksi_Detail extends Model
     protected $primaryKey = 'id_transaksi_detail';
     protected $fillable = ['transaksi_id','produk_id','jumlah','harga_jual','diskon','kurir','service','ongkir','etd','sub_total','status_order'];
 	public $timestamps = false;
+
+	public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'produk_id', 'id_produk');
+    }
 }
