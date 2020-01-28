@@ -33,6 +33,9 @@ Route::get('administrator/rekening/edit/{id}', 'RekeningPelapakController@edit')
 Route::post('administrator/rekening/ubah/{id}', 'RekeningPelapakController@ubah');
 Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus');
 
+//transaksi
+Route::get('administrator/transaksi', 'Pelapak\PelapakTransaksiController@index');
+
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@index');
