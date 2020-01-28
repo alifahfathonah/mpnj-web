@@ -27,6 +27,8 @@ Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
 Route::put('/konsumen/{id_konsumen}', 'Api\ApiRegisterKonsumenController@update');
 
 Route::get('/pelapak', 'Api\ApiPelapakController@index');
+Route::post('/pelapak', 'Api\ApiPelapakController@create');
+Route::delete('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@delete');
 
 Route::get('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@getDetail');
 
