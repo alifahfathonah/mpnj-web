@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/trumbowyg.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
     <!-- endinject -->
 </head>
 
@@ -534,6 +535,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/map.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/dropzone/dropzone.js') }}"></script>
     <!-- endinject -->
     @stack('scripts')
 </body>
