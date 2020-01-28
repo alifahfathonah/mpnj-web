@@ -54,8 +54,6 @@
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <form action="/administrator/produk/simpan" method="post" enctype="multipart/form-data">
-                            @csrf
                             <div class="upload_modules">
                                 <div class="modules__title">
                                     <h3>Item Name &amp; Description</h3>
@@ -89,7 +87,6 @@
                                     </table>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
