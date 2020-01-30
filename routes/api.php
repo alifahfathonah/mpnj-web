@@ -8,7 +8,7 @@ use App\Http\Resources\DetailProdukResource as DetailProdukResource;
 use App\Models\Produk;
 use App\Models\Kategori_Produk;
 // use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 
 //api produk dengan resource
 Route::get('/produk', 'Api\ApiProdukController@index');
@@ -49,3 +49,4 @@ Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 
 //konfirmasi
 Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
+Route::post('/konfirmasi/simpan', 'Api\ApiKonfirmasiController@simpan');
