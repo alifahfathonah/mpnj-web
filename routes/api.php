@@ -38,7 +38,7 @@ Route::post('/produk', 'Api\ApiProdukController@create');
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
 
 //keranjang
-Route::get('/keranjang', 'Api\ApiKeranjangController@index');
+Route::get('/keranjang', 'Api\ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1
 Route::post('/keranjang', 'Api\ApiKeranjangController@simpan');
 Route::delete('/keranjang/{id_keranjang}', 'Api\ApiKeranjangController@hapus');
 Route::put('/keranjang/ganti_jumlah/{id_keranjang}', 'Api\ApiKeranjangController@gantiJumlah');
