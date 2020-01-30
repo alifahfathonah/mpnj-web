@@ -4,6 +4,7 @@
 /storage/*.key
 /public/assets/images
 /public/assets/foto_produk
+/public/assets/foto_bukti_tf
 /vendor
 .idea
 .env
