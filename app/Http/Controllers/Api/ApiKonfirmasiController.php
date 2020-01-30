@@ -43,11 +43,12 @@ class ApiKonfirmasiController extends Controller
         $konfirm->rekening_admin_id = $request->rekening_admin_id;
         $konfirm->nama_pengirim = $request->nama_pengirim;
         $konfirm->tanggal_transfer = date('Y-m-d');
-        // $file = $request->file('bukti_transfer');
-        // $name = uniqid() . '_' . trim($file->getClientOriginalName());
-        // $file->move('assets/foto_bukti_tf', $name);
+        
+        $file = $request->file('bukti_transfer');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move('assets/foto_bukti_tf', $name);
         // // $file = $konfirm['base64_image'];
-        // $konfirm->bukti_transfer = $name;
+        $konfirm->bukti_transfer = $name;
         $simpan = $konfirm->save();
 
         if ($simpan) {
