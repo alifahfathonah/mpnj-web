@@ -36,5 +36,11 @@ class PelapakTransaksiController extends Controller
         return view('pelapak/transaksi/detail_transaksi', $data);
     }
 
-
+    public function update_status($id, $status)
+    {
+        $update = Transaksi_Detail::find($id)->update(['status_order' => $status]);
+        if ($update) {
+            return redirect('administrator/transaksi/detail/'.$id);
+        }
+    }
 }
