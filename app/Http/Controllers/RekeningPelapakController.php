@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Session;
 
 class RekeningPelapakController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['rekening'] = Rekening_Pelapak::where('pelapak_id', 1)->get();
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $data['rekening'] = Rekening_Pelapak::where('pelapak_id', $konsumen_id)->get();
         return view('pelapak/rekening/data_rekening', $data);
     }
 
