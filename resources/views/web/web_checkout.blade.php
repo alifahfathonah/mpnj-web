@@ -58,22 +58,26 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-											<?php $o = 0; $n = 1; ?>
+                                            <?php $o = 0; $n = 1; $x = 1;?>
                                             @foreach ($order as $key => $val)
-                                                <tr id="dataPelapak{{ $val[0]->produk->pelapak->id_pelapak }}"
+                                                <tr id="dataPelapak{{ $x }}"
                                                     data-origin="{{ $val[0]->produk->pelapak->city_id }}"
                                                     data-berat="{{ $berat[$o]->total_berat }}"
-                                                    data-jumlahbarang="{{ COUNT($val) }}">
+                                                    data-jumlahbarang="{{ COUNT($val) }}"
+                                                    data-mulai="{{ $n }}"
+                                                    data-akhir="{{ COUNT($val) == 1 ? $n : $n + COUNT($val) - 1}}">
                                                     <td colspan="7">
                                                         <h4><strong>{{ $key }}</strong></h4>
                                                     </td>
                                                 </tr>
+                                                <?php $x++; ?>
                                                 @foreach ($val as $k)
                                                     <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k->produk_id }}"
                                                         data-hargajual="{{ $k->harga_jual }}"
                                                         data-jumlah="{{ $k->jumlah }}"
                                                         data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
-                                                        data-idkeranjang="{{  $k->id_keranjang }}">
+                                                        data-idkeranjang="{{  $k->id_keranjang }}"
+                                                        data-idpelapak="{{ $k->produk->pelapak->id_pelapak }}">
                                                         <td>
                                                             <div class="product__description">
                                                                 <img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}"
@@ -99,7 +103,7 @@
                                                         <td id="subHarga{{ $n }}">@currency($k->harga_jual * $k->jumlah)
                                                         </td>
                                                     </tr>
-													<?php $n++; ?>
+                                                    <?php $n++; ?>
                                                 @endforeach
                                                 <tr>
                                                     <td colspan="6">
@@ -110,13 +114,13 @@
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="#" class="btn btn--md btn--round"
-                                                                   data-target="#modalKurir{{ $k->produk->pelapak->id_pelapak }}"
+                                                                   data-target="#modalKurir{{ $o+1 }}"
                                                                    data-toggle="modal">Pilih</a>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
-												<?php $o++; ?>
+                                                <?php $o++; ?>
                                             @endforeach
 
                                             </tbody>
@@ -147,7 +151,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            @endfor
+                        @endfor
                         <!-- end /.information_module-->
 
                             <div class="information_module order_summary">
@@ -190,10 +194,10 @@
         </div>
         <!-- end /.dashboard_menu_area -->
 
-		<?php $m = 1; ?>
+        <?php $m = 1; ?>
         @foreach ($order as $key => $val)
             <div class="modal fade rating_modal item_remove_modal"
-                 id="modalKurir{{ $val[0]->produk->pelapak->id_pelapak }}"
+                 id="modalKurir{{ $m }}"
                  tabindex="-1" role="dialog" aria-labelledby="myModal2">
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -229,7 +233,7 @@
                     </div>
                 </div>
             </div>
-			<?php $m++; ?>
+            <?php $m++; ?>
         @endforeach
 
     </section>
@@ -284,7 +288,10 @@
             $(`#dataPelapak${i}`).data('ongkir', ongkir);
             $(`#dataPelapak${i}`).data('etd', etd);
 
+            console.log(i);
+
             hitungOngkir();
+
         }
 
         function hitungOngkir() {
@@ -304,41 +311,29 @@
         function bayarSekarang() {
             let dataTrxDetail = [];
             let keranjangId = [];
+            let jml_pelapak = 3;
 
-            for (let index = 1; index <= parseInt("{{ $m }}"); index++) {
-                if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
-                    break;
-                } else {
-                    if (index <= $(`#dataPelapak${index}`).data('jumlahbarang')) {
-                        var j = index;
-                        var k = index;
-                        while (k <= $(`#dataPelapak${index}`).data('jumlahbarang')) {
-                            keranjangId.push($(`#data_keranjang${k}`).data('idkeranjang'));
-                            dataTrxDetail.push({
-                                'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
-                                'kurir': $(`#dataPelapak${j}`).data('kurir'),
-                                'service': $(`#dataPelapak${j}`).data('service'),
-                                'ongkir': $(`#dataPelapak${j}`).data('ongkir'),
-                                'etd': $(`#dataPelapak${j}`).data('etd'),
-                                'jumlah': $(`#data_keranjang${k}`).data('jumlah'),
-                                'harga_jual': $(`#data_keranjang${k}`).data('hargajual'),
-                                'sub_total': parseInt($(`#data_keranjang${k}`).data('hargajual') * $(`#data_keranjang${k}`).data('jumlah') + $(`#dataPelapak${j}`).data('ongkir'))
-                            });
-                            k++;
-                        }
-                    } else {
-                        keranjangId.push($(`#data_keranjang${index}`).data('idkeranjang'));
-                        dataTrxDetail.push({
-                            'produk_id' : $(`#data_keranjang${index}`).data('idproduk'),
-                            'kurir': $(`#dataPelapak${index}`).data('kurir'),
-                            'service': $(`#dataPelapak${index}`).data('service'),
-                            'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
-                            'etd': $(`#dataPelapak${index}`).data('etd'),
-                            'jumlah': $(`#data_keranjang${index}`).data('jumlah'),
-                            'harga_jual': $(`#data_keranjang${index}`).data('hargajual'),
-                            'sub_total': parseInt($(`#data_keranjang${index}`).data('hargajual')) * parseInt($(`#data_keranjang${index}`).data('jumlah')) + parseInt($(`#dataPelapak${index}`).data('ongkir'))
-                        });
-                    }
+
+            //ulasan
+            //1. saya harus tau jumlah pelapak nya
+            //2. saya harus tau jumlah barang yang dibeli dari setiap pelapak
+            //3. for pertama berdasarkan jumlah pelapak
+            //4. for kedua bedasarkan jumlah barang dari setiap pelapak
+
+            for (let index = 1; index <= "{{ $m }}"; index++) {
+                for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
+                    keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
+                    dataTrxDetail.push({
+                        'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
+                        'pelapak_id' : $(`#data_keranjang${j}`).data('idpelapak'),
+                        'kurir': $(`#dataPelapak${index}`).data('kurir'),
+                        'service': $(`#dataPelapak${index}`).data('service'),
+                        'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
+                        'etd': $(`#dataPelapak${index}`).data('etd'),
+                        'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
+                        'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
+                        'sub_total': parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir'))
+                    });
                 }
             }
 
@@ -362,8 +357,6 @@
                     console.log(error);
                 }
             });
-
-            console.log(keranjangId);
         }
 
         function numberFormat(num) {
