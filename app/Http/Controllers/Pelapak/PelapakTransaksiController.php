@@ -23,5 +23,18 @@ class PelapakTransaksiController extends Controller
 //        return $data['transaksi'];
     }
 
-    
+    public function detail(Request $request, $id)
+    {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $data['transaksi'] = Transaksi::with(['transaksi_detail' => function($q) use ($konsumen_id) {
+            $q->where('pelapak_id', $konsumen_id);
+        }])->first();
+
+        return view('pelapak/transaksi/detail_transaksi', $data);
+    }
+
+
 }
