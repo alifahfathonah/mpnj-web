@@ -15,11 +15,11 @@ class Transaksi extends Model
     {
         return $this->hasMany(Transaksi_Detail::class, 'transaksi_id', 'id_transaksi');
     }
-    
-    public function konsumen()
-    {
-    	return $this->hasOne(Konsumen::class, 'id_konsumen', 'konsumen_id');
-    }
+
+//    public function konsumen()
+//    {
+//    	return $this->hasOne(Konsumen::class, 'id_konsumen', 'konsumen_id');
+//    }
 
     public function pembeli()
     {
