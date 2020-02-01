@@ -76,7 +76,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($transaksi->transaksi_detail as $t)
+                                        @foreach($transaksi as $t)
                                             @if($t->status_order == 'pending')
                                                 <?php $warna = 'red'; ?>
                                             @elseif($t->status_order == 'verifikasi')
@@ -100,10 +100,10 @@
                                                             {{ $t->status_order }}
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/pending') }}">Pending</a>
-                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/verifikasi') }}">Verifikasi</a>
-                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/packing') }}">Packing</a>
-                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/dikirim') }}">Dikirim</a>
+                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/pending/'.$t->transaksi_id) }}">Pending</a>
+                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/verifikasi/'.$t->transaksi_id) }}">Verifikasi</a>
+                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/packing/'.$t->transaksi_id) }}">Packing</a>
+                                                            <a class="dropdown-item" href="{{ URL::to('adminstrator/transaksi/status/edit/'.$t->id_transaksi_detail.'/dikirim/'.$t->transaksi_id) }}">Dikirim</a>
                                                         </div>
                                                     </div>
                                                 </td>
