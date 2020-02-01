@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PelapakTransaksiController extends Controller
@@ -45,11 +46,11 @@ class PelapakTransaksiController extends Controller
 //        return $data['transaksi'];
     }
 
-    public function update_status($id, $status)
+    public function update_status($id, $status, $id_trx)
     {
         $update = Transaksi_Detail::find($id)->update(['status_order' => $status]);
         if ($update) {
-            return redirect('administrator/transaksi/detail/'.$id);
+            return redirect('administrator/transaksi/detail/'.$id_trx);
         }
     }
 }
