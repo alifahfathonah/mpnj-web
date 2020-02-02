@@ -75,6 +75,8 @@ Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
 Route::get('pesanan', 'Web\PesananWebController@index');
 Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail');
 
+//konsumen profile
+Route::get('profile', 'Web\ProfileWebController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 //pelapak
