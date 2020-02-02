@@ -35,19 +35,23 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view)
         {
-            $role = Session::get('role');
-            $id = Session::get('id');
-            $konsumen_id = Auth::guard($role)->user()->$id;
+            if (Session::has('id')) {
+                $role = Session::get('role');
+                $id = Session::get('id');
+                if (Session::has('id')) {
+                    $konsumen_id = Auth::guard($role)->user()->$id;
+                }
 
-            $keranjang = Keranjang::with(['produk', 'pembeli'])
-                ->where('pembeli_id', $konsumen_id)
-                ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-                ->where('status', 'N')
-                ->limit(1)
-                ->first();
+                $keranjang = Keranjang::with(['produk', 'pembeli'])
+                    ->where('pembeli_id', $konsumen_id)
+                    ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                    ->where('status', 'N')
+                    ->limit(2)
+                    ->get();
 
-            //...with this variable
-            $view->with('cart', $keranjang );
+                //...with this variable
+                $view->with('cart', $keranjang);
+            }
         });
     }
 }
