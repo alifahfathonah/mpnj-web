@@ -241,5 +241,15 @@
     function numberFormat(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     }
+
+    function sumTotal() {
+        totalPrice = 0;
+        $('.sum').each(function (i) {
+            if ($('input:checkbox[name="check"]').eq(i).is(':checked') == true) {
+                totalPrice += $(this).data('subtotal');
+            }
+        });
+        $("#total").html("Rp. " + numberFormat(totalPrice));
+    }
 </script>
 @endpush
