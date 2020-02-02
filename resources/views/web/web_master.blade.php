@@ -70,24 +70,23 @@
                                                 <div class="cart_product">
                                                     <div class="product__info">
                                                         <div class="thumbn">
-                                                            <img src="images/capro1.jpg" alt="cart product thumbnail">
+                                                            <img src="{{ asset('assets/foto_produk/'.$cart->produk->foto_produk[0]->foto_produk) }}" alt="cart product thumbnail">
                                                         </div>
 
                                                         <div class="info">
-                                                            <a class="title" href="single-product.html">Finance and
-                                                                Consulting Business Theme</a>
+                                                            <a class="title" href="{{ URL::to('produk/detail/'.$cart->produk->id_produk) }}">{{ $cart->produk->nama_produk }}</a>
                                                             <div class="cat">
                                                                 <a href="#">
-                                                                    <img src="images/catword.png" alt="">Wordpress</a>
+                                                                    <img src="images/catword.png" alt="">{{ $cart->produk->kategori->nama_kategori }}</a>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="product__action">
-                                                        <a href="#">
-                                                            <span class="lnr lnr-trash"></span>
-                                                        </a>
-                                                        <p>$60</p>
+{{--                                                        <a href="#">--}}
+{{--                                                            <span class="lnr lnr-trash"></span>--}}
+{{--                                                        </a>--}}
+                                                        <p>@currency($cart->harga_jual)</p>
                                                     </div>
                                                 </div>
                                                 <div class="cart_action">
