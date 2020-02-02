@@ -123,6 +123,10 @@
                                                 <a href="/pesanan">
                                                     <span class="lnr lnr-exit"></span>Pesanan Anda</a>
                                             </li>
+                                            <li>
+                                                <a href="{{ URL::to('profile') }}">
+                                                    <span class="lnr lnr-exit"></span>Profile</a>
+                                            </li>
                                         <li>
                                             <a href="/keluar">
                                                 <span class="lnr lnr-exit"></span>Keluar</a>
