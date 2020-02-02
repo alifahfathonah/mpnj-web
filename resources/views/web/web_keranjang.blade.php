@@ -115,6 +115,7 @@
                                                     <span>total</span><span id="total">@currency($total)</span></p>
                                             </div>
 
+                                            <a href="{{ URL::to('produk') }}" class="btn btn--round btn--md checkout_link">Lanjut Belanja</a>
                                             <button id="checkout" type="button" class="btn btn--round btn--md checkout_link">Lanjut
                                                 Checkout</button>
                                         </div>
