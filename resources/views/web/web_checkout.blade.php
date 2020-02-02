@@ -109,8 +109,8 @@
                                                     <td colspan="6">
 
                                                         <div class="shortcode_module_title">
-                                                            <div class="dashboard__title pull-left">
-                                                                <h5>Pilih Kurir</h5>
+                                                            <div class="dashboard__title pull-left" id="kurirDipilih{{ $o+1 }}">
+                                                                <h5>Kurir : </h5>
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="#" class="btn btn--md btn--round"
@@ -151,7 +151,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                        @endfor
+                            @endfor
                         <!-- end /.information_module-->
 
                             <div class="information_module order_summary">
@@ -290,8 +290,8 @@
 
             console.log(i);
 
+            $(`#kurirDipilih${i}`).html(`<h6>Kurir : ${kurir} - ${service} - ${numberFormat(ongkir)} - ${etd}</h6>`);
             hitungOngkir();
-
         }
 
         function hitungOngkir() {
@@ -311,8 +311,6 @@
         function bayarSekarang() {
             let dataTrxDetail = [];
             let keranjangId = [];
-            let jml_pelapak = 3;
-
 
             //ulasan
             //1. saya harus tau jumlah pelapak nya
