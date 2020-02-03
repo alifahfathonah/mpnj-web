@@ -23,6 +23,10 @@ Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
 Route::post('/login','Api\Auth\ApiLoginController@login');
+Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
+
+// Route::get('keluar', 'Api\Auth\ApiLoginController@keluar')->middleware('auth:konsumen');
+
 Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
 Route::put('/konsumen/{id_konsumen}', 'Api\ApiRegisterKonsumenController@update');
 
