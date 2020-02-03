@@ -39,11 +39,11 @@ class ApiLoginController extends Controller
             $token = Konsumen::where('username',$request->username)->update($token);
 
             return response()->json(['pesan' => 'Login Sukses!','token' => $code_token], 200);
-        }else {
-            
-        return response()->json(['error' => 'Login Salah Bro, Santuyy'], 401);
-            
         }
+
+        return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
+    }
+
     public function keluar(Request $request)
     {
 
