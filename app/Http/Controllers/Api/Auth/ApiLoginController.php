@@ -28,6 +28,10 @@ class ApiLoginController extends Controller
     {
         if (!Auth::guard('api')->attempt(['username' => $request->username, 'password' => $request->password])){
             // $konsumen = Auth::api();
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
             $code_token = Str::random(64);
             $token = ['remember_token' => $code_token];
             $token = Konsumen::where('username',$request->username)->update($token);
