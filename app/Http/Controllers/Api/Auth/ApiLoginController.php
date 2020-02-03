@@ -18,11 +18,13 @@ class ApiLoginController extends Controller
 {
 
     use AuthenticatesUsers;
+    
     public function __construct()
     {
         $this->middleware('guest')->except('keluar');
         $this->middleware('guest:konsumen')->except('keluar');
     }
+
 
         public function login(Request $request)
     {
