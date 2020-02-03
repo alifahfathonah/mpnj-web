@@ -9,6 +9,7 @@ use App\Models\Konsumen;
 use Auth;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
