@@ -42,5 +42,12 @@ class ApiLoginController extends Controller
         return response()->json(['error' => 'Login Salah Bro, Santuyy'], 401);
             
         }
+    public function keluar(Request $request)
+    {
+
+            $token = ['remember_token' => null ];
+            $konsumen = Konsumen::where('username',$request->username)->update($token);
+
+        return response()->json(['pesan' => 'Berhasil Keluar!'], 200);
     }
 }
