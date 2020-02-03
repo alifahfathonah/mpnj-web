@@ -14,7 +14,7 @@ class ApiRegisterKonsumenController extends Controller
         $konsumen = new Konsumen;
         $konsumen->nama_lengkap = $request->nama_lengkap;
         $konsumen->username = $request->username;
-        $konsumen->password = Hash::make('password');
+        $konsumen->password = Hash::make($request->password);
         $konsumen->provinsi_id = $request->provinsi_id;
         $konsumen->city_id = $request->city_id;
         $konsumen->alamat = $request->alamat;
