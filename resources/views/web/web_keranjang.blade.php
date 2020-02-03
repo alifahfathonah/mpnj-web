@@ -58,15 +58,15 @@
                                     </thead>
 
                                     <tbody>
-                                        <?php $n = 1; ?>
+                                        <?php $n = 1; $total = 0;?>
                                         @foreach ($keranjang as $key => $val)
-                                        <tr id="dataCart" data-total="{{ $total  }}">
+                                        <tr id="dataCart">
                                             <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
                                         </tr>
                                         @foreach ($val as $k)
-                                        <tr id="data_keranjang{{ $k->id_keranjang  }}" data-subtotal="{{ $k->jumlah * $k->harga_jual  }}" data-hargajual="{{ $k->harga_jual  }}">
+                                            <tr id="data_keranjang{{ $k->id_keranjang  }}" data-total="{{ $total += $k->jumlah * $k->harga_jual }}" class="sum" data-subtotal="{{ $k->jumlah * $k->harga_jual  }}" data-hargajual="{{ $k->harga_jual  }}">
                                             <td>
-                                                <input type="checkbox" name="check" id="check" checked value="{{ $k->id_keranjang }}">
+                                                <input type="checkbox" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
                                             </td>
                                             <td>
                                                 <div class="product__description">
@@ -97,6 +97,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+
                                         <?php $n++; ?>
                                         @endforeach
                                         @endforeach
@@ -114,6 +115,7 @@
                                                     <span>total</span><span id="total">@currency($total)</span></p>
                                             </div>
 
+                                            <a href="{{ URL::to('produk') }}" class="btn btn--round btn--md checkout_link">Lanjut Belanja</a>
                                             <button id="checkout" type="button" class="btn btn--round btn--md checkout_link">Lanjut
                                                 Checkout</button>
                                         </div>
@@ -140,13 +142,20 @@
 
 @push('scripts')
 <script>
+    var totalPrice = 0;
+
     $(function() {
 
         var jml = 0;
 
+        //
+        // $("#total").html(totalPrice);
+        // console.log(totalPrice);
+
         $("input:checkbox[name=check]").on('click', function() {
             let keranjang_id = [];
             let id = $(this).val();
+            // $(`#check${id}`).attr('checked', false);
             $("input:checkbox[name=check]:checked").each(function () {
                 keranjang_id.push($(this).val());
             });
@@ -167,7 +176,6 @@
                 },
                 success: function(response) {
                     $("#total").html("Rp. " + numberFormat(parseInt(response)));
-                    console.log(jml);
                 },
                 error: function(error) {
                     console.log(error);
@@ -176,7 +184,7 @@
         });
 
         $("input[name='qty']").change(function(e) {
-            console.log(e.originalEvent.srcElement.value);
+            // console.log(e.originalEvent.srcElement.value);
             let n = $("input[name='qty']").index(this);
             let qty = $("#qty"+parseInt(n+1)).val();
             let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
@@ -194,7 +202,8 @@
                 },
                 success: function(response) {
                     $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(qty * parseInt(response)));
-                    $("#total").html()
+                    $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
+                    sumTotal();
                 },
                 error: function(error) {
                     console.log(error);
@@ -232,6 +241,16 @@
 
     function numberFormat(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function sumTotal() {
+        totalPrice = 0;
+        $('.sum').each(function (i) {
+            if ($('input:checkbox[name="check"]').eq(i).is(':checked') == true) {
+                totalPrice += $(this).data('subtotal');
+            }
+        });
+        $("#total").html("Rp. " + numberFormat(totalPrice));
     }
 </script>
 @endpush
