@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Konsumen;
 use Auth;
 
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
