@@ -69,6 +69,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="author-following.html">Following (39)</a>
+                                                    <a href="{{ URL::to('profile/alamat') }}" class="{{ Route::currentRouteName() == 'alamat' ? 'active' : '' }}">Alamat</a>
                                                 </li>
                                             </ul>
                                         </div>
