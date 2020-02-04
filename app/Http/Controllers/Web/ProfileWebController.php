@@ -40,5 +40,26 @@ class ProfileWebController extends Controller
         $ubah = $fix_role::where($sessionId, $id)->update($data);
 
         return redirect(URL::to('profile'));
+    public function alamat()
+    {
+        $role = Session::get('role');
+        $sessionId = Session::get('id');
+        $user_id = Auth::guard($role)->user()->$sessionId;
+
+        $data['alamat'] = Alamat::with('user')
+                ->where('user_id', $user_id)
+                ->where('user_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                ->get();
+
+        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['provinsi'] = json_decode($request, false);
+
+        return view('web/web_profile', $data);
+    }
     }
 }
