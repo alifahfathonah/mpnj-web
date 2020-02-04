@@ -125,6 +125,13 @@
 
                                 <div class="author_module about_author">
                                     @include('web.profile.profile')
+                                    @if(Route::currentRouteName() == 'profile')
+                                        @include('web.profile.profile')
+                                    @elseif(Route::currentRouteName() == 'rekening')
+                                        @include('web.profile.rekening')
+                                    @elseif(Route::currentRouteName() == 'alamat')
+                                        @include('web.profile.alamat')
+                                    @endif
                                 </div>
                             </div>
                         </div>
