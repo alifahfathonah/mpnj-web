@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ApiRegisterKonsumenController extends Controller
 {
@@ -13,7 +14,7 @@ class ApiRegisterKonsumenController extends Controller
         $konsumen = new Konsumen;
         $konsumen->nama_lengkap = $request->nama_lengkap;
         $konsumen->username = $request->username;
-        $konsumen->password = $request->password;
+        $konsumen->password = Hash::make($request->password);
         $konsumen->provinsi_id = $request->provinsi_id;
         $konsumen->city_id = $request->city_id;
         $konsumen->alamat = $request->alamat;
