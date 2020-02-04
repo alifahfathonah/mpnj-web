@@ -77,6 +77,7 @@ Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail');
 
 //konsumen profile
 Route::get('profile', 'Web\ProfileWebController@index');
+Route::get('profile', 'Web\ProfileWebController@index')->name('profile');
 Route::post('profile/ubah/{role}/{id}', 'Web\ProfileWebController@ubah');
 Route::get('profile/alamat', 'Web\ProfileWebController@alamat')->name('alamat');
 Route::post('profile/alamat/simpan', 'Web\ProfileWebController@simpan_alamat');
