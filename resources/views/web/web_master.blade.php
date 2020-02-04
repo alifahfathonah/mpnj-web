@@ -15,7 +15,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/fontello.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/lnr-icon.css') }}">
@@ -26,9 +26,9 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
-    
-        <!-- Font Awesome -->
-        <link href="{{ asset('assets/fontawesome/css/fontawesome.css')  }}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="{{ asset('assets/fontawesome/css/fontawesome.css')  }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet">
     <!-- endinject -->
@@ -130,24 +130,24 @@
                                         @if (Auth::guard(Session::get('role'))->check())
                                         <li>
                                             <a href="/pesanan">
-                                                <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                                <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
                                         </li>
                                         <li>
                                             <a href="{{ URL::to('profile') }}">
-                                                <span class="lnr lnr-exit"></span>Profile</a>
+                                                <span class="fa fa-user"></span>Profile</a>
                                         </li>
                                         <li>
                                             <a href="/keluar">
-                                                <span class="lnr lnr-exit"></span>Keluar</a>
+                                                <span class="fa fa-sign-out-alt"></span>Keluar</a>
                                         </li>
                                         @else
                                         <li>
                                             <a href="/login">
-                                                <span class="lnr lnr-exit"></span>Masuk</a>
+                                                <span class="fa fa-sign-in-alt"></span>Masuk</a>
                                         </li>
                                         <li>
                                             <a href="/register">
-                                                <span class="lnr lnr-exit"></span>Daftar</a>
+                                                <span class="fa fa-user-edit"></span>Daftar</a>
                                         </li>
                                         @endif
                                     </ul>
@@ -159,11 +159,11 @@
 
                         <!-- author area restructured for mobile -->
                         <div class="mobile_content ">
-                            <span class="fa fa-user-circle fa-lg menu_icon"></span>
+                            <span class="fa fa-user-circle menu_icon"></span>
                             <!-- <span class="lnr lnr-user menu_icon"></span> -->
                             <!-- offcanvas menu -->
                             <div class="offcanvas-menu closed">
-                                <span class="fa fa-window-close close_menu" style="color: blue;"></span>
+                                <span class="fa fa-window-close fa-lg close_menu" style="color: blue;"></span>
                                 <div class="author-author__info">
                                     <div class="author__avatar v_middle">
                                         <img src="http://www.johnmeyerwebdev.com/images/Me-Avatar-Maker.svg" alt="user avatar">
@@ -198,24 +198,24 @@
                                         @if (Auth::guard(Session::get('role'))->check())
                                         <li>
                                             <a href="/pesanan">
-                                                <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                                <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
                                         </li>
                                         <li>
                                             <a href="{{ URL::to('profile') }}">
-                                                <span class="lnr lnr-exit"></span>Profile</a>
+                                                <span class="fa fa-user"></span>Profile</a>
                                         </li>
                                         <li>
                                             <a href="/keluar">
-                                                <span class="lnr lnr-exit"></span>Keluar</a>
+                                                <span class="fa fa-sign-out-alt"></span>Keluar</a>
                                         </li>
                                         @else
                                         <li>
                                             <a href="/login">
-                                                <span class="lnr lnr-exit"></span>Masuk</a>
+                                                <span class="fa fa-sign-in-alt"></span>Masuk</a>
                                         </li>
                                         <li>
                                             <a href="/register">
-                                                <span class="lnr lnr-exit"></span>Daftar</a>
+                                                <span class="fa fa-user-edit"></span>Daftar</a>
                                         </li>
                                         @endif
                                     </ul>
