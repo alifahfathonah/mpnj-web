@@ -56,6 +56,7 @@
                                             <ul>
                                                 <li>
                                                     <a href="#" class="active">Profile</a>
+                                                    <a href="{{ URL::to('profile') }}" class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }}">Profile</a>
                                                 </li>
                                                 <li>
                                                     <a href="author-items.html">Rekening</a>
