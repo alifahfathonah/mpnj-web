@@ -101,8 +101,7 @@ START PRODUCTS AREA
                     <div class="filter__menu">
                         <p>Filter by:</p>
                         <div class="filter__menu_icon">
-                            <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                            <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">
                             </a>
 
@@ -172,12 +171,12 @@ START PRODUCTS AREA
         <div class="row">
             <!-- start .col-md-4 -->
             @foreach ($produk as $p)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-sm-6 col-md-4 col-lg-3">
                 <!-- start .single-product -->
-                <div class="product product--card">
+                <div class="product product--card ">
 
                     <div class="product__thumbnail">
-                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image" style="height: 350px;" width="361" height="230">
+                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image" style="height: 230px;" width="361" height="230">
                         <div class="prod_btn">
                             <a href="/produk/{{ $p->id_produk }}" class="transparent btn--sm btn--round">Lihat</a>
                         </div>
@@ -191,17 +190,16 @@ START PRODUCTS AREA
                         </a>
                         <ul class="titlebtm">
                             <li>
-                                <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image">
+                                <!-- <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image"> -->
                                 <p>
-                                    <a href="#">{{ $p->pelapak->nama_toko }}</a>
+                                    <i class="fa fa-home" aria-hidden="true"></i> <a href="#">{{ $p->pelapak->nama_toko }}</a>
                                 </p>
                             </li>
                             <li class="product_cat">
-                                <a href="/kategori/{{ strtolower($p->kategori->nama_kategori) }}">
-                                    <span class="lnr lnr-book"></span>{{ $p->kategori->nama_kategori }}</a>
+                                <i class="fa fa-book"></i>
+                                <a href="/kategori/{{ strtolower($p->kategori->nama_kategori) }}">{{ $p->kategori->nama_kategori }}</a>
                             </li>
                         </ul>
-
                     </div>
                     <!-- end /.product-desc -->
 
@@ -209,11 +207,11 @@ START PRODUCTS AREA
                         <div class="price_love">
                             <span>@currency($p->harga_jual)</span>
                             <p>
-                                <span class="lnr lnr-heart"></span> {{ $p->wishlist }}</p>
+                                <span class="fa fa-heart"></span> {{ $p->wishlist }}</p>
                         </div>
                         <div class="sell">
                             <p>
-                                <span class="lnr lnr-cart"></span>
+                                <span class="fa fa-cart-arrow-down"></span>
                                 <span>{{ $p->terjual }}</span>
                             </p>
                         </div>
