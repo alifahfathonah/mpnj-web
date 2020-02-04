@@ -40,6 +40,9 @@ class ProfileWebController extends Controller
         $ubah = $fix_role::where($sessionId, $id)->update($data);
 
         return redirect(URL::to('profile'));
+        if ($ubah) {
+            return redirect(URL::to('profile'));
+        }
     public function alamat()
     {
         $role = Session::get('role');
