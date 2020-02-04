@@ -79,6 +79,7 @@ Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail');
 Route::get('profile', 'Web\ProfileWebController@index');
 Route::post('profile/ubah/{role}/{id}', 'Web\ProfileWebController@ubah');
 Route::get('profile/alamat', 'Web\ProfileWebController@alamat')->name('alamat');
+Route::post('profile/alamat/simpan', 'Web\ProfileWebController@simpan_alamat');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
