@@ -26,6 +26,11 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
+    
+        <!-- Font Awesome -->
+        <link href="{{ asset('assets/fontawesome/css/fontawesome.css')  }}" rel="stylesheet">
+    <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet">
     <!-- endinject -->
 </head>
 
