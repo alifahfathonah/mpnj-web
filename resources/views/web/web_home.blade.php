@@ -55,18 +55,17 @@
                     <!-- start .search_box -->
                     <div class="search_box">
                         <form action="#">
-                            <input type="text" class="text_field" placeholder="Search your products...">
+                            <input type="text" class="text_field" placeholder="Cari Produk...">
                             <div class="search__select select-wrap">
                                 <select name="category" class="select--field" id="blah">
-                                    <option value="">All Categories</option>
-                                    <option value="">PSD</option>
+                                    <option value="">Semua Kategori</option>
                                     <option value="">HTML</option>
                                     <option value="">WordPress</option>
                                     <option value="">All Categories</option>
                                 </select>
-                                <span class="lnr lnr-chevron-down"></span>
+                                <span class="fa fa-arrow-down fa-4x"></span>
                             </div>
-                            <button type="submit" class="search-btn btn--lg">Search Now</button>
+                            <button type="submit" class="search-btn btn--lg">Cari</button>
                         </form>
                     </div>
                     <!-- end ./search_box -->
