@@ -2160,7 +2160,7 @@ h6 {
 }
 
 .product-desc {
-  padding: 30px;
+  padding: 5px;
 }
 
 .product-desc p {
@@ -2168,7 +2168,7 @@ h6 {
 }
 
 .product-desc ul.titlebtm {
-  padding-bottom: 23px;
+  padding-bottom: 5px;
 }
 
 .product-desc ul.titlebtm > li {
@@ -2199,6 +2199,7 @@ h6 {
 }
 
 .product-desc ul.titlebtm > li.product_cat {
+  float: right;
   margin-right: 0;
 }
 
@@ -2216,8 +2217,13 @@ h6 {
 }
 
 .product-desc .product_title {
-  margin-bottom: 15px;
   display: inline-block;
+  color: rgba(0, 0, 0, 0.7);
+    max-height: 38px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+    overflow-wrap: break-word;
 }
 
 .product-desc .product_title:hover h4 {
@@ -2250,7 +2256,7 @@ h6 {
 
 .product-purchase {
   border-top: 1px solid #ececec;
-  padding: 15px 30px;
+  padding: 15px;
   overflow: hidden;
 }
 
@@ -2305,7 +2311,7 @@ h6 {
 
 /*-------- PRODUCT MODIFIERS --------------*/
 .product--card .product-desc {
-  height: 100px;
+  height: auto;
   overflow: hidden;
   padding-bottom: 0;
 }
@@ -7165,6 +7171,11 @@ ul.nav-tabs.nav--tabs2 li a::before {
           border-radius: 50%;
 }
 
+.author__avatar img{
+  width: 50px;
+  height: 50px;
+}
+
 .autor__info {
   margin-left: 16px;
   margin-right: 0;
@@ -7374,7 +7385,7 @@ ul.nav-tabs.nav--tabs2 li a::before {
   right: -100%;
 }
 
-.mobile_content .offcanvas-menu span.lnr-cross {
+.mobile_content .offcanvas-menu span.fa-window-close {
   float: left;
   top: 10px;
   position: absolute;
