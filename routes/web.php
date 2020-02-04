@@ -33,6 +33,11 @@ Route::get('administrator/rekening/edit/{id}', 'RekeningPelapakController@edit')
 Route::post('administrator/rekening/ubah/{id}', 'RekeningPelapakController@ubah');
 Route::get('administrator/rekening/hapus/{id}', 'RekeningPelapakController@hapus');
 
+//transaksi
+Route::get('administrator/transaksi', 'Pelapak\PelapakTransaksiController@index');
+Route::get('administrator/transaksi/detail/{id}', 'Pelapak\PelapakTransaksiController@detail');
+Route::get('adminstrator/transaksi/status/edit/{id}/{status}/{id_trx}', 'Pelapak\PelapakTransaksiController@update_status');
+
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@index');
@@ -65,6 +70,14 @@ Route::get('konfirmasi', 'Web\KonfirmasiWebController@index');
 Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
+
+//pesanan
+Route::get('pesanan', 'Web\PesananWebController@index');
+Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail');
+
+//konsumen profile
+Route::get('profile', 'Web\ProfileWebController@index');
+Route::post('profile/ubah/{role}/{id}', 'Web\ProfileWebController@ubah');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -11,6 +11,14 @@
                         <a href="{{ URL::to('administrator/produk') }}">
                             <span class="lnr lnr-home"></span>Produk</a>
                     </li>
+                    <li class="active">
+                        <a href="{{ URL::to('administrator/rekening') }}">
+                            <span class="lnr lnr-home"></span>Rekening</a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ URL::to('administrator/transaksi') }}">
+                            <span class="lnr lnr-home"></span>Transaksi</a>
+                    </li>
                 </ul>
                 <!-- end /.dashboard_menu -->
             </div>

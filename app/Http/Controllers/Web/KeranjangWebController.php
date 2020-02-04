@@ -27,9 +27,9 @@ class KeranjangWebController extends Controller
 	                        ->get()
 	                        ->groupBy('produk.pelapak.nama_toko');
         // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
-        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
-	                    ->where('status', 'N')
-	                    ->sum(DB::raw('jumlah * harga_jual'));
+//        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
+//	                    ->where('status', 'N')
+//	                    ->sum(DB::raw('jumlah * harga_jual'));
         return view('web/web_keranjang', $data);
 //        return $data['keranjang'];
     }

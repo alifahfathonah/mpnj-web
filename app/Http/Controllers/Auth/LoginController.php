@@ -97,6 +97,8 @@ class LoginController extends Controller
     public function keluar(Request $request)
     {
         $role = Session::get('role');
+        Session::forget('role');
+        Session::forget('id');
         Auth::guard($role)->logout();
         return redirect('/produk');
     }

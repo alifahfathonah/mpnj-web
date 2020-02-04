@@ -8,7 +8,7 @@
 
 Web Untuk Marketplace
 
-> Status : BETA
+> Status : Alpha
 
 ## Memulai
 ```bash

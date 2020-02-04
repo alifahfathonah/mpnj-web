@@ -48,12 +48,13 @@
                             <div class="filter-bar dashboard_title_area clearfix filter-bar2">
                                 <div class="dashboard__title dashboard__title pull-left">
                                     <h3>Data Produk</h3>
+                                    <a href="{{ URL::to('administrator/produk/tambah') }}" class="btn btn-primary">Tambah</a>
                                 </div>
 
                                 <div class="pull-right">
                                     <div class="filter__option filter--text">
                                         <p>
-                                            <span>26</span> Products</p>
+                                            <span>{{ count($produk) }}</span> Produk</p>
                                     </div>
 
                                     <div class="filter__option filter--select">
@@ -90,7 +91,7 @@
                                             <div class="options dropdown-menu" aria-labelledby="drop4">
                                                 <ul>
                                                     <li>
-                                                        <a href="edit-item.html">
+                                                        <a href="administrator/produk/edit/{{ $p->id_produk }}">
                                                             <span class="lnr lnr-pencil"></span>Edit</a>
                                                     </li>
                                                     <li>
@@ -127,12 +128,12 @@
                                     <!-- end /.product-desc -->
 
                                     <div class="product-purchase">
-                                        <a href="#">
+                                        <a href="{{ URL::to('administrator/produk/edit/'.$p->id_produk) }}">
                                             <div class="price_love">
                                                 <span>Edit</span>
                                             </div>
                                         </a>
-                                        <a href="#">
+                                        <a href="{{ URL::to('administrator/produk/hapus/'.$p->id_produk) }}">
                                             <div class="price_love">
                                                 <span>Hapus</span>
                                             </div>
@@ -141,7 +142,7 @@
                                         <div class="sell">
                                             <p>
                                                 <span class="lnr lnr-cart"></span>
-                                                <span>27</span>
+                                                <span>{{ $p->terjual }}</span>
                                             </p>
                                         </div>
                                     </div>

@@ -22,7 +22,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/trumbowyg.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
     <!-- endinject -->
 </head>
 
@@ -65,29 +67,32 @@
 
                                         <div class="dropdowns dropdown--cart">
                                             <div class="cart_area">
-                                                <div class="cart_product">
-                                                    <div class="product__info">
-                                                        <div class="thumbn">
-                                                            <img src="images/capro1.jpg" alt="cart product thumbnail">
-                                                        </div>
+                                                @if(Session::has('id'))
+                                                    @foreach($cart as $c)
+                                                        <div class="cart_product">
+                                                            <div class="product__info">
+                                                                <div class="thumbn">
+                                                                    <img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" alt="cart product thumbnail">
+                                                                </div>
 
-                                                        <div class="info">
-                                                            <a class="title" href="single-product.html">Finance and
-                                                                Consulting Business Theme</a>
-                                                            <div class="cat">
-                                                                <a href="#">
-                                                                    <img src="images/catword.png" alt="">Wordpress</a>
+                                                                <div class="info">
+                                                                    <a class="title" href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a>
+                                                                    <div class="cat">
+                                                                        <a href="#">
+                                                                            <img src="images/catword.png" alt="">{{ $c->produk->kategori->nama_kategori }}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product__action">
+                                                                {{--                                                        <a href="#">--}}
+                                                                {{--                                                            <span class="lnr lnr-trash"></span>--}}
+                                                                {{--                                                        </a>--}}
+                                                                <p>@currency($c->harga_jual)</p>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="product__action">
-                                                        <a href="#">
-                                                            <span class="lnr lnr-trash"></span>
-                                                        </a>
-                                                        <p>$60</p>
-                                                    </div>
-                                                </div>
+                                                    @endforeach
+                                                @endif
                                                 <div class="cart_action">
                                                     <a class="go_cart" href="/keranjang">Lihat Keranjang</a>
                                                     <a class="go_checkout" href="checkout.html">Checkout</a>
@@ -117,6 +122,14 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
+                                            <li>
+                                                <a href="/pesanan">
+                                                    <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ URL::to('profile') }}">
+                                                    <span class="lnr lnr-exit"></span>Profile</a>
+                                            </li>
                                         <li>
                                             <a href="/keluar">
                                                 <span class="lnr lnr-exit"></span>Keluar</a>
@@ -519,6 +532,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/vendor/jquery/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/chart.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/grid.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>
@@ -534,6 +548,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/map.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/dropzone/dropzone.js') }}"></script>
     <!-- endinject -->
     @stack('scripts')
 </body>

@@ -17,11 +17,11 @@
                                 <a href="#">Pelapak</a>
                             </li>
                             <li class="active">
-                                <a href="#">Rekening</a>
+                                <a href="#">Transaksi</a>
                             </li>
                         </ul>
                     </div>
-                    <h1 class="page-title">Data Rekening</h1>
+                    <h1 class="page-title">Data Transaksi</h1>
                 </div>
                 <!-- end /.col-md-12 -->
             </div>
@@ -44,7 +44,7 @@
                         <div class="dashboard_title_area">
                             <div class="pull-left">
                                 <div class="dashboard__title">
-                                    <h3>Data Rekening</h3>
+                                    <h3>Data Transaksi</h3>
                                 </div>
                             </div>
                         </div>
@@ -54,31 +54,35 @@
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <form action="/administrator/rekening/ubah/{{ $rekening->id_rekening }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="upload_modules">
-                                <div class="modules__title">
-                                    <h3>Item Name &amp; Description</h3>
-                                </div>
-                                <div class="modules__content">
-                                    <div class="form-group">
-                                        <label>Nama Bank</label>
-                                        <input type="text" name="nama_bank" id="nama_bank" class="form-control form-control-sm" value="{{ $rekening->nama_bank }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nomor Rekening</label>
-                                        <input type="text" name="nomor_rekening" id="nomor_rekening" class="form-control form-control-sm" value="{{ $rekening->nomor_rekening }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Atas Nama</label>
-                                        <input type="text" name="atas_nama" id="atas_nama" class="form-control form-control-sm" value="{{ $rekening->atas_nama }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-sm">Ubah</button>
-                                    </div>
-                                </div>
+                        <div class="upload_modules">
+                            <div class="modules__title">
+                                <h3>Data Transaksi Anda</h3>
                             </div>
-                        </form>
+                            <div class="modules__content">
+                                <table id="tbl" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>Kode Transaksi</th>
+                                        <th>Waktu Transaksi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($transaksi as $t)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $t->kode_transaksi }}</td>
+                                            <td>{{ $t->waktu_transaksi }}</td>
+                                            <td>
+                                                <a href="{{ URL::to('administrator/transaksi/detail/'.$t->id_transaksi) }}">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

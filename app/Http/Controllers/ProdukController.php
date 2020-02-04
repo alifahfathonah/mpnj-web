@@ -7,12 +7,17 @@ use App\Models\Produk;
 use App\Models\Kategori_Produk;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Session;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['produk'] = Produk::where('pelapak_id', 1)->get();
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $data['produk'] = Produk::where('pelapak_id', $konsumen_id)->orderBy('id_produk', 'DESC')->get();
         return view('pelapak/produk/data_produk', $data);
     }
 
@@ -28,6 +33,10 @@ class ProdukController extends Controller
         // $nama_foto = $foto->getClientOriginalName();
         // $foto->move('assets/foto_produk', $nama_foto);
 
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
         $produk = Produk::create([
             'nama_produk' => $request->nama_produk,
             'satuan' => $request->satuan,
@@ -38,7 +47,7 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'diskon' => $request->diskon,
             'stok' => $request->stok,
-            'pelapak_id' => '1'
+            'pelapak_id' => $konsumen_id
         ]);
 
         foreach ($request->document as $file) {
@@ -61,6 +70,10 @@ class ProdukController extends Controller
 
     public function ubah(Request $request, $id)
     {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
         $produk = Produk::find($id);
         $produk->nama_produk = $request->nama_produk;
         $produk->kategori_produk_id = $request->kategori;
@@ -71,7 +84,7 @@ class ProdukController extends Controller
         $produk->harga_jual = $request->harga_jual;
         $produk->diskon = $request->diskon;
         $produk->stok = $request->stok;
-        $produk->pelapak_id = 1;
+        $produk->pelapak_id = $konsumen_id;
 
         $foto = $request->file('foto');
 
@@ -89,13 +102,27 @@ class ProdukController extends Controller
 
     public function hapus($id)
     {
-        $produk = Produk::find($id);
-        File::delete('assets/foto_produk/' . $produk->foto);
-        $hapus = Produk::where('id_produk', $id)->delete();
-
-        if ($hapus) {
-            return redirect('administrator/produk');
+        $hapusFoto = Foto_Produk::where('produk_id', $id)->get();
+        if ($hapusFoto) {
+            foreach ($hapusFoto as $hapusFoto) {
+                File::delete('assets/foto_produk/' . $hapusFoto->foto_produk);
+            }
+            $hapusFotoDb = Foto_Produk::where('produk_id', $id)->delete();
+            if ($hapusFotoDb) {
+                $hapus = Produk::where('id_produk', $id)->delete();
+                if ($hapus) {
+                    return redirect('administrator/produk');
+                }
+            }
         }
+//        $produk = Produk::find($id);
+//        $hapus = Produk::where('id_produk', $id)->delete();
+//
+//        if ($hapus) {
+//            $hapusFoto = Foto_Produk::select('foto_produk')->where('produk_id', $produk->id_produk)->get();
+
+//            return redirect('administrator/produk');
+//        }
     }
 
     public function upload_foto(Request $request)
