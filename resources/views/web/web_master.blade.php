@@ -31,6 +31,7 @@
     <link href="{{ asset('assets/fontawesome/css/fontawesome.css')  }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet">
+
     <!-- endinject -->
 </head>
 
@@ -74,6 +75,7 @@
                                         <div class="dropdowns dropdown--cart">
                                             <div class="cart_area">
                                                 @if(Session::has('id'))
+
                                                 @foreach($cart as $c)
                                                 <div class="cart_product">
                                                     <div class="product__info">
@@ -98,6 +100,7 @@
                                                     </div>
                                                 </div>
                                                 @endforeach
+
                                                 @endif
                                                 <div class="cart_action">
                                                     <a class="go_cart" href="/keranjang">Lihat Keranjang</a>
@@ -128,6 +131,14 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
+                                            <li>
+                                                <a href="/pesanan">
+                                                    <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ URL::to('profile') }}">
+                                                    <span class="lnr lnr-exit"></span>Profile</a>
+                                            </li>
                                         <li>
                                             <a href="/pesanan">
                                                 <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
