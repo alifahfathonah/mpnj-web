@@ -20,17 +20,15 @@
                     <div class="col-md-12">
                         <div class="hero__content__title">
                             <h1>
-                                <span class="light">Create Your Own</span>
-                                <span class="bold">Digital Product Marketplace</span>
+                                <span class="bold">Market Place Nurul Jadid</span>
                             </h1>
-                            <p class="tagline">MartPlace is the most powerful, & customizable template for Easy
-                                Digital Downloads Products</p>
+                            <p class="tagline">Menjadi Market Place Islami Pertama</p>
                         </div>
 
                         <!-- start .hero__btn-area-->
                         <div class="hero__btn-area">
-                            <a href="all-products.html" class="btn btn--round btn--lg">View All Products</a>
-                            <a href="all-products.html" class="btn btn--round btn--lg">Popular Products</a>
+                            <a href="all-products.html" class="btn btn--round btn--lg">Semua Produk</a>
+                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>
                         </div>
                         <!-- end .hero__btn-area-->
                     </div>
@@ -59,9 +57,9 @@
                             <div class="search__select select-wrap">
                                 <select name="category" class="select--field" id="blah">
                                     <option value="">Semua Kategori</option>
-                                    <option value="">HTML</option>
-                                    <option value="">WordPress</option>
-                                    <option value="">All Categories</option>
+                                    @foreach ($kategori as $k)
+                                    <option value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="fa fa-arrow-down fa-4x"></span>
                             </div>
@@ -94,11 +92,11 @@ START PRODUCTS AREA
             <div class="col-md-12">
                 <div class="product-title-area">
                     <div class="product__title">
-                        <h2>Newest Release Products</h2>
+                        <h2>Produk Terbaru</h2>
                     </div>
 
                     <div class="filter__menu">
-                        <p>Filter by:</p>
+                        <p>Filter :</p>
                         <div class="filter__menu_icon">
                             <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">
@@ -106,19 +104,19 @@ START PRODUCTS AREA
 
                             <ul class="filter_dropdown dropdown-menu" aria-labelledby="drop1">
                                 <li>
-                                    <a href="#">Trending items</a>
+                                    <a href="#">Trending Produk</a>
                                 </li>
                                 <li>
-                                    <a href="#">Best seller</a>
+                                    <a href="#">Penjualan Terbaik</a>
                                 </li>
                                 <li>
-                                    <a href="#">Best rating</a>
+                                    <a href="#">Rating Terbaik</a>
                                 </li>
                                 <li>
-                                    <a href="#">Low price</a>
+                                    <a href="#">Termurah</a>
                                 </li>
                                 <li>
-                                    <a href="#">High price</a>
+                                    <a href="#">Termahal</a>
                                 </li>
                             </ul>
                         </div>
@@ -136,28 +134,13 @@ START PRODUCTS AREA
                 <div class="sorting">
                     <ul>
                         <li>
-                            <a href="#">Plugins</a>
+                            <a href="#">Elektronik</a>
                         </li>
                         <li>
-                            <a href="#">WordPress</a>
+                            <a href="#">Makanan</a>
                         </li>
                         <li>
-                            <a href="#">Site Template</a>
-                        </li>
-                        <li>
-                            <a href="#">PSD Template</a>
-                        </li>
-                        <li>
-                            <a href="#">Joomla</a>
-                        </li>
-                        <li>
-                            <a href="#">User Interface</a>
-                        </li>
-                        <li>
-                            <a href="#">Landing Page</a>
-                        </li>
-                        <li>
-                            <a href="#">Software</a>
+                            <a href="#">Konveksi</a>
                         </li>
                     </ul>
                 </div>
@@ -229,7 +212,7 @@ START PRODUCTS AREA
         <div class="row">
             <div class="col-md-12">
                 <div class="more-product">
-                    <a href="all-products.html" class="btn btn--lg btn--round">All New Products</a>
+                    <a href="all-products.html" class="btn btn--lg btn--round">Semua Produk Baru</a>
                 </div>
             </div>
             <!-- end ./col-md-12 -->
