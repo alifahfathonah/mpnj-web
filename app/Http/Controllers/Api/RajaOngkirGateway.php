@@ -16,6 +16,31 @@ class RajaOngkirGateway extends Controller
         $this->token = env('API_RAJAONGKIR');
     }
 
+    public function provinsi()
+    {
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['provinsi'] = json_decode($request, false);
+        return $data;
+    }
+
+    public function kota(Request $request)
+    {
+        $id = $role = $request->query('provinsi');
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://api.rajaongkir.com/starter/city?province='.$id, [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['kota'] = json_decode($request, false);
+        return $data;
+    }
+
     public function ongkir(Request $request)
     {
         $asal = $request->asal;
