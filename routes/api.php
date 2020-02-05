@@ -56,3 +56,7 @@ Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 //konfirmasi
 Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
 Route::post('/konfirmasi/simpan', 'Api\ApiKonfirmasiController@simpan');
+
+//rajaongkir gateway
+Route::get('/gateway/provinsi', 'Api\RajaOngkirGateway@provinsi');
+Route::get('/gateway/kota', 'Api\RajaOngkirGateway@kota');
