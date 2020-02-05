@@ -131,14 +131,14 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
-                                            <li>
-                                                <a href="/pesanan">
-                                                    <span class="lnr lnr-exit"></span>Pesanan Anda</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ URL::to('profile') }}">
-                                                    <span class="lnr lnr-exit"></span>Profile</a>
-                                            </li>
+                                        <li>
+                                            <a href="/pesanan">
+                                                <span class="lnr lnr-exit"></span>Pesanan Anda</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ URL::to('profile') }}">
+                                                <span class="lnr lnr-exit"></span>Profile</a>
+                                        </li>
                                         <li>
                                             <a href="/pesanan">
                                                 <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
@@ -260,7 +260,7 @@
                             <div class="mainmenu__search">
                                 <form action="#">
                                     <div class="searc-wrap">
-                                        <input type="text" placeholder="Search product">
+                                        <input type="text" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -278,35 +278,27 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
-                                        <a href="index.html">HOME</a>
+                                        <a href="#">BERANDA</a>
+                                        <span class="fa fa-home"></span>
+                                    </li>
+                                    <li class="has_dropdown">
+                                        <a href="#">SEMUA PORDUK</a>
+                                        <span class="fa fa-store"></span>
+                                    </li>
+                                    <li class="has_dropdown">
+                                        <a href="#">KATEGORI</a>
+                                        <span class="fa fa-arrow-alt-circle-down"></span>
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
-                                                <li>
-                                                    <a href="index.html">Home Multi Vendor</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-single.html">Home Two Single User</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index3.html">Home Three Product</a>
-                                                </li>
+                                                @foreach ($kategori as $k)
+                                                <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="has_dropdown">
-                                        <a href="all-products-list.html">all product</a>
-                                    </li>
-                                    <li class="has_dropdown">
-                                        <a href="#">categories</a>
-                                    </li>
-                                    <li class="has_megamenu">
-                                        <a href="#">Elements</a>
-                                    </li>
-                                    <li class="has_megamenu">
-                                        <a href="#">Pages</a>
-                                    </li>
                                     <li>
-                                        <a href="contact.html">contact</a>
+                                        <a href="#">KONTAK</a>
+                                        <span class="fa fa-id-card"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -495,7 +487,7 @@
                         </div>
 
                         <div class="go_top">
-                            <span class="lnr lnr-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </div>
                     </div>
                 </div>
