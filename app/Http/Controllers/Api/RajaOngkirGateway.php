@@ -41,6 +41,19 @@ class RajaOngkirGateway extends Controller
         return $data;
     }
 
+    public function kotaId(Request $request)
+    {
+        $id = $request->query('id');
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://api.rajaongkir.com/starter/city?id='.$id, [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['kota'] = json_decode($request, false);
+        return $data;
+    }
+
     public function ongkir(Request $request)
     {
         $asal = $request->asal;
