@@ -132,15 +132,7 @@
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
                                         <li>
-                                            <a href="/pesanan">
-                                                <span class="lnr lnr-exit"></span>Pesanan Anda</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ URL::to('profile') }}">
-                                                <span class="lnr lnr-exit"></span>Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="/pesanan">
+                                            <a href="{{ URL::to('pesanan') }}">
                                                 <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
                                         </li>
                                         <li>
@@ -148,16 +140,16 @@
                                                 <span class="fa fa-user"></span>Profile</a>
                                         </li>
                                         <li>
-                                            <a href="/keluar">
+                                            <a href="{{ URL::to('keluar') }}">
                                                 <span class="fa fa-sign-out-alt"></span>Keluar</a>
                                         </li>
                                         @else
                                         <li>
-                                            <a href="/login">
+                                            <a href="{{ URL::to('login') }}">
                                                 <span class="fa fa-sign-in-alt"></span>Masuk</a>
                                         </li>
                                         <li>
-                                            <a href="/register">
+                                            <a href="{{ URL::to('register') }}">
                                                 <span class="fa fa-user-edit"></span>Daftar</a>
                                         </li>
                                         @endif
