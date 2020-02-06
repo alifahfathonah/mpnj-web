@@ -24,4 +24,9 @@ class Konsumen extends Authenticatable
     {
         return $this->morphOne(Keranjang::class, 'pembeli');
     }
+
+    public function alamat()
+    {
+        return $this->morphOne(Alamat::class, 'user');
+    }
 }
