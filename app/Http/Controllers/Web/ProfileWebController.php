@@ -139,4 +139,16 @@ class ProfileWebController extends Controller
             return redirect()->back();
         }
     }
+
+    public function ubah_alamat_utama($id)
+    {
+        $role = Session::get('role');
+        $sessionId = Session::get('id');
+        $user_id = Auth::guard($role)->user()->$sessionId;
+
+        $ubah = Konsumen::where('id_konsumen', $user_id)->update(['alamat_utama' => $id]);
+        if ($ubah) {
+            return redirect()->back();
+        }
+    }
 }
