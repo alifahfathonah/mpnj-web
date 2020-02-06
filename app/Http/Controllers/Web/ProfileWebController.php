@@ -21,6 +21,7 @@ class ProfileWebController extends Controller
         $this->client = new Client();
         $this->token = env('API_RAJAONGKIR');
     }
+
     public function index()
     {
         return view('web/web_profile');
@@ -39,10 +40,16 @@ class ProfileWebController extends Controller
         $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
         $ubah = $fix_role::where($sessionId, $id)->update($data);
 
-        return redirect(URL::to('profile'));
         if ($ubah) {
             return redirect(URL::to('profile'));
         }
+    }
+
+    public function rekening()
+    {
+        return view('web/web_profile');
+    }
+
     public function alamat()
     {
         $role = Session::get('role');
@@ -69,8 +76,10 @@ class ProfileWebController extends Controller
         ])->getBody()->getContents();
 
         $data['kota'] = json_decode($request, false);
+
         return view('web/web_profile', $data);
     }
+
     public function simpan_alamat(Request $request)
     {
         $role = Session::get('role');
