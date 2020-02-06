@@ -25,6 +25,7 @@ Route::get('/kategori', function () {
 Route::get('/profil/{id_konsumen}', 'Api\ApiKonsumenController@profile');
 Route::post('/login','Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
+Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@lupa_password');
 
 // Route::get('keluar', 'Api\Auth\ApiLoginController@keluar')->middleware('auth:konsumen');
 
