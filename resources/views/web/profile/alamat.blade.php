@@ -217,6 +217,7 @@
         </div>
     </div>
 </div>
+
 @push('scripts')
     <script>
         $(function () {
@@ -302,6 +303,14 @@
 
         function submitHapusAlamat() {
             $("#formHapusAlamat").submit();
+        }
+
+        function alamatUtamaConfirm(id) {
+            $("#formAlamatUtama").attr('action', '{{ URL::to('profile/alamat/ubah/utama') }}/' + id);
+        }
+
+        function submitAlamatUtama() {
+            $("#formAlamatUtama").submit();
         }
     </script>
 @endpush
