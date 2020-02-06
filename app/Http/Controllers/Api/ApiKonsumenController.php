@@ -1,13 +1,26 @@
 <?php
 
 namespace App\Http\Controllers\api;
+
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Request;
+use App\Models\Konsumen;
+
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 use DB;
 
 class ApiKonsumenController extends Controller
 {
+    protected $client, $token;
+
+    public function __construct()
+    {
+        $this->client = new Client();
+        $this->token = 'c506cdfc35a33e3d47fb068b799c0630';
+    }
+
 
     public function profile($id_konsumen)
     {
