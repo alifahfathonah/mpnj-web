@@ -196,6 +196,27 @@
     </div>
 </div>
 
+<div class="modal fade rating_modal item_remove_modal" id="alamatUtamaConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Anda Yakin Ingin Manjadikan Alamat ini Menjadi Alamat Utama ?</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="GET" id="formAlamatUtama">
+                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitAlamatUtama()">Ya, Lanjutkan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
 @push('scripts')
     <script>
         $(function () {
