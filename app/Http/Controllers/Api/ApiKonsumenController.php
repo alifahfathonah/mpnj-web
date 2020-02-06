@@ -11,6 +11,10 @@ class ApiKonsumenController extends Controller
      public function lupa_password(Request $request, $kosumenId)
     {
         
+        $request = Validator::make(Request::all(),[ 
+        'password' => 'required',
+    ]);
+
         $konsumen = Konsumen::find($kosumenId);
         $konsumen->password = Hash::make(Request::get('password'));
 
