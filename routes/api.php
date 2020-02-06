@@ -23,6 +23,7 @@ Route::get('/kategori', function () {
     return KategoriResource::collection(kategori_Produk::all());
 });
 Route::get('/profil/{id_konsumen}', 'Api\ApiKonsumenController@profile');
+Route::get('/email/{email}', 'Api\ApiKonsumenController@cek_email');
 Route::post('/login','Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@lupa_password');
