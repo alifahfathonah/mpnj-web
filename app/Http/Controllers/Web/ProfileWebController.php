@@ -62,6 +62,13 @@ class ProfileWebController extends Controller
         ])->getBody()->getContents();
         $data['provinsi'] = json_decode($request, false);
 
+        $request = $this->client->get('https://api.rajaongkir.com/starter/city', [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+
+        $data['kota'] = json_decode($request, false);
         return view('web/web_profile', $data);
     }
     public function simpan_alamat(Request $request)
