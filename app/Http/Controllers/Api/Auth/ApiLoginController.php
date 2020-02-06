@@ -35,10 +35,11 @@ class ApiLoginController extends Controller
 
         if (Auth::guard('konsumen')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             $code_token = Str::random(64);
+            $konsumen = Konsumen::where('username',$request->username)->first();
             $token = ['remember_token' => $code_token];
             $token = Konsumen::where('username',$request->username)->update($token);
 
-            return response()->json(['pesan' => 'Login Sukses!','token' => $code_token], 200);
+            return response()->json(['pesan' => 'Login Sukses!','token' => $code_token,'id_konsumen' => $konsumen->id_konsumen], 200);
         }
 
         return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
@@ -48,8 +49,9 @@ class ApiLoginController extends Controller
     {
 
             $token = ['remember_token' => null ];
-            $konsumen = Konsumen::where('username',$request->username)->update($token);
+            $konsumen = Konsumen::where('id_konsumen',$request->id_konsumen)->update($token);
 
         return response()->json(['pesan' => 'Berhasil Keluar!'], 200);
     }
+
 }
