@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Kategori_Produk;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,8 +50,10 @@ class AppServiceProvider extends ServiceProvider
                     ->limit(2)
                     ->get();
 
+                $kategori = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
+
                 //...with this variable
-                $view->with('cart', $keranjang);
+                $view->with(['cart' => $keranjang, 'kategori' => $kategori]);
             }
         });
     }
