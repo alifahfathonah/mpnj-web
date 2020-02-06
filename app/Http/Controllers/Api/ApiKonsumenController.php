@@ -8,6 +8,41 @@ use DB;
 
 class ApiKonsumenController extends Controller
 {
+
+    public function profile($id_konsumen)
+    {
+        
+         $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
+        if($konsumen){
+             $res ['pesan'] = "Sukses!";
+             $hasil['id_konsumen'] = $id_konsumen;
+             $hasil['nama_lengkap'] = $konsumen->nama_lengkap;
+             $request = $this->client->get('https://api.rajaongkir.com/starter/city?id='.$konsumen->city_id.'',[
+                'headers' => [
+                    'key' => $this->token
+                ]
+              ])->getBody()->getContents();
+            $kota = json_decode($request,false);
+            
+            $alamat = array();
+            $alamat['alamat'] = $konsumen->alamat;
+            $alamat['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
+            $alamat['provinsi'] = $kota->rajaongkir->results->province;
+            $alamat['kode_pos'] = $konsumen->kode_pos;
+
+            $hasil['alamat_utama']  = $alamat;
+            
+            $hasil['nomer'] = $konsumen->nomor_hp;
+            $hasil['email'] = $konsumen->email;
+
+            $res['data'] = $hasil;
+            return response()->json($res);
+
+        }else{
+            return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
+        }
+    }
+
     public function cek_email($email)
     {
       $konsumen = Konsumen::where('email',$email)->first();
