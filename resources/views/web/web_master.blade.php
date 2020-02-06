@@ -14,7 +14,8 @@
 
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/fontello.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/lnr-icon.css') }}">
@@ -25,6 +26,12 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
+
+    <!-- Font Awesome -->
+    <link href="{{ asset('assets/fontawesome/css/fontawesome.css')  }}" rel="stylesheet">
+    <link href="{{ asset('assets/fontawesome/css/brands.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/fontawesome/css/solid.css') }}" rel="stylesheet">
+
     <!-- endinject -->
 </head>
 
@@ -61,37 +68,39 @@
                                 <ul>
                                     <li class="has_dropdown">
                                         <div class="icon_wrap">
-                                            <span class="lnr lnr-cart"></span>
+                                            <span class="fa fa-shopping-cart fa-lg" style="color: green;"></span>
                                             <span class="notification_count purch">2</span>
                                         </div>
 
                                         <div class="dropdowns dropdown--cart">
                                             <div class="cart_area">
                                                 @if(Session::has('id'))
-                                                    @foreach($cart as $c)
-                                                        <div class="cart_product">
-                                                            <div class="product__info">
-                                                                <div class="thumbn">
-                                                                    <img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" alt="cart product thumbnail">
-                                                                </div>
 
-                                                                <div class="info">
-                                                                    <a class="title" href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a>
-                                                                    <div class="cat">
-                                                                        <a href="#">
-                                                                            <img src="images/catword.png" alt="">{{ $c->produk->kategori->nama_kategori }}</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                @foreach($cart as $c)
+                                                <div class="cart_product">
+                                                    <div class="product__info">
+                                                        <div class="thumbn">
+                                                            <img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" alt="cart product thumbnail">
+                                                        </div>
 
-                                                            <div class="product__action">
-                                                                {{--                                                        <a href="#">--}}
-                                                                {{--                                                            <span class="lnr lnr-trash"></span>--}}
-                                                                {{--                                                        </a>--}}
-                                                                <p>@currency($c->harga_jual)</p>
+                                                        <div class="info">
+                                                            <a class="title" href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a>
+                                                            <div class="cat">
+                                                                <a href="#">
+                                                                    <img src="images/catword.png" alt="">{{ $c->produk->kategori->nama_kategori }}</a>
                                                             </div>
                                                         </div>
-                                                    @endforeach
+                                                    </div>
+
+                                                    <div class="product__action">
+                                                        {{-- <a href="#">--}}
+                                                        {{-- <span class="lnr lnr-trash"></span>--}}
+                                                        {{-- </a>--}}
+                                                        <p>@currency($c->harga_jual)</p>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+
                                                 @endif
                                                 <div class="cart_action">
                                                     <a class="go_cart" href="/keranjang">Lihat Keranjang</a>
@@ -107,13 +116,13 @@
                             <!--start .author-author__info-->
                             <div class="author-author__info inline has_dropdown">
                                 <div class="author__avatar">
-                                    <img src="{{ asset('assets/images/usr_avatar.png') }}" alt="user avatar">
-
+                                    <img src="http://www.johnmeyerwebdev.com/images/Me-Avatar-Maker.svg" alt="user avatar">
+                                    <!-- <img src="{{ asset('assets/images/usr_avatar.png') }}" alt="user avatar"> -->
                                 </div>
                                 <div class="autor__info">
                                     <p class="name">
                                         Halo @if (Auth::guard(Session::get('role'))->check())
-                                            {{  Auth::guard(Session::get('role'))->user()->username }}
+                                        {{ Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
                                     <p class="ammount">$20.45</p>
@@ -122,26 +131,26 @@
                                 <div class="dropdowns dropdown--author">
                                     <ul>
                                         @if (Auth::guard(Session::get('role'))->check())
-                                            <li>
-                                                <a href="/pesanan">
-                                                    <span class="lnr lnr-exit"></span>Pesanan Anda</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ URL::to('profile') }}">
-                                                    <span class="lnr lnr-exit"></span>Profile</a>
-                                            </li>
                                         <li>
-                                            <a href="/keluar">
-                                                <span class="lnr lnr-exit"></span>Keluar</a>
+                                            <a href="{{ URL::to('pesanan') }}">
+                                                <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ URL::to('profile') }}">
+                                                <span class="fa fa-user"></span>Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ URL::to('keluar') }}">
+                                                <span class="fa fa-sign-out-alt"></span>Keluar</a>
                                         </li>
                                         @else
                                         <li>
-                                            <a href="/login">
-                                                <span class="lnr lnr-exit"></span>Masuk</a>
+                                            <a href="{{ URL::to('login') }}">
+                                                <span class="fa fa-sign-in-alt"></span>Masuk</a>
                                         </li>
                                         <li>
-                                            <a href="/register">
-                                                <span class="lnr lnr-exit"></span>Daftar</a>
+                                            <a href="{{ URL::to('register') }}">
+                                                <span class="fa fa-user-edit"></span>Daftar</a>
                                         </li>
                                         @endif
                                     </ul>
@@ -153,18 +162,20 @@
 
                         <!-- author area restructured for mobile -->
                         <div class="mobile_content ">
-                            <span class="lnr lnr-user menu_icon"></span>
-
+                            <span class="fa fa-user-circle menu_icon"></span>
+                            <!-- <span class="lnr lnr-user menu_icon"></span> -->
                             <!-- offcanvas menu -->
                             <div class="offcanvas-menu closed">
-                                <span class="lnr lnr-cross close_menu"></span>
+                                <span class="fa fa-window-close fa-lg close_menu" style="color: blue;"></span>
                                 <div class="author-author__info">
                                     <div class="author__avatar v_middle">
-                                        <img src="images/usr_avatar.png" alt="user avatar">
+                                        <img src="http://www.johnmeyerwebdev.com/images/Me-Avatar-Maker.svg" alt="user avatar">
                                     </div>
                                     <div class="autor__info v_middle">
                                         <p class="name">
-                                            Jhon Doe
+                                            Halo @if (Auth::guard(Session::get('role'))->check())
+                                            {{ Auth::guard(Session::get('role'))->user()->username }}
+                                            @endif
                                         </p>
                                         <p class="ammount">$20.45</p>
                                     </div>
@@ -174,27 +185,9 @@
                                 <div class="author__notification_area">
                                     <ul>
                                         <li>
-                                            <a href="notification.html">
-                                                <div class="icon_wrap">
-                                                    <span class="lnr lnr-alarm"></span>
-                                                    <span class="notification_count noti">25</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="message.html">
-                                                <div class="icon_wrap">
-                                                    <span class="lnr lnr-envelope"></span>
-                                                    <span class="notification_count msg">6</span>
-                                                </div>
-                                            </a>
-                                        </li>
-
-                                        <li>
                                             <a href="cart.html">
                                                 <div class="icon_wrap">
-                                                    <span class="lnr lnr-cart"></span>
+                                                    <span class="fa fa-shopping-cart fa-lg" style="color: green;"></span>
                                                     <span class="notification_count purch">2</span>
                                                 </div>
                                             </a>
@@ -205,55 +198,34 @@
 
                                 <div class="dropdowns dropdown--author">
                                     <ul>
+                                        @if (Auth::guard(Session::get('role'))->check())
                                         <li>
-                                            <a href="author.html">
-                                                <span class="lnr lnr-user"></span>Profile</a>
+                                            <a href="/pesanan">
+                                                <span class="fa fa-shopping-bag"></span>Pesanan Anda</a>
                                         </li>
                                         <li>
-                                            <a href="dashboard.html">
-                                                <span class="lnr lnr-home"></span> Dashboard</a>
+                                            <a href="{{ URL::to('profile') }}">
+                                                <span class="fa fa-user"></span>Profile</a>
                                         </li>
                                         <li>
-                                            <a href="dashboard-setting.html">
-                                                <span class="lnr lnr-cog"></span> Setting</a>
+                                            <a href="/keluar">
+                                                <span class="fa fa-sign-out-alt"></span>Keluar</a>
+                                        </li>
+                                        @else
+                                        <li>
+                                            <a href="/login">
+                                                <span class="fa fa-sign-in-alt"></span>Masuk</a>
                                         </li>
                                         <li>
-                                            <a href="cart.html">
-                                                <span class="lnr lnr-cart"></span>Purchases</a>
+                                            <a href="/register">
+                                                <span class="fa fa-user-edit"></span>Daftar</a>
                                         </li>
-                                        <li>
-                                            <a href="favourites.html">
-                                                <span class="lnr lnr-heart"></span> Favourite</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-add-credit.html">
-                                                <span class="lnr lnr-dice"></span>Add Credits</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-statement.html">
-                                                <span class="lnr lnr-chart-bars"></span>Sale Statement</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-upload.html">
-                                                <span class="lnr lnr-upload"></span>Upload Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-manage-item.html">
-                                                <span class="lnr lnr-book"></span>Manage Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="dashboard-withdrawal.html">
-                                                <span class="lnr lnr-briefcase"></span>Withdrawals</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="lnr lnr-exit"></span>Logout</a>
-                                        </li>
+                                        @endif
                                     </ul>
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="/jual" class="author-area__seller-btn inline">Jual</a>
+                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
                                 </div>
                             </div>
                         </div>
@@ -280,9 +252,9 @@
                             <div class="mainmenu__search">
                                 <form action="#">
                                     <div class="searc-wrap">
-                                        <input type="text" placeholder="Search product">
+                                        <input type="text" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
-                                            <span class="lnr lnr-magnifier"></span>
+                                            <i class="fas fa-search"></i>
                                         </button>
                                     </div>
                                 </form>
@@ -291,43 +263,34 @@
                         </div>
 
                         <nav class="navbar navbar-expand-md navbar-light mainmenu__menu">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
-                                        <a href="index.html">HOME</a>
+                                        <a href="#">BERANDA</a>
+                                        <span class="fa fa-home"></span>
+                                    </li>
+                                    <li class="has_dropdown">
+                                        <a href="#">SEMUA PORDUK</a>
+                                        <span class="fa fa-store"></span>
+                                    </li>
+                                    <li class="has_dropdown">
+                                        <a href="#">KATEGORI</a>
+                                        <span class="fa fa-arrow-alt-circle-down"></span>
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
-                                                <li>
-                                                    <a href="index.html">Home Multi Vendor</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-single.html">Home Two Single User</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index3.html">Home Three Product</a>
-                                                </li>
+                                                @foreach ($kategori as $k)
+                                                <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="has_dropdown">
-                                        <a href="all-products-list.html">all product</a>
-                                    </li>
-                                    <li class="has_dropdown">
-                                        <a href="#">categories</a>
-                                    </li>
-                                    <li class="has_megamenu">
-                                        <a href="#">Elements</a>
-                                    </li>
-                                    <li class="has_megamenu">
-                                        <a href="#">Pages</a>
-                                    </li>
                                     <li>
-                                        <a href="contact.html">contact</a>
+                                        <a href="#">KONTAK</a>
+                                        <span class="fa fa-id-card"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -516,7 +479,7 @@
                         </div>
 
                         <div class="go_top">
-                            <span class="lnr lnr-chevron-up"></span>
+                            <span class="fa fa-angle-up"></span>
                         </div>
                     </div>
                 </div>

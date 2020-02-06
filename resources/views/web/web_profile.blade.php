@@ -32,7 +32,7 @@
 
 
     <section class="author-profile-area">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-md-12">
                         <aside class="sidebar sidebar_author">
@@ -55,19 +55,13 @@
                                         <div class="author-badges">
                                             <ul>
                                                 <li>
-                                                    <a href="#" class="active">Profile</a>
+                                                    <a href="{{ URL::to('profile') }}" class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }}">Profile</a>
                                                 </li>
                                                 <li>
-                                                    <a href="author-items.html">Rekening</a>
+                                                    <a href="{{ URL::to('profile/rekening') }}" class="{{ Route::currentRouteName() == 'rekening' ? 'active' : '' }}">Rekening</a>
                                                 </li>
                                                 <li>
-                                                    <a href="author-reviews.html">Withdraw</a>
-                                                </li>
-                                                <li>
-                                                    <a href="author-followers.html">Alamat</a>
-                                                </li>
-                                                <li>
-                                                    <a href="author-following.html">Following (39)</a>
+                                                    <a href="{{ URL::to('profile/alamat') }}" class="{{ Route::currentRouteName() == 'alamat' ? 'active' : '' }}">Alamat</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -122,7 +116,13 @@
 {{--                                </div>--}}
 
                                 <div class="author_module about_author">
-                                    @include('web.profile.profile')
+                                    @if(Route::currentRouteName() == 'profile')
+                                        @include('web.profile.profile')
+                                    @elseif(Route::currentRouteName() == 'rekening')
+                                        @include('web.profile.rekening')
+                                    @elseif(Route::currentRouteName() == 'alamat')
+                                        @include('web.profile.alamat')
+                                    @endif
                                 </div>
                             </div>
                         </div>
