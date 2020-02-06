@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/dropzone/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/dataTables/css/datatables.min.css') }}">
     <!-- endinject -->
 </head>
 
@@ -549,6 +550,7 @@ END FOOTER AREA
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/map.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/dropzone/dropzone.js') }}"></script>
+    <script src="{{ asset('assets/plugins/dataTables/js/datatables.min.js') }}"></script>
     <!-- endinject -->
     @stack('scripts')
 </body>
