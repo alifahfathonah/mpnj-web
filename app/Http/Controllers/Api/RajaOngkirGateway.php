@@ -30,7 +30,7 @@ class RajaOngkirGateway extends Controller
 
     public function kota(Request $request)
     {
-        $id = $role = $request->query('provinsi');
+        $id = $request->query('provinsi');
 //        $response = $this->client->get('http://guzzlephp.org');
         $request = $this->client->get('https://api.rajaongkir.com/starter/city?province='.$id, [
             'headers' => [
