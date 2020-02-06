@@ -8,6 +8,20 @@ use DB;
 
 class ApiKonsumenController extends Controller
 {
+    public function cek_email($email)
+    {
+      $konsumen = Konsumen::where('email',$email)->first();
+        if($konsumen){    
+            $res ['pesan'] = "Sukses!";
+            $hasil['id_konsumen'] = $konsumen->id_konsumen;
+            $res['data'] = $hasil;
+            return response()->json($res);
+
+        }else{
+            return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
+        }
+    }
+
      public function lupa_password(Request $request, $kosumenId)
     {
         
