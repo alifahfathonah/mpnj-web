@@ -18,7 +18,7 @@
                         <table class="ui celled table" style="width:100%;">
                             <tr>
                                 <th>Nama</th>
-                                <td>{{ $a->nama }} @if ($a->id_alamat == 1) <button class="type pcolorbg">Utama</button> @endif</td>
+                                <td>{{ $a->nama }} @if ($a->id_alamat == $a->user->alamat_utama) <button class="type pcolorbg">Utama</button> @endif</td>
                             </tr>
                             <tr>
                                 <th>Nomor Hp</th>
