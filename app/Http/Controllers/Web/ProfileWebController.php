@@ -122,4 +122,12 @@ class ProfileWebController extends Controller
             return redirect()->back();
         }
     }
+
+    public function hapus_alamat($id)
+    {
+        $hapus = Alamat::where('id_alamat', $id)->delete();
+        if ($hapus) {
+            return redirect()->back();
+        }
+    }
 }
