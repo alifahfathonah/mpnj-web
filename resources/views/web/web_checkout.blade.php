@@ -61,6 +61,7 @@
                         </div>
                     </div>
                 </div>
+
                 <form class="setting_form" id="checkoutForm">
                     <div class="row">
                         <div class="col-lg-8">
@@ -147,7 +148,6 @@
                                                 </tr>
                                                 <?php $o++; ?>
                                             @endforeach
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -158,7 +158,6 @@
                         <!-- end /.information_module -->
 
                         <div class="col-lg-4">
-
                             <div class="information_module order_summary">
                                 <div class="toggle_title">
                                     <h4>Order Detail</h4>
@@ -245,6 +244,48 @@
     <!--================================
                 END DASHBOARD AREA
         =================================-->
+
+    <div class="modal fade rating_modal item_remove_modal"
+         id="pilihAlamat"
+         tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Pilih Alamat Pengiriman</h3>
+                    {{-- <p>You will not be able to recover this file!</p> --}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    @foreach($order as $key => $val)
+                        @foreach($val as $val)
+                            @foreach($val->pembeli->daftar_alamat as $v)
+                                @if($val->pembeli->alamat_utama != $v->id_alamat)
+                                    <div class="information_module order_summary">
+                                        <div class="toggle_title"
+                                             data-destination="{{ $v->city_id }}">
+                                            <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
+                                            <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
+                                            <br>
+                                            <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                                                <button type="submit" class="btn btn--round modal_close">Pilih
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endforeach
+                        @break;
+                    @endforeach
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
