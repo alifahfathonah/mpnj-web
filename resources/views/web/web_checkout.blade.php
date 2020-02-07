@@ -158,26 +158,6 @@
                         <!-- end /.information_module -->
 
                         <div class="col-lg-4">
-                            @for ($i = 0; $i < 1; $i++)
-                                <div class="information_module order_summary">
-                                    <div class="toggle_title" id="dataPembeli"
-                                         data-destination="{{ $val[$i]->pembeli->city_id}}">
-                                        <h4>Informasi Pembeli</h4>
-                                    </div>
-
-                                    <ul>
-                                        <li class="item">
-                                            <a href="single-product.html" target="_blank">Nama</a>
-                                            <span>{{ $val[$i]->pembeli->nama_lengkap }}</span>
-                                        </li>
-                                        <li class="item">
-                                            <a href="single-product.html" target="_blank">Alamat</a>
-                                            <span>{{ $val[$i]->pembeli->alamat }}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endfor
-                        <!-- end /.information_module-->
 
                             <div class="information_module order_summary">
                                 <div class="toggle_title">
