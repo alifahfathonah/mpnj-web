@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Request;
 use App\Models\Konsumen;
+use App\Models\Alamat;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
