@@ -49,6 +49,26 @@ class ApiKonsumenController extends Controller
             $hasil['nomer'] = $konsumen->nomor_hp;
             $hasil['email'] = $konsumen->email;
 
+            
+            $result = array();
+            foreach ($alamat_lain as $key => $val) {
+                // foreach ($val as $val) {
+                    foreach ($val->user->daftar_alamat as $row) {
+                        // if ($val->user->alamat_utama != $row->id_konsumen) {
+                            $alamat_cadangan = array();
+                            $alamat_cadangan['id_alamat'] = $row->id_alamat;
+                            $alamat_cadangan['alamat'] = $row->alamat_lengkap;
+                            $alamat_cadangan['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
+                            $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
+                            $alamat_cadangan['kode_pos'] = $row->kode_pos;
+                            array_push($result,$alamat_cadangan);
+                            // }
+                        // }
+                    }
+                }
+            
+            $hasil['alamat_lain'] = $alamat_cadangan;
+
             $res['data'] = $hasil;
             return response()->json($res);
 
