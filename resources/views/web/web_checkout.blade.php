@@ -36,6 +36,32 @@
     <section class="dashboard-area">
         <div class="dashboard_contents">
             <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="information_module">
+                            <div class="toggle_title">
+                                <h4>Alamat Pembeli | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h4>
+                            </div>
+                            <div class="information__set">
+                                <div class="information_wrapper form--fields table-responsive">
+                                    @foreach($order as $key => $val)
+                                        <div class="information_module order_summary">
+                                            <div class="toggle_title" id="dataPembeli"
+                                                 data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
+                                                <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
+                                                <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
+                                            </div>
+                                        </div>
+                                        @if($val[0] != null)
+                                            @break;
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <form class="setting_form" id="checkoutForm">
                     <div class="row">
                         <div class="col-lg-8">
@@ -122,7 +148,6 @@
                                                 </tr>
                                                 <?php $o++; ?>
                                             @endforeach
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -133,27 +158,6 @@
                         <!-- end /.information_module -->
 
                         <div class="col-lg-4">
-                            @for ($i = 0; $i < 1; $i++)
-                                <div class="information_module order_summary">
-                                    <div class="toggle_title" id="dataPembeli"
-                                         data-destination="{{ $val[$i]->pembeli->city_id}}">
-                                        <h4>Informasi Pembeli</h4>
-                                    </div>
-
-                                    <ul>
-                                        <li class="item">
-                                            <a href="single-product.html" target="_blank">Nama</a>
-                                            <span>{{ $val[$i]->pembeli->nama_lengkap }}</span>
-                                        </li>
-                                        <li class="item">
-                                            <a href="single-product.html" target="_blank">Alamat</a>
-                                            <span>{{ $val[$i]->pembeli->alamat }}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            @endfor
-                        <!-- end /.information_module-->
-
                             <div class="information_module order_summary">
                                 <div class="toggle_title">
                                     <h4>Order Detail</h4>
@@ -240,6 +244,48 @@
     <!--================================
                 END DASHBOARD AREA
         =================================-->
+
+    <div class="modal fade rating_modal item_remove_modal"
+         id="pilihAlamat"
+         tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Pilih Alamat Pengiriman</h3>
+                    {{-- <p>You will not be able to recover this file!</p> --}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    @foreach($order as $key => $val)
+                        @foreach($val as $val)
+                            @foreach($val->pembeli->daftar_alamat as $v)
+                                @if($val->pembeli->alamat_utama != $v->id_alamat)
+                                    <div class="information_module order_summary">
+                                        <div class="toggle_title"
+                                             data-destination="{{ $v->city_id }}">
+                                            <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
+                                            <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
+                                            <br>
+                                            <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                                                <button type="submit" class="btn btn--round modal_close">Pilih
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endforeach
+                        @break;
+                    @endforeach
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')

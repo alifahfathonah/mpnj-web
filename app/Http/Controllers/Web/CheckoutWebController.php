@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Foto_Produk;
 use App\Models\Keranjang;
+use App\Models\Konsumen;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
@@ -27,7 +29,7 @@ class CheckoutWebController extends Controller
         //                 ->where('keranjang.status', 'Y')
         //                 ->get()
         //                 ->groupBy('keranjang.konsumen_id');
-        $data['order'] = Keranjang::with(['produk', 'pembeli'])
+        $data['order'] = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
                         ->where('pembeli_id', $konsumen_id)
                         ->where('status', 'Y')
                         ->get()
