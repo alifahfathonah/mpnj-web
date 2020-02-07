@@ -36,6 +36,31 @@
     <section class="dashboard-area">
         <div class="dashboard_contents">
             <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="information_module">
+                            <div class="toggle_title">
+                                <h4>Alamat Pembeli | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h4>
+                            </div>
+                            <div class="information__set">
+                                <div class="information_wrapper form--fields table-responsive">
+                                    @foreach($order as $key => $val)
+                                        <div class="information_module order_summary">
+                                            <div class="toggle_title" id="dataPembeli"
+                                                 data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
+                                                <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
+                                                <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
+                                            </div>
+                                        </div>
+                                        @if($val[0] != null)
+                                            @break;
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <form class="setting_form" id="checkoutForm">
                     <div class="row">
                         <div class="col-lg-8">
