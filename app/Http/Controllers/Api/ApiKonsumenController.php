@@ -25,7 +25,7 @@ class ApiKonsumenController extends Controller
 
     public function profile($id_konsumen)
     {
-        
+        $alamat_lain = Alamat::with(['user', 'user.daftar_alamat' ,'user.alamat_fix'])->where('user_id', $id_konsumen)->get();
          $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
         if($konsumen){
              $res ['pesan'] = "Sukses!";
