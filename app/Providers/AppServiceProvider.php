@@ -50,11 +50,11 @@ class AppServiceProvider extends ServiceProvider
                     ->limit(2)
                     ->get();
 
-                $kategori = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
-
                 //...with this variable
-                $view->with(['cart' => $keranjang, 'kategori' => $kategori]);
+                $view->with('cart', $keranjang);
             }
+            $kategori = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
+            $view->with('kategori', $kategori);
         });
     }
 }

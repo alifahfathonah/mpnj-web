@@ -12,6 +12,7 @@ class ProdukWebController extends Controller
     public function index()
     {
         $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->get();
+        $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_home', $data);
     }
 
