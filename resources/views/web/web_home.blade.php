@@ -212,7 +212,7 @@ START PRODUCTS AREA
         <div class="row">
             <div class="col-md-12">
                 <div class="more-product">
-                    <a href="all-products.html" class="btn btn--lg btn--round">Semua Produk Baru</a>
+                    <a href="{{ URL::to('produk') }}" class="btn btn--lg btn--round">Lihat Semua Produk</a>
                 </div>
             </div>
             <!-- end ./col-md-12 -->
