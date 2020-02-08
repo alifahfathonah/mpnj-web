@@ -69,7 +69,7 @@
                                     <li class="has_dropdown">
                                         <div class="icon_wrap">
                                             <span class="fa fa-shopping-cart fa-lg" style="color: green;"></span>
-                                            <span class="notification_count purch">2</span>
+                                            <span class="notification_count purch">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
                                         </div>
 
                                         <div class="dropdowns dropdown--cart">
