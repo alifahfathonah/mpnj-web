@@ -12,12 +12,13 @@
                         <div class="search">
                             <div class="search__title">
                                 <h3>
-                                    <span>35,270</span> website templates from our creative community</h3>
+                                    Temukan Barang Barang Terbaik yang Anda Cari Disini!!!
+                                </h3>
                             </div>
                             <div class="search__field">
                                 <form action="#">
                                     <div class="field-wrapper">
-                                        <input class="relative-field rounded" type="text" placeholder="Search your products">
+                                        <input class="relative-field rounded" type="text" placeholder="Cari Produk Disini">
                                         <button class="btn btn--round" type="submit">Search</button>
                                     </div>
                                 </form>
@@ -28,7 +29,7 @@
                                         <a href="#">Home</a>
                                     </li>
                                     <li class="active">
-                                        <a href="#">All Products</a>
+                                        <a href="#">Semua Produk</a>
                                     </li>
                                 </ul>
                             </div>
