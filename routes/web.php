@@ -87,5 +87,7 @@ Route::get('profile/alamat/ubah/utama/{id}', 'Web\ProfileWebController@ubah_alam
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//web pelapak
+Route::get('pelapak/{username}', 'Web\PelapakWebController@index')->name('halaman_pelapak');
 //pelapak
 Route::get('jual', 'Pelapak\PelapakController@index');
