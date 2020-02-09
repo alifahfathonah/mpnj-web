@@ -40,7 +40,7 @@ Route::get('adminstrator/transaksi/status/edit/{id}/{status}/{id_trx}', 'Pelapak
 
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
-Route::get('produk', 'Web\ProdukWebController@index');
+Route::get('produk', 'Web\ProdukWebController@produk');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
 
 //daftar
@@ -86,6 +86,10 @@ Route::get('profile/alamat/hapus/{id}', 'Web\ProfileWebController@hapus_alamat')
 Route::get('profile/alamat/ubah/utama/{id}', 'Web\ProfileWebController@ubah_alamat_utama');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//web pelapak
+Route::get('pelapak/{username}', 'Web\PelapakWebController@index')->name('halaman_pelapak');
+Route::get('pelapak/{username}/produk', 'Web\PelapakWebController@produk')->name('halaman_produk_pelapak');
 
 //pelapak
 Route::get('jual', 'Pelapak\PelapakController@index');

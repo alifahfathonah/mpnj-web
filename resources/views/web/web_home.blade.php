@@ -174,7 +174,7 @@ START PRODUCTS AREA
                             <li>
                                 <!-- <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image"> -->
                                 <p>
-                                    <i class="fa fa-home" aria-hidden="true"></i> <a href="#">{{ $p->pelapak->nama_toko }}</a>
+                                    <i class="fa fa-home" aria-hidden="true"></i> <a href="{{ URL::to('pelapak/'.$p->pelapak->username) }}">{{ $p->pelapak->nama_toko }}</a>
                                 </p>
                             </li>
                             <li class="product_cat">
@@ -212,7 +212,7 @@ START PRODUCTS AREA
         <div class="row">
             <div class="col-md-12">
                 <div class="more-product">
-                    <a href="all-products.html" class="btn btn--lg btn--round">Semua Produk Baru</a>
+                    <a href="{{ URL::to('produk') }}" class="btn btn--lg btn--round">Lihat Semua Produk</a>
                 </div>
             </div>
             <!-- end ./col-md-12 -->
