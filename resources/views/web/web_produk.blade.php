@@ -206,3 +206,29 @@
 
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function () {
+           $('#price').on('change', function () {
+               let urlParams = new URLSearchParams(window.location.search);
+               let kategoriParams = urlParams.has('kategori');
+
+               if (kategoriParams) {
+                   if (urlParams.has('order')) {
+                       let order = urlParams.get('order');
+                       var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
+                       // urlParams = newUrl;
+                       // alert(newUrl);
+                       window.location.href = newUrl;
+                   } else {
+                       window.location.href += '&order='+$(this).val();
+                   }
+                   // let newUrl = window.location.href += '&order='+$(this).val();
+               } else {
+                   alert('Tidak Bisa Melakukan Sorting');
+               }
+           });
+        });
+    </script>
+@endpush
