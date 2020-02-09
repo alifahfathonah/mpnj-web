@@ -49,7 +49,8 @@ class ApiKonsumenController extends Controller
             $hasil['nomer'] = $konsumen->nomor_hp;
             $hasil['email'] = $konsumen->email;
 
-            
+            $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
+
             $result = array();
             foreach ($alamat_lain as $key => $val) {
                 // foreach ($val as $val) {
