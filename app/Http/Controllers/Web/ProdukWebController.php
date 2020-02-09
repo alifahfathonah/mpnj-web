@@ -16,9 +16,19 @@ class ProdukWebController extends Controller
         return view('web/web_home', $data);
     }
 
-    public function produk()
+    public function produk(Request $request)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(9);
+        $kategori = $request->query('kategori');
+        $order = $request->query('order');
+        if ($kategori != '' OR $order != '') {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->when($kategori != '', function ($query) use ($kategori) {
+                $query->whereHas('kategori', function ($query) use ($kategori) {
+                    $query->where('nama_kategori', $kategori != '' ? $kategori : '');
+                });
+            })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(9);
+        }  else {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(9);
+        }
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_produk', $data);
     }
