@@ -99,15 +99,14 @@ class ApiKonsumenController extends Controller
         $konsumen->password = Hash::make(Request::get('password'));
 
         if($request->fails()){
-            $res ['pesan'] = "gagal";
+            $res ['pesan'] = "Gagal";
             $res ['response'] = $request->messages();
 
             return response()->json($res);
         }else{
             $konsumen->save();
-            $res ['data'] = [$konsumen];
             $res2 ['pesan'] = "Sukses!";
-            $res2 ['data'] = [$konsumen];
+            $res2 ['data'] = ["Password Berhasil Diganti"];
             
             return response()->json($res2);
         }
