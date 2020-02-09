@@ -52,16 +52,19 @@ class ApiKonsumenController extends Controller
             $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
 
             $result = array();
+            foreach ($alamat_lain as $row) {
                             $alamat_cadangan = array();
                             $alamat_cadangan['id_alamat'] = $row->id_alamat;
+                            $alamat_cadangan ['nama_lengkap'] = $row->nama;
                             $alamat_cadangan['alamat'] = $row->alamat_lengkap;
                             $alamat_cadangan['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
                             $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
                             $alamat_cadangan['kode_pos'] = $row->kode_pos;
+                            $alamat_cadangan['nomer'] = $row->nomor_telepon;
                             array_push($result,$alamat_cadangan);
                 }
             
-            $hasil['alamat_lain'] = $alamat_cadangan;
+            $hasil['alamat_lain'] = $result;
 
             $res['data'] = $hasil;
             return response()->json($res);
