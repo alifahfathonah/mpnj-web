@@ -110,20 +110,20 @@
         </div>
         <!-- end /.row -->
 
-        <div class="pagination-area pagination--right">
-            <nav class="navigation pagination" role="navigation">
-                <div class="nav-links">
-                    <a class="prev page-numbers" href="#">
-                        <span class="lnr lnr-arrow-left"></span>
-                    </a>
-                    <a class="page-numbers current" href="#/">1</a>
-                    <a class="page-numbers" href="#">2</a>
-                    <a class="page-numbers" href="#">3</a>
-                    <a class="next page-numbers" href="#">
-                        <span class="lnr lnr-arrow-right"></span>
-                    </a>
-                </div>
-            </nav>
-        </div>
+{{--        <div class="pagination-area pagination--right">--}}
+{{--            <nav class="navigation pagination" role="navigation">--}}
+{{--                <div class="nav-links">--}}
+{{--                    <a class="prev page-numbers" href="#">--}}
+{{--                        <span class="lnr lnr-arrow-left"></span>--}}
+{{--                    </a>--}}
+{{--                    <a class="page-numbers current" href="#/">1</a>--}}
+{{--                    <a class="page-numbers" href="#">2</a>--}}
+{{--                    <a class="page-numbers" href="#">3</a>--}}
+{{--                    <a class="next page-numbers" href="#">--}}
+{{--                        <span class="lnr lnr-arrow-right"></span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </nav>--}}
+{{--        </div>--}}
     </div>
 </div>
