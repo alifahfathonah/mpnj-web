@@ -274,11 +274,11 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
-                                        <a href="#">BERANDA</a>
+                                        <a href="{{ URL::to('/') }}">HOME</a>
                                         <span class="fa fa-home"></span>
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="#">SEMUA PORDUK</a>
+                                        <a href="{{ URL::to('produk') }}">SEMUA PORDUK</a>
                                         <span class="fa fa-store"></span>
                                     </li>
                                     <li class="has_dropdown">
@@ -287,7 +287,9 @@
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
-                                                <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
+                                                    <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">
+                                                        <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
+                                                    </a>
                                                 @endforeach
                                             </ul>
                                         </div>
