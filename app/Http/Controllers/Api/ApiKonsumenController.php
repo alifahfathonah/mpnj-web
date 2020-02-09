@@ -52,10 +52,6 @@ class ApiKonsumenController extends Controller
             $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
 
             $result = array();
-            foreach ($alamat_lain as $key => $val) {
-                // foreach ($val as $val) {
-                    foreach ($val->user->daftar_alamat as $row) {
-                        // if ($val->user->alamat_utama != $row->id_konsumen) {
                             $alamat_cadangan = array();
                             $alamat_cadangan['id_alamat'] = $row->id_alamat;
                             $alamat_cadangan['alamat'] = $row->alamat_lengkap;
@@ -63,9 +59,6 @@ class ApiKonsumenController extends Controller
                             $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
                             $alamat_cadangan['kode_pos'] = $row->kode_pos;
                             array_push($result,$alamat_cadangan);
-                            // }
-                        // }
-                    }
                 }
             
             $hasil['alamat_lain'] = $alamat_cadangan;
