@@ -55,9 +55,10 @@
                             </div>
                             <div class="filter__option filter--select">
                                 <div class="select-wrap">
-                                    <select name="price">
-                                        <option value="low">Price : Low to High</option>
-                                        <option value="high">Price : High to low</option>
+                                    <select name="price" id="price">
+                                        <option selected>-- Sorting Harga --</option>
+                                        <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Tinggi ke Rendah</option>
+                                        <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Rendah ke Tinggi</option>
                                     </select>
                                     <span class="lnr lnr-chevron-down"></span>
                                 </div>
