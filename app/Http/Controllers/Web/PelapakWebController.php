@@ -15,4 +15,11 @@ class PelapakWebController extends Controller
         $data['produk'] = $data['pelapak']['produk'];
         return view('web/web_pelapak', $data, ['user' => $username]);
     }
+
+    public function produk($username)
+    {
+        $data['pelapak'] = Pelapak::where('username', $username)->first();
+        $data['produk'] = $data['pelapak']['produk'];
+        return view('web/web_pelapak', ['user' => $username], $data);
+    }
 }
