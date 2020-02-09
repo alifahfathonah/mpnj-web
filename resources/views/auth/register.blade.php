@@ -162,7 +162,7 @@
                     // format: 'json',
                     // dataType: 'json',
                     success: function(response) {
-                        // console.log(response);
+                        $("#kota option").remove();
                         response.rajaongkir.results.map(e => {
                             $("#kota").append(`
                                 <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
