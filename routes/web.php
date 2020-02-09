@@ -40,7 +40,7 @@ Route::get('adminstrator/transaksi/status/edit/{id}/{status}/{id_trx}', 'Pelapak
 
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
-Route::get('produk', 'Web\ProdukWebController@index');
+Route::get('produk', 'Web\ProdukWebController@produk');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
 
 //daftar
