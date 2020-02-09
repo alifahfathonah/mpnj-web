@@ -139,6 +139,10 @@
                                             <a href="{{ URL::to('profile') }}">
                                                 <span class="fa fa-user"></span>Profile</a>
                                         </li>
+                                            <li>
+                                                <a href="{{ URL::to('konfirmasi') }}">
+                                                    <span class="fa fa-user"></span>Konfirmasi Pembayaran</a>
+                                            </li>
                                         <li>
                                             <a href="{{ URL::to('keluar') }}">
                                                 <span class="fa fa-sign-out-alt"></span>Keluar</a>
