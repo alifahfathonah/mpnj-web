@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Request;
 use App\Models\Konsumen;
+use App\Models\Alamat;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +25,8 @@ class ApiKonsumenController extends Controller
 
     public function profile($id_konsumen)
     {
+        $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
         
-         $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
         if($konsumen){
              $res ['pesan'] = "Sukses!";
              $hasil['id_konsumen'] = $id_konsumen;
@@ -47,6 +48,23 @@ class ApiKonsumenController extends Controller
             
             $hasil['nomer'] = $konsumen->nomor_hp;
             $hasil['email'] = $konsumen->email;
+
+            $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
+
+            $result = array();
+            foreach ($alamat_lain as $row) {
+                            $alamat_cadangan = array();
+                            $alamat_cadangan['id_alamat'] = $row->id_alamat;
+                            $alamat_cadangan ['nama_lengkap'] = $row->nama;
+                            $alamat_cadangan['alamat'] = $row->alamat_lengkap;
+                            $alamat_cadangan['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
+                            $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
+                            $alamat_cadangan['kode_pos'] = $row->kode_pos;
+                            $alamat_cadangan['nomer'] = $row->nomor_telepon;
+                            array_push($result,$alamat_cadangan);
+                }
+            
+            $hasil['alamat_lain'] = $result;
 
             $res['data'] = $hasil;
             return response()->json($res);
@@ -81,15 +99,14 @@ class ApiKonsumenController extends Controller
         $konsumen->password = Hash::make(Request::get('password'));
 
         if($request->fails()){
-            $res ['pesan'] = "gagal";
+            $res ['pesan'] = "Gagal";
             $res ['response'] = $request->messages();
 
             return response()->json($res);
         }else{
             $konsumen->save();
-            $res ['data'] = [$konsumen];
             $res2 ['pesan'] = "Sukses!";
-            $res2 ['data'] = [$konsumen];
+            $res2 ['data'] = ["Password Berhasil Diganti"];
             
             return response()->json($res2);
         }
