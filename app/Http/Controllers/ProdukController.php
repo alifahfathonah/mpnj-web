@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Kategori_Produk;
 use Illuminate\Http\Request;
 use File;
+use ImageResize;
 use Illuminate\Support\Facades\Session;
 
 class ProdukController extends Controller
@@ -137,7 +138,12 @@ class ProdukController extends Controller
 
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
-        $file->move('assets/foto_produk', $name);
+        $img = ImageResize::make($file->path());
+
+        // --------- [ Resize Image ] ---------------
+        $img->resize(150, 200)->save('assets/foto_produk/'.$name);
+
+//        $file->move('assets/foto_produk', $name);
 
         return response()->json([
             'name'          => $name,
