@@ -64,7 +64,12 @@
                                             <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
                                         </tr>
                                         @foreach ($val as $k)
-                                            <tr id="data_keranjang{{ $k->id_keranjang  }}" data-total="{{ $total += $k->jumlah * $k->harga_jual }}" class="sum" data-subtotal="{{ $k->jumlah * $k->harga_jual  }}" data-hargajual="{{ $k->harga_jual  }}">
+                                            <tr id="data_keranjang{{ $k->id_keranjang  }}"
+                                                data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}"
+                                                class="sum"
+                                                data-subtotal="{{ ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah  }}"
+                                                data-hargajual="{{ $k->harga_jual  }}"
+                                                data-diskon="{{ $k->produk->diskon }}">
                                             <td>
                                                 <input type="checkbox" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
                                             </td>
@@ -82,14 +87,23 @@
                                             </td>
                                             <td>{{ $k->produk->kategori->nama_kategori }}</td>
                                             <td class="bold" id="harga{{ $n }}">
-                                                @currency($k->produk->harga_jual)
+                                                @if($k->produk->diskon == 0)
+                                                    @currency($k->produk->harga_jual)
+                                                @else
+                                                    <strike style="color: red">@currency($k->produk->harga_jual)</strike> | @currency($k->produk->harga_jual - ($k->produk->diskon / 100 * $k->produk->harga_jual))
+                                                @endif
                                             </td>
                                             <td style="width: 10%">
                                                 <input type="number" name="qty"
                                                     id="qty{{ $n }}" class="form-control form-control-sm"
                                                     value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
                                             </td>
-                                            <td id="subHarga{{ $n }}">@currency($k->harga_jual * $k->jumlah)
+                                            <td id="subHarga{{ $n }}">
+                                                @if($k->produk->diskon == 0)
+                                                    @currency($k->harga_jual * $k->jumlah)
+                                                @else
+                                                    @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
+                                                @endif
                                             </td>
                                             <td class="pending">
                                                 <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
@@ -155,6 +169,7 @@
         $("input:checkbox[name=check]").on('click', function() {
             let keranjang_id = [];
             let id = $(this).val();
+            let total = 0;
             // $(`#check${id}`).attr('checked', false);
             $("input:checkbox[name=check]:checked").each(function () {
                 keranjang_id.push($(this).val());
@@ -164,23 +179,29 @@
             //     console.log($(this).val());
             // });
             // id = $(this).val();
-
-            $.ajax({
-                url: '/keranjang/hitungTotal',
-                type: 'POST',
-                data: {
-                    'id_keranjang': keranjang_id
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    $("#total").html("Rp. " + numberFormat(parseInt(response)));
-                },
-                error: function(error) {
-                    console.log(error);
-                }
+            keranjang_id.forEach(function (val) {
+               total += $(`#data_keranjang${val}`).data('subtotal');
             });
+
+            $("#total").html("Rp. " + numberFormat(parseInt(total)));
+
+            // $.ajax({
+            //     url: '/keranjang/hitungTotal',
+            //     type: 'POST',
+            //     data: {
+            //         'id_keranjang': keranjang_id
+            //     },
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     },
+            //     success: function(response) {
+            //         console.log(response);
+            //         // $("#total").html("Rp. " + numberFormat(parseInt(response)));
+            //     },
+            //     error: function(error) {
+            //         console.log(error);
+            //     }
+            // });
         });
 
         $("input[name='qty']").change(function(e) {
@@ -188,6 +209,7 @@
             let n = $("input[name='qty']").index(this);
             let qty = $("#qty"+parseInt(n+1)).val();
             let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
+            let diskon = $(`.sum:eq(${n})`).data('diskon');
 
             $.ajax({
                 async: true,
@@ -201,8 +223,14 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(qty * parseInt(response)));
-                    $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
+                    if (diskon == 0) {
+                        $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(parseInt(response * qty)));
+                        $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
+                    } else {
+                        $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
+                        $(`.sum:eq(${n})`).data('subtotal', parseInt((response - (diskon / 100 * response)) * qty));
+                    }
+                    // (parseInt(response) - parseInt($(`#data_keranjang${parseInt(n+1)}`) / 100 * response)) * qty
                     sumTotal();
                 },
                 error: function(error) {
