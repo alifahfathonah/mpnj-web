@@ -48,7 +48,8 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'diskon' => $request->diskon,
             'stok' => $request->stok,
-            'pelapak_id' => $konsumen_id
+            'pelapak_id' => $konsumen_id,
+            'slug' => $request->nama_produk
         ]);
 
         foreach ($request->document as $file) {
