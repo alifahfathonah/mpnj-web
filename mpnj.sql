@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Feb 2020 pada 08.51
+-- Waktu pembuatan: 10 Feb 2020 pada 17.30
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.2.23
 
@@ -83,13 +83,13 @@ CREATE TABLE `foto_produk` (
 --
 
 INSERT INTO `foto_produk` (`id_foto_produk`, `foto_produk`, `produk_id`) VALUES
-(1, '5e161826ef5d0_keripik bayam 3.jpg', 1),
+(1, '5e41820eb6518_5e1618d27fd84_tahu bulat.jpg', 1),
 (2, '5e1618278e926_keripik bayam.png', 1),
 (3, '5e1618280bf50_keripik bayam 2.jpg', 1),
-(4, '5e1618d1d90ce_tahu bulat 2.jpg', 2),
+(4, '5e4180d7e884a_5e1618d1d90ce_tahu bulat 2.jpg', 2),
 (5, '5e1618d27fd84_tahu bulat.jpg', 2),
-(6, '5e18b25e0172c_seblak.png', 3),
-(7, '5e1af8b52f5f1_keripik bayam.png', 4),
+(6, '5e41810e44c5f_5e18b25e0172c_seblak.png', 3),
+(7, '5e4181478d272_5e161826ef5d0_keripik bayam 3.jpg', 4),
 (12, '5e1618278e926_keripik bayam.png', 9);
 
 -- --------------------------------------------------------
@@ -134,8 +134,8 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`id_keranjang`, `produk_id`, `pembeli_id`, `pembeli_type`, `created_at`, `updated_at`, `status`, `jumlah`, `harga_jual`) VALUES
-(13, 3, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:09', '2020-02-05 06:17:20', 'N', 8, 6000),
-(14, 4, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:39', '2020-02-05 06:17:29', 'N', 6, 6000);
+(13, 3, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:09', '2020-02-09 08:44:01', 'N', 5, 6000),
+(14, 4, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:39', '2020-02-09 08:44:01', 'N', 4, 6000);
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,7 @@ CREATE TABLE `konsumen` (
   `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `alamat_utama` int(11) NOT NULL
+  `alamat_utama` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `konsumen` (
 --
 
 INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `provinsi_id`, `city_id`, `alamat`, `kode_pos`, `nomor_hp`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
-(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 11, 369, 'Maron Wetan RT 11 RW 003', '67276', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-06 00:46:43', 4);
+(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', '6yBf0Q2bxZvShTCBlHibXXKJhK7gK4j8w6ShV3NSXLdHvtZ41SeodtZClLCz', 11, 369, 'Maron Wetan RT 11 RW 003', '67276', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-09 14:02:46', 1);
 
 -- --------------------------------------------------------
 
