@@ -72,8 +72,8 @@ class ProdukController extends Controller
     public function ubah(Request $request, $id)
     {
         $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
+        $pelapak_id = Session::get('id');
+        $konsumen_id = $request->user($role)->$pelapak_id;
 
         $produk = Produk::find($id);
         $produk->nama_produk = $request->nama_produk;
