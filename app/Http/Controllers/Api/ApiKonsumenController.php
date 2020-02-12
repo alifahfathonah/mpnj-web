@@ -25,53 +25,23 @@ class ApiKonsumenController extends Controller
 
     public function profile($id_konsumen)
     {
-        $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
-        
-        if($konsumen){
-             $res ['pesan'] = "Sukses!";
-             $hasil['id_konsumen'] = $id_konsumen;
-             $hasil['nama_lengkap'] = $konsumen->nama_lengkap;
-             $request = $this->client->get('https://api.rajaongkir.com/starter/city?id='.$konsumen->city_id.'',[
-                'headers' => [
-                    'key' => $this->token
-                ]
-              ])->getBody()->getContents();
-            $kota = json_decode($request,false);
-            
-            $alamat = array();
-            $alamat['alamat'] = $konsumen->alamat;
-            $alamat['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
-            $alamat['provinsi'] = $kota->rajaongkir->results->province;
-            $alamat['kode_pos'] = $konsumen->kode_pos;
+        $konsumen = Konsumen::with('daftar_alamat')->where('id_konsumen',$id_konsumen)->first(
+            ['id_konsumen', 'nama_lengkap', 'username', 'nomor_hp', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
+        );
 
-            $hasil['alamat_utama']  = $alamat;
-            
-            $hasil['nomer'] = $konsumen->nomor_hp;
-            $hasil['email'] = $konsumen->email;
-
-            $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
-
-            $result = array();
-            foreach ($alamat_lain as $row) {
-                            $alamat_cadangan = array();
-                            $alamat_cadangan['id_alamat'] = $row->id_alamat;
-                            $alamat_cadangan ['nama_lengkap'] = $row->nama;
-                            $alamat_cadangan['alamat'] = $row->alamat_lengkap;
-                            $alamat_cadangan['kota'] = $kota->rajaongkir->results->type.' '.$kota->rajaongkir->results->city_name;
-                            $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
-                            $alamat_cadangan['kode_pos'] = $row->kode_pos;
-                            $alamat_cadangan['nomer'] = $row->nomor_telepon;
-                            array_push($result,$alamat_cadangan);
-                }
-            
-            $hasil['alamat_lain'] = $result;
-
-            $res['data'] = $hasil;
-            return response()->json($res);
-
-        }else{
-            return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
+//        return $konsumen->daftar_alamat[0]['id_alamat'];
+        foreach ($konsumen->daftar_alamat as $a) {
+            if ($a['id_alamat'] == $konsumen['alamat_utama']) {
+                $a['status'] = 'utama';
+            } else {
+                $a['status'] = 'bukan';
+            }
         }
+
+        return response()->json([
+           'pesan' => 'Sukses!!',
+           'data' => $konsumen
+        ]);
     }
 
     public function cek_email($email)
