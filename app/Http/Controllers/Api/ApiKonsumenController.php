@@ -28,6 +28,9 @@ class ApiKonsumenController extends Controller
         $konsumen = Konsumen::where('id_konsumen',$id_konsumen)->first();
         
         if($konsumen){
+
+             $au = "alamat_utama";
+             $al = "alamat_lain";
              $res ['pesan'] = "Sukses!";
              $hasil['id_konsumen'] = $id_konsumen;
              $hasil['nama_lengkap'] = $konsumen->nama_lengkap;
@@ -48,6 +51,7 @@ class ApiKonsumenController extends Controller
             
             $hasil['nomer'] = $konsumen->nomor_hp;
             $hasil['email'] = $konsumen->email;
+            $hasil['status_alamat'] = $au;
 
             $alamat_lain  = Alamat::select('*')->where('user_id',$id_konsumen)->get();
 
@@ -61,6 +65,7 @@ class ApiKonsumenController extends Controller
                             $alamat_cadangan['provinsi'] = $kota->rajaongkir->results->province;
                             $alamat_cadangan['kode_pos'] = $row->kode_pos;
                             $alamat_cadangan['nomer'] = $row->nomor_telepon;
+                            $alamat_cadangan['status_alamat'] = $al;
                             array_push($result,$alamat_cadangan);
                 }
             
