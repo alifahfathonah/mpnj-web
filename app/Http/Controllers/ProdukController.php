@@ -141,12 +141,7 @@ class ProdukController extends Controller
 
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
-        $img = ImageResize::make($file->path());
-
-        // --------- [ Resize Image ] ---------------
-        $img->resize(150, 200)->save('assets/foto_produk/'.$name);
-
-//        $file->move('assets/foto_produk', $name);
+        $file->move('assets/foto_produk', $name);
 
         return response()->json([
             'name'          => $name,
