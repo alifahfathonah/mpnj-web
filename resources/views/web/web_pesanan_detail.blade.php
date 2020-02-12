@@ -70,10 +70,22 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $d->produk->nama_produk }}</td>
                                                     <td>{{ $d->jumlah }}</td>
-                                                    <td>@currency($d->harga_jual)</td>
+                                                    <td>
+                                                        @if($d->produk->diskon == 0)
+                                                            @currency($d->harga_jual)
+                                                        @else
+                                                            <strike style="color: red">@currency($d->harga_jual)</strike> | @currency($d->harga_jual - ($d->produk->diskon / 100 * $d->harga_jual))
+                                                        @endif
+                                                    </td>
                                                     <td>{{  $d->kurir }} ({{ $d->service }})</td>
                                                     <td>@currency($d->ongkir)</td>
-                                                    <td>@currency(($d->jumlah * $d->harga_jual) + $d->ongkir)</td>
+                                                    <td>
+                                                        @if($d->produk->diskon == 0)
+                                                            @currency(($d->jumlah * $d->harga_jual) + $d->ongkir)
+                                                        @else
+                                                            @currency(($d->harga_jual - ($d->produk->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $d->status_order }}</td>
                                                 </tr>
                                             @endforeach

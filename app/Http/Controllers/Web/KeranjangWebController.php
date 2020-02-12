@@ -63,7 +63,8 @@ class KeranjangWebController extends Controller
 
     public function hitungTotal(Request $request)
     {
-        $sum = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
+        $sum = Keranjang::with('produk')
+                ->whereIn('id_keranjang', $request->id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
         return $sum;
     }
 

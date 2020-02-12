@@ -34,9 +34,9 @@ class CheckoutWebController extends Controller
                         ->where('status', 'Y')
                         ->get()
                         ->groupBy('produk.pelapak.nama_toko');
-        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
-                        ->where('status', 'Y')
-                        ->sum(DB::raw('jumlah * harga_jual'));
+//        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
+//                        ->where('status', 'Y')
+//                        ->sum(DB::raw('jumlah * harga_jual'));
         $data['berat'] = DB::table("keranjang")
                         ->select(DB::raw("SUM(produk.berat * keranjang.jumlah) as total_berat"))
                         ->leftjoin("produk","keranjang.produk_id","=","produk.id_produk")->groupBy('produk.pelapak_id')

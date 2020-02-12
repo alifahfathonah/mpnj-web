@@ -84,7 +84,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <?php $o = 0; $n = 1; $x = 1;?>
+                                            <?php $o = 0; $n = 1; $x = 1; $total = 0;?>
                                             @foreach ($order as $key => $val)
                                                 <tr id="dataPelapak{{ $x }}"
                                                     data-origin="{{ $val[0]->produk->pelapak->city_id }}"
@@ -103,7 +103,8 @@
                                                         data-jumlah="{{ $k->jumlah }}"
                                                         data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
                                                         data-idkeranjang="{{  $k->id_keranjang }}"
-                                                        data-idpelapak="{{ $k->produk->pelapak->id_pelapak }}">
+                                                        data-idpelapak="{{ $k->produk->pelapak->id_pelapak }}"
+                                                        data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}">
                                                         <td>
                                                             <div class="product__description">
                                                                 <img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}"

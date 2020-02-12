@@ -156,10 +156,23 @@
 
                                     <div class="product-purchase">
                                         <div class="price_love">
-                                            <span>@currency($p->harga_jual)</span>
+                                            @if($p->diskon == 0)
+                                                <span>@currency($p->harga_jual)</span>
+                                            @else
+                                                <span>
+                                                    <strike><p style="color: red">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                                                </span>
+                                            @endif
                                         </div>
-                                        <a href="{{ URL::to('produk?kategori='.strtolower($p->kategori->nama_kategori)) }}">
-                                            <span class="lnr lnr-book"></span>{{ $p->kategori->nama_kategori }}</a>
+                                        <div class="sell">
+                                            <p>
+                                                <span class="fa fa-cart-arrow-down"></span>
+                                                <span>{{ $p->terjual }}</span>
+                                            </p>
+                                        </div>
+{{--                                        <a href="{{ URL::to('produk?kategori='.strtolower($p->kategori->nama_kategori)) }}">--}}
+{{--                                            <span class="lnr lnr-book"></span>{{ $p->kategori->nama_kategori }}--}}
+{{--                                        </a>--}}
                                     </div>
                                     <!-- end /.product-purchase -->
                                 </div>
