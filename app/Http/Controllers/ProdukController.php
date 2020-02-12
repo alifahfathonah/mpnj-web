@@ -7,7 +7,6 @@ use App\Models\Produk;
 use App\Models\Kategori_Produk;
 use Illuminate\Http\Request;
 use File;
-use ImageResize;
 use Illuminate\Support\Facades\Session;
 
 class ProdukController extends Controller
@@ -48,8 +47,7 @@ class ProdukController extends Controller
             'harga_jual' => $request->harga_jual,
             'diskon' => $request->diskon,
             'stok' => $request->stok,
-            'pelapak_id' => $konsumen_id,
-            'slug' => $request->nama_produk
+            'pelapak_id' => $konsumen_id
         ]);
 
         foreach ($request->document as $file) {
@@ -73,8 +71,8 @@ class ProdukController extends Controller
     public function ubah(Request $request, $id)
     {
         $role = Session::get('role');
-        $pelapak_id = Session::get('id');
-        $konsumen_id = $request->user($role)->$pelapak_id;
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
 
         $produk = Produk::find($id);
         $produk->nama_produk = $request->nama_produk;
@@ -139,12 +137,7 @@ class ProdukController extends Controller
 
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
-        $img = ImageResize::make($file->path());
-
-        // --------- [ Resize Image ] ---------------
-        $img->resize(150, 200)->save('assets/foto_produk/'.$name);
-
-//        $file->move('assets/foto_produk', $name);
+        $file->move('assets/foto_produk', $name);
 
         return response()->json([
             'name'          => $name,

@@ -47,7 +47,6 @@ class ApiProdukController extends Controller
         $produk = new Produk;
         $produk->pelapak_id = "1";
         $produk->nama_produk = $request->nama_produk;
-        $produk->slug = $request->nama_produk;
         $produk->satuan = $request->satuan;
         $produk->kategori_produk_id = $request->kategori_produk_id;
         $produk->berat = $request->berat;
