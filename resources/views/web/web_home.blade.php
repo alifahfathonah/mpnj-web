@@ -187,9 +187,18 @@ START PRODUCTS AREA
 
                     <div class="product-purchase">
                         <div class="price_love">
-                            <span>@currency($p->harga_jual)</span>
-                            <p>
-                                <span class="fa fa-heart"></span> {{ $p->wishlist }}</p>
+                            @if($p->diskon == 0)
+                                <span>
+                                    @currency($p->harga_jual)
+                                </span>
+                            @else
+                                <span>
+                                    <strike><p style="color: red">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                                </span>
+                            @endif
+{{--                            <p>--}}
+{{--                                <span class="fa fa-heart"></span> {{ $p->wishlist }}--}}
+{{--                            </p>--}}
                         </div>
                         <div class="sell">
                             <p>
