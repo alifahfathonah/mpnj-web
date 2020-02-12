@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Feb 2020 pada 08.51
+-- Waktu pembuatan: 12 Feb 2020 pada 19.29
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.2.23
 
@@ -83,14 +83,16 @@ CREATE TABLE `foto_produk` (
 --
 
 INSERT INTO `foto_produk` (`id_foto_produk`, `foto_produk`, `produk_id`) VALUES
-(1, '5e161826ef5d0_keripik bayam 3.jpg', 1),
-(2, '5e1618278e926_keripik bayam.png', 1),
-(3, '5e1618280bf50_keripik bayam 2.jpg', 1),
-(4, '5e1618d1d90ce_tahu bulat 2.jpg', 2),
-(5, '5e1618d27fd84_tahu bulat.jpg', 2),
-(6, '5e18b25e0172c_seblak.png', 3),
-(7, '5e1af8b52f5f1_keripik bayam.png', 4),
-(12, '5e1618278e926_keripik bayam.png', 9);
+(1, '5e444127e9d04_5e1618278e926_keripik bayam.png', 1),
+(2, '5e444127e9d04_5e1618278e926_keripik bayam.png', 1),
+(3, '5e44417aaea90_5e1618280bf50_keripik bayam 2.jpg', 1),
+(4, '5e4441a933970_5e1618d27fd84_tahu bulat.jpg', 2),
+(5, '5e4441ceb0784_5e1618d1d90ce_tahu bulat 2.jpg', 2),
+(6, '5e444204d39d8_5e18b25e0172c_seblak.png', 3),
+(7, '5e444238bbfde_5e1af8b52f5f1_keripik bayam.png', 4),
+(12, '5e444238bbfde_5e1af8b52f5f1_keripik bayam.png', 9),
+(13, '5e418b4e021b4_ayam geprek 2.jpg', 10),
+(14, '5e418b4eaff8a_ayam geprek.jpg', 10);
 
 -- --------------------------------------------------------
 
@@ -134,8 +136,8 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`id_keranjang`, `produk_id`, `pembeli_id`, `pembeli_type`, `created_at`, `updated_at`, `status`, `jumlah`, `harga_jual`) VALUES
-(13, 3, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:09', '2020-02-05 06:17:20', 'N', 8, 6000),
-(14, 4, 1, 'App\\Models\\Konsumen', '2020-02-04 08:54:39', '2020-02-05 06:17:29', 'N', 6, 6000);
+(15, 2, 1, 'App\\Models\\Konsumen', '2020-02-10 13:25:37', '2020-02-12 11:24:13', 'N', 4, 4000),
+(16, 9, 1, 'App\\Models\\Konsumen', '2020-02-10 13:27:06', '2020-02-12 11:24:05', 'N', 6, 5000);
 
 -- --------------------------------------------------------
 
@@ -182,7 +184,7 @@ CREATE TABLE `konsumen` (
   `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `alamat_utama` int(11) NOT NULL
+  `alamat_utama` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -190,7 +192,7 @@ CREATE TABLE `konsumen` (
 --
 
 INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `provinsi_id`, `city_id`, `alamat`, `kode_pos`, `nomor_hp`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
-(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 11, 369, 'Maron Wetan RT 11 RW 003', '67276', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-06 00:46:43', 4);
+(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 'q3jF2d1fPeNWzTOiSMsw5LdGLj2H3laqs2AQFEnb2vbvFIL2cvruwre33mu3', 11, 369, 'Maron Wetan RT 11 RW 003', '67276', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-12 08:00:37', 1);
 
 -- --------------------------------------------------------
 
@@ -287,6 +289,7 @@ INSERT INTO `pelapak` (`id_pelapak`, `username`, `password`, `status_official`, 
 CREATE TABLE `produk` (
   `id_produk` int(10) UNSIGNED NOT NULL,
   `nama_produk` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `satuan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `berat` int(11) NOT NULL DEFAULT 0,
   `harga_modal` int(11) NOT NULL DEFAULT 0,
@@ -308,12 +311,13 @@ CREATE TABLE `produk` (
 -- Dumping data untuk tabel `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `satuan`, `berat`, `harga_modal`, `harga_jual`, `diskon`, `stok`, `keterangan`, `foto`, `tipe_produk`, `pelapak_id`, `wishlist`, `terjual`, `created_at`, `updated_at`, `kategori_produk_id`) VALUES
-(1, 'Keripik Bayam', 'pcs', 2, 4000, 5000, 0, 20, 'Keripik bayam adalah keripik yang terbuat dari daun bayam dan digoreng dengan menggunakan tepung yang telah dibumbui. Biasanya rasanya adalah asin dengan aroma bawang yang gurih.', NULL, 'single', 1, 0, 0, '2020-01-08 10:58:49', '2020-01-08 10:58:49', 1),
-(2, 'Keripi Tahun Bulat', 'pcs', 5, 2000, 4000, 0, 10, 'Tahu bulat adalah sebuah jajanan kaki lima berupa olahan kacang kedelai yang dibuat menjadi sebuah tahu berbentuk bulat dengan isi kopong. Biasanya, tahu bulat dijual di sebuah mobil bak terbuka dan kebanyakan dihargai Rp500 per buah. Jajanan tersebut menjadi semakin terkenal semenjak adanya permainan video Tahu Bulat yang diluncurkan pada tahun 2016,Namun Begitu Kepopuleran Permainan Tersebut tak berlangsung lama. Saat ini, bisnis tahu bulat menyebar di Bogor, Sentul, Jonggol, Cileungsi, Sukabumi, Sumedang, Bandung, Semarang, Solo, Yogyakarta, hingga Wonosobo.', NULL, 'single', 1, 0, 0, '2020-01-08 11:01:39', '2020-01-08 11:01:39', 1),
-(3, 'Kripik Seblak', 'pcs', 4, 4000, 6000, 0, 10, 'Bandung merupakan salah satu kota yang memiliki beragam makanan khas. Makanan khas Bandung terdiri dari banyak sekali ragam dan salah satunya ada yang dinamakan seblak. Terbuat dari kerupuk basah yang dimasak dengan sayuran dan sumber protein seperti telur, ayam, atau olahan daging sapi, dan dimasak dengan bumbu tertentu. Seblak kini menjadi jalanan yang digemari berbagai kalangan masyarakat.\r\n\r\nSIMAK PULA\r\n4 Cara Membuat Seblak Sederhana, Jajanan Khas Bandung yang Populer\r\nSeblak disajikan di rumah makan dan warung, serta dijajakan di gerobak pedagang keliling. Makanan yang bertekstur kenyal ini memiliki rasa yang pedas dan menyegarkan, serta memiliki beberapa variasi, baik rasa maupun bahan tambahan juga kemasan.\r\n\r\nSaat ini cara membuat seblak memiliki dua jenis yaitu seblak kering dan seblak basah. Cara membuat seblak kering sebenarnya mirip dengan kerupuk pedas pada umumnya. Seperti basreng (bakso goreng), ceker goreng, makaroni, kerupuk pedas, kerupuk mi pedas dan lain sebagainya.\r\n\r\nSedangkan cara membuat seblak basah, dibuat dengan kuah pedas gurih dengan aroma kencur yang khas. Varian seblak pun kini sudah bermacam-macam, tak hanya mi dan kerupuk basah saja, namun bisa ditambah sayap ayam, sosis, bakso, makaroni, tulang ayam, dan ceker.\r\n\r\nSeblak kering adalah satu dari beberapa varian jajanan seblak yang dapat kamu nikmati sebagai cemilan pedas renyah. Bumbu berasa pedas adalah perpaduan yang tak bisa dipisahkan dari seblak baik itu seblak kering ataupun seblak basah. Rasa pedas ini justru yang menjadikan sensasi tersendiri dalam menikmati seblak sehingga jika dibuat tanpa campuran bumbu pedasnya akan berasa ada yang kurang. Baik seblak basah maupun seblak kering, keduanya sama-sama menggunakan bahan dasar kerupuk. Kerupuk yang dipilih bisa berupa kerupuk udang atau juga kerupuk bawang.\r\n\r\nPerbedaan dari keduanya hanyalah dari langkah penyajiannya saja. Jika pada seblak basah kerupuk yang akan dimasak direndam dan direbus terlebih dahulu sampai lembek, maka untuk seblak kering kerupuk yang akan dimasak langsung digoreng bersama dengan bumbu halus hingga merekah. Kehati-hatian tentunya diperlukan sekali pada saat menggoreng seblak kering ini agar tidak gosong yang justru akan menjadikan seblak ini terasa pahit.\r\n\r\nPerbedaan lainnya antara seblak kering dengan seblak basah adalah ketahanannya. Seblak basah hanya dapat bertahan selama beberapa jam saja atau tidak lebih dari satu hari. Sedangkan seblak kering asalkan disimpan dalam wadah kedap udara akan bertahan cukup lama dan kerenyahannya pun akan bertahan cukup lama. Penasaran dengan cara membuat seblak kering? Berikut resepnya yang telah dirangkum liputan6.com, Sabtu (20/10/2018)', NULL, 'single', 2, 0, 0, '2020-01-10 10:21:46', '2020-01-10 10:21:46', 1),
-(4, 'Kricik Bayem 3', 'pcs', 3, 5000, 6000, 0, 20, 'Kricik Bayem 3 enak', NULL, 'single', 1, 0, 0, '2020-01-12 03:45:25', '2020-01-12 03:45:25', 1),
-(9, 'Keripik Bayam', 'pcs', 2, 4000, 5000, 0, 20, 'Keripik bayam adalah keripik yang terbuat dari daun bayam dan digoreng dengan menggunakan tepung yang telah dibumbui. Biasanya rasanya adalah asin dengan aroma bawang yang gurih.', NULL, 'single', 3, 0, 0, '2020-01-08 10:58:49', '2020-01-08 10:58:49', 1);
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `slug`, `satuan`, `berat`, `harga_modal`, `harga_jual`, `diskon`, `stok`, `keterangan`, `foto`, `tipe_produk`, `pelapak_id`, `wishlist`, `terjual`, `created_at`, `updated_at`, `kategori_produk_id`) VALUES
+(1, 'Keripik Bayam', 'keripik-bayam', 'pcs', 2, 4000, 5000, 50, 20, 'Keripik bayam adalah keripik yang terbuat dari daun bayam dan digoreng dengan menggunakan tepung yang telah dibumbui. Biasanya rasanya adalah asin dengan aroma bawang yang gurih.', NULL, 'single', 1, 0, 0, '2020-01-08 10:58:49', '2020-02-12 10:14:50', 1),
+(2, 'Keripi Tahun Bulat', 'keripi-tahun-bulat', 'pcs', 5, 2000, 4000, 0, 10, 'Tahu bulat adalah sebuah jajanan kaki lima berupa olahan kacang kedelai yang dibuat menjadi sebuah tahu berbentuk bulat dengan isi kopong. Biasanya, tahu bulat dijual di sebuah mobil bak terbuka dan kebanyakan dihargai Rp500 per buah. Jajanan tersebut menjadi semakin terkenal semenjak adanya permainan video Tahu Bulat yang diluncurkan pada tahun 2016,Namun Begitu Kepopuleran Permainan Tersebut tak berlangsung lama. Saat ini, bisnis tahu bulat menyebar di Bogor, Sentul, Jonggol, Cileungsi, Sukabumi, Sumedang, Bandung, Semarang, Solo, Yogyakarta, hingga Wonosobo.', NULL, 'single', 1, 0, 0, '2020-01-08 11:01:39', '2020-02-12 10:14:26', 1),
+(3, 'Kripik Seblak', 'keripik-seblak', 'pcs', 4, 4000, 6000, 30, 10, 'Bandung merupakan salah satu kota yang memiliki beragam makanan khas. Makanan khas Bandung terdiri dari banyak sekali ragam dan salah satunya ada yang dinamakan seblak. Terbuat dari kerupuk basah yang dimasak dengan sayuran dan sumber protein seperti telur, ayam, atau olahan daging sapi, dan dimasak dengan bumbu tertentu. Seblak kini menjadi jalanan yang digemari berbagai kalangan masyarakat.\r\n\r\nSIMAK PULA\r\n4 Cara Membuat Seblak Sederhana, Jajanan Khas Bandung yang Populer\r\nSeblak disajikan di rumah makan dan warung, serta dijajakan di gerobak pedagang keliling. Makanan yang bertekstur kenyal ini memiliki rasa yang pedas dan menyegarkan, serta memiliki beberapa variasi, baik rasa maupun bahan tambahan juga kemasan.\r\n\r\nSaat ini cara membuat seblak memiliki dua jenis yaitu seblak kering dan seblak basah. Cara membuat seblak kering sebenarnya mirip dengan kerupuk pedas pada umumnya. Seperti basreng (bakso goreng), ceker goreng, makaroni, kerupuk pedas, kerupuk mi pedas dan lain sebagainya.\r\n\r\nSedangkan cara membuat seblak basah, dibuat dengan kuah pedas gurih dengan aroma kencur yang khas. Varian seblak pun kini sudah bermacam-macam, tak hanya mi dan kerupuk basah saja, namun bisa ditambah sayap ayam, sosis, bakso, makaroni, tulang ayam, dan ceker.\r\n\r\nSeblak kering adalah satu dari beberapa varian jajanan seblak yang dapat kamu nikmati sebagai cemilan pedas renyah. Bumbu berasa pedas adalah perpaduan yang tak bisa dipisahkan dari seblak baik itu seblak kering ataupun seblak basah. Rasa pedas ini justru yang menjadikan sensasi tersendiri dalam menikmati seblak sehingga jika dibuat tanpa campuran bumbu pedasnya akan berasa ada yang kurang. Baik seblak basah maupun seblak kering, keduanya sama-sama menggunakan bahan dasar kerupuk. Kerupuk yang dipilih bisa berupa kerupuk udang atau juga kerupuk bawang.\r\n\r\nPerbedaan dari keduanya hanyalah dari langkah penyajiannya saja. Jika pada seblak basah kerupuk yang akan dimasak direndam dan direbus terlebih dahulu sampai lembek, maka untuk seblak kering kerupuk yang akan dimasak langsung digoreng bersama dengan bumbu halus hingga merekah. Kehati-hatian tentunya diperlukan sekali pada saat menggoreng seblak kering ini agar tidak gosong yang justru akan menjadikan seblak ini terasa pahit.\r\n\r\nPerbedaan lainnya antara seblak kering dengan seblak basah adalah ketahanannya. Seblak basah hanya dapat bertahan selama beberapa jam saja atau tidak lebih dari satu hari. Sedangkan seblak kering asalkan disimpan dalam wadah kedap udara akan bertahan cukup lama dan kerenyahannya pun akan bertahan cukup lama. Penasaran dengan cara membuat seblak kering? Berikut resepnya yang telah dirangkum liputan6.com, Sabtu (20/10/2018)', NULL, 'single', 2, 0, 0, '2020-01-10 10:21:46', '2020-01-10 10:21:46', 1),
+(4, 'Kricik Bayem 3', 'kricik-bayem-3', 'pcs', 3, 5000, 6000, 0, 20, 'Kricik Bayem 3 enak', NULL, 'single', 1, 0, 0, '2020-01-12 03:45:25', '2020-02-12 10:14:06', 1),
+(9, 'Keripik Bayam', 'keripik-bayam', 'pcs', 2, 4000, 5000, 10, 20, 'Keripik bayam adalah keripik yang terbuat dari daun bayam dan digoreng dengan menggunakan tepung yang telah dibumbui. Biasanya rasanya adalah asin dengan aroma bawang yang gurih.', NULL, 'single', 3, 0, 0, '2020-01-08 10:58:49', '2020-01-08 10:58:49', 1),
+(10, 'Ayam Geprek Pedas', 'ayam-geprek-pedas', 'pcs', 2, 7000, 10000, 20, 30, 'Ayam geprek adalah makanan ayam goreng tepung khas Indonesia yang diulek atau dilumatkan bersama sambal bajak.[3] Kini ayam geprek telah menjadi hidangan populer yang dapat ditemukan di hampir semua kota besar di Indonesia, tetapi asal mula ayam geprek berasal dari kota Yogyakarta.[2]\r\n\r\nGeprek adalah istilah dalam Bahasa Jawa yang berarti \"dipukul\", \"ditekan\", atau \"dilumatkan\", maka ayam geprek berarti \"ayam yang dipukul\".[4] Hidangan ini mirip dengan masakan Jawa tradisional ayam penyet, karena keduanya adalah sama-sama ayam goreng yang dipukul dan ditekan dengan menggunakan ulekan dan dicampur dengan sambal. Perbedaannya adalah, ayam penyet adalah ayam goreng tradisional Jawa yang diungkep dengan bumbu kuning, kemudian digoreng rendam dalam minyak goreng panas. Sementara ayam geprek lebih mirip dengan ayam goreng gaya barat (lazim disebut fried chicken Amerika), yakni ayam goreng tepung yang renyah yang dilapisi dengan adonan tepung terigu sebelum digoreng.[4]', NULL, 'single', 1, 0, 0, '2020-02-10 09:57:57', '2020-02-12 10:13:45', 1);
 
 -- --------------------------------------------------------
 
@@ -359,10 +363,7 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `kode_transaksi`, `pembeli_id`, `pembeli_type`, `waktu_transaksi`, `total_bayar`) VALUES
-(1, '1580494760', 1, 'App\\Models\\Konsumen', '2020-01-31 18:19:20', 87000),
-(2, '1580495495', 1, 'App\\Models\\Konsumen', '2020-01-31 18:31:35', 50000),
-(3, '1580499867', 1, 'App\\Models\\Konsumen', '2020-01-31 19:44:27', 33000),
-(4, '1580661654', 1, 'App\\Models\\Konsumen', '2020-02-02 16:40:54', 80000);
+(1, '1581520059', 1, 'App\\Models\\Konsumen', '2020-02-12 15:07:39', 84000);
 
 -- --------------------------------------------------------
 
@@ -391,18 +392,8 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `transaksi_id`, `produk_id`, `jumlah`, `harga_jual`, `diskon`, `kurir`, `service`, `ongkir`, `etd`, `sub_total`, `status_order`, `pelapak_id`) VALUES
-(1, 1, 2, 1, 4000, 0, 'jne', 'CTCYES', 12000, '1-1', 16000, 'verifikasi', 1),
-(2, 1, 1, 2, 5000, 0, 'jne', 'CTCYES', 12000, '1-1', 22000, 'dikirim', 1),
-(3, 1, 9, 3, 5000, 0, 'pos', 'Q9 Barang', 12000, '9 JAM', 27000, 'verifikasi', 3),
-(4, 1, 3, 4, 6000, 0, 'tiki', 'REG', 10000, '3', 34000, 'pending', 2),
-(5, 2, 2, 1, 4000, 0, 'jne', 'CTCYES', 12000, '1-1', 16000, 'dikirim', 1),
-(6, 2, 3, 2, 6000, 0, 'pos', 'Paket Kilat Khusus', 7000, '1 HARI', 19000, 'pending', 2),
-(7, 2, 9, 1, 5000, 0, 'tiki', 'REG', 10000, '3', 15000, 'pending', 3),
-(8, 3, 3, 1, 6000, 0, 'pos', 'Q9 Barang', 12000, '9 JAM', 18000, 'pending', 2),
-(9, 3, 9, 1, 5000, 0, 'tiki', 'REG', 10000, '3', 15000, 'pending', 3),
-(10, 4, 2, 4, 4000, 0, 'jne', 'CTCYES', 12000, '1-1', 28000, 'pending', 1),
-(11, 4, 3, 5, 6000, 0, 'tiki', 'REG', 10000, '3', 40000, 'pending', 2),
-(12, 4, 9, 1, 5000, 0, 'jne', 'CTC', 7000, '1-2', 12000, 'pending', 3);
+(1, 1, 3, 5, 6000, 0, 'jne', 'REG', 20000, '1-2', 50000, 'pending', 2),
+(2, 1, 4, 4, 6000, 0, 'pos', 'Paket Kilat Khusus', 19000, '2-3 HARI', 43000, 'pending', 1);
 
 -- --------------------------------------------------------
 
@@ -545,7 +536,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `foto_produk`
 --
 ALTER TABLE `foto_produk`
-  MODIFY `id_foto_produk` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_foto_produk` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_produk`
@@ -557,7 +548,7 @@ ALTER TABLE `kategori_produk`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `konfirmasi`
@@ -587,7 +578,7 @@ ALTER TABLE `pelapak`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_produk` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `rekening_pelapak`
@@ -599,13 +590,13 @@ ALTER TABLE `rekening_pelapak`
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_transaksi_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_transaksi_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
