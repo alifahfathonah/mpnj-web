@@ -78,12 +78,6 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-        $data['provinsi'] = json_decode($request, false);
-        return view('auth/register', $data);
+        return view('auth/register');
     }
 }
