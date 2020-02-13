@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class KonsumenWebController extends Controller
 {
