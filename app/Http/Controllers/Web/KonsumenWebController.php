@@ -19,11 +19,7 @@ class KonsumenWebController extends Controller
         $simpan = Konsumen::create([
             'nama_lengkap' => $request->nama_lengkap,
             'username' => $request->username,
-            'password' => $request->password,
-            'provinsi_id' => $request->provinsi,
-            'city_id' => $request->kota,
-            'alamat' => $request->alamat,
-            'kode_pos' => $request->kode_pos,
+            'password' => Hash::make($request->password),
             'nomor_hp' => $request->nomor_hp,
             'email' => $request->email
         ]);
