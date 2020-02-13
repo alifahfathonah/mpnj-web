@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Feb 2020 pada 19.29
+-- Waktu pembuatan: 13 Feb 2020 pada 03.33
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.2.23
 
@@ -175,10 +175,6 @@ CREATE TABLE `konsumen` (
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provinsi_id` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kode_pos` char(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nomor_hp` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -191,8 +187,8 @@ CREATE TABLE `konsumen` (
 -- Dumping data untuk tabel `konsumen`
 --
 
-INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `provinsi_id`, `city_id`, `alamat`, `kode_pos`, `nomor_hp`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
-(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 'q3jF2d1fPeNWzTOiSMsw5LdGLj2H3laqs2AQFEnb2vbvFIL2cvruwre33mu3', 11, 369, 'Maron Wetan RT 11 RW 003', '67276', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-12 08:00:37', 1);
+INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `nomor_hp`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
+(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 'q3jF2d1fPeNWzTOiSMsw5LdGLj2H3laqs2AQFEnb2vbvFIL2cvruwre33mu3', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-12 08:00:37', 1);
 
 -- --------------------------------------------------------
 
