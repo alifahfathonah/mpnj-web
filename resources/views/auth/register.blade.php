@@ -70,32 +70,6 @@
                             </div> --}}
 
                             <div class="form-group">
-                                <label for="provinsi">Provinsi</label>
-                                <select name="provinsi" id="provinsi" class="text_field">
-                                    @foreach ($provinsi->rajaongkir->results as $p)
-                                    <option value="{{ $p->province_id }}">{{ $p->province }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="kota">Kota</label>
-                                <select name="kota" id="kota" class="text_field">
-
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <textarea name="alamat" id="alamat" cols="30" rows="10" class="text_field"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="kode_pos">Kode Pos</label>
-                                <input id="kode_pos" type="text" name="kode_pos" class="text_field" placeholder="Isi kode pos...">
-                            </div>
-
-                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input id="email" type="email" name="email" class="text_field" placeholder="Isi email...">
                             </div>
@@ -128,52 +102,3 @@
             END SIGNUP AREA
     =================================-->
 @endsection
-
-@push('scripts')
-<script>
-    $(function() {
-            $("#provinsi").on('change', function() {
-                let provinsiId = $(this).val();
-                // var settings = {
-                //     "async": true,
-                //     "crossDomain": true,
-                //     "url": "https://api.rajaongkir.com/starter/city?province=5",
-                //     "method": "GET",
-                //     "dataType": "jsonp",
-                //     "header": {
-                //         "key": "c506cdfc35a33e3d47fb068b799c0630"
-                //     }
-                // }
-                // $.ajax(settings).done(function (response) {
-                //     console.log(response);
-                // });
-
-                // $.get('https://api.rajaongkir.com/starter/city?province=5', {
-                //     header: [
-                //         'key : c506cdfc35a33e3d47fb068b799c0630'
-                //     ]
-                // }, (response) => {
-                //     console.log(response);
-                // })
-                $.ajax({
-                    // url: "https://api.rajaongkir.com/starter/city?province=5",
-                    url: `kotaByProvinsiId/${provinsiId}`,
-                    type: 'GET',
-                    // format: 'json',
-                    // dataType: 'json',
-                    success: function(response) {
-                        $("#kota option").remove();
-                        response.rajaongkir.results.map(e => {
-                            $("#kota").append(`
-                                <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
-                            `);
-                        });
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        })
-</script>
-@endpush
