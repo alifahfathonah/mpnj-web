@@ -16,15 +16,11 @@ class CreateKonsumenTable extends Migration
         Schema::create('konsumen', function (Blueprint $table) {
             $table->increments('id_konsumen');
             $table->string('nama_lengkap');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
-            $table->integer('provinsi_id');
-            $table->integer('city_id');
-            $table->string('alamat');
-            $table->char('kode_pos', 5);
-            $table->char('nomor_hp', 12);
-            $table->string('email');
-            $table->enum('status', ['aktif','nonaktif']);
+            $table->char('nomor_hp', 12)->nullable();
+            $table->string('email')->unique();
+            $table->enum('status', ['aktif','nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }
