@@ -45,15 +45,24 @@
                             <div class="information__set">
                                 <div class="information_wrapper form--fields table-responsive">
                                     @foreach($order as $key => $val)
-                                        <div class="information_module order_summary">
-                                            <div class="toggle_title" id="dataPembeli"
-                                                 data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
-                                                <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
-                                                <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
+                                        @if($val[0]->pembeli->alamat_fix == null)
+                                            <div class="information_module order_summary">
+                                                <div class="toggle_title">
+                                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
+                                                                href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @if($val[0] != null)
-                                            @break;
+                                        @else
+                                            <div class="information_module order_summary">
+                                                <div class="toggle_title" id="dataPembeli"
+                                                     data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
+                                                    <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
+                                                    <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
+                                                </div>
+                                            </div>
+                                            @if($val[0] != null)
+                                                @break;
+                                            @endif
                                         @endif
                                     @endforeach
                                 </div>
@@ -279,6 +288,7 @@
                                     </div>
                                 @endif
                             @endforeach
+                            @break;
                         @endforeach
                         @break;
                     @endforeach
