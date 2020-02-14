@@ -15,23 +15,19 @@ class ApiRegisterKonsumenController extends Controller
         $konsumen->nama_lengkap = $request->nama_lengkap;
         $konsumen->username = $request->username;
         $konsumen->password = Hash::make($request->password);
-        $konsumen->provinsi_id = $request->provinsi_id;
-        $konsumen->city_id = $request->city_id;
-        $konsumen->alamat = $request->alamat;
-        $konsumen->kode_pos = $request->kode_pos;
         $konsumen->nomor_hp = $request->nomor_hp;
         $konsumen->email = $request->email;
         $konsumen->status = $request->status;
 
-        if($konsumen->save()){
-            $res ['pesan'] = "Sukses!";
-            $res ['data'] = [$konsumen];
+        if ($konsumen->save()) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = [$konsumen];
 
             return response()->json($res);
-        }else{
-            $res2 ['pesan'] = "Gagal!";
-            $res2 ['data'] = [];
-            
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+
             return response()->json($res2);
         }
     }
@@ -50,16 +46,16 @@ class ApiRegisterKonsumenController extends Controller
         $konsumen->nomor_hp = $request->nomor_hp;
         $konsumen->email = $request->email;
         $konsumen->status = $request->status;
-        
-        if($konsumen->save()){
-            $res ['pesan'] = "Sukses!";
-            $res ['data'] = [$konsumen];
+
+        if ($konsumen->save()) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = [$konsumen];
 
             return response()->json($res);
-        }else{
-            $res2 ['pesan'] = "Gagal!";
-            $res2 ['data'] = [];
-            
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+
             return response()->json($res2);
         }
     }
