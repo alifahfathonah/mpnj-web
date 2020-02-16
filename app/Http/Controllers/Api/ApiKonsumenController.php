@@ -74,12 +74,22 @@ class ApiKonsumenController extends Controller
         if ($alamat->save()) {
             $res['pesan'] = "Sukses!";
             $res['data'] = [$alamat];
-
             return response()->json($res);
         } else {
             $res2['pesan'] = "Gagal!";
             $res2['data'] = [];
+            return response()->json($res2);
+        }
+    }
 
+    public function hapus_alamat($alamat_id)
+    {
+        $hapus_alamat = Alamat::find($alamat_id)->delete();
+        if ($hapus_alamat) {
+            $res['pesan'] = "Sukses!";
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
             return response()->json($res2);
         }
     }
