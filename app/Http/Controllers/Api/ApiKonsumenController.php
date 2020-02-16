@@ -56,6 +56,34 @@ class ApiKonsumenController extends Controller
         }
     }
 
+
+    public function update_alamat(Request $request, $alamat_id)
+    {
+        $alamat = Alamat::find($alamat_id);
+        $alamat->nama = $request->nama;
+        $alamat->nomor_telepon = $request->nomor_telepon;
+        $alamat->provinsi_id = $request->provinsi_id;
+        $alamat->nama_provinsi = $request->nama_provinsi;
+        $alamat->city_id = $request->city_id;
+        $alamat->nama_kota = $request->nama_kota;
+        $alamat->kode_pos = $request->kode_pos;
+        $alamat->kecamatan_id = 0;
+        $alamat->alamat_lengkap = $request->alamat_lengkap;
+        $alamat->user_id = $request->user_id;
+        $alamat->user_type = $request->user_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
+        if ($alamat->save()) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = [$alamat];
+
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+
+            return response()->json($res2);
+        }
+    }
+
     public function profile($id_konsumen)
     {
         $konsumen = Konsumen::with('daftar_alamat')->where('id_konsumen', $id_konsumen)->first(
