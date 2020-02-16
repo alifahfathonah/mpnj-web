@@ -42,12 +42,16 @@ class ApiKonsumenController extends Controller
         if ($alamat->save()) {
             $res['pesan'] = "Sukses!";
             $res['data'] = [$alamat];
-            Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat->id_alamat]);
-            return response()->json($res);
+            $alamat_utama = Konsumen::where('alamat_utama', null)->first();
+            if ($alamat_utama) {
+                Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat->id_alamat]);
+                return response()->json($res);
+            } else {
+                return response()->json($res);
+            }
         } else {
             $res2['pesan'] = "Gagal!";
             $res2['data'] = [];
-
             return response()->json($res2);
         }
     }
