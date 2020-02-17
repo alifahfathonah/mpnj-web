@@ -85,7 +85,7 @@ class ApiKonsumenController extends Controller
 
     public function show_alamat($alamat_id)
     {
-        $alamat = Alamat::find('id_alamat', $alamat_id)->get();
+        $alamat = Alamat::where('id_alamat', $alamat_id)->get();
         if (count($alamat) > 0) {
             $res['pesan'] = "Sukses!";
             $res['data'] = $alamat;
