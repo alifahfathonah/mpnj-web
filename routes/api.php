@@ -23,9 +23,13 @@ Route::post('/produk', 'Api\ApiProdukController@create');
 Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
 Route::put('/konsumen/{id_konsumen}', 'Api\ApiRegisterKonsumenController@update');
 Route::get('/profil/{id_konsumen}', 'Api\ApiKonsumenController@profile');
+
 Route::post('/konsumen/alamat', 'Api\ApiKonsumenController@simpan_alamat');
+Route::get('/konsumen/tampil/alamat/{id_alamat}', 'Api\ApiKonsumenController@show_alamat');
 Route::put('/konsumen/edit/alamat/{id_alamat}', 'Api\ApiKonsumenController@update_alamat');
+// Route::post('/konsumen/edit/alamat/utama/{id_alamat}', 'Api\ApiKonsumenController@update_alamat_utama');
 Route::delete('/konsumen/hapus/alamat/{id_alamat}', 'Api\ApiKonsumenController@hapus_alamat');
+
 Route::get('/email/{email}', 'Api\ApiKonsumenController@cek_email');
 Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');

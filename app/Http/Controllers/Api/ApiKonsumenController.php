@@ -82,6 +82,36 @@ class ApiKonsumenController extends Controller
         }
     }
 
+
+    public function show_alamat($alamat_id)
+    {
+        $alamat = Alamat::where('id_alamat', $alamat_id)->get();
+        if (count($alamat) > 0) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = $alamat;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+            return response()->json($res2);
+        }
+    }
+
+    // public function update_alamat_utama(Request $request, $alamat_id)
+    // {
+    //     $alamat = new Alamat;
+    //     $alamat->user_id = $request->user_id;
+    //     $konsumen = Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+    //     if ($konsumen) {
+    //         $res['pesan'] = "Sukses!";
+    //         // Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+    //         return response()->json($res);
+    //     } else {
+    //         $res2['pesan'] = "Gagal!";
+    //         return response()->json($res2);
+    //     }
+    // }
+
     public function hapus_alamat($alamat_id)
     {
         $hapus_alamat = Alamat::find($alamat_id)->delete();
