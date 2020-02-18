@@ -97,20 +97,20 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    // public function update_alamat_utama(Request $request, $alamat_id)
-    // {
-    //     $alamat = new Alamat;
-    //     $alamat->user_id = $request->user_id;
-    //     $konsumen = Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
-    //     if ($konsumen) {
-    //         $res['pesan'] = "Sukses!";
-    //         // Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
-    //         return response()->json($res);
-    //     } else {
-    //         $res2['pesan'] = "Gagal!";
-    //         return response()->json($res2);
-    //     }
-    // }
+    public function update_alamat_utama(Request $request, $alamat_id)
+    {
+        $alamat = new Alamat;
+        $alamat->user_id = $request->user_id;
+        $konsumen = Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+        if ($konsumen) {
+            $res['pesan'] = "Sukses Update Alamat Utama!";
+            // Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal Update Alamat Utama!";
+            return response()->json($res2);
+        }
+    }
 
     public function hapus_alamat($alamat_id)
     {
