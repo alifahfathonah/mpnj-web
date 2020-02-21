@@ -17,12 +17,14 @@ class PesananWebController extends Controller
         $role = Session::get('role');
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
-
-        $data['order'] = Transaksi::with('pembeli')
-                        ->where('pembeli_id', $konsumen_id)
-                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
-                        ->get();
+//
+//        $data['order'] = Transaksi::with('pembeli')
+//                        ->where('pembeli_id', $konsumen_id)
+//                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
+//                        ->get();
+        $data['order'] = Transaksi_Detail::get()->where('transaksi.pembeli_id', $konsumen_id)->groupBy('status_order');
         return view('web/web_pesanan', $data);
+//        return $data;
     }
 
     public function detail($id_trx)
