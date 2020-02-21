@@ -19,8 +19,31 @@ class ApiKeranjangController extends Controller
     {
         $role = $request->query('role');
         $id = $request->query('id');
-        $keranjangs = $this->keranjangRepository->all($role, $id);
-        return $keranjangs;
+//        $keranjangs = $this->keranjangRepository->all($role, $id);
+        $keranjang = Keranjang::orderBy('id_keranjang')
+            ->with('produk')
+            ->where('pembeli_id', $id)
+            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->where('status', 'N')
+            ->get()
+            ->groupBy('produk.pelapak.nama_toko');
+
+        $data['data_keranjang'] = collect();
+        $data['pembeli'] = [];
+        $data['total'] = 0;
+
+        foreach ($keranjang as $key => $value) {
+            $data['data_keranjang']->push([
+                    'nama_toko' => $key,
+                    'item' => $value
+                ]);
+            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            foreach ($value as $val) {
+                $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+//                $data['pembeli'] = $val['pembeli'];
+            }
+        }
+        return $data;
     }
 
     public function simpan(Request $request)
