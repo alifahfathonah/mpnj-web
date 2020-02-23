@@ -159,7 +159,7 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function lupa_password(Request $request, $kosumenId)
+    public function ganti_password(Request $request, $id_konsumen)
     {
 
         $request = Validator::make(Request::all(), [
