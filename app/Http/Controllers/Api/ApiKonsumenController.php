@@ -4,7 +4,8 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Request;
 use App\Models\Konsumen;
 use App\Models\Alamat;
 
