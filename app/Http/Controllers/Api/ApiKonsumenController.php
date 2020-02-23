@@ -164,21 +164,24 @@ class ApiKonsumenController extends Controller
 
         $request = Validator::make(Request::all(), [
             'password' => 'required',
+            'cekpassword' => 'required',
         ]);
+        $konsumen = Konsumen::find($id_konsumen);
+        $cekpassword = Request::get('cekpassword');
+        $newpassword = Request::get('password');
+        $hash = $konsumen->password;
 
-        $konsumen = Konsumen::find($kosumenId);
-        $konsumen->password = Hash::make(Request::get('password'));
-
-        if ($request->fails()) {
-            $res['pesan'] = "Gagal";
-            $res['response'] = $request->messages();
-
+        if (Hash::check($cekpassword, $hash)) {
+            $konsumen = Konsumen::where('id_konsumen', $id_konsumen)->update(['password' => Hash::make($newpassword)]);
+            $res['pesan'] = "Berhasil Diganti";
             return response()->json($res);
         } else {
-            $konsumen->save();
-            $res2['pesan'] = "Sukses!";
-            $res2['data'] = ["Password Berhasil Diganti"];
+            $res2['pesan'] = "Gagal";
+            $res['response'] = $request->messages();
+            return response()->json($res2);
 
+        }
+    }
     
     public function hapus_akun($id_konsumen)
     {
