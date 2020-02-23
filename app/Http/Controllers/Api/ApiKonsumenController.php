@@ -178,6 +178,15 @@ class ApiKonsumenController extends Controller
             $res2['pesan'] = "Sukses!";
             $res2['data'] = ["Password Berhasil Diganti"];
 
+    
+    public function hapus_akun($id_konsumen)
+    {
+        $hapus_akun = Konsumen::find($id_konsumen)->delete();
+        if ($hapus_akun) {
+            $res['pesan'] = "Sukses!";
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
             return response()->json($res2);
         }
     }
