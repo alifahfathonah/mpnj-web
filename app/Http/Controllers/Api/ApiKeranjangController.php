@@ -44,7 +44,7 @@ class ApiKeranjangController extends Controller
 //                $data['pembeli'] = $val['pembeli'];
             }
         }
-        return $data;
+        return response()->json($data, 200);
     }
 
     public function simpan(Request $request)
