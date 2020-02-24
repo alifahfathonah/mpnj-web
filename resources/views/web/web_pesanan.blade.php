@@ -159,7 +159,7 @@
                                                                             <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                         </div>
                                                                         <div class="item_action v_middle">
-                                                                            <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                            <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                             <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                 <p class="rate_it">Beri Rating</p>
                                                                                 <div class="rating product--rating">
@@ -297,7 +297,7 @@
                                                                             <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                         </div>
                                                                         <div class="item_action v_middle">
-                                                                            <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                            <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                             <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                 <p class="rate_it">Beri Rating</p>
                                                                                 <div class="rating product--rating">
@@ -436,7 +436,7 @@
                                                                                 <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                             </div>
                                                                             <div class="item_action v_middle">
-                                                                                <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                                 <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                     <p class="rate_it">Beri Rating</p>
                                                                                     <div class="rating product--rating">
@@ -578,7 +578,7 @@
                                                                                 <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                             </div>
                                                                             <div class="item_action v_middle">
-                                                                                <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                                 <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                     <p class="rate_it">Beri Rating</p>
                                                                                     <div class="rating product--rating">
@@ -720,7 +720,7 @@
                                                                                 <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                             </div>
                                                                             <div class="item_action v_middle">
-                                                                                <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                                 <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                     <p class="rate_it">Beri Rating</p>
                                                                                     <div class="rating product--rating">
@@ -862,7 +862,7 @@
                                                                                 <span>@currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)</span>
                                                                             </div>
                                                                             <div class="item_action v_middle">
-                                                                                <a href="{{ URL::to('pesanan/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
                                                                                 <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
                                                                                     <p class="rate_it">Beri Rating</p>
                                                                                     <div class="rating product--rating">
