@@ -191,4 +191,16 @@ class ApiKonsumenController extends Controller
             return response()->json($res2);
         }
     }
+
+    public function aktif_kembali($id_konsumen)
+    {
+        $aktif = Konsumen::find($id_konsumen)->update(['status' => 'aktif']);
+        if ($aktif) {
+            $res['pesan'] = "Sukses!";
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            return response()->json($res2);
+        }
+    }
 }
