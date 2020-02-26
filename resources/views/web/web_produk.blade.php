@@ -149,7 +149,7 @@
 
                                     <div class="product-desc">
                                         <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="product_title">
-                                            <p>{{ $p->nama_produk }}</p>
+                                            <p class="font-weight-bold ">{{ $p->nama_produk }}</p>
                                         </a>
                                     </div>
                                     <!-- end /.product-desc -->
@@ -157,10 +157,10 @@
                                     <div class="product-purchase">
                                         <div class="price_love">
                                             @if($p->diskon == 0)
-                                                <span>@currency($p->harga_jual)</span>
+                                                <span class="font-weight-bold ">@currency($p->harga_jual)</span>
                                             @else
-                                                <span>
-                                                    <strike><p style="color: red">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                                                <span class="font-weight-bold ">
+                                                    <strike><p class="text-danger font-weight-bold">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
                                                 </span>
                                             @endif
                                         </div>
