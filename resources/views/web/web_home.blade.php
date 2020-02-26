@@ -174,7 +174,7 @@ START PRODUCTS AREA
                             <li>
                                 <!-- <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image"> -->
                                 <p>
-                                    <i class="fa fa-home" aria-hidden="true"></i> <a href="{{ URL::to('pelapak/'.$p->pelapak->username) }}">{{ $p->pelapak->nama_toko }}</a>
+                                    <i class="fa fa-store" aria-hidden="true"></i> <a href="{{ URL::to('pelapak/'.$p->pelapak->username) }}">{{ $p->pelapak->nama_toko }}</a>
                                 </p>
                             </li>
                             <li class="product_cat">
