@@ -31,6 +31,8 @@ Route::post('/konsumen/edit/alamat/utama/{id_alamat}', 'Api\ApiKonsumenControlle
 Route::delete('/konsumen/hapus/alamat/{id_alamat}', 'Api\ApiKonsumenController@hapus_alamat');
 Route::put('/konsumen/hapus/{id_konsumen}', 'Api\ApiKonsumenController@hapus_akun');
 Route::put('/konsumen/aktif/{id_konsumen}', 'Api\ApiKonsumenController@aktif_kembali');
+Route::post('/konsumen/upload', 'Api\ApiRegisterKonsumenController@upload');
+
 
 Route::get('/email/{email}', 'Api\ApiKonsumenController@cek_email');
 Route::post('/login', 'Api\Auth\ApiLoginController@login');
