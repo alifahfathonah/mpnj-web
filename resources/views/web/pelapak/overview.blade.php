@@ -91,17 +91,17 @@
 
                 <div class="product-desc">
                     <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="product_title">
-                        <p>{{ $p->nama_produk }}</p>
+                        <p class="font-weight-bold">{{ $p->nama_produk }}</p>
                     </a>
                 </div>
                 <!-- end /.product-desc -->
 
                 <div class="product-purchase">
                     <div class="price_love">
-                        <span>@currency($p->harga_jual)</span>
+                        <span class="font-weight-bold">@currency($p->harga_jual)</span>
                     </div>
-                    <a href="{{ URL::to('produk?kategori='.strtolower($p->kategori->nama_kategori)) }}">
-                        <span class="lnr lnr-book"></span>{{ $p->kategori->nama_kategori }}</a>
+                    <a class="font-weight-bold" href="{{ URL::to('produk?kategori='.strtolower($p->kategori->nama_kategori)) }}">
+                        <span class="fas fa-book"></span> {{ $p->kategori->nama_kategori }}</a>
                 </div>
                 <!-- end /.product-purchase -->
             </div>
