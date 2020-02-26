@@ -2704,7 +2704,7 @@ h6 {
 .product--card-small .product-purchase a {
     float: right;
     line-height: 30px;
-    color: #7347c1;
+    color: #ffffff;
 }
 
 .product--card-small ul.titlebtm>li {
@@ -6055,6 +6055,23 @@ h6 {
     background: rgba(6, 116, 236, 0.1);
     -webkit-border-radius: 50%;
     border-radius: 50%;
+}
+
+.product-purchase a {
+    position: absolute;
+    top: 15%;
+    left: 12%;
+    background: #1ABC9C;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    transform: translate(-14%, -109%);
 }
 
 .dropdowns.dropdown--cart .cart_area .cart_product .product__action p {
