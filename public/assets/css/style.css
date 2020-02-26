@@ -2560,7 +2560,7 @@ h6 {
 }
 
 .product-desc ul li.product_cat a {
-    color: #7347c1;
+    color: #fff;
 }
 
 .product-desc ul li.product_cat a img {
@@ -6061,7 +6061,7 @@ h6 {
     position: absolute;
     top: 15%;
     left: 12%;
-    background: #1ABC9C;
+    background: #0674ec;
     padding-left: 6px;
     padding-right: 6px;
     color: #fff;
@@ -6073,6 +6073,24 @@ h6 {
     -o-border-radius: 4px;
     transform: translate(-14%, -109%);
 }
+
+.product_cat {
+    position: absolute;
+    top: 15%;
+    left: 12%;
+    background: #0674ec;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    transform: translate(-1%, -234%);
+}
+
 
 .dropdowns.dropdown--cart .cart_area .cart_product .product__action p {
     background: rgba(6, 116, 236, 0.7);
