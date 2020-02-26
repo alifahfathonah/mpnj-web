@@ -2518,6 +2518,10 @@ h6 {
     font-size: 15px;
 }
 
+.product-desc ul.titlebtm>li p {
+    font-size: 12px;
+}
+
 .product-desc ul.titlebtm>li.product_cat {
     float: right;
     margin-right: 0;
@@ -6075,6 +6079,7 @@ h6 {
 }
 
 .product_cat {
+    font-size: 16px;
     position: absolute;
     top: 15%;
     left: 12%;
