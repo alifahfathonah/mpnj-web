@@ -19,9 +19,9 @@ class CreateReviewsTable extends Migration
             $table->foreign('produk_id')->references('id_produk')->on('produk');
             $table->integer('konsumen_id')->unsigned();
             $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
-            $table->text('riview')->nullable();
+            $table->text('review')->nullable();
             $table->enum('bintang', [1, 2, 3, 4, 5])->default(1);
-            $table->string('foto_riview')->nullable();;
+            $table->string('foto_review')->nullable();;
             $table->timestamps();
         });
     }
