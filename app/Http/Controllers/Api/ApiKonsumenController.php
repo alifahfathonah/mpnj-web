@@ -128,7 +128,7 @@ class ApiKonsumenController extends Controller
     public function profile($id_konsumen)
     {
         $konsumen = Konsumen::with('daftar_alamat')->where('id_konsumen', $id_konsumen)->first(
-            ['id_konsumen', 'nama_lengkap', 'username', 'nomor_hp', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
+            ['id_konsumen', 'nama_lengkap', 'username', 'nomor_hp','foto_profil', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
         );
 
         //        return $konsumen->daftar_alamat[0]['id_alamat'];
