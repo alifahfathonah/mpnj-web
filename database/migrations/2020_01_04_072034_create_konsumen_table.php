@@ -19,6 +19,7 @@ class CreateKonsumenTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->char('nomor_hp', 12)->nullable();
+            $table->string('foto_profil', 20)->nullable();
             $table->string('email')->unique();
             $table->enum('status', ['aktif','nonaktif'])->default('aktif');
             $table->timestamps();
