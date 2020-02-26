@@ -4,7 +4,8 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Request;
 use App\Models\Konsumen;
 use App\Models\Alamat;
 
@@ -158,44 +159,34 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function lupa_password(Request $request, $kosumenId)
+    public function ganti_password(Request $request, $id_konsumen)
     {
 
         $request = Validator::make(Request::all(), [
             'password' => 'required',
+            'cekpassword' => 'required',
         ]);
+        $konsumen = Konsumen::find($id_konsumen);
+        $cekpassword = Request::get('cekpassword');
+        $newpassword = Request::get('password');
+        $hash = $konsumen->password;
 
-        $konsumen = Konsumen::find($kosumenId);
-        $konsumen->password = Hash::make(Request::get('password'));
-
-        if ($request->fails()) {
-            $res['pesan'] = "Gagal";
-            $res['response'] = $request->messages();
-
+        if (Hash::check($cekpassword, $hash)) {
+            $konsumen = Konsumen::where('id_konsumen', $id_konsumen)->update(['password' => Hash::make($newpassword)]);
+            $res['pesan'] = "Berhasil Diganti";
             return response()->json($res);
         } else {
-            $konsumen->save();
-            $res2['pesan'] = "Sukses!";
-            $res2['data'] = ["Password Berhasil Diganti"];
+            $res2['pesan'] = "Gagal";
+            $res['response'] = $request->messages();
+            return response()->json($res2);
 
         }
     }
+    
     public function hapus_akun($id_konsumen)
     {
-        $hapus_akun = Konsumen::find($id_konsumen)->update(['status' => 'nonaktif']);
+        $hapus_akun = Konsumen::find($id_konsumen)->delete();
         if ($hapus_akun) {
-            $res['pesan'] = "Sukses!";
-            return response()->json($res);
-        } else {
-            $res2['pesan'] = "Gagal!";
-            return response()->json($res2);
-        }
-    }
-
-    public function aktif_kembali($id_konsumen)
-    {
-        $aktif = Konsumen::find($id_konsumen)->update(['status' => 'aktif']);
-        if ($aktif) {
             $res['pesan'] = "Sukses!";
             return response()->json($res);
         } else {
