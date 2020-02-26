@@ -24,13 +24,13 @@ class PesananWebController extends Controller
 //                        ->get();
         $data['order'] = Transaksi_Detail::get()->where('transaksi.pembeli_id', $konsumen_id)->groupBy('status_order');
         return view('web/web_pesanan', $data);
-//        return $data;
     }
 
     public function detail($id_trx)
     {
-        $data['detail'] = Transaksi::with('transaksi_detail')
-                        ->where('id_transaksi', $id_trx)
+        $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($id_trx) {
+                            $query->where('id_transaksi_detail', $id_trx);
+                        }])
                         ->first();
 
         return view('web/web_pesanan_detail', $data);
