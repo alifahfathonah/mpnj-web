@@ -70,6 +70,7 @@ Route::get('konfirmasi', 'Web\KonfirmasiWebController@index');
 Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
+Route::get('konfirmasi/akun/{id}', 'Web\KonfirmasiWebController@akun');
 
 //pesanan
 Route::get('pesanan', 'Web\PesananWebController@index');
