@@ -54,4 +54,11 @@ class KonfirmasiWebController extends Controller
 	        return 'sukses';
         }
     }
+
+    public function akun($id) {
+	    $update_status_akun = Konsumen::find($id)->update(['status' => 'aktif']);
+	    if ($update_status_akun) {
+	        return redirect('verified');
+        }
+    }
 }
