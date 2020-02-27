@@ -71,11 +71,10 @@
                             <button class="btn btn--md btn--round" type="submit">Masuk</button>
 
                             <div class="login_assist">
-                                <p class="recover">Lost your
-                                    <a href="pass-recovery.html">username</a> or
-                                    <a href="pass-recovery.html">password</a>?</p>
-                                <p class="signup">Don't have an
-                                    <a href="signup.html">account</a>?</p>
+                                <p class="recover">Lupa
+                                    <a href="{{ URL::to('password/reset') }}">password</a> ?</p>
+                                <p class="signup">Belum Punya
+                                    <a href="{{ URL::to('register') }}">Akun</a> ?</p>
                             </div>
                         </div>
                         <!-- end .login--form -->

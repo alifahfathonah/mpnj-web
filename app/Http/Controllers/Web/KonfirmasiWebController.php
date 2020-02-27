@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konfirmasi;
+use App\Models\Konsumen;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use File;
@@ -53,5 +54,17 @@ class KonfirmasiWebController extends Controller
 	        $foto->move($folder, $filename);
 	        return 'sukses';
         }
+    }
+
+    public function akun($id) {
+	    $update_status_akun = Konsumen::find($id)->update(['status' => 'aktif']);
+	    if ($update_status_akun) {
+	        return redirect('verified');
+        }
+    }
+
+    public function verified()
+    {
+        return view('web/web_sukses_konfirmasi');
     }
 }
