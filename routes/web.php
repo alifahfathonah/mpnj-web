@@ -71,6 +71,7 @@ Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
 Route::get('konfirmasi/akun/{id}', 'Web\KonfirmasiWebController@akun');
+Route::get('verified', 'Web\KonfirmasiWebController@verified');
 
 //pesanan
 Route::get('pesanan', 'Web\PesananWebController@index');
