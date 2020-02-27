@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrasiConfirm;
 use App\Models\Konsumen;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class KonsumenWebController extends Controller
 {
@@ -26,7 +29,13 @@ class KonsumenWebController extends Controller
         ]);
 
         if ($simpan) {
-            return redirect('register');
+            $credential = $request->only('username','password');
+            if (Auth::guard('konsumen')->attempt($credential)) {
+                Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_konsumen));
+                $request->session()->put('role', 'konsumen');
+                $request->session()->put('id', 'id_konsumen');
+            }
+            return redirect('/');
         }
     }
 
