@@ -274,16 +274,16 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
-                                        <a href="{{ URL::to('/') }}">HOME</a>
-                                        <span class="fa fa-home"></span>
+                                        <a href="{{ URL::to('/') }}"><span class="fa fa-home"></span> HOME</a>
+                                        
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="{{ URL::to('produk') }}">SEMUA PORDUK</a>
-                                        <span class="fa fa-store"></span>
+                                        <a href="{{ URL::to('produk') }}"><span class="fa fa-store"></span> SEMUA PORDUK</a>
+                                        
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="#">KATEGORI</a>
-                                        <span class="fa fa-arrow-alt-circle-down"></span>
+                                        <a href="#"><span class="fa fa-arrow-alt-circle-down"></span> KATEGORI</a>
+                                        
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
@@ -295,8 +295,8 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="#">KONTAK</a>
-                                        <span class="fa fa-id-card"></span>
+                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>
+                                        
                                     </li>
                                 </ul>
                             </div>
