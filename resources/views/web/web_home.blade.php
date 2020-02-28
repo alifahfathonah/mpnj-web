@@ -27,8 +27,8 @@
 
                         <!-- start .hero__btn-area-->
                         <div class="hero__btn-area">
-                            <a href="all-products.html" class="btn btn--round btn--lg">Semua Produk</a>
-                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>
+                            <a href="{{ URL::to('produk') }}" class="btn btn--round btn--lg">Semua Produk</a>
+{{--                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>--}}
                         </div>
                         <!-- end .hero__btn-area-->
                     </div>
