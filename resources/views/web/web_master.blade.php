@@ -62,7 +62,11 @@
                     <div class="col-lg-8 offset-lg-1 col-md-9 col-6 v_middle">
                         <!-- start .author-area -->
                         <div class="author-area">
-                            <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                            @if(Session::has('id'))
+                                @if(Session::get('role') == 'pelapak')
+                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                                @endif
+                            @endif
 
                             <div class="author__notification_area">
                                 <ul>
