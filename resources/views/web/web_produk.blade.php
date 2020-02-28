@@ -50,8 +50,8 @@
                     <div class="filter-bar filter--bar2">
                         <div class="pull-right">
                             <div class="filter__option filter--text pull-left">
-                                <a href="#">New Products</a>
-                                <a href="#">Popular Products</a>
+{{--                                <a href="#">New Products</a>--}}
+{{--                                <a href="#">Popular Products</a>--}}
                             </div>
                             <div class="filter__option filter--select">
                                 <div class="select-wrap">
@@ -63,28 +63,28 @@
                                     <span class="lnr lnr-chevron-down"></span>
                                 </div>
                             </div>
-                            <div class="filter__option filter--select">
-                                <div class="select-wrap">
-                                    <select name="price">
-                                        <option value="12">12 Items per page</option>
-                                        <option value="15">15 Items per page</option>
-                                        <option value="25">25 Items per page</option>
-                                    </select>
-                                    <span class="lnr lnr-chevron-down"></span>
-                                </div>
-                            </div>
-                            <div class="filter__option filter--layout">
-                                <a href="category-grid.html">
-                                    <div class="svg-icon">
-                                        <img class="svg" src="{{ asset('assets/images/svg/grid.svg') }}" alt="it's just a layout control folks!">
-                                    </div>
-                                </a>
-                                <a href="category-list.html">
-                                    <div class="svg-icon">
-                                        <img class="svg" src="{{ asset('assets/images/svg/list.svg') }}" alt="it's just a layout control folks!">
-                                    </div>
-                                </a>
-                            </div>
+{{--                            <div class="filter__option filter--select">--}}
+{{--                                <div class="select-wrap">--}}
+{{--                                    <select name="price">--}}
+{{--                                        <option value="12">12 Items per page</option>--}}
+{{--                                        <option value="15">15 Items per page</option>--}}
+{{--                                        <option value="25">25 Items per page</option>--}}
+{{--                                    </select>--}}
+{{--                                    <span class="lnr lnr-chevron-down"></span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="filter__option filter--layout">--}}
+{{--                                <a href="category-grid.html">--}}
+{{--                                    <div class="svg-icon">--}}
+{{--                                        <img class="svg" src="{{ asset('assets/images/svg/grid.svg') }}" alt="it's just a layout control folks!">--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                                <a href="category-list.html">--}}
+{{--                                    <div class="svg-icon">--}}
+{{--                                        <img class="svg" src="{{ asset('assets/images/svg/list.svg') }}" alt="it's just a layout control folks!">--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                     <!-- end filter-bar -->
