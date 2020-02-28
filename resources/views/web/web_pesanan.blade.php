@@ -159,28 +159,28 @@
                                                                     </div>
                                                                     <div class="item_action v_middle">
                                                                         <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                        <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal1">
-                                                                            <p class="rate_it">Review Produk</p>
-                                                                            <div class="rating product--rating">
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <span class="fa fa-star-o"></span>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <span class="fa fa-star-o"></span>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <span class="fa fa-star-o"></span>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <span class="fa fa-star-o"></span>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <span class="fa fa-star-o"></span>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </a>
+{{--                                                                        <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal1">--}}
+{{--                                                                            <p class="rate_it">Review Produk</p>--}}
+{{--                                                                            <div class="rating product--rating">--}}
+{{--                                                                                <ul>--}}
+{{--                                                                                    <li>--}}
+{{--                                                                                        <span class="fa fa-star-o"></span>--}}
+{{--                                                                                    </li>--}}
+{{--                                                                                    <li>--}}
+{{--                                                                                        <span class="fa fa-star-o"></span>--}}
+{{--                                                                                    </li>--}}
+{{--                                                                                    <li>--}}
+{{--                                                                                        <span class="fa fa-star-o"></span>--}}
+{{--                                                                                    </li>--}}
+{{--                                                                                    <li>--}}
+{{--                                                                                        <span class="fa fa-star-o"></span>--}}
+{{--                                                                                    </li>--}}
+{{--                                                                                    <li>--}}
+{{--                                                                                        <span class="fa fa-star-o"></span>--}}
+{{--                                                                                    </li>--}}
+{{--                                                                                </ul>--}}
+{{--                                                                            </div>--}}
+{{--                                                                        </a>--}}
                                                                         <!-- end /.rating_btn -->
                                                                     </div>
                                                                     <!-- end /.item_action -->
@@ -296,29 +296,7 @@
                                                                         </div>
                                                                         <div class="item_action v_middle">
                                                                             <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                            <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                <p class="rate_it">Beri Rating</p>
-                                                                                <div class="rating product--rating">
-                                                                                    <ul>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </a>
-                                                                            <!-- end /.rating_btn -->
+                                                                             <!-- end /.rating_btn -->
                                                                         </div>
                                                                         <!-- end /.item_action -->
                                                                     </div>
@@ -434,28 +412,6 @@
                                                                         </div>
                                                                         <div class="item_action v_middle">
                                                                             <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                            <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                <p class="rate_it">Beri Rating</p>
-                                                                                <div class="rating product--rating">
-                                                                                    <ul>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="fa fa-star-o"></span>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </a>
                                                                             <!-- end /.rating_btn -->
                                                                         </div>
                                                                         <!-- end /.item_action -->
@@ -573,28 +529,6 @@
                                                                             </div>
                                                                             <div class="item_action v_middle">
                                                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                                <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                    <p class="rate_it">Beri Rating</p>
-                                                                                    <div class="rating product--rating">
-                                                                                        <ul>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </a>
                                                                                 <!-- end /.rating_btn -->
                                                                             </div>
                                                                             <!-- end /.item_action -->
@@ -715,28 +649,6 @@
                                                                             </div>
                                                                             <div class="item_action v_middle">
                                                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                                <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                    <p class="rate_it">Beri Rating</p>
-                                                                                    <div class="rating product--rating">
-                                                                                        <ul>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </a>
                                                                                 <!-- end /.rating_btn -->
                                                                             </div>
                                                                             <!-- end /.item_action -->
@@ -857,28 +769,6 @@
                                                                             </div>
                                                                             <div class="item_action v_middle">
                                                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                                <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                    <p class="rate_it">Beri Rating</p>
-                                                                                    <div class="rating product--rating">
-                                                                                        <ul>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </a>
                                                                                 <!-- end /.rating_btn -->
                                                                             </div>
                                                                             <!-- end /.item_action -->
@@ -999,28 +889,6 @@
                                                                             </div>
                                                                             <div class="item_action v_middle">
                                                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                                <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                                    <p class="rate_it">Beri Rating</p>
-                                                                                    <div class="rating product--rating">
-                                                                                        <ul>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <span class="fa fa-star-o"></span>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </a>
                                                                                 <!-- end /.rating_btn -->
                                                                             </div>
                                                                             <!-- end /.item_action -->
