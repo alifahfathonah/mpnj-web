@@ -57,9 +57,9 @@
                                                 <li>
                                                     <a href="{{ URL::to('profile') }}" class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }}">Profile</a>
                                                 </li>
-                                                <li>
-                                                    <a href="{{ URL::to('profile/rekening') }}" class="{{ Route::currentRouteName() == 'rekening' ? 'active' : '' }}">Rekening</a>
-                                                </li>
+{{--                                                <li>--}}
+{{--                                                    <a href="{{ URL::to('profile/rekening') }}" class="{{ Route::currentRouteName() == 'rekening' ? 'active' : '' }}">Rekening</a>--}}
+{{--                                                </li>--}}
                                                 <li>
                                                     <a href="{{ URL::to('profile/alamat') }}" class="{{ Route::currentRouteName() == 'alamat' ? 'active' : '' }}">Alamat</a>
                                                 </li>
