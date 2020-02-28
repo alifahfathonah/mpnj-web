@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori_Produk;
 use App\Models\Produk;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ProdukWebController extends Controller
@@ -36,6 +37,8 @@ class ProdukWebController extends Controller
     public function produkId($id)
     {
         $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('id_produk', $id)->first();
+        $data['review'] = Review::with(['produk' , 'konsumen'])->where('produk_id', $id)->get();
+        $data['counts'] = Review::with(['produk' , 'konsumen'])->where('produk_id', $id)->count();
         return view('web/web_produk_detail', $data);
     }
 }

@@ -25,4 +25,9 @@ class Produk extends Model
     {
         return $this->hasOne(Pelapak::class, 'id_pelapak', 'pelapak_id');
     }
+
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'produk_id', 'id_produk');
+    }
 }

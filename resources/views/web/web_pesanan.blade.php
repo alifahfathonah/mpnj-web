@@ -159,8 +159,8 @@
                                                                     </div>
                                                                     <div class="item_action v_middle">
                                                                         <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
-                                                                        <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal">
-                                                                            <p class="rate_it">Beri Rating</p>
+                                                                        <a href="#" class="btn btn--md btn--round btn--white rating--btn not--rated" data-toggle="modal" data-target="#myModal1">
+                                                                            <p class="rate_it">Review Produk</p>
                                                                             <div class="rating product--rating">
                                                                                 <ul>
                                                                                     <li>
@@ -1048,4 +1048,53 @@
             </div>
         </div>
     </section>
+    <div class="modal fade rating_modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="rating_modal">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="rating_modal">Rating this Item</h3>
+                    <h4>Product Enquiry Extension</h4>
+                    <p>by
+                        <a href="author.html">AazzTech</a>
+                    </p>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    <form method="post" action="{{ URL::to('review/produk') }}">
+                      @csrf
+                        <ul>
+                            <li>
+                                <p>Bintang</p>
+                                <div class="right_content btn btn--round btn--white btn--md">
+                                    <select name="bintang" class="give_rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                        <input type="hidden" name="id_produk" value="2">
+                        <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
+                        <div class="rating_field">
+                            <label for="rating_field">Komentar</label>
+                            <textarea name="review" id="rating_field" class="text_field"
+                                placeholder="Beri komentar Barang yang Sesuai. "></textarea>
+                            <p class="notice">Terima kasih Sudah Mereview Barang Kami. </p>
+                        </div>
+                        <button type="submit" class="btn btn--round btn--default">Kirim</button>
+                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                    </form>
+                    <!-- end /.form -->
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
 @endsection

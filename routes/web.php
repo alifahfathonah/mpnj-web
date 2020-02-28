@@ -95,3 +95,6 @@ Route::get('pelapak/{username}/produk', 'Web\PelapakWebController@produk')->name
 
 //pelapak
 Route::get('jual', 'Pelapak\PelapakController@index');
+
+//review
+Route::post('review/produk', 'Web\ReviewWebController@postReview');
