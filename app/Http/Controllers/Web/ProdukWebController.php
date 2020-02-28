@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class ProdukWebController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->get();
+        $nama_produk = $request->query('cari');
+        if ($nama_produk != '') {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%'.$nama_produk.'%')->get();
+        } else {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->get();
+        }
+
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_home', $data);
     }
@@ -19,6 +25,7 @@ class ProdukWebController extends Controller
     public function produk(Request $request)
     {
         $kategori = $request->query('kategori');
+        $nama_produk = $request->query('cari');
         $order = $request->query('order');
         if ($kategori != '' OR $order != '') {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->when($kategori != '', function ($query) use ($kategori) {
@@ -26,7 +33,9 @@ class ProdukWebController extends Controller
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
                 });
             })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(9);
-        }  else {
+        } else if ($nama_produk != '') {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%'.$nama_produk.'%')->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(9);
+        } else {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(9);
         }
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
