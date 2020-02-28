@@ -43,9 +43,8 @@
                                 <div class="author-card sidebar-card">
                                     <div class="author-infos">
                                         <div class="author_avatar">
-                                            <img src="{{ asset('assets/images/author-avatar.jpg') }}" alt="Presenting the broken author avatar :D">
+                                            <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::guard(Session::get('role'))->user()->foto_profil) }}" alt="Presenting the broken author avatar :D">
                                         </div>
-
                                         <div class="author">
                                             <h4>{{ Auth::guard(Session::get('role'))->user()->username }}</h4>
                                             <p>Bergabung: {{ Auth::guard(Session::get('role'))->user()->created_at->format("d, M Y") }}</p>
