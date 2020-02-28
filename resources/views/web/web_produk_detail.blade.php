@@ -189,9 +189,20 @@
                 <aside class="sidebar sidebar--single-product">
                     <div class="sidebar-card card-pricing">
                         <div class="price">
-                            <h1>
-                                @currency($produk->harga_jual)
-                            </h1>
+                            @if($produk->diskon == 0)
+                                <h1>
+                                    @currency($produk->harga_jual)
+                                </h1>
+                            @else
+                                <h1>
+                                    @currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual))
+                                </h1>
+                                <strike style="color: red">
+                                    <h3 style="color: red">
+                                        @currency($produk->harga_jual)
+                                    </h3>
+                                </strike>
+                            @endif
                         </div>
                         {{-- <ul class="pricing-options">
                             <li>
