@@ -52,17 +52,8 @@
                 <div class="col-sm-12">
                     <!-- start .search_box -->
                     <div class="search_box">
-                        <form action="#">
-                            <input type="text" class="text_field" placeholder="Cari Produk...">
-                            <div class="search__select select-wrap">
-                                <select name="category" class="select--field" id="blah">
-                                    <option value="">Semua Kategori</option>
-                                    @foreach ($kategori as $k)
-                                    <option value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="fa fa-arrow-down fa-4x"></span>
-                            </div>
+                        <form action="/">
+                            <input type="text" name="cari" class="text_field" placeholder="Cari Produk...">
                             <button type="submit" class="search-btn btn--lg">Cari</button>
                         </form>
                     </div>
