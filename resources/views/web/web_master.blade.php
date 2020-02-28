@@ -254,7 +254,7 @@
                         <div class="navbar-header">
                             <!-- start mainmenu__search -->
                             <div class="mainmenu__search">
-                                <form action="{{ Request::url()  }}">
+                                <form action="{{ URL::to('produk')  }}">
                                     <div class="searc-wrap">
                                         <input type="text" name="cari" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
