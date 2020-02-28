@@ -129,7 +129,7 @@
                                         {{ Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
-                                    <p class="ammount">$20.45</p>
+{{--                                    <p class="ammount">$20.45</p>--}}
                                 </div>
 
                                 <div class="dropdowns dropdown--author">
