@@ -3,7 +3,7 @@
         @php
             $id = Session::get('id');
         @endphp
-        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard('konsumen')->user()->$id) }}" method="post">
+        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard(Session::get('role'))->user()->$id) }}" method="post">
             @csrf
             <div class="information_module">
                 <a class="toggle_title">
