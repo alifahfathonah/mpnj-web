@@ -153,7 +153,7 @@
                             </li>
                             <li>
                                 <a href="#product-review" aria-controls="product-review" role="tab" data-toggle="tab">Reviews
-                                    <span>(35)</span>
+                                    <span>({{ $counts }})</span>
                                     <!-- Count() -->
                                 </a>
                             </li>

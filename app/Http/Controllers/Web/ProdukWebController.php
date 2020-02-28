@@ -38,6 +38,7 @@ class ProdukWebController extends Controller
     {
         $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('id_produk', $id)->first();
         $data['review'] = Review::with(['produk' , 'konsumen'])->where('produk_id', $id)->get();
+        $data['counts'] = Review::with(['produk' , 'konsumen'])->where('produk_id', $id)->count();
         return view('web/web_produk_detail', $data);
     }
 }
