@@ -43,44 +43,8 @@
                 <div class="item-preview">
                     <div class="item__preview-slider">
                         <div class="prev-slide">
-                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" alt="Keep calm this isn't the end of the world, the preview is just missing." width="750" height="430">
+                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" id="thumbnailFoto" alt="{{ $produk->nama_produk }}" width="750" height="430">
                         </div>
-                        {{-- <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div>
-                        <div class="prev-slide">
-                            <img src="images/itprv.jpg"
-                                alt="Keep calm this isn't the end of the world, the preview is just missing.">
-                        </div> --}}
                     </div>
                     <!-- end /.item--preview-slider -->
 
@@ -89,7 +53,7 @@
                             <div class="thumb-slider">
                             @foreach($produk->foto_produk as $img)
                                 <div class="item-thumb">
-                                    <img src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}" alt="This is the thumbnail of the item">
+                                    <img src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}" alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}" onclick="gantiFoto({{ $img->id_foto_produk }})">
                                 </div>
                             @endforeach
                             </div>
@@ -225,9 +189,20 @@
                 <aside class="sidebar sidebar--single-product">
                     <div class="sidebar-card card-pricing">
                         <div class="price">
-                            <h1>
-                                @currency($produk->harga_jual)
-                            </h1>
+                            @if($produk->diskon == 0)
+                                <h1>
+                                    @currency($produk->harga_jual)
+                                </h1>
+                            @else
+                                <h1>
+                                    @currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual))
+                                </h1>
+                                <strike style="color: red">
+                                    <h3 style="color: red">
+                                        @currency($produk->harga_jual)
+                                    </h3>
+                                </strike>
+                            @endif
                         </div>
                         {{-- <ul class="pricing-options">
                             <li>
@@ -403,3 +378,12 @@
         END SINGLE PRODUCT DESCRIPTION AREA
     ===============================================-->
 @endsection
+
+@push('scripts')
+    <script>
+        function gantiFoto(id) {
+            let src = $("#foto_produk"+id).attr('src');
+            $("#thumbnailFoto").attr('src', src);
+        }
+    </script>
+@endpush
