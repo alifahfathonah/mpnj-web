@@ -254,9 +254,9 @@
                         <div class="navbar-header">
                             <!-- start mainmenu__search -->
                             <div class="mainmenu__search">
-                                <form action="#">
+                                <form action="{{ Request::url()  }}">
                                     <div class="searc-wrap">
-                                        <input type="text" placeholder="Cari Produk">
+                                        <input type="text" name="cari" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
                                             <i class="fas fa-search"></i>
                                         </button>
