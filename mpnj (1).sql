@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Feb 2020 pada 01.21
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.7
+-- Waktu pembuatan: 28 Feb 2020 pada 20.56
+-- Versi server: 10.4.8-MariaDB
+-- Versi PHP: 7.2.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laravel_mpnj`
+-- Database: `mpnj`
 --
 
 -- --------------------------------------------------------
@@ -31,14 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `alamat` (
   `id_alamat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `nomor_telepon` char(12) NOT NULL,
+  `nomor_telepon` char(12) DEFAULT NULL,
   `provinsi_id` int(11) NOT NULL,
   `nama_provinsi` varchar(100) NOT NULL,
   `city_id` int(11) NOT NULL,
   `nama_kota` varchar(100) NOT NULL,
   `kecamatan_id` int(11) NOT NULL,
   `kode_pos` char(5) NOT NULL,
-  `alamat_lengkap` text NOT NULL,
+  `alamat_lengkap` text DEFAULT NULL,
+  `alamat_santri` text DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `user_type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -47,10 +48,11 @@ CREATE TABLE `alamat` (
 -- Dumping data untuk tabel `alamat`
 --
 
-INSERT INTO `alamat` (`id_alamat`, `nama`, `nomor_telepon`, `provinsi_id`, `nama_provinsi`, `city_id`, `nama_kota`, `kecamatan_id`, `kode_pos`, `alamat_lengkap`, `user_id`, `user_type`) VALUES
-(1, 'Ilham Surya Pratama', '085330150827', 11, 'Jawa Timur', 369, 'Kabupaten Probolinggo', 0, '67282', 'Dusun Paleran RT 11 RW 003', 1, 'App\\Models\\Konsumen'),
-(4, 'Hais Batara', '085330150822', 9, 'Jawa Barat', 23, 'Kota Bandung', 0, '40111', 'Bandung RT 05 RW 003', 1, 'App\\Models\\Konsumen'),
-(5, 'Ahmad Usamah', '082229411494', 11, 'Jawa Timur', 369, 'Kabupaten Probolinggo', 0, '67291', 'Jl. Kyai Haji Jl. KH. Zaini Mun\'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton, Probolinggo, Jawa Timur 67291', 2, 'App\\Models\\Konsumen');
+INSERT INTO `alamat` (`id_alamat`, `nama`, `nomor_telepon`, `provinsi_id`, `nama_provinsi`, `city_id`, `nama_kota`, `kecamatan_id`, `kode_pos`, `alamat_lengkap`, `alamat_santri`, `user_id`, `user_type`) VALUES
+(1, 'Ilham Surya Pratama', '085330150827', 11, 'Jawa Timur', 369, 'Kabupaten Probolinggo', 0, '67282', 'Dusun Paleran RT 11 RW 003', '', 1, 'App\\Models\\Konsumen'),
+(4, 'Hais Batara', '085330150822', 9, 'Jawa Barat', 23, 'Kota Bandung', 0, '40111', 'Bandung RT 05 RW 003', '', 1, 'App\\Models\\Konsumen'),
+(7, 'Yolo', NULL, 11, 'Jawa Timur', 369, 'Kabupaten Probolinggo', 0, '67291', 'Jl. Kyai Haji. Jl. KH. Zaini Mun\'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton', 'wilayah : Wilayah I, Gang : Gang II', 1, 'App\\Models\\Konsumen'),
+(8, 'Indra Irawanto', '085330150827', 11, 'Jawa Timur', 369, 'Kabupaten Probolinggo', 0, '67282', 'Desa Brabe RT 01 RW 003 Kecamatan Maron', 'wilayah : , Gang : ', 1, 'App\\Models\\Pelapak');
 
 -- --------------------------------------------------------
 
@@ -137,8 +139,10 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`id_keranjang`, `produk_id`, `pembeli_id`, `pembeli_type`, `created_at`, `updated_at`, `status`, `jumlah`, `harga_jual`) VALUES
-(15, 2, 1, 'App\\Models\\Konsumen', '2020-02-10 13:25:37', '2020-02-12 11:24:13', 'N', 4, 4000),
-(16, 9, 1, 'App\\Models\\Konsumen', '2020-02-10 13:27:06', '2020-02-12 11:24:05', 'N', 6, 5000);
+(15, 2, 1, 'App\\Models\\Konsumen', '2020-02-10 13:25:37', '2020-02-28 10:34:52', 'Y', 2, 4000),
+(16, 9, 1, 'App\\Models\\Konsumen', '2020-02-10 13:27:06', '2020-02-28 10:34:52', 'Y', 2, 5000),
+(17, 1, 17, 'App\\Models\\Konsumen', '2020-02-27 15:53:17', '2020-02-27 15:53:30', 'N', 3, 5000),
+(20, 3, 1, 'App\\Models\\Konsumen', '2020-02-28 12:18:52', '2020-02-28 12:18:52', 'N', 1, 6000);
 
 -- --------------------------------------------------------
 
@@ -162,10 +166,7 @@ CREATE TABLE `konfirmasi` (
 --
 
 INSERT INTO `konfirmasi` (`id_konfirmasi`, `kode_transaksi`, `total_transfer`, `rekening_admin_id`, `nama_pengirim`, `tanggal_transfer`, `bukti_transfer`, `waktu_konfirmasi`) VALUES
-(1, '1580241945', 28000, 1, 'M. Ilham Surya Pratama', '2020-01-28 00:00:00', 'Capture.PNG', NULL),
-(2, '1582725563', 14200, 1, 'Ahmad Usamah', '2020-02-26 00:00:00', 'P90502-214541.jpg', NULL),
-(3, '1582725563', 14200, 1, 'Ahmad Usamah', '2020-02-26 00:00:00', 'Masbro.png', NULL),
-(4, '1582729011', 14500, 1, 'Ahmad Usamah', '2020-02-26 00:00:00', '65755878_1250989925083631_733426577018191872_o.jpg', NULL);
+(1, '1580241945', 28000, 1, 'M. Ilham Surya Pratama', '2020-01-28 00:00:00', 'Capture.PNG', NULL);
 
 -- --------------------------------------------------------
 
@@ -180,9 +181,8 @@ CREATE TABLE `konsumen` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nomor_hp` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto_profil` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'nonaktif',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `alamat_utama` int(11) DEFAULT NULL
@@ -192,10 +192,9 @@ CREATE TABLE `konsumen` (
 -- Dumping data untuk tabel `konsumen`
 --
 
-INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `nomor_hp`, `foto_profil`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
-(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 'BGLchv4Ar1YvfGPnWlbTGlMkeNmsucC0e5HU4xW10XicSbqyOOgJ181hfTC1', '085330150827', NULL, 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-12 08:00:37', 1),
-(2, 'Ahmad Usamah', 'usa', '$2y$10$VH78DmkAgjL/IiFxCKbaA./fIQeiz0BwjZDCZkw2cnxvDhJc27M2W', NULL, '082229411494', NULL, 'usa@gmail.com', 'aktif', '2020-02-26 01:50:54', '2020-02-26 06:55:33', 5),
-(3, 'a', 'usa', '$2y$10$1fS6cKxUzob7t3gsbWuYE.hBln5ikHSIyeePKJmtUyWC5q2OkD3ie', NULL, '2', 'cMcpYGq5VkchA92.jpg', '1', 'aktif', '2020-02-26 08:35:17', '2020-02-26 10:11:27', NULL);
+INSERT INTO `konsumen` (`id_konsumen`, `nama_lengkap`, `username`, `password`, `remember_token`, `nomor_hp`, `email`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
+(1, 'M. Ilham Surya Pratama', 'ilham', '$2y$10$YkfummEoFgo5DVE1WqQ/nODBlYmeqHcuvEGGwhfAdJhfXklkXj6Yi', 'XtyTF4fNMvwaCmATYQObuLzufMSS8Fy448ZtccXaj1llYXQyFM6a4bDzdrph', '085330150827', 'ilhamsurya26@gmail.com', 'aktif', '2020-01-04 20:33:34', '2020-02-28 10:57:08', 8),
+(17, 'Soleh', 'soleh', '$2y$10$BiOcr6QxhdwPNDKGQn3FTePRizxKCzbGEOsi3HVslPqPpW4IRDA9.', NULL, '123456789123', 'ilhamsurya26@gmail.com', 'aktif', '2020-02-27 15:26:01', '2020-02-27 15:46:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -271,17 +270,18 @@ CREATE TABLE `pelapak` (
   `saldo` int(11) NOT NULL,
   `status` enum('aktif','nonaktif') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `alamat_utama` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `pelapak`
 --
 
-INSERT INTO `pelapak` (`id_pelapak`, `username`, `password`, `status_official`, `nama_toko`, `alamat_toko`, `provinsi_id`, `city_id`, `alamat`, `kode_pos`, `nomor_hp`, `email`, `rating`, `saldo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'indra', '$2y$10$s5PfsWTO/htr7B8FHy4FuewimegZpaH2Q4IYrCK/ziJdT.414nPbW', 'santri', 'Toko Indra', 'Brabe', 11, 369, 'Brabe', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-01 14:53:00', '2020-01-01 14:53:00'),
-(2, 'yolo', '$2y$10$s5PfsWTO/htr7B8FHy4FuewimegZpaH2Q4IYrCK/ziJdT.414nPbW', 'santri', 'Toko Yolo', 'Maron', 11, 369, 'RT 11 RW 003 Maron Wetan', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-10 17:18:00', '2020-01-10 17:18:00'),
-(3, 'indra2', '$2y$10$s5PfsWTO/htr7B8FHy4FuewimegZpaH2Q4IYrCK/ziJdT.414nPbW', 'santri', 'Toko Indra 2', 'Brabe', 11, 369, 'Brabe', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-01 14:53:00', '2020-01-01 14:53:00');
+INSERT INTO `pelapak` (`id_pelapak`, `username`, `password`, `status_official`, `nama_toko`, `alamat_toko`, `provinsi_id`, `city_id`, `alamat`, `kode_pos`, `nomor_hp`, `email`, `rating`, `saldo`, `status`, `created_at`, `updated_at`, `alamat_utama`) VALUES
+(1, 'indra', '$2y$10$s5PfsWTO/htr7B8FHy4FuewimegZpaH2Q4IYrCK/ziJdT.414nPbW', 'santri', 'Toko Indra', 'Brabe', 11, 369, 'Brabe', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-01 14:53:00', '2020-02-28 11:00:45', 8),
+(2, 'yolo', 'yolo', 'santri', 'Toko Yolo', 'Maron', 11, 369, 'RT 11 RW 003 Maron Wetan', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-10 17:18:00', '2020-01-10 17:18:00', 0),
+(3, 'indra2', '$2y$10$s5PfsWTO/htr7B8FHy4FuewimegZpaH2Q4IYrCK/ziJdT.414nPbW', 'santri', 'Toko Indra 2', 'Brabe', 11, 369, 'Brabe', '67276', '085330150827', '', '', 0, 'aktif', '2020-01-01 14:53:00', '2020-01-01 14:53:00', 0);
 
 -- --------------------------------------------------------
 
@@ -368,16 +368,7 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id_review`, `produk_id`, `konsumen_id`, `review`, `bintang`, `foto_review`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'Info berita terbaru hari ini baik peristiwa, kecelakaan, kriminal, hukum, berita unik, Politik, dan liputan khusus di Indonesia dan Internasional.', '3', 'gass.jpg', '2020-02-25 17:00:00', '2020-02-25 17:00:00'),
-(2, 3, 2, 'harga cocok kualitas oke berfungsi dengan baik produk istimewa', '5', 'asiap.jpg', '2020-02-25 17:00:00', '2020-02-25 17:00:00'),
-(3, 3, 2, 'gassss LURRRR', '3', NULL, '2020-02-26 13:50:58', '2020-02-26 13:50:58'),
-(4, 3, 1, 'bintang 2', '2', NULL, '2020-02-26 14:10:29', '2020-02-26 14:10:29'),
-(5, 3, 1, 'asdfghjk', '1', NULL, '2020-02-27 03:43:58', '2020-02-27 03:43:58'),
-(6, 3, 1, 'memek', '4', NULL, '2020-02-27 03:44:16', '2020-02-27 03:44:16'),
-(7, 3, 1, 'poi', '2', NULL, '2020-02-27 03:45:46', '2020-02-27 03:45:46'),
-(8, 3, 1, 'lima', '5', NULL, '2020-02-27 06:46:27', '2020-02-27 06:46:27'),
-(9, 2, 1, 'empat', '4', NULL, '2020-02-27 06:49:09', '2020-02-27 06:49:09'),
-(10, 2, 1, 'test', '5', NULL, '2020-02-27 06:55:29', '2020-02-27 06:55:29');
+(4, 3, 1, 'Mantap gan', '3', '5e59373ebb1ff_foto_review_TkLpz_RI.jpeg', '2020-02-28 08:52:32', '2020-02-28 08:52:32');
 
 -- --------------------------------------------------------
 
@@ -400,8 +391,7 @@ CREATE TABLE `transaksi` (
 
 INSERT INTO `transaksi` (`id_transaksi`, `kode_transaksi`, `pembeli_id`, `pembeli_type`, `waktu_transaksi`, `total_bayar`) VALUES
 (1, '1581520059', 1, 'App\\Models\\Konsumen', '2020-02-12 15:07:39', 84000),
-(2, '1582725563', 2, 'App\\Models\\Konsumen', '2020-02-26 13:59:23', 14200),
-(3, '1582729011', 2, 'App\\Models\\Konsumen', '2020-02-26 14:56:51', 14500);
+(2, '1582913067', 1, 'App\\Models\\Pelapak', '2020-02-28 18:04:27', 44500);
 
 -- --------------------------------------------------------
 
@@ -430,10 +420,10 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `transaksi_id`, `produk_id`, `jumlah`, `harga_jual`, `diskon`, `kurir`, `service`, `ongkir`, `etd`, `sub_total`, `status_order`, `pelapak_id`) VALUES
-(1, 1, 3, 5, 6000, 0, 'jne', 'REG', 20000, '1-2', 50000, 'pending', 2),
-(2, 1, 4, 4, 6000, 0, 'pos', 'Paket Kilat Khusus', 19000, '2-3 HARI', 43000, 'dikirim', 1),
-(3, 2, 3, 1, 6000, 0, 'pos', 'Express Next Day Barang', 10000, '24 JAM', 16000, 'dikirim', 2),
-(4, 3, 1, 1, 5000, 0, 'jne', 'CTCYES', 12000, '1-1', 17000, 'dikirim', 1);
+(1, 1, 3, 5, 6000, 5, 'jne', 'REG', 20000, '1-2', 50000, 'sukses', 2),
+(2, 1, 4, 4, 6000, 0, 'pos', 'Paket Kilat Khusus', 19000, '2-3 HARI', 43000, 'pending', 1),
+(3, 2, 4, 2, 6000, 0, 'jne', 'CTCYES', 12000, '1-1', 24000, 'pending', 1),
+(4, 2, 9, 3, 5000, 0, 'jne', 'CTC', 7000, '1-2', 22000, 'pending', 3);
 
 -- --------------------------------------------------------
 
@@ -572,7 +562,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -596,19 +586,19 @@ ALTER TABLE `kategori_produk`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_konfirmasi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `konsumen`
 --
 ALTER TABLE `konsumen`
-  MODIFY `id_konsumen` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_konsumen` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -638,13 +628,13 @@ ALTER TABLE `rekening_pelapak`
 -- AUTO_INCREMENT untuk tabel `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id_review` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_review` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_detail`
@@ -686,13 +676,6 @@ ALTER TABLE `konsumen`
 ALTER TABLE `produk`
   ADD CONSTRAINT `produk_kategori_produk_id_foreign` FOREIGN KEY (`kategori_produk_id`) REFERENCES `kategori_produk` (`id_kategori_produk`),
   ADD CONSTRAINT `produk_pelapak_id_foreign` FOREIGN KEY (`pelapak_id`) REFERENCES `pelapak` (`id_pelapak`);
-
---
--- Ketidakleluasaan untuk tabel `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_konsumen_id_foreign` FOREIGN KEY (`konsumen_id`) REFERENCES `konsumen` (`id_konsumen`),
-  ADD CONSTRAINT `reviews_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id_produk`);
 
 --
 -- Ketidakleluasaan untuk tabel `transaksi_detail`
