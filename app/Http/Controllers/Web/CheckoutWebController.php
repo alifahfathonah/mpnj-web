@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Foto_Produk;
 use App\Models\Keranjang;
 use App\Models\Konsumen;
+use App\Models\Pelapak;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
@@ -31,6 +32,7 @@ class CheckoutWebController extends Controller
         //                 ->groupBy('keranjang.konsumen_id');
         $data['order'] = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
                         ->where('pembeli_id', $konsumen_id)
+                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
                         ->where('status', 'Y')
                         ->get()
                         ->groupBy('produk.pelapak.nama_toko');
