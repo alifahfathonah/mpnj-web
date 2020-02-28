@@ -298,10 +298,10 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>
-                                        
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>--}}
+{{--                                        --}}
+{{--                                    </li>--}}
                                 </ul>
                             </div>
                             <!-- /.navbar-collapse -->
