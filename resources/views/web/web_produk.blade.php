@@ -16,9 +16,9 @@
                                 </h3>
                             </div>
                             <div class="search__field">
-                                <form action="#">
+                                <form action="{{ URL::to('/produk') }}">
                                     <div class="field-wrapper">
-                                        <input class="relative-field rounded" type="text" placeholder="Cari Produk Disini">
+                                        <input class="relative-field rounded" name="cari" type="text" placeholder="Cari Produk Disini">
                                         <button class="btn btn--round" type="submit">Search</button>
                                     </div>
                                 </form>
