@@ -35,6 +35,7 @@ class ApiKeranjangController extends Controller
 
         foreach ($keranjang as $key => $value) {
             $data['data_keranjang']->push([
+                    'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
                     'nama_toko' => $key,
                     'item' => $value
                 ]);
