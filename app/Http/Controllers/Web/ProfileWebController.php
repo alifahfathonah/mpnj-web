@@ -96,6 +96,7 @@ class ProfileWebController extends Controller
           'kode_pos' => $request->kode_pos,
           'kecamatan_id' => 0,
           'alamat_lengkap' => $request->alamat_lengkap,
+          'alamat_santri' => 'wilayah : '. $request->wilayah. ', Gang : '. $request->gang,
           'user_id' => $user_id,
           'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
@@ -146,7 +147,9 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
         $user_id = Auth::guard($role)->user()->$sessionId;
 
-        $ubah = Konsumen::where('id_konsumen', $user_id)->update(['alamat_utama' => $id]);
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
+
+        $ubah = $fix_role::where($sessionId, $user_id)->update(['alamat_utama' => $id]);
         if ($ubah) {
             return redirect()->back();
         }
