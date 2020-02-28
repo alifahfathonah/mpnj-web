@@ -367,3 +367,12 @@
         END SINGLE PRODUCT DESCRIPTION AREA
     ===============================================-->
 @endsection
+
+@push('scripts')
+    <script>
+        function gantiFoto(id) {
+            let src = $("#foto_produk"+id).attr('src');
+            $("#thumbnailFoto").attr('src', src);
+        }
+    </script>
+@endpush
