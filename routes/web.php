@@ -52,8 +52,8 @@ Auth::routes();
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 //keranjang
-Route::get('keranjang', 'Web\KeranjangWebController@index');
-Route::post('keranjang', 'Web\KeranjangWebController@simpan');
+Route::get('keranjang', 'Web\KeranjangWebController@index')->middleware('checkUserLogin');
+Route::post('keranjang', 'Web\KeranjangWebController@simpan')->middleware('checkUserLogin');
 Route::get('keranjang/hapus/{id}', 'Web\KeranjangWebController@hapus');
 Route::post('keranjang/hitungTotal', 'Web\KeranjangWebController@hitungTotal');
 Route::post('keranjang/ambilHarga', 'Web\KeranjangWebController@ambilHarga');
@@ -63,25 +63,25 @@ Route::post('keranjang/go_checkout', 'Web\KeranjangWebController@go_checkout');
 //checkout
 Route::get('checkout', 'Web\CheckoutWebController@index');
 Route::post('/simpanTransaksi', 'Web\CheckoutWebController@simpanTransaksi');
-Route::get('sukses/{kodeTrx}', 'Web\CheckoutWebController@sukses');
+Route::get('sukses/{kodeTrx}', 'Web\CheckoutWebController@sukses')->middleware('checkUserLogin');
 
 //konfirmasi
-Route::get('konfirmasi', 'Web\KonfirmasiWebController@index');
-Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data');
+Route::get('konfirmasi', 'Web\KonfirmasiWebController@index')->middleware('checkUserLogin');
+Route::get('konfirmasi/data', 'Web\KonfirmasiWebController@data')->middleware('checkUserLogin');
 Route::post('konfirmasi/data', 'Web\KonfirmasiWebController@data');
 Route::post('konfirmasi/simpan', 'Web\KonfirmasiWebController@simpan');
 Route::get('konfirmasi/akun/{id}', 'Web\KonfirmasiWebController@akun');
 Route::get('verified', 'Web\KonfirmasiWebController@verified');
 
 //pesanan
-Route::get('pesanan', 'Web\PesananWebController@index');
-Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail');
+Route::get('pesanan', 'Web\PesananWebController@index')->middleware('checkUserLogin');
+Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail')->middleware('checkUserLogin');
 
 //konsumen profile
-Route::get('profile', 'Web\ProfileWebController@index')->name('profile');
+Route::get('profile', 'Web\ProfileWebController@index')->name('profile')->middleware('checkUserLogin');
 Route::post('profile/ubah/{role}/{id}', 'Web\ProfileWebController@ubah');
 Route::get('profile/rekening', 'Web\ProfileWebController@rekening')->name('rekening');
-Route::get('profile/alamat', 'Web\ProfileWebController@alamat')->name('alamat');
+Route::get('profile/alamat', 'Web\ProfileWebController@alamat')->name('alamat')->middleware('checkUserLogin');
 Route::post('profile/alamat/simpan', 'Web\ProfileWebController@simpan_alamat');
 Route::post('profile/alamat/ubah/{id}', 'Web\ProfileWebController@ubah_alamat');
 Route::get('profile/alamat/hapus/{id}', 'Web\ProfileWebController@hapus_alamat');
