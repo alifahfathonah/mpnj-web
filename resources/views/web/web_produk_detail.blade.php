@@ -114,7 +114,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img class="media-object" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" alt="Commentator Avatar">
+                                                    <img class="media-object" src="{{ asset('assets/foto_review/'.$r->foto_review) }}" alt="">
                                                 </a>
                                             </div>
                                             <div class="media-body">
