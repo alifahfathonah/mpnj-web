@@ -10,6 +10,7 @@
                         <tr>
                             <td colspan="2">
                                 <button class="btn btn--md btn--round" data-target="#modalAlamat" data-toggle="modal">Tambah</button>
+                                <button class="btn btn--md btn--round" data-target="#modalAlamatSantri" data-toggle="modal">Tambah Alamat Santri</button>
                             </td>
                         </tr>
                     </table>
@@ -91,6 +92,63 @@
                     <div class="form-group">
                         <label>Alamat</label>
                         <textarea name="alamat_lengkap" cols="30" rows="10"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Data Alamat</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <select name="provinsi" class="form-control" readonly>
+                            <option value="11" selected>Jawa Timur</option>
+                        </select>
+                        <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
+                    </div>
+                    <div class="form-group">
+                        <label>Kota</label>
+                        <select name="kota" class="form-control" readonly>
+                            <option value="369" selected>Kabupaten Probolinggo</option>
+                        </select>
+                        <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <input type="text" name="kode_pos" class="form-control" value="67291" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea name="alamat_lengkap" cols="10" rows="10" readonly>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Satri</label>
+                        <input type="text" name="nama" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Wilayah</label>
+                        <input type="text" name="wilayah" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Gang</label>
+                        <input type="text" name="gang" class="form-control">
                     </div>
                     <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>

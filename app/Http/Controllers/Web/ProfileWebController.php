@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use File;
 
 class ProfileWebController extends Controller
 {
@@ -31,18 +32,31 @@ class ProfileWebController extends Controller
     {
         $sessionId = Session::get('id');
 
+        $foto = $request->file('foto_profil');
+        $filename = $this->acakhuruf(15) . '.' . $foto->getClientOriginalExtension();
+
         $data = [
           'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
-            'nomor_hp' => $request->no_hp
+            'nomor_hp' => $request->no_hp,
+            'foto_profil' => $filename
         ];
 
         $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
         $ubah = $fix_role::where($sessionId, $id)->update($data);
 
         if ($ubah) {
+	        $foto->move('assets/foto_profil_konsumen', $filename);
             return redirect(URL::to('profile'));
         }
+        
+    }
+
+    public static function acakhuruf($length)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 
     public function rekening()
@@ -96,6 +110,7 @@ class ProfileWebController extends Controller
           'kode_pos' => $request->kode_pos,
           'kecamatan_id' => 0,
           'alamat_lengkap' => $request->alamat_lengkap,
+          'alamat_santri' => 'wilayah : '. $request->wilayah. ', Gang : '. $request->gang,
           'user_id' => $user_id,
           'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
@@ -146,7 +161,9 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
         $user_id = Auth::guard($role)->user()->$sessionId;
 
-        $ubah = Konsumen::where('id_konsumen', $user_id)->update(['alamat_utama' => $id]);
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
+
+        $ubah = $fix_role::where($sessionId, $user_id)->update(['alamat_utama' => $id]);
         if ($ubah) {
             return redirect()->back();
         }

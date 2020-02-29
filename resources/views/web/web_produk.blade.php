@@ -16,9 +16,9 @@
                                 </h3>
                             </div>
                             <div class="search__field">
-                                <form action="#">
+                                <form action="{{ URL::to('/produk') }}">
                                     <div class="field-wrapper">
-                                        <input class="relative-field rounded" type="text" placeholder="Cari Produk Disini">
+                                        <input class="relative-field rounded" name="cari" type="text" placeholder="Cari Produk Disini">
                                         <button class="btn btn--round" type="submit">Search</button>
                                     </div>
                                 </form>
@@ -50,8 +50,8 @@
                     <div class="filter-bar filter--bar2">
                         <div class="pull-right">
                             <div class="filter__option filter--text pull-left">
-                                <a href="#">New Products</a>
-                                <a href="#">Popular Products</a>
+{{--                                <a href="#">New Products</a>--}}
+{{--                                <a href="#">Popular Products</a>--}}
                             </div>
                             <div class="filter__option filter--select">
                                 <div class="select-wrap">
@@ -63,28 +63,28 @@
                                     <span class="lnr lnr-chevron-down"></span>
                                 </div>
                             </div>
-                            <div class="filter__option filter--select">
-                                <div class="select-wrap">
-                                    <select name="price">
-                                        <option value="12">12 Items per page</option>
-                                        <option value="15">15 Items per page</option>
-                                        <option value="25">25 Items per page</option>
-                                    </select>
-                                    <span class="lnr lnr-chevron-down"></span>
-                                </div>
-                            </div>
-                            <div class="filter__option filter--layout">
-                                <a href="category-grid.html">
-                                    <div class="svg-icon">
-                                        <img class="svg" src="{{ asset('assets/images/svg/grid.svg') }}" alt="it's just a layout control folks!">
-                                    </div>
-                                </a>
-                                <a href="category-list.html">
-                                    <div class="svg-icon">
-                                        <img class="svg" src="{{ asset('assets/images/svg/list.svg') }}" alt="it's just a layout control folks!">
-                                    </div>
-                                </a>
-                            </div>
+{{--                            <div class="filter__option filter--select">--}}
+{{--                                <div class="select-wrap">--}}
+{{--                                    <select name="price">--}}
+{{--                                        <option value="12">12 Items per page</option>--}}
+{{--                                        <option value="15">15 Items per page</option>--}}
+{{--                                        <option value="25">25 Items per page</option>--}}
+{{--                                    </select>--}}
+{{--                                    <span class="lnr lnr-chevron-down"></span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="filter__option filter--layout">--}}
+{{--                                <a href="category-grid.html">--}}
+{{--                                    <div class="svg-icon">--}}
+{{--                                        <img class="svg" src="{{ asset('assets/images/svg/grid.svg') }}" alt="it's just a layout control folks!">--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                                <a href="category-list.html">--}}
+{{--                                    <div class="svg-icon">--}}
+{{--                                        <img class="svg" src="{{ asset('assets/images/svg/list.svg') }}" alt="it's just a layout control folks!">--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                     <!-- end filter-bar -->
@@ -149,7 +149,7 @@
 
                                     <div class="product-desc">
                                         <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="product_title">
-                                            <p>{{ $p->nama_produk }}</p>
+                                            <p class="font-weight-bold ">{{ $p->nama_produk }}</p>
                                         </a>
                                     </div>
                                     <!-- end /.product-desc -->
@@ -157,10 +157,10 @@
                                     <div class="product-purchase">
                                         <div class="price_love">
                                             @if($p->diskon == 0)
-                                                <span>@currency($p->harga_jual)</span>
+                                                <span class="font-weight-bold ">@currency($p->harga_jual)</span>
                                             @else
-                                                <span>
-                                                    <strike><p style="color: red">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                                                <span class="font-weight-bold ">
+                                                    <strike><p class="text-danger font-weight-bold">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
                                                 </span>
                                             @endif
                                         </div>

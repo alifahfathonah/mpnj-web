@@ -62,7 +62,11 @@
                     <div class="col-lg-8 offset-lg-1 col-md-9 col-6 v_middle">
                         <!-- start .author-area -->
                         <div class="author-area">
-                            <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                            @if(Session::has('id'))
+                                @if(Session::get('role') == 'pelapak')
+                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                                @endif
+                            @endif
 
                             <div class="author__notification_area">
                                 <ul>
@@ -125,7 +129,7 @@
                                         {{ Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
-                                    <p class="ammount">$20.45</p>
+{{--                                    <p class="ammount">$20.45</p>--}}
                                 </div>
 
                                 <div class="dropdowns dropdown--author">
@@ -254,9 +258,9 @@
                         <div class="navbar-header">
                             <!-- start mainmenu__search -->
                             <div class="mainmenu__search">
-                                <form action="#">
+                                <form action="{{ URL::to('produk')  }}">
                                     <div class="searc-wrap">
-                                        <input type="text" placeholder="Cari Produk">
+                                        <input type="text" name="cari" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -274,16 +278,16 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
-                                        <a href="{{ URL::to('/') }}">HOME</a>
-                                        <span class="fa fa-home"></span>
+                                        <a href="{{ URL::to('/') }}"><span class="fa fa-home"></span> HOME</a>
+                                        
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="{{ URL::to('produk') }}">SEMUA PORDUK</a>
-                                        <span class="fa fa-store"></span>
+                                        <a href="{{ URL::to('produk') }}"><span class="fa fa-store"></span> SEMUA PORDUK</a>
+                                        
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="#">KATEGORI</a>
-                                        <span class="fa fa-arrow-alt-circle-down"></span>
+                                        <a href="#"><span class="fa fa-arrow-alt-circle-down"></span> KATEGORI</a>
+                                        
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
@@ -294,10 +298,10 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="#">KONTAK</a>
-                                        <span class="fa fa-id-card"></span>
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>--}}
+{{--                                        --}}
+{{--                                    </li>--}}
                                 </ul>
                             </div>
                             <!-- /.navbar-collapse -->

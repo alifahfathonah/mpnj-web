@@ -8,14 +8,14 @@ use Illuminate\Notifications\Notifiable;
 
 class Konsumen extends Authenticatable
 {
-	use Notifiable;
-	public $guard = 'konsumen';
-	protected $table = 'konsumen';
+    use Notifiable;
+    public $guard = 'konsumen';
+    protected $table = 'konsumen';
     protected $primaryKey = 'id_konsumen';
-    protected $fillable = ['nama_lengkap','username','password','provinsi_id','city_id','alamat','kode_pos','email','nomor_hp','status'];
-	protected $hidden = ['password'];
+    protected $fillable = ['nama_lengkap', 'username', 'password', 'email', 'nomor_hp', 'status'];
+    protected $hidden = ['password','remember_token'];
 
-	public function transaksi()
+    public function transaksi()
     {
         return $this->morphOne(Transaksi::class, 'pembeli');
     }

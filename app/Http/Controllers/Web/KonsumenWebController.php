@@ -3,29 +3,19 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrasiConfirm;
 use App\Models\Konsumen;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class KonsumenWebController extends Controller
 {
-    protected $client, $token;
-
-    public function __construct()
-    {
-        $this->client = new Client();
-        $this->token = env('API_RAJAONGKIR');
-    }
-
     public function index()
     {
-        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-        $data['provinsi'] = json_decode($request, false);
-        return view('auth/register', $data);
+        return view('auth/register');
     }
 
     public function simpan(Request $request)
@@ -33,17 +23,19 @@ class KonsumenWebController extends Controller
         $simpan = Konsumen::create([
             'nama_lengkap' => $request->nama_lengkap,
             'username' => $request->username,
-            'password' => $request->password,
-            'provinsi_id' => $request->provinsi,
-            'city_id' => $request->kota,
-            'alamat' => $request->alamat,
-            'kode_pos' => $request->kode_pos,
+            'password' => Hash::make($request->password),
             'nomor_hp' => $request->nomor_hp,
             'email' => $request->email
         ]);
 
         if ($simpan) {
-            return redirect('register');
+            $credential = $request->only('username','password');
+            if (Auth::guard('konsumen')->attempt($credential)) {
+                Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_konsumen));
+                $request->session()->put('role', 'konsumen');
+                $request->session()->put('id', 'id_konsumen');
+            }
+            return redirect('/');
         }
     }
 

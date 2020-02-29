@@ -13,7 +13,7 @@ class Transaksi extends Model
 
     public function transaksi_detail()
     {
-        return $this->hasMany(Transaksi_Detail::class, 'transaksi_id', 'id_transaksi');
+        return $this->hasOne(Transaksi_Detail::class, 'transaksi_id', 'id_transaksi');
     }
 
 //    public function konsumen()
