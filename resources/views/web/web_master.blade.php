@@ -193,10 +193,10 @@
                                 <div class="author__notification_area">
                                     <ul>
                                         <li>
-                                            <a href="cart.html">
+                                            <a href="{{ URL::to('keranjang') }}">
                                                 <div class="icon_wrap">
                                                     <span class="fa fa-shopping-cart fa-lg" style="color: green;"></span>
-                                                    <span class="notification_count purch">2</span>
+                                                    <span class="notification_count purch">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
                                                 </div>
                                             </a>
                                         </li>
@@ -232,9 +232,9 @@
                                     </ul>
                                 </div>
 
-                                <div class="text-center">
-                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
-                                </div>
+{{--                                <div class="text-center">--}}
+{{--                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
                         <!-- end /.mobile_content -->
