@@ -51,8 +51,8 @@
                     <!-- start .col-md-3 -->
                     <div class="col-lg-3 col-md-3 col-6 v_middle">
                         <div class="logo">
-                            <a href="index.html">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="logo image" class="img-fluid">
+                            <a href="{{ URL::to('/') }}">
+                                <img src="{{ asset('assets/images/logo_mp1.png') }}" alt="logo image" class="img-fluid">
                             </a>
                         </div>
                     </div>
@@ -63,9 +63,9 @@
                         <!-- start .author-area -->
                         <div class="author-area">
                             @if(Session::has('id'))
-                                @if(Session::get('role') == 'pelapak')
-                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
-                                @endif
+                            @if(Session::get('role') == 'pelapak')
+                            <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                            @endif
                             @endif
 
                             <div class="author__notification_area">
@@ -129,7 +129,7 @@
                                         {{ Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
-{{--                                    <p class="ammount">$20.45</p>--}}
+                                    {{-- <p class="ammount">$20.45</p>--}}
                                 </div>
 
                                 <div class="dropdowns dropdown--author">
@@ -143,10 +143,10 @@
                                             <a href="{{ URL::to('profile') }}">
                                                 <span class="fa fa-user"></span>Profile</a>
                                         </li>
-                                            <li>
-                                                <a href="{{ URL::to('konfirmasi') }}">
-                                                    <span class="fa fa-user"></span>Konfirmasi Pembayaran</a>
-                                            </li>
+                                        <li>
+                                            <a href="{{ URL::to('konfirmasi') }}">
+                                                <span class="fa fa-user"></span>Konfirmasi Pembayaran</a>
+                                        </li>
                                         <li>
                                             <a href="{{ URL::to('keluar') }}">
                                                 <span class="fa fa-sign-out-alt"></span>Keluar</a>
@@ -279,29 +279,29 @@
                                 <ul class="navbar-nav">
                                     <li class="has_dropdown">
                                         <a href="{{ URL::to('/') }}"><span class="fa fa-home"></span> HOME</a>
-                                        
+
                                     </li>
                                     <li class="has_dropdown">
                                         <a href="{{ URL::to('produk') }}"><span class="fa fa-store"></span> SEMUA PORDUK</a>
-                                        
+
                                     </li>
                                     <li class="has_dropdown">
                                         <a href="#"><span class="fa fa-arrow-alt-circle-down"></span> KATEGORI</a>
-                                        
+
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
-                                                    <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">
-                                                        <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
-                                                    </a>
+                                                <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">
+                                                    <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
+                                                </a>
                                                 @endforeach
                                             </ul>
                                         </div>
                                     </li>
-{{--                                    <li>--}}
-{{--                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>--}}
-{{--                                        --}}
-{{--                                    </li>--}}
+                                    {{-- <li>--}}
+                                    {{-- <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>--}}
+                                    {{-- --}}
+                                    {{-- </li>--}}
                                 </ul>
                             </div>
                             <!-- /.navbar-collapse -->
@@ -333,7 +333,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="info-footer">
                             <div class="info__logo">
-                                <img src="images/flogo.png" alt="footer logo">
+                                <img src="{{ asset('assets/images/logo_mp2.png') }}" alt="footer logo">
                             </div>
                             <p class="info--text">Nunc placerat mi id nisi interdum they mollis. Praesent pharetra,
                                 justo ut scel erisque the mattis,

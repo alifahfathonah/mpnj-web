@@ -33,20 +33,29 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
 
         $foto = $request->file('foto_profil');
-        $filename = $this->acakhuruf(15) . '.' . $foto->getClientOriginalExtension();
-
-        $data = [
-          'nama_lengkap' => $request->nama_lengkap,
-            'email' => $request->email,
-            'nomor_hp' => $request->no_hp,
-            'foto_profil' => $filename
-        ];
+        
+        if($foto == null) {
+            $data = [
+                'nama_lengkap' => $request->nama_lengkap,
+                'email' => $request->email,
+                'nomor_hp' => $request->no_hp
+            ];
+        } else {
+            $filename = $this->acakhuruf(15) . '.' . $foto->getClientOriginalExtension();
+            $data = [
+                'nama_lengkap' => $request->nama_lengkap,
+                'email' => $request->email,
+                'nomor_hp' => $request->no_hp,
+                'foto_profil' => $filename
+            ];
+            $foto->move('assets/foto_profil_konsumen', $filename);
+        }
+        
 
         $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
         $ubah = $fix_role::where($sessionId, $id)->update($data);
 
         if ($ubah) {
-	        $foto->move('assets/foto_profil_konsumen', $filename);
             return redirect(URL::to('profile'));
         }
         

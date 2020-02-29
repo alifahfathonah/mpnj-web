@@ -23,7 +23,8 @@ class PesananWebController extends Controller
 //                        ->where('pembeli_id', $konsumen_id)
 //                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
 //                        ->get();
-        $data['order'] = Transaksi_Detail::get()->where('transaksi.pembeli_id', $konsumen_id)->groupBy('status_order');
+        $data['order'] = Transaksi_Detail::get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+        ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('status_order');
         return view('web/web_pesanan', $data);
     }
 

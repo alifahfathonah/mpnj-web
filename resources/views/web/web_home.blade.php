@@ -6,7 +6,7 @@
 =================================-->
 <section class="hero-area bgimage">
     <div class="bg_image_holder">
-        <img src="{{ asset('assets/images/hero_area_bg1.jpg') }}" alt="background-image">
+        <img src="{{ asset('assets/images/logo_mp1.png') }}" alt="background-image">
     </div>
     <!-- start hero-content -->
     <div class="hero-content content_above">
@@ -28,7 +28,7 @@
                         <!-- start .hero__btn-area-->
                         <div class="hero__btn-area">
                             <a href="{{ URL::to('produk') }}" class="btn btn--round btn--lg">Semua Produk</a>
-{{--                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>--}}
+                            {{-- <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>--}}
                         </div>
                         <!-- end .hero__btn-area-->
                     </div>
@@ -86,32 +86,32 @@ START PRODUCTS AREA
                         <h2>Produk Terbaru</h2>
                     </div>
 
-{{--                    <div class="filter__menu">--}}
-{{--                        <p>Filter :</p>--}}
-{{--                        <div class="filter__menu_icon">--}}
-{{--                            <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">--}}
-{{--                            </a>--}}
+                    {{-- <div class="filter__menu">--}}
+                    {{-- <p>Filter :</p>--}}
+                    {{-- <div class="filter__menu_icon">--}}
+                    {{-- <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                    {{-- <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">--}}
+                    {{-- </a>--}}
 
-{{--                            <ul class="filter_dropdown dropdown-menu" aria-labelledby="drop1">--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">Trending Produk</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">Penjualan Terbaik</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">Rating Terbaik</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">Termurah</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">Termahal</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{-- <ul class="filter_dropdown dropdown-menu" aria-labelledby="drop1">--}}
+                    {{-- <li>--}}
+                    {{-- <a href="#">Trending Produk</a>--}}
+                    {{-- </li>--}}
+                    {{-- <li>--}}
+                    {{-- <a href="#">Penjualan Terbaik</a>--}}
+                    {{-- </li>--}}
+                    {{-- <li>--}}
+                    {{-- <a href="#">Rating Terbaik</a>--}}
+                    {{-- </li>--}}
+                    {{-- <li>--}}
+                    {{-- <a href="#">Termurah</a>--}}
+                    {{-- </li>--}}
+                    {{-- <li>--}}
+                    {{-- <a href="#">Termahal</a>--}}
+                    {{-- </li>--}}
+                    {{-- </ul>--}}
+                    {{-- </div>--}}
+                    {{-- </div>--}}
                 </div>
             </div>
             <!-- end /.col-md-12 -->
@@ -119,25 +119,25 @@ START PRODUCTS AREA
         <!-- end /.row -->
 
         <!-- start row -->
-{{--        <div class="row">--}}
-{{--            <!-- start .col-md-12 -->--}}
-{{--            <div class="col-md-12">--}}
-{{--                <div class="sorting">--}}
-{{--                    <ul>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Elektronik</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Makanan</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Konveksi</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <!-- end /.col-md-12 -->--}}
-{{--        </div>--}}
+        {{-- <div class="row">--}}
+        {{-- <!-- start .col-md-12 -->--}}
+        {{-- <div class="col-md-12">--}}
+        {{-- <div class="sorting">--}}
+        {{-- <ul>--}}
+        {{-- <li>--}}
+        {{-- <a href="#">Elektronik</a>--}}
+        {{-- </li>--}}
+        {{-- <li>--}}
+        {{-- <a href="#">Makanan</a>--}}
+        {{-- </li>--}}
+        {{-- <li>--}}
+        {{-- <a href="#">Konveksi</a>--}}
+        {{-- </li>--}}
+        {{-- </ul>--}}
+        {{-- </div>--}}
+        {{-- </div>--}}
+        {{-- <!-- end /.col-md-12 -->--}}
+        {{-- </div>--}}
         <!-- end /.row -->
 
         <!-- start .row -->
@@ -179,17 +179,19 @@ START PRODUCTS AREA
                     <div class="product-purchase">
                         <div class="price_love">
                             @if($p->diskon == 0)
-                                <span>
-                                    @currency($p->harga_jual)
-                                </span>
+                            <span>
+                                @currency($p->harga_jual)
+                            </span>
                             @else
-                                <span>
-                                    <strike><p style="color: red">@currency($p->harga_jual)</p></strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
-                                </span>
+                            <span>
+                                <strike>
+                                    <p style="color: red">@currency($p->harga_jual)</p>
+                                </strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                            </span>
                             @endif
-{{--                            <p>--}}
-{{--                                <span class="fa fa-heart"></span> {{ $p->wishlist }}--}}
-{{--                            </p>--}}
+                            {{-- <p>--}}
+                            {{-- <span class="fa fa-heart"></span> {{ $p->wishlist }}--}}
+                            {{-- </p>--}}
                         </div>
                         <div class="sell">
                             <p>
