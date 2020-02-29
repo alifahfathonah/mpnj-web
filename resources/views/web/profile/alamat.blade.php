@@ -106,7 +106,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Tambah Data Alamat</h3>
+                <h3 class="modal-title">Tambah Data Alamat Santri</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,39 +117,51 @@
                 <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
                     @csrf
                     <div class="form-group">
-                        <label>Provinsi</label>
-                        <select name="provinsi" class="form-control" readonly>
-                            <option value="11" selected>Jawa Timur</option>
-                        </select>
-                        <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
-                    </div>
-                    <div class="form-group">
-                        <label>Kota</label>
-                        <select name="kota" class="form-control" readonly>
-                            <option value="369" selected>Kabupaten Probolinggo</option>
-                        </select>
-                        <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Pos</label>
-                        <input type="text" name="kode_pos" class="form-control" value="67291" readonly>
-                    </div>
-                    <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="alamat_lengkap" cols="10" rows="10" readonly>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</textarea>
+                        <h3>Pondok Pesantren Nurul Jadid</h3>
+                        <h4>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</h4>
                     </div>
                     <div class="form-group">
                         <label>Nama Satri</label>
                         <input type="text" name="nama" class="form-control">
                     </div>
+                        <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
+                        <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
+                        <input type="hidden" name="kode_pos" class="form-control" value="67291">
+                        <input type="hidden" name="alamat_lengkap" class="form-control" value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
+                        <input type="hidden" name="provinsi" class="form-control" value="11">
+                        <input type="hidden" name="kota" class="form-control" value="369">
+
                     <div class="form-group">
                         <label>Wilayah</label>
-                        <input type="text" name="wilayah" class="form-control">
-                    </div>
+                        <select name="wilayah" class="form-control" readonly>
+                            <option value="Pusat" selected>Pusat</option>
+                            <option value="Dalem Barat" selected>Dalem Barat</option>
+                            <option value="Dalem Timur" selected>Dalem Timur</option>
+                            <option value="Dalem Selatan" selected>Dalem Selatan</option>
+                            <option value="Al-Amiri" selected>Al-Amiri</option>
+                            <option value="Zaid Bin Tsabit" selected>Zaid Bin Tsabit</option>
+                        </select>
+                        </div>
                     <div class="form-group">
                         <label>Gang</label>
-                        <input type="text" name="gang" class="form-control">
+                        <select name="gang" class="form-control" readonly>
+                            <option value="A" selected>A</option>
+                            <option value="B" selected>B</option>
+                            <option value="C" selected>C</option>
+                            <option value="D" selected>D</option>
+                            <option value="E" selected>E</option>
+                            <option value="F" selected>F</option>
+                            <option value="G" selected>G</option>
+                            <option value="H" selected>H</option>
+                            <option value="I" selected>I</option>
+                            <option value="J" selected>J</option>
+                            <option value="K" selected>K</option>
+                            <option value="L" selected>L</option>
+                            <option value="M" selected>M</option>
+                        </select>
                     </div>
+                    
                     <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
