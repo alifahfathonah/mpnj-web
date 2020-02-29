@@ -8195,10 +8195,10 @@ ul.nav-tabs.nav--tabs2 li a::before {
     height: 100%;
     width: 100%;
     content: '';
-    background: -webkit-gradient(linear, right top, left top, from(#0030de), to(#0030de));
-    background: -webkit-linear-gradient(right, #0030de, #0030de);
-    background: -o-linear-gradient(right, #0030de, #0030de);
-    background: linear-gradient(to left, #0030de, #0030de);
+    background: -webkit-gradient(linear, right top, left top, from(#004727), to(#004727));
+    background: -webkit-linear-gradient(right, #004727, #004727);
+    background: -o-linear-gradient(right, #004727, #004727);
+    background: linear-gradient(to left, #004727, #004727);
     top: 0;
     left: 0;
     opacity: 0.8;
