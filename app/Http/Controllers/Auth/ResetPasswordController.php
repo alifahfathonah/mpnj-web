@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
+use App\Models\Pelapak;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -44,6 +45,14 @@ class ResetPasswordController extends Controller
             $cekKonsumen->password = Hash::make($request->password);
             $cekKonsumen->save();
             return redirect()->back();
+        } else {
+            $cekPelapak = Pelapak::whereEmail($email)->first();
+
+            if ($cekPelapak) {
+                $cekPelapak->password = Hash::make($request->password);
+                $cekPelapak->save();
+                return redirect()->back();
+            }
         }
 
     }
