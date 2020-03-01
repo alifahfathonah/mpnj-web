@@ -1,65 +1,93 @@
-@extends('layouts.app')
+@extends('web/web_master')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@section('web_konten')
+    <!--================================
+        START BREADCRUMB AREA
+    =================================-->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb">
+                        <ul>
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <a href="#">Reset Password</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h1 class="page-title">Password Baru</h1>
+                </div>
+                <!-- end /.col-md-12 -->
+            </div>
+            <!-- end /.row -->
+        </div>
+        <!-- end /.container -->
+    </section>
+    <!--================================
+            END BREADCRUMB AREA
+        =================================-->
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
+    <section class="login_area section--padding2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <form action="{{ URL::to('password/update') }}" method="POST">
                         @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <div class="cardify login">
+                            <div class="login--header">
+                                <h3>Halo, Selamat Datang</h3>
+                                <p>Anda baru saja meminta untuk melakukan pengaturan ulang password, silanhkan isi data password baru anda dibawah ini.</p>
                             </div>
-                        </div>
+                            <!-- end .login_header -->
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <div class="login--form">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" name="email" class="text_field" placeholder="Isi email...">
+                                </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password" name="password" class="text_field" placeholder="Isi password baru...">
+                                </div>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="form-group">
+                                    <label for="konfirmasi_password">Konfirmasi Password</label>
+                                    <input id="konfirmasi_password" type="password" name="konfirmasi_password" class="text_field" placeholder="Isi ulang password...">
+                                    <small id="pwd_not_match" style="color: red; display: none">Password Tidak Cocok</small>
+                                </div>
+
+                                <button class="btn btn--md btn--round" type="submit">Lanjut</button>
+
                             </div>
+                            <!-- end .login--form -->
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
+                        <!-- end .cardify -->
                     </form>
                 </div>
+                <!-- end .col-md-6 -->
             </div>
+            <!-- end .row -->
         </div>
-    </div>
-</div>
+        <!-- end .container -->
+    </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function () {
+            $("#konfirmasi_password").on('keyup', function () {
+               let password = $("#password").val();
+
+               if (password != $(this).val()) {
+                   $("#pwd_not_match").css("display", "");
+               } else {
+                   $("#pwd_not_match").css("display", "none");
+               }
+            });
+        });
+    </script>
+@endpush
