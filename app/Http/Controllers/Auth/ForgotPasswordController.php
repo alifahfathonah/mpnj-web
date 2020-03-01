@@ -7,8 +7,10 @@ use App\Mail\RegistrasiConfirm;
 use App\Mail\ResetPassword;
 use App\Models\Konsumen;
 use App\Models\Password_Reset;
+use App\Models\Pelapak;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -33,6 +35,13 @@ class ForgotPasswordController extends Controller
         if ($cek > 0) {
             Mail::to($request->email)->send(new ResetPassword(Str::random()));
             return redirect()->back();
+        } else {
+            $cekPelapak = Pelapak::whereEmail($request->email)->count();
+
+            if ($cekPelapak > 0) {
+                Mail::to($request->email)->send(new ResetPassword(Str::random()));
+                return redirect()->back();
+            }
         }
 
     }
