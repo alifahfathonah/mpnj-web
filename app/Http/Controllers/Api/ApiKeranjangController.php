@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
 use App\Repositories\KeranjangRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class ApiKeranjangController extends Controller
 {
@@ -32,18 +33,29 @@ class ApiKeranjangController extends Controller
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
         $data['total'] = 0;
+        $item = collect();
 
         foreach ($keranjang as $key => $value) {
+            foreach ($value as $val) {
+                $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+                $item->push([
+                    'id_keranjang' => $val->id_keranjang,
+                    'jumlah' => $val->jumlah,
+                    'harga_jual' => $val->harga_jual,
+                    'diskon' => $val->produk->diskon,
+                    'id_produk' => $val->produk->id_produk,
+                    'nama_produk' => $val->produk->nama_produk,
+                    'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
+                ]);
+//                $data['pembeli'] = $val['pembeli'];
+            }
             $data['data_keranjang']->push([
                     'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
                     'nama_toko' => $key,
-                    'item' => $value
+                    'item' => $item
                 ]);
             $data['pembeli'] = $keranjang[$key][0]->pembeli;
-            foreach ($value as $val) {
-                $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
-//                $data['pembeli'] = $val['pembeli'];
-            }
+
         }
         return response()->json($data, 200);
     }

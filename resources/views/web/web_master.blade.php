@@ -62,7 +62,11 @@
                     <div class="col-lg-8 offset-lg-1 col-md-9 col-6 v_middle">
                         <!-- start .author-area -->
                         <div class="author-area">
-                            <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                            @if(Session::has('id'))
+                                @if(Session::get('role') == 'pelapak')
+                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>
+                                @endif
+                            @endif
 
                             <div class="author__notification_area">
                                 <ul>
@@ -125,7 +129,7 @@
                                         {{ Auth::guard(Session::get('role'))->user()->username }}
                                         @endif
                                     </p>
-                                    <p class="ammount">$20.45</p>
+{{--                                    <p class="ammount">$20.45</p>--}}
                                 </div>
 
                                 <div class="dropdowns dropdown--author">
@@ -254,9 +258,9 @@
                         <div class="navbar-header">
                             <!-- start mainmenu__search -->
                             <div class="mainmenu__search">
-                                <form action="#">
+                                <form action="{{ URL::to('produk')  }}">
                                     <div class="searc-wrap">
-                                        <input type="text" placeholder="Cari Produk">
+                                        <input type="text" name="cari" placeholder="Cari Produk">
                                         <button type="submit" class="search-wrap__btn">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -294,10 +298,10 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>
-                                        
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="#"><span class="fa fa-id-card"></span> KONTAK</a>--}}
+{{--                                        --}}
+{{--                                    </li>--}}
                                 </ul>
                             </div>
                             <!-- /.navbar-collapse -->

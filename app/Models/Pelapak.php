@@ -32,6 +32,16 @@ class Pelapak extends Authenticatable
         return $this->morphOne(Alamat::class, 'user');
     }
 
+    public function alamat_fix()
+    {
+        return $this->hasOne(Alamat::class, 'id_alamat', 'alamat_utama');
+    }
+
+    public function daftar_alamat()
+    {
+        return $this->morphMany(Alamat::class, 'user');
+    }
+
     public function produk()
     {
         return $this->hasMany(Produk::class, 'pelapak_id', 'id_pelapak');

@@ -43,8 +43,9 @@
                 <div class="item-preview">
                     <div class="item__preview-slider">
                         <div class="prev-slide">
-                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" alt="Keep calm this isn't the end of the world, the preview is just missing." width="750" height="430">
+                            <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}" id="thumbnailFoto" alt="{{ $produk->nama_produk }}" width="750" height="430">
                         </div>
+<<<<<<< HEAD
                         <div class="prev-slide">
                             <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}"
                                 alt="Keep calm this isn't the end of the world, the preview is just missing.">
@@ -81,17 +82,27 @@
                             <img src="images/itprv.jpg"
                                 alt="Keep calm this isn't the end of the world, the preview is just missing.">
                         </div>
+=======
+>>>>>>> 5454064f16955684be787d3b8fff82ae604d563d
                     </div>
                     <!-- end /.item--preview-slider -->
 
                     <div class="item__preview-thumb">
                         <div class="prev-thumb">
                             <div class="thumb-slider">
+<<<<<<< HEAD
                                 @foreach($produk->foto_produk as $img)
                                 <div class="item-thumb">
                                     <img src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}" alt="This is the thumbnail of the item">
                                 </div>
                                 @endforeach
+=======
+                            @foreach($produk->foto_produk as $img)
+                                <div class="item-thumb">
+                                    <img src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}" alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}" onclick="gantiFoto({{ $img->id_foto_produk }})">
+                                </div>
+                            @endforeach
+>>>>>>> 5454064f16955684be787d3b8fff82ae604d563d
                             </div>
                             <!-- end /.thumb-slider -->
 
@@ -114,16 +125,32 @@
                     <div class="item-navigation">
                         <ul class="nav nav-tabs">
                             <li>
+<<<<<<< HEAD
                                 <a href="#product-details" class="active" aria-controls="product-details" role="tab" data-toggle="tab">Item Details</a>
                             </li>
                            
+=======
+                                <a href="#product-details" class="active" aria-controls="product-details" role="tab" data-toggle="tab">Keterangan</a>
+                            </li>
+                            
+>>>>>>> 5454064f16955684be787d3b8fff82ae604d563d
                             <li>
                                 <a href="#product-review" aria-controls="product-review" role="tab" data-toggle="tab">Reviews
                                     <span>({{ $counts }})</span>
                                     <!-- Count() -->
                                 </a>
                             </li>
+<<<<<<< HEAD
                             
+=======
+                            <!-- <li>
+                                <a href="#product-support" aria-controls="product-support" role="tab" data-toggle="tab">Support</a>
+                            </li>
+                            <li>
+                                <a href="#product-faq" aria-controls="product-faq" role="tab" data-toggle="tab">item
+                                    FAQ</a>
+                            </li> -->
+>>>>>>> 5454064f16955684be787d3b8fff82ae604d563d
                         </ul>
                     </div>
                     <!-- end /.item-navigation -->
@@ -135,9 +162,13 @@
                             </div>
                         </div>
                         <!-- end /.tab-content -->
+<<<<<<< HEAD
 
                         <!-- REviEW -->
 
+=======
+                        <!-- Review -->
+>>>>>>> 5454064f16955684be787d3b8fff82ae604d563d
                         <div class="fade tab-pane product-tab" id="product-review">
                             <div class="thread thread_review">
                                 <ul class="media-list thread-list">
@@ -221,9 +252,20 @@
                 <aside class="sidebar sidebar--single-product">
                     <div class="sidebar-card card-pricing">
                         <div class="price">
-                            <h1>
-                                @currency($produk->harga_jual)
-                            </h1>
+                            @if($produk->diskon == 0)
+                                <h1>
+                                    @currency($produk->harga_jual)
+                                </h1>
+                            @else
+                                <h1>
+                                    @currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual))
+                                </h1>
+                                <strike style="color: red">
+                                    <h3 style="color: red">
+                                        @currency($produk->harga_jual)
+                                    </h3>
+                                </strike>
+                            @endif
                         </div>
                         {{-- <ul class="pricing-options">
                             <li>
@@ -399,3 +441,12 @@
         END SINGLE PRODUCT DESCRIPTION AREA
     ===============================================-->
 @endsection
+
+@push('scripts')
+    <script>
+        function gantiFoto(id) {
+            let src = $("#foto_produk"+id).attr('src');
+            $("#thumbnailFoto").attr('src', src);
+        }
+    </script>
+@endpush

@@ -27,8 +27,8 @@
 
                         <!-- start .hero__btn-area-->
                         <div class="hero__btn-area">
-                            <a href="all-products.html" class="btn btn--round btn--lg">Semua Produk</a>
-                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>
+                            <a href="{{ URL::to('produk') }}" class="btn btn--round btn--lg">Semua Produk</a>
+{{--                            <a href="all-products.html" class="btn btn--round btn--lg">Produk Populer</a>--}}
                         </div>
                         <!-- end .hero__btn-area-->
                     </div>
@@ -52,17 +52,8 @@
                 <div class="col-sm-12">
                     <!-- start .search_box -->
                     <div class="search_box">
-                        <form action="#">
-                            <input type="text" class="text_field" placeholder="Cari Produk...">
-                            <div class="search__select select-wrap">
-                                <select name="category" class="select--field" id="blah">
-                                    <option value="">Semua Kategori</option>
-                                    @foreach ($kategori as $k)
-                                    <option value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="fa fa-arrow-down fa-4x"></span>
-                            </div>
+                        <form action="/">
+                            <input type="text" name="cari" class="text_field" placeholder="Cari Produk...">
                             <button type="submit" class="search-btn btn--lg">Cari</button>
                         </form>
                     </div>
@@ -95,32 +86,32 @@ START PRODUCTS AREA
                         <h2>Produk Terbaru</h2>
                     </div>
 
-                    <div class="filter__menu">
-                        <p>Filter :</p>
-                        <div class="filter__menu_icon">
-                            <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">
-                            </a>
+{{--                    <div class="filter__menu">--}}
+{{--                        <p>Filter :</p>--}}
+{{--                        <div class="filter__menu_icon">--}}
+{{--                            <a href="#" id="drop1" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                <img class="svg" src="{{ asset('assets/images/svg/menu.svg') }}" alt="menu icon">--}}
+{{--                            </a>--}}
 
-                            <ul class="filter_dropdown dropdown-menu" aria-labelledby="drop1">
-                                <li>
-                                    <a href="#">Trending Produk</a>
-                                </li>
-                                <li>
-                                    <a href="#">Penjualan Terbaik</a>
-                                </li>
-                                <li>
-                                    <a href="#">Rating Terbaik</a>
-                                </li>
-                                <li>
-                                    <a href="#">Termurah</a>
-                                </li>
-                                <li>
-                                    <a href="#">Termahal</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+{{--                            <ul class="filter_dropdown dropdown-menu" aria-labelledby="drop1">--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">Trending Produk</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">Penjualan Terbaik</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">Rating Terbaik</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">Termurah</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">Termahal</a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
             <!-- end /.col-md-12 -->
@@ -128,25 +119,25 @@ START PRODUCTS AREA
         <!-- end /.row -->
 
         <!-- start row -->
-        <div class="row">
-            <!-- start .col-md-12 -->
-            <div class="col-md-12">
-                <div class="sorting">
-                    <ul>
-                        <li>
-                            <a href="#">Elektronik</a>
-                        </li>
-                        <li>
-                            <a href="#">Makanan</a>
-                        </li>
-                        <li>
-                            <a href="#">Konveksi</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- end /.col-md-12 -->
-        </div>
+{{--        <div class="row">--}}
+{{--            <!-- start .col-md-12 -->--}}
+{{--            <div class="col-md-12">--}}
+{{--                <div class="sorting">--}}
+{{--                    <ul>--}}
+{{--                        <li>--}}
+{{--                            <a href="#">Elektronik</a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="#">Makanan</a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="#">Konveksi</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <!-- end /.col-md-12 -->--}}
+{{--        </div>--}}
         <!-- end /.row -->
 
         <!-- start .row -->

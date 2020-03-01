@@ -3,7 +3,7 @@
         @php
             $id = Session::get('id');
         @endphp
-        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard('konsumen')->user()->$id) }}" method="post">
+        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard('konsumen')->user()->$id) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="information_module">
                 <a class="toggle_title">
@@ -25,6 +25,14 @@
                             <label for="no_hp">Nomor HP</label>
                             <input type="text" id="no_hp" name="no_hp" class="text_field" placeholder="Nomor HP" value="{{ Auth::guard(Session::get('role'))->user()->nomor_hp }}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="cover_photo" class="upload_btn">
+                                <input type="file" id="foto_profil" name="foto_profil" class="form-control">
+                                <span class="btn btn--sm btn--round" aria-hidden="true">Upload Image</span>
+                            </label>
+                        </div>
+
                     </div>
                     <!-- end /.information_wrapper -->
                 </div>
