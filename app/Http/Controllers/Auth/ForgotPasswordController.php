@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrasiConfirm;
+use App\Mail\ResetPassword;
+use App\Models\Konsumen;
+use App\Models\Password_Reset;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,4 +26,14 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $cek = Konsumen::whereEmail($request->email)->count();
+        if ($cek > 0) {
+            Mail::to($request->email)->send(new ResetPassword(Str::random()));
+            return redirect()->back();
+        }
+
+    }
 }
