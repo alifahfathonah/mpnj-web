@@ -144,7 +144,7 @@ START PRODUCTS AREA
         <div class="row">
             <!-- start .col-md-4 -->
             @foreach ($produk as $p)
-            <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="col-sm-2 col-md-2 col-lg-2">
                 <!-- start .single-product -->
                 <div class="product product--card ">
 

@@ -232,9 +232,9 @@
                                     </ul>
                                 </div>
 
-{{--                                <div class="text-center">--}}
-{{--                                    <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>--}}
-{{--                                </div>--}}
+                                {{-- <div class="text-center">--}}
+                                {{-- <a href="{{ URL::to('/jual') }}" class="author-area__seller-btn inline">Jual</a>--}}
+                                {{-- </div>--}}
                             </div>
                         </div>
                         <!-- end /.mobile_content -->
@@ -335,21 +335,19 @@
                             <div class="info__logo">
                                 <img src="{{ asset('assets/images/logo_mp2.png') }}" alt="footer logo">
                             </div>
-                            <p class="info--text">Nunc placerat mi id nisi interdum they mollis. Praesent pharetra,
-                                justo ut scel erisque the mattis,
-                                leo quam.</p>
+                            <p class="info--text">Market Place Nurul Jadid adalah market place pertama yang dikembangkan oleh santri.</p>
                             <ul class="info-contact">
                                 <li>
-                                    <span class="lnr lnr-phone info-icon"></span>
-                                    <span class="info">Phone: +6789-875-2235</span>
+                                    <span class="fa fa-phone"></span>
+                                    <span class="info">Phone: +6289-875-2235</span>
                                 </li>
                                 <li>
-                                    <span class="lnr lnr-envelope info-icon"></span>
-                                    <span class="info">support@aazztech.com</span>
+                                    <span class="fa fa-envelope-open-text"></span>
+                                    <span class="info">commit@dev.com</span>
                                 </li>
                                 <li>
-                                    <span class="lnr lnr-map-marker info-icon"></span>
-                                    <span class="info">202 New Hampshire Avenue Northwest #100, New York-2573</span>
+                                    <span class="fa fa-map-marker-alt"></span>
+                                    <span class="info">Jln. KH. Zaini Mun'im , Karang Anyar, Paiton Probolinggo</span>
                                 </li>
                             </ul>
                         </div>
@@ -359,7 +357,7 @@
 
                     <div class="col-lg-5 col-md-6">
                         <div class="footer-menu">
-                            <h4 class="footer-widget-title text--white">Our Company</h4>
+                            <h4 class="footer-widget-title text--white">Perusahaan Kita</h4>
                             <ul>
                                 <li>
                                     <a href="#">How to Join Us</a>
@@ -435,7 +433,7 @@
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <span class="fa fa-facebook"></span>
+                                            <span class="fas fa-facebook"></span>
                                         </a>
                                     </li>
                                     <li>
