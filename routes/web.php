@@ -49,6 +49,9 @@ Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSi
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
 Auth::routes();
+//reset password
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
+Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 //keranjang
@@ -98,6 +101,3 @@ Route::get('jual', 'Pelapak\PelapakController@index');
 
 //review
 Route::post('review/produk', 'Web\ReviewWebController@postReview');
-
-//reset password
-Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
