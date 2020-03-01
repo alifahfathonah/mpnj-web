@@ -98,3 +98,6 @@ Route::get('jual', 'Pelapak\PelapakController@index');
 
 //review
 Route::post('review/produk', 'Web\ReviewWebController@postReview');
+
+//reset password
+Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
