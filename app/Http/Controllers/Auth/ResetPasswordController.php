@@ -34,4 +34,17 @@ class ResetPasswordController extends Controller
     public function showResetForm(Request $request, $token) {
         return view('auth/passwords/reset');
     }
+
+    public function upadate_password(Request $request) {
+        $email = $request->email;
+
+        $cekKonsumen = Konsumen::whereEmail($email)->first();
+
+        if ($cekKonsumen) {
+            $cekKonsumen->password = Hash::make($request->password);
+            $cekKonsumen->save();
+            return redirect()->back();
+        }
+
+    }
 }
