@@ -30,7 +30,7 @@ class ProdukWebController extends Controller
         $nama_produk = $request->query('cari');
         $order = $request->query('order');
 
-        if ($kategori != '' AND $order != '') {
+        if ($kategori != '') {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->when($kategori != '', function ($query) use ($kategori) {
                 $query->whereHas('kategori', function ($query) use ($kategori) {
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
