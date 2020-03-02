@@ -290,9 +290,9 @@
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
-                                                    <li>
-                                                        <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
-                                                    </li>
+                                                <li>
+                                                    <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
+                                                </li>
                                                 @endforeach
                                             </ul>
                                         </div>
