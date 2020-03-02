@@ -146,7 +146,7 @@ START PRODUCTS AREA
             @foreach ($produk as $p)
             <div class="col-sm-2 col-md-2 col-lg-2">
                 <!-- start .single-product -->
-                <div class="product product--card ">
+                <div class="product product--card">
 
                     <div class="product__thumbnail">
                         <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image">
@@ -196,6 +196,7 @@ START PRODUCTS AREA
                             {{-- <span class="fa fa-heart"></span> {{ $p->wishlist }}--}}
                             {{-- </p>--}}
                         </div>
+                        <br />
                         <div class="sell">
                             <p>
                                 <span class="fa fa-cart-arrow-down"></span>
