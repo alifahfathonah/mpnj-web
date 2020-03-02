@@ -286,14 +286,13 @@
 
                                     </li>
                                     <li class="has_dropdown">
-                                        <a href="#"><span class="fa fa-arrow-alt-circle-down"></span> KATEGORI</a>
-
+                                        <a href="#"><span class="fa fa-arrow-alt-circle-down"></span> Kategori</a>
                                         <div class="dropdowns dropdown--menu">
                                             <ul>
                                                 @foreach ($kategori as $k)
-                                                <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">
-                                                    <li value="{{$k->id_kategori_produk}}">{{ $k->nama_kategori }}</li>
-                                                </a>
+                                                    <li>
+                                                        <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
