@@ -2516,7 +2516,7 @@ h6 {
 
 .product-desc ul.titlebtm>li a,
 .product-desc ul.titlebtm>li p {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .product-desc ul.titlebtm>li p {
@@ -2581,7 +2581,7 @@ h6 {
 
 .product-purchase {
     border-top: 1px solid #ececec;
-    padding: 15px;
+    padding: 5px;
     overflow: hidden;
 }
 
@@ -2591,7 +2591,7 @@ h6 {
 
 .product-purchase p {
     margin: 0;
-    font-size: 15px;
+    font-size: 10px;
     display: inline;
     color: #555;
 }
@@ -2605,11 +2605,11 @@ h6 {
     background: rgba(6, 116, 236, 0.1);
     line-height: 32px;
     display: inline-block;
-    padding: 0 15px;
+    padding: 0 5px;
     color: #0674ec;
     margin-right: 10px;
     font-size: 12px;
-    font-weight: 50;
+    font-weight: bold;
     -webkit-border-radius: 100px;
     border-radius: 100px;
 }
@@ -2631,7 +2631,7 @@ h6 {
 }
 
 .product-purchase .sell p span.lnr {
-    margin-right: 7px;
+    margin-right: px;
 }
 
 /*-------- PRODUCT MODIFIERS --------------*/
@@ -17116,7 +17116,7 @@ span.counter {
     }
 
     .product .product-purchase {
-        padding: 15px 25px;
+        padding: 5px 5px;
     }
 
     .product .rating ul {
