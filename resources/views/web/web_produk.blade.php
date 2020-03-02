@@ -53,7 +53,13 @@
 {{--                                <a href="#">New Products</a>--}}
 {{--                                <a href="#">Popular Products</a>--}}
                             </div>
-                            <div class="filter__option filter--select" style={{ app('request')->input('cari') == '' OR app('request')->input('kategori') == '' ? "display: 'none' ": ''  }}>
+                            <div class="filter__option filter--select" style="
+                                    @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '')
+                                        display: inline-block;
+                                    @else
+                                        display: none;
+                                    @endif
+                                ">
                                 <div class="select-wrap">
                                     <select name="price" id="price">
                                         <option selected>-- Filter Produk --</option>
