@@ -41,6 +41,7 @@ Route::get('adminstrator/transaksi/status/edit/{id}/{status}/{id_trx}', 'Pelapak
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
 Route::get('produk', 'Web\ProdukWebController@produk');
+Route::get('produk/popular', 'Web\ProdukWebController@popular');
 Route::get('produk/{id}', 'Web\ProdukWebController@produkId');
 
 //daftar
@@ -49,6 +50,9 @@ Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSi
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
 Auth::routes();
+//reset password
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
+Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 //keranjang

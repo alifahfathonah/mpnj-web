@@ -53,12 +53,20 @@
 {{--                                <a href="#">New Products</a>--}}
 {{--                                <a href="#">Popular Products</a>--}}
                             </div>
-                            <div class="filter__option filter--select">
+                            <div class="filter__option filter--select" style="
+                                    @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '')
+                                        display: inline-block;
+                                    @else
+                                        display: none;
+                                    @endif
+                                ">
                                 <div class="select-wrap">
                                     <select name="price" id="price">
-                                        <option selected>-- Sorting Harga --</option>
-                                        <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Tinggi ke Rendah</option>
-                                        <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Rendah ke Tinggi</option>
+                                        <option selected>-- Filter Produk --</option>
+{{--                                        <option value="kait" {{ app('request')->input('order') == 'kait' ? 'selected' : ''  }}>Terkait</option>--}}
+{{--                                        <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>--}}
+                                        <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
+                                        <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
                                     </select>
                                     <span class="lnr lnr-chevron-down"></span>
                                 </div>
@@ -226,8 +234,20 @@
            $('#price').on('change', function () {
                let urlParams = new URLSearchParams(window.location.search);
                let kategoriParams = urlParams.has('kategori');
+               let cariParams = urlParams.has('cari');
 
                if (kategoriParams) {
+                   if (urlParams.has('order')) {
+                       let order = urlParams.get('order');
+                       var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low' );
+                       // urlParams = newUrl;
+                       // alert(newUrl);
+                       window.location.href = newUrl;
+                   } else{
+                       window.location.href += '&order='+$(this).val();
+                   }
+                   // let newUrl = window.location.href += '&order='+$(this).val();
+               } else if (cariParams){
                    if (urlParams.has('order')) {
                        let order = urlParams.get('order');
                        var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
@@ -237,8 +257,7 @@
                    } else {
                        window.location.href += '&order='+$(this).val();
                    }
-                   // let newUrl = window.location.href += '&order='+$(this).val();
-               } else {
+               }else{
                    alert('Tidak Bisa Melakukan Sorting');
                }
            });

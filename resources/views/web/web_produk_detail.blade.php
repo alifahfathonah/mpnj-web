@@ -78,22 +78,13 @@
                     <div class="item-navigation">
                         <ul class="nav nav-tabs">
                             <li>
-                                <a href="#product-details" class="active" aria-controls="product-details" role="tab" data-toggle="tab">Keterangan</a>
-                            </li>
-                            
+                                <a href="#product-details" class="active" aria-controls="product-details" role="tab" data-toggle="tab">Item Details</a>
                             <li>
                                 <a href="#product-review" aria-controls="product-review" role="tab" data-toggle="tab">Reviews
                                     <span>({{ $counts }})</span>
                                     <!-- Count() -->
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a href="#product-support" aria-controls="product-support" role="tab" data-toggle="tab">Support</a>
-                            </li>
-                            <li>
-                                <a href="#product-faq" aria-controls="product-faq" role="tab" data-toggle="tab">item
-                                    FAQ</a>
-                            </li> -->
                         </ul>
                     </div>
                     <!-- end /.item-navigation -->
@@ -104,8 +95,6 @@
                                 {{ $produk->keterangan }}
                             </div>
                         </div>
-                        <!-- end /.tab-content -->
-                        <!-- Review -->
                         <div class="fade tab-pane product-tab" id="product-review">
                             <div class="thread thread_review">
                                 <ul class="media-list thread-list">
