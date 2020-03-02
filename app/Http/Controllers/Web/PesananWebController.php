@@ -43,4 +43,22 @@ class PesananWebController extends Controller
         return view('web/web_pesanan_detail', $data);
 //        return $data['review'];
     }
+    
+    public function diterima(Request $request, $id_trx)
+    {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'sukses']);
+
+        $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($id_trx) {
+                            $query->where('id_transaksi_detail', $id_trx);
+                        }])
+                        ->first();
+        $data['review'] = Review::where('produk_id', $data['detail']->transaksi_detail->produk_id)->where('konsumen_id', $konsumen_id)->first();
+
+        return view('web/web_pesanan_detail', $data);
+//        return $data['review'];
+    }
 }
