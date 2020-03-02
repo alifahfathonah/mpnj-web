@@ -149,7 +149,7 @@ START PRODUCTS AREA
                 <div class="product product--card ">
 
                     <div class="product__thumbnail">
-                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image" height="270px">
+                        <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image">
                         <div class="prod_btn">
                             <a href="/produk/{{ $p->id_produk }}" class="transparent btn--sm btn--round">Lihat</a>
                         </div>
@@ -165,7 +165,10 @@ START PRODUCTS AREA
                             <li>
                                 <!-- <img class="auth-img" src="{{ asset('assets/images/auth.jpg') }}" alt="author image"> -->
                                 <p class="pelapak">
-                                    <i class="fa fa-store" aria-hidden="true"></i> <a href="{{ URL::to('pelapak/'.$p->pelapak->username) }}">{{ $p->pelapak->nama_toko }}</a>
+                                    <i class="fa fa-store" aria-hidden="true"></i>
+                                    <small>
+                                        <a href="{{ URL::to('pelapak/'.$p->pelapak->username) }}">{{ $p->pelapak->nama_toko }}</a>
+                                    </small>
                                 </p>
                             </li>
                             <li class="product_cat">
