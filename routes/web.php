@@ -80,6 +80,7 @@ Route::get('verified', 'Web\KonfirmasiWebController@verified');
 //pesanan
 Route::get('pesanan', 'Web\PesananWebController@index')->middleware('checkUserLogin');
 Route::get('pesanan/detail/{id}', 'Web\PesananWebController@detail')->middleware('checkUserLogin');
+Route::get('pesanan/diterima/{id}', 'Web\PesananWebController@diterima')->middleware('checkUserLogin');
 
 //konsumen profile
 Route::get('profile', 'Web\ProfileWebController@index')->name('profile')->middleware('checkUserLogin');
