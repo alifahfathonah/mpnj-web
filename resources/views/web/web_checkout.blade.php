@@ -394,7 +394,7 @@
 
             $.ajax({
                 async: true,
-                url: '/simpanTransaksi',
+                url: "{{ URL::to('checkout/simpanTransaksi') }}",
                 type: 'POST',
                 data: {
                     'trxDetail': dataTrxDetail,
@@ -405,7 +405,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    window.location.href = `/sukses/${response.kode_transaksi}`;
+                    window.location.href = `/checkout/sukses/${response.kode_transaksi}`;
                     // console.log(response);
                 },
                 error: function (error) {
