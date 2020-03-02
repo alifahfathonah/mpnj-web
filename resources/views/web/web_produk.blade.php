@@ -56,9 +56,11 @@
                             <div class="filter__option filter--select">
                                 <div class="select-wrap">
                                     <select name="price" id="price">
-                                        <option selected>-- Sorting Harga --</option>
-                                        <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Tinggi ke Rendah</option>
-                                        <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Rendah ke Tinggi</option>
+                                        <option selected>-- Filter Produk --</option>
+                                        <option value="kait" {{ app('request')->input('order') == 'kait' ? 'selected' : ''  }}>Terkait</option>
+                                        <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
+                                        <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
+                                        <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
                                     </select>
                                     <span class="lnr lnr-chevron-down"></span>
                                 </div>
