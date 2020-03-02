@@ -359,18 +359,18 @@
                             <h4 class="footer-widget-title text--white">Perusahaan Kita</h4>
                             <ul>
                                 <li>
-                                    <a href="#">How to Join Us</a>
+                                    <a href="#">Bergabung</a>
                                 </li>
                                 <li>
-                                    <a href="#">How It Work</a>
+                                    <a href="#">Cara Kerja</a>
                                 </li>
                                 <li>
-                                    <a href="#">Buying and Selling</a>
+                                    <a href="#">Transaksi</a>
                                 </li>
                                 <li>
-                                    <a href="#">Testimonials</a>
+                                    <a href="#">Testimoni</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#">Copyright Notice</a>
                                 </li>
                                 <li>
@@ -378,27 +378,27 @@
                                 </li>
                                 <li>
                                     <a href="#">Affiliates</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <!-- end /.footer-menu -->
 
                         <div class="footer-menu">
-                            <h4 class="footer-widget-title text--white">Help and FAQs</h4>
+                            <h4 class="footer-widget-title text--white">Informasi</h4>
                             <ul>
                                 <li>
-                                    <a href="#">How to Join Us</a>
+                                    <a href="#">Fitur</a>
                                 </li>
                                 <li>
-                                    <a href="#">How It Work</a>
+                                    <a href="#">Produk Baru</a>
                                 </li>
                                 <li>
-                                    <a href="#">Buying and Selling</a>
+                                    <a href="#">Carir</a>
                                 </li>
                                 <li>
-                                    <a href="#">Testimonials</a>
+                                    <a href="#">Cari Produk</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#">Copyright Notice</a>
                                 </li>
                                 <li>
@@ -406,7 +406,7 @@
                                 </li>
                                 <li>
                                     <a href="#">Affiliates</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <!-- end /.footer-menu -->
@@ -415,14 +415,13 @@
 
                     <div class="col-lg-4 col-md-12">
                         <div class="newsletter">
-                            <h4 class="footer-widget-title text--white">Newsletter</h4>
-                            <p>Subscribe to get the latest news, update and offer information. Don't worry, we won't
-                                send spam!</p>
+                            <h4 class="footer-widget-title text--white">Berita Terbaru</h4>
+                            <p>Subscribe untuk mendapatkan update terbaru, update and menerima informasi. Jangan khawatir, Kita tidak mengirim spam!</p>
                             <div class="newsletter__form">
                                 <form action="#">
                                     <div class="field-wrapper">
                                         <input class="relative-field rounded" type="text" placeholder="Enter email">
-                                        <button class="btn btn--round" type="submit">Submit</button>
+                                        <button class="btn btn--round" type="submit">Kirim</button>
                                     </div>
                                 </form>
                             </div>
