@@ -37,25 +37,25 @@
                     <div class="item-navigation">
                         <ul class="nav nav-tabs">
                             <li style="width: 19%">
-                                <a href="#semua" class="active" aria-controls="semua" role="tab" data-toggle="tab">Semua</a>
+                                <a href="#semua" class="@if(app('request')->input('tab') == 'semua') active @endif" aria-controls="semua" role="tab" data-toggle="tab">Semua</a>
                             </li>
                             <li>
-                                <a href="#pending" aria-controls="pending" role="tab" data-toggle="tab">Pending <span>@isset($order['pending']) ({{ COUNT($order['pending']) }}) @endisset</span></a>
+                                <a href="#pending" class="@if(app('request')->input('tab') == 'pending') active @endif" aria-controls="pending" role="tab" data-toggle="tab">Pending <span>@isset($order['pending']) ({{ COUNT($order['pending']) }}) @endisset</span></a>
                             </li>
                             <li>
-                                <a href="#verifikasi" aria-controls="verifikias" role="tab" data-toggle="tab">Verifikasi <span>@isset($order['verifikasi']) ({{ COUNT($order['verifikasi']) }}) @endisset</span></a>
+                                <a href="#verifikasi" class="@if(app('request')->input('tab') == 'verifikasi') active @endif" aria-controls="verifikasi" role="tab" data-toggle="tab">Verifikasi <span>@isset($order['verifikasi']) ({{ COUNT($order['verifikasi']) }}) @endisset</span></a>
                             </li>
                             <li>
-                                <a href="#packing" aria-controls="packing" role="tab" data-toggle="tab">Packing <span>@isset($order['packing']) ({{ COUNT($order['packing']) }}) @endisset</span></a>
+                                <a href="#packing" class="@if(app('request')->input('tab') == 'packing') active @endif" aria-controls="packing" role="tab" data-toggle="tab">Packing <span>@isset($order['packing']) ({{ COUNT($order['packing']) }}) @endisset</span></a>
                             </li>
                             <li>
-                                <a href="#dikirim" aria-controls="dikirim" role="tab" data-toggle="tab">Dikirim <span>@isset($order['dikirim']) ({{ COUNT($order['dikirim']) }}) @endisset</span></a>
+                                <a href="#dikirim" class="@if(app('request')->input('tab') == 'dikirim') active @endif" aria-controls="dikirim" role="tab" data-toggle="tab">Dikirim <span>@isset($order['dikirim']) ({{ COUNT($order['dikirim']) }}) @endisset</span></a>
                             </li>
                             <li>
-                                <a href="#sukses" aria-controls="sukses" role="tab" data-toggle="tab">Sukses <span>@isset($order['sukses']) ({{ COUNT($order['sukses']) }}) @endisset</span></a>
+                                <a href="#sukses" class="@if(app('request')->input('tab') == 'sukses') active @endif" aria-controls="sukses" role="tab" data-toggle="tab">Sukses <span>@isset($order['sukses']) ({{ COUNT($order['sukses']) }}) @endisset</span></a>
                             </li>
                             <li>
-                                <a href="#batal" aria-controls="batal" role="tab" data-toggle="tab">Dibatalkan <span>@isset($order['batal']) ({{ COUNT($order['batal']) }}) @endisset</span></a>
+                                <a href="#batal" class="@if(app('request')->input('tab') == 'batal') active @endif" aria-controls="batal" role="tab" data-toggle="tab">Dibatalkan <span>@isset($order['batal']) ({{ COUNT($order['batal']) }}) @endisset</span></a>
                             </li>
 {{--                            <li>--}}
 {{--                                <a href="#pengembalian" aria-controls="pengembalian" role="tab" data-toggle="tab">Pengembalian</a>--}}
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="tab-content table-responsive">
-                        <div class="fade show tab-pane product-tab active" id="semua">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'semua') active @else active @endif" id="semua">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
@@ -200,7 +200,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="pending">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'pending') active @endif" id="pending">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
@@ -316,7 +316,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="verifikasi">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'verifikasi') active @endif" id="verifikasi">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
@@ -432,7 +432,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="packing">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'packing') active @endif" id="packing">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
@@ -552,7 +552,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="dikirim">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'dikirim') active @endif" id="dikirim">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
@@ -673,7 +673,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="sukses">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses">
                             <div class="tab-content-wrapper table-responsive">
                                 <div class="product_archive">
                                     <div class="title_area">
@@ -793,7 +793,7 @@
                             </div>
                         </div>
 
-                        <div class="fade show tab-pane product-tab" id="batal">
+                        <div class="fade show tab-pane product-tab @if(app('request')->input('tab') == 'batal') active @endif" id="batal">
                             <div class="tab-content-wrapper">
                                 <div class="product_archive table-responsive">
                                     <div class="title_area">
