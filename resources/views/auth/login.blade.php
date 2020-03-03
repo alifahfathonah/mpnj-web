@@ -47,6 +47,15 @@
                         <!-- end .login_header -->
 
                         <div class="login--form">
+                            @if(session('loginError'))
+                                <div class="alert alert-danger" role="alert">
+                                    <span class="alert_icon lnr lnr-warning"></span>
+                                    {{ session('loginError') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span class="lnr lnr-cross" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="user_name">Username</label>
                                 <input id="user_name" type="text" name="username" class="text_field"
