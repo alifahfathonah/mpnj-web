@@ -57,13 +57,15 @@ class LoginController extends Controller
             $request->session()->put('role', 'konsumen');
             $request->session()->put('id', 'id_konsumen');
             return redirect('produk');
-        } else {
-            if (Auth::guard('pelapak')->attempt($credential)) {
-                $request->session()->put('role', 'pelapak');
-                $request->session()->put('id', 'id_pelapak');
-                return redirect('produk');
-            }
         }
+
+        if (Auth::guard('pelapak')->attempt($credential)) {
+            $request->session()->put('role', 'pelapak');
+            $request->session()->put('id', 'id_pelapak');
+            return redirect('produk');
+        }
+        
+        return redirect()->back()->with('loginError', 'Login error, periksa kembali data login anda');
     }
 
 //    public function login(Request $request)
