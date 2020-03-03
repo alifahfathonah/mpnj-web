@@ -108,7 +108,7 @@
                                                 @endif
                                                 <div class="cart_action">
                                                     <a class="go_cart" href="/keranjang">Lihat Keranjang</a>
-                                                    <a class="go_checkout" href="checkout.html">Checkout</a>
+                                                    <a class="go_checkout" href="{{ URL::to('checkout') }}">Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
