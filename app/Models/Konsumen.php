@@ -12,7 +12,7 @@ class Konsumen extends Authenticatable
     public $guard = 'konsumen';
     protected $table = 'konsumen';
     protected $primaryKey = 'id_konsumen';
-    protected $fillable = ['nama_lengkap', 'username', 'password', 'email', 'nomor_hp', 'status'];
+    protected $fillable = ['nama_lengkap', 'username', 'password', 'email', 'nomor_hp', 'status', 'foto_profil'];
     protected $hidden = ['password','remember_token'];
 
     public function transaksi()
