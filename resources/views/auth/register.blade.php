@@ -11,7 +11,7 @@
                 <div class="breadcrumb">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ URL::to('/') }}">Home</a>
                         </li>
                         <li class="active">
                             <a href="#">Daftar</a>
@@ -48,20 +48,31 @@
                         <!-- end .login_header -->
 
                         <div class="login--form">
+                            @if(session('registerError'))
+                                <div class="alert alert-danger" role="alert">
+                                    <span class="alert_icon lnr lnr-warning"></span>
+                                    {{ session('registerError') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span class="lnr lnr-cross" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="nama_lengkap">Nama Lengkap</label>
-                                <input id="nama_lengkap" type="text" name="nama_lengkap" class="text_field" placeholder="Isi Nama Lengkap...">
+                                <input id="nama_lengkap" type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" class="text_field" placeholder="Isi Nama Lengkap...">
                             </div>
 
                             <div class="form-group">
                                 <label for="user_name">Username</label>
-                                <input id="user_name" type="text" name="username" class="text_field" placeholder="Isi username...">
+                                <input id="user_name" type="text" name="username" value="{{ old('username') }}" class="text_field" placeholder="Isi username...">
+                                @if($errors->has('username'))  <small style="color: red">{{ $errors->first('username') }}</small> @endif
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" type="text" name="password" class="text_field" placeholder="Isi password...">
+                                <input id="password" type="password" name="password" class="text_field" placeholder="Isi password...">
+                                @if($errors->has('password'))  <small style="color: red">password harus di isi</small> @endif
                             </div>
 
                             {{-- <div class="form-group">
@@ -71,19 +82,21 @@
 
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input id="email" type="email" name="email" class="text_field" placeholder="Isi email...">
+                                <input id="email" type="email" name="email" value="{{ old('email') }}" class="text_field" placeholder="Isi email...">
+                                @if($errors->has('email'))  <small style="color: red">{{ $errors->first('email') }}</small> @endif
                             </div>
 
                             <div class="form-group">
                                 <label for="nomor_hp">Nomor HP</label>
-                                <input id="nomor_hp" type="text" name="nomor_hp" class="text_field" placeholder="Isi nomor hp...">
+                                <input id="nomor_hp" type="text" name="nomor_hp" value="{{ old('nomor_hp') }}" class="text_field" placeholder="Isi nomor hp...">
+                                @if($errors->has('nomor_hp'))  <small style="color: red">{{ $errors->first('nomor_hp') }}</small> @endif
                             </div>
 
                             <button class="btn btn--md btn--round register_btn" type="submit">Daftar Sekarang</button>
 
                             <div class="login_assist">
                                 <p>Sudah punya akun ?
-                                    <a href="/login">Masuk</a>
+                                    <a href="{{ URL::to('login') }}">Masuk</a>
                                 </p>
                             </div>
                         </div>
