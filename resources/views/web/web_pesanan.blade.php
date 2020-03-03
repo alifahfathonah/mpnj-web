@@ -649,6 +649,7 @@
                                                                             </div>
                                                                             <div class="item_action v_middle">
                                                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Detail</a>
+                                                                                <a href="{{ URL::to('pesanan/diterima/'.$val->id_transaksi_detail) }}" class="btn btn--md btn--round">Pesanan Diterima</a>
                                                                                 <!-- end /.rating_btn -->
                                                                             </div>
                                                                             <!-- end /.item_action -->
