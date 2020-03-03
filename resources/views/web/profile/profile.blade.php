@@ -28,8 +28,8 @@
 
                         <div class="form-group">
                             <label for="cover_photo" class="upload_btn">
+                                <label for="foto">Foto</label>
                                 <input type="file" id="foto_profil" name="foto_profil" class="form-control">
-                                <span class="btn btn--sm btn--round" aria-hidden="true">Upload Image</span>
                             </label>
                         </div>
 

@@ -53,9 +53,12 @@ class ProfileWebController extends Controller
         
 
         $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
-        $ubah = $fix_role::where($sessionId, $id)->update($data);
+        $init = $fix_role::where($sessionId, $id);
+        $d = $init->first();
+        $ubah = $init->update($data);
 
         if ($ubah) {
+            File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
             return redirect(URL::to('profile'));
         }
         
