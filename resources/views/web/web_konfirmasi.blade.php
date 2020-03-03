@@ -42,6 +42,15 @@
                                     <p>Konfirmasi pembayaran anda dengan mengunggah bukti pembayaran anda disini.</p>
                                 </div>
                                 <div class="login--form">
+                                    @if(session('kodeKosong'))
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="alert_icon lnr lnr-warning"></span>
+                                            {{ session('kodeKosong') }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span class="lnr lnr-cross" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    @endif
                                     @if(isset($cek))
                                         <div class="form-group">
                                             <label for="kode_transaksi">Kode Transaksi</label>
@@ -70,7 +79,7 @@
                                     @else
                                     <div class="form-group">
                                         <label for="kode_transaksi">Kode Transaksi</label>
-                                        <input id="kode_transaksi" type="text" class="text_field" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi">
+                                        <input id="kode_transaksi" type="text" class="text_field" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi" value="{{ old('kode_transaksi') }}">
                                     </div>
                                         <button class="btn btn--md btn--round register_btn" type="submit">Lanjut</button>
                                     @endif
