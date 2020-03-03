@@ -26,7 +26,7 @@ class KonsumenWebController extends Controller
             'username' => 'required|unique:konsumen',
             'password' => 'required',
             'nomor_hp' => 'required|min:12|numeric|unique:konsumen',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:konsumen',
         ]);
 
         if ($validator->fails()) {
