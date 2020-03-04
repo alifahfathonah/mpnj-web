@@ -11,13 +11,14 @@
                 <div class="breadcrumb">
                     <ul>
                         <li>
-                            <a href="#">Home</a>
+                            <a href="{{ URL::to('/')}}">Home</a>
                         </li>
                         <li>
-                            <a href="/kategori/{{ strtolower($produk->kategori->nama_kategori) }}">{{ $produk->kategori->nama_kategori }}</a>
+                            <a href="{{ URL::to('kategori/'.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a>
+                            <!-- <a href="/kategori/{{ strtolower($produk->kategori->nama_kategori) }}">{{ $produk->kategori->nama_kategori }}</a> -->
                         </li>
                         <li class="active">
-                            <a href="#">{{ $produk->nama_produk }}</a>
+                            <a href="{{ URL::to('produk/'.$produk->id_produk) }}">{{ $produk->nama_produk }}</a>
                         </li>
                     </ul>
                 </div>
@@ -51,11 +52,11 @@
                     <div class="item__preview-thumb">
                         <div class="prev-thumb">
                             <div class="thumb-slider">
-                            @foreach($produk->foto_produk as $img)
+                                @foreach($produk->foto_produk as $img)
                                 <div class="item-thumb">
                                     <img src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}" alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}" onclick="gantiFoto({{ $img->id_foto_produk }})">
                                 </div>
-                            @endforeach
+                                @endforeach
                             </div>
                             <!-- end /.thumb-slider -->
 
@@ -98,7 +99,7 @@
                         <div class="fade tab-pane product-tab" id="product-review">
                             <div class="thread thread_review">
                                 <ul class="media-list thread-list">
-                                   @foreach ($review as $r)
+                                    @foreach ($review as $r)
                                     <li class="single-thread">
                                         <div class="media">
                                             <div class="media-left">
@@ -159,8 +160,8 @@
                                     @endforeach
                                     <!-- end single comment thread /.comment-->
 
-                                  
-                                <!-- end /.comment pagination area -->
+
+                                    <!-- end /.comment pagination area -->
                             </div>
                             <!-- end /.comments -->
                         </div>
@@ -179,18 +180,18 @@
                     <div class="sidebar-card card-pricing">
                         <div class="price">
                             @if($produk->diskon == 0)
-                                <h1>
-                                    @currency($produk->harga_jual)
-                                </h1>
+                            <h1>
+                                @currency($produk->harga_jual)
+                            </h1>
                             @else
-                                <h1>
-                                    @currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual))
-                                </h1>
-                                <strike style="color: red">
-                                    <h3 style="color: red">
-                                        @currency($produk->harga_jual)
-                                    </h3>
-                                </strike>
+                            <h1>
+                                @currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual))
+                            </h1>
+                            <strike style="color: red">
+                                <h3 style="color: red">
+                                    @currency($produk->harga_jual)
+                                </h3>
+                            </strike>
                             @endif
                         </div>
                         {{-- <ul class="pricing-options">
@@ -369,10 +370,10 @@
 @endsection
 
 @push('scripts')
-    <script>
-        function gantiFoto(id) {
-            let src = $("#foto_produk"+id).attr('src');
-            $("#thumbnailFoto").attr('src', src);
-        }
-    </script>
+<script>
+    function gantiFoto(id) {
+        let src = $("#foto_produk" + id).attr('src');
+        $("#thumbnailFoto").attr('src', src);
+    }
+</script>
 @endpush
