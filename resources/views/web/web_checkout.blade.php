@@ -109,6 +109,8 @@
                                                 @foreach ($val as $k)
                                                     <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k->produk_id }}"
                                                         data-hargajual="{{ $k->harga_jual }}"
+                                                        data-stok="{{ $k->produk->stok }}"
+                                                        data-terjual="{{ $k->produk->terjual }}"
                                                         data-jumlah="{{ $k->jumlah }}"
                                                         data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
                                                         data-idkeranjang="{{  $k->id_keranjang }}"
