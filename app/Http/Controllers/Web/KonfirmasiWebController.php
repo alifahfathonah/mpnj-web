@@ -31,7 +31,7 @@ class KonfirmasiWebController extends Controller
 			//    		$this->kode = $data;
 			return view('web/web_konfirmasi', ['cek' => $cek]);
 		} else {
-			return redirect('konfirmasi');
+			return redirect()->back()->withInput()->with('kodeKosong', 'Perika kembali kode transaksi anda');
 		}
 	}
 
