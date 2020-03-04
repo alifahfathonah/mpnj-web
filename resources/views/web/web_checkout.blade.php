@@ -403,7 +403,9 @@
                 data: {
                     'trxDetail': dataTrxDetail,
                     'totalBayar': $("#totalBayar").data('totalbayar'),
-                    'idKeranjang': keranjangId
+                    'idKeranjang': keranjangId,
+                    'idp' : produkId,
+                    'prosesData' : proses
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
