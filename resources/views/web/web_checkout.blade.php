@@ -370,6 +370,8 @@
         function bayarSekarang() {
             let dataTrxDetail = [];
             let keranjangId = [];
+            let proses = [];
+            let produkId = [];
 
             //ulasan
             //1. saya harus tau jumlah pelapak nya
