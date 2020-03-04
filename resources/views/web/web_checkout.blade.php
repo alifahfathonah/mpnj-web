@@ -382,6 +382,12 @@
             for (let index = 1; index <= "{{ $m }}"; index++) {
                 for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
                     keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
+                    produkId.push($(`#data_keranjang${j}`).data('idproduk'));
+                    proses.push({
+                        'stok': $(`#data_keranjang${j}`).data('stok') - $(`#data_keranjang${j}`).data('jumlah'),
+                        'terjual' : $(`#data_keranjang${j}`).data('terjual') + $(`#data_keranjang${j}`).data('jumlah')
+                    });
+
                     dataTrxDetail.push({
                         'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
                         'pelapak_id' : $(`#data_keranjang${j}`).data('idpelapak'),
