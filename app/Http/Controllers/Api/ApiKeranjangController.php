@@ -98,6 +98,21 @@ class ApiKeranjangController extends Controller
 
     public function simpan(Request $request)
     {
+        $cekExistData = Keranjang::where('produk_id', $request->produk_id)
+                        ->where('pembeli_id', $request->pembeli_id)
+                        ->where('pembeli_type', $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                        ->first();
+
+        if ($cekExistData != '') {
+            $cekExistData->jumlah += $request->jumlah;
+            $update = $cekExistData->save();
+            if ($update) {
+                return response()->json('sukses', 200);
+            } else {
+                return response()->json('gagal', 400);
+            }
+        }
+
         $data = array(
             'produk_id' => $request->produk_id,
             'pembeli_id' => $request->pembeli_id,
