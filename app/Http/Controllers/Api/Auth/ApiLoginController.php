@@ -42,6 +42,7 @@ class ApiLoginController extends Controller
             return response()->json([
                 'pesan' => 'Login Sukses!',
                 'token' => $code_token,
+                'username' => $konsumen->username,
                 'nama_lengkap' => $konsumen->nama_lengkap,
                 'nomor_hp' => $konsumen->nomor_hp,
                 'email' => $konsumen->email,
