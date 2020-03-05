@@ -39,7 +39,15 @@ class ApiLoginController extends Controller
             $token = ['remember_token' => $code_token];
             $token = Konsumen::where('username',$request->username)->update($token);
 
-            return response()->json(['pesan' => 'Login Sukses!','token' => $code_token,'id_konsumen' => $konsumen->id_konsumen], 200);
+            return response()->json([
+                'pesan' => 'Login Sukses!',
+                'token' => $code_token,
+                'nama_lengkap' => $konsumen->nama_lengkap,
+                'nomor_hp' => $konsumen->nomor_hp,
+                'email' => $konsumen->email,
+                'foto' => $konsumen->foto_profil,
+                'id_konsumen' => $konsumen->id_konsumen
+                ], 200);
         }
 
         return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
