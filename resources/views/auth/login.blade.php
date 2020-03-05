@@ -1,102 +1,102 @@
-@extends('web.web_master')
+@extends('mpnj.layout.main')
 
-@section('web_konten')
-<!--================================
-        START BREADCRUMB AREA
-    =================================-->
-<section class="breadcrumb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="breadcrumb">
-                    <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">Masuk</a>
-                        </li>
-                    </ul>
-                </div>
-                <h1 class="page-title">Masuk ke Akun</h1>
-            </div>
-            <!-- end /.col-md-12 -->
-        </div>
-        <!-- end /.row -->
+@section('title','Login')
+    
+
+@section('content')
+
+  {{-- <section class="my-5">
+      <div class="row mt-2 justify-content-center">
+        <h1 class="text-danger">Selamat Datang Di MPNJ, Silahkan Login</h1>
     </div>
-    <!-- end /.container -->
-</section>
-<!--================================
-        END BREADCRUMB AREA
-    =================================-->
+    <div class="row">
+        <div class="col-md-8">
 
-<!--================================
-            START LOGIN AREA
-    =================================-->
-<section class="login_area section--padding2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <form action="{{ route('login') }}" method="POST">
-                    @csrf
-                    <div class="cardify login">
-                        <div class="login--header">
-                            <h3>Halo, Selamat Datang</h3>
-                            <p>Kamu bisa masuk dengan Username kamu.</p>
-                        </div>
-                        <!-- end .login_header -->
-
-                        <div class="login--form">
-                            @if(session('loginError'))
-                                <div class="alert alert-danger" role="alert">
-                                    <span class="alert_icon lnr lnr-warning"></span>
-                                    {{ session('loginError') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span class="lnr lnr-cross" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            @endif
-                            <div class="form-group">
-                                <label for="user_name">Username</label>
-                                <input id="user_name" type="text" name="username" class="text_field"
-                                    placeholder="Isi username...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pass">Password</label>
-                                <input id="pass" type="password" name="password" class="text_field" placeholder="Isi password...">
-                            </div>
-
-                            {{-- <div class="form-group">
-                                <div class="custom_checkbox">
-                                    <input type="checkbox" id="ch2">
-                                    <label for="ch2">
-                                        <span class="shadow_checkbox"></span>
-                                        <span class="label_text">Remember me</span>
-                                    </label>
-                                </div>
-                            </div> --}}
-
-                            <button class="btn btn--md btn--round" type="submit">Masuk</button>
-
-                            <div class="login_assist">
-                                <p class="recover">Lupa
-                                    <a href="{{ URL::to('password/reset') }}">password</a> ?</p>
-                                <p class="signup">Belum Punya
-                                    <a href="{{ URL::to('register') }}">Akun</a> ?</p>
-                            </div>
-                        </div>
-                        <!-- end .login--form -->
-                    </div>
-                    <!-- end .cardify -->
-                </form>
+            @if(session('loginError'))
+            <div class="alert alert-danger" role="alert">
+                <span class="alert_icon lnr lnr-warning"></span>
+                {{ session('loginError') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span class="lnr lnr-cross" aria-hidden="true"></span>
+                </button>
             </div>
-            <!-- end .col-md-6 -->
-        </div>
-        <!-- end .row -->
+        @endif
+            
+           <div class="card justify-content-center">
+        <div class="card-body">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+            <div class="form-group">
+               <label for="username">Username</label>
+               <input id="username" name="username" class="form-control form-control-alternative" placeholder="Masukkan Username" type="Username">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+              <a class="float-right text-info" href="{{ URL::to('password/reset') }}">Lupa Password</a>
+       
+              <label for="pass">Password</label>
+              <input id="pass" name="password" class="form-control  form-control-alternative" placeholder="Masukkan Password" type="password">
+            </div> <!-- form-group// --> 
+            <div class="form-group"> 
+              
+            </div> <!-- form-group form-check .// -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+            </div> <!-- form-group// -->    
+        </form>
+        <a href="{{ URL::to('register') }}" class="text-center text-info">Belum punya akun,register</a>
+        
+        </div> <!-- card-body.// -->
+      </div> <!-- card .// -->
     </div>
-    <!-- end .container -->
-</section>
+</div>
+
+</div>
+</div>
+s
+</section> --}}
+
+<div class="container">
+    <div class="row my-3 justify-content-center">
+        <div class="col-md-7">
+            
+<div class="card card-lg">
+    <div class="card-header">
+        <h5 class="card-title"> Selamat Datang, Silahkan Login</h5>
+    </div>
+    <div class="card-body">
+        @if(session('loginError'))
+        <div class="alert alert-danger" role="alert">
+            <span class="alert_icon lnr lnr-warning"></span>
+            {{ session('loginError') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span class="lnr lnr-cross" aria-hidden="true"></span>
+            </button>
+        </div>
+    @endif
+        
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+        <div class="form-group">
+           <label for="username">Username</label>
+           <input id="username" name="username" class="form-control form-control-alternative" placeholder="Masukkan Username" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <label for="pass">Password</label>
+          <input id="pass" name="password" class="form-control  form-control-alternative" placeholder="Masukkan Password" type="password">
+        </div>
+       
+        <a href="{{ URL::to('register') }}" class="text-center text-info">Belum punya akun,register</a>
+        <a class="float-right text-info float-right" href="{{ URL::to('password/reset') }}">Lupa Password</a>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+    
+</div>
+</div>
+</div>
 <!--================================
             END LOGIN AREA
     =================================-->
