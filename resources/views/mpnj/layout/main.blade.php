@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="pragma" content="no-cache" />
@@ -14,21 +15,22 @@
 <body>
 
     {{-- Includes CSS --}}
-    @include('mpnj.layout.style')   
+    @include('mpnj.layout.style')
 
     {{-- Includes  Header --}}
     @include('mpnj.layout.header')
 
     {{-- Isi Content --}}
     @yield('content')
-    
+
     {{-- Includes  Footer --}}
     @include('mpnj.layout.footer')
 
     {{-- Includes JS --}}
     @include('mpnj.layout.script')
 
-
-
+    {{--Includes JQuery--}}
+    @stack('scripts')
 </body>
+
 </html>
