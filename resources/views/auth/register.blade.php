@@ -41,6 +41,7 @@
                         </div> 
                             <button type="submit" class="btn btn-primary btn-block"> Daftar Sekarang  </button>
                             <div class="login_assist">
+                            <br>
                                 <p>Sudah punya akun ?
                                     <a href="/login">Masuk</a>
                                 </p>
