@@ -27,6 +27,7 @@
     @include('mpnj.layout.script')
 
 
+    @stack('scripts')
 
 </body>
 </html>
