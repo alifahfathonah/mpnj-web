@@ -33,8 +33,8 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
 
         $foto = $request->file('foto_profil');
-        
-        if($foto == null) {
+
+        if ($foto == null) {
             $data = [
                 'nama_lengkap' => $request->nama_lengkap,
                 'email' => $request->email,
@@ -50,9 +50,9 @@ class ProfileWebController extends Controller
             ];
             $foto->move('assets/foto_profil_konsumen', $filename);
         }
-        
 
-        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
+
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
         $init = $fix_role::where($sessionId, $id);
         $d = $init->first();
         $ubah = $init->update($data);
@@ -61,7 +61,6 @@ class ProfileWebController extends Controller
             File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
             return redirect(URL::to('profile'));
         }
-        
     }
 
     public static function acakhuruf($length)
@@ -83,9 +82,9 @@ class ProfileWebController extends Controller
         $user_id = Auth::guard($role)->user()->$sessionId;
 
         $data['alamat'] = Alamat::with('user')
-                ->where('user_id', $user_id)
-                ->where('user_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-                ->get();
+            ->where('user_id', $user_id)
+            ->where('user_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->get();
 
         $response = $this->client->get('http://guzzlephp.org');
         $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
@@ -113,18 +112,18 @@ class ProfileWebController extends Controller
         $user_id = Auth::guard($role)->user()->$sessionId;
 
         $data = [
-          'nama' => $request->nama,
-          'nomor_telepon' => $request->nomor_telepon,
-          'provinsi_id' => $request->provinsi,
-          'nama_provinsi' => $request->nama_provinsi,
-          'city_id' => $request->kota,
-          'nama_kota' => $request->nama_kota,
-          'kode_pos' => $request->kode_pos,
-          'kecamatan_id' => 0,
-          'alamat_lengkap' => $request->alamat_lengkap,
-          'alamat_santri' => 'wilayah : '. $request->wilayah. ', Gang : '. $request->gang,
-          'user_id' => $user_id,
-          'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
+            'nama' => $request->nama,
+            'nomor_telepon' => $request->nomor_telepon,
+            'provinsi_id' => $request->provinsi,
+            'nama_provinsi' => $request->nama_provinsi,
+            'city_id' => $request->kota,
+            'nama_kota' => $request->nama_kota,
+            'kode_pos' => $request->kode_pos,
+            'kecamatan_id' => 0,
+            'alamat_lengkap' => $request->alamat_lengkap,
+            'alamat_santri' => 'wilayah : ' . $request->wilayah . ', Gang : ' . $request->gang,
+            'user_id' => $user_id,
+            'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
 
         $simpan = Alamat::create($data);
@@ -173,7 +172,7 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
         $user_id = Auth::guard($role)->user()->$sessionId;
 
-        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak' ;
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
 
         $ubah = $fix_role::where($sessionId, $user_id)->update(['alamat_utama' => $id]);
         if ($ubah) {

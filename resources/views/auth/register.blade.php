@@ -1,109 +1,57 @@
-@extends('web.web_master')
+@extends('mpnj.layout.main')
 
-@section('web_konten')
-<!--================================
-        START BREADCRUMB AREA
-    =================================-->
-<section class="breadcrumb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="breadcrumb">
-                    <ul>
-                        <li>
-                            <a href="{{ URL::to('/') }}">Home</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">Daftar</a>
-                        </li>
-                    </ul>
-                </div>
-                <h1 class="page-title">Daftar</h1>
-            </div>
-            <!-- end /.col-md-12 -->
-        </div>
-        <!-- end /.row -->
-    </div>
-    <!-- end /.container -->
-</section>
-<!--================================
-        END BREADCRUMB AREA
-    =================================-->
+@section('title','Daftar')
+    
 
-<!--================================
-            START SIGNUP AREA
-    =================================-->
+@section('content')
+<br><br>
 <section class="signup_area section--padding2">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
-                <form action="{{ route('daftarSimpan') }}" method="POST">
+                <div class="card mb-4">
+                    <article class="card-body">
+                    <header class="mb-4">
+                        <center>
+                          <h4 class="card-title">Buat Akun Kamu Sekarang</h4>
+                          <small>Tolong isi data dibawah ini dengan benar.</small>
+                        </center>
+                    </header>
+                    <form action="{{ route('daftarSimpan') }}" method="POST">
                     @csrf
-                    <div class="cardify signup_form">
-                        <div class="login--header">
-                            <h3>Buat Akun Kamu Sekarang</h3>
-                            <p>Tolong isi data dibawah ini dengan benar.
-                            </p>
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="" name="nama_lengkap">
                         </div>
-                        <!-- end .login_header -->
-
-                        <div class="login--form">
-                            @if(session('registerError'))
-                                <div class="alert alert-danger" role="alert">
-                                    <span class="alert_icon lnr lnr-warning"></span>
-                                    {{ session('registerError') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span class="lnr lnr-cross" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            @endif
-
-                            <div class="form-group">
-                                <label for="nama_lengkap">Nama Lengkap</label>
-                                <input id="nama_lengkap" type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" class="text_field" placeholder="Isi Nama Lengkap...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="user_name">Username</label>
-                                <input id="user_name" type="text" name="username" value="{{ old('username') }}" class="text_field" placeholder="Isi username...">
-                                @if($errors->has('username'))  <small style="color: red">{{ $errors->first('username') }}</small> @endif
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="password" type="password" name="password" class="text_field" placeholder="Isi password...">
-                                @if($errors->has('password'))  <small style="color: red">password harus di isi</small> @endif
-                            </div>
-
-                            {{-- <div class="form-group">
-                                <label for="con_pass">Confirm Password</label>
-                                <input id="con_pass" type="text" class="text_field" placeholder="Confirm password">
-                            </div> --}}
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" type="email" name="email" value="{{ old('email') }}" class="text_field" placeholder="Isi email...">
-                                @if($errors->has('email'))  <small style="color: red">{{ $errors->first('email') }}</small> @endif
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nomor_hp">Nomor HP</label>
-                                <input id="nomor_hp" type="text" name="nomor_hp" value="{{ old('nomor_hp') }}" class="text_field" placeholder="Isi nomor hp...">
-                                @if($errors->has('nomor_hp'))  <small style="color: red">{{ $errors->first('nomor_hp') }}</small> @endif
-                            </div>
-
-                            <button class="btn btn--md btn--round register_btn" type="submit">Daftar Sekarang</button>
-
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" placeholder="" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Hp</label>
+                            <input type="text" class="form-control" placeholder="" name="nomor_hp">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" type="password" name="password">
+                        </div> 
+                            <button type="submit" class="btn btn-primary btn-block"> Daftar Sekarang  </button>
                             <div class="login_assist">
+                            <br>
                                 <p>Sudah punya akun ?
-                                    <a href="{{ URL::to('login') }}">Masuk</a>
+                                    <a href="/login">Masuk</a>
                                 </p>
                             </div>
-                        </div>
-                        <!-- end .login--form -->
-                    </div>
-                    <!-- end .cardify -->
-                </form>
+                        </div>    
+                                                            
+                    </form>
+                    </article> <!-- card-body end .// -->
+                    </div> <!-- card.// -->
+
             </div>
             <!-- end .col-md-6 -->
         </div>
@@ -111,7 +59,6 @@
     </div>
     <!-- end .container -->
 </section>
-<!--================================
-            END SIGNUP AREA
-    =================================-->
+<br>
+
 @endsection
