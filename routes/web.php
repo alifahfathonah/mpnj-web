@@ -41,7 +41,7 @@ Route::get('adminstrator/transaksi/status/edit/{id}/{status}/{id_trx}', 'Pelapak
 //web produk
 Route::get('/', 'Web\ProdukWebController@index');
 
-Route::group(['namespace' => 'Web'], function (){
+Route::group(['namespace' => 'Web'], function () {
     Route::group(['prefix' => 'produk'], function () {
         Route::get('/', 'ProdukWebController@produk');
         Route::get('popular', 'ProdukWebController@popular');

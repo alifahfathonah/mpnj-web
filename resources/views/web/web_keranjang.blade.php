@@ -11,10 +11,10 @@
                 <div class="breadcrumb">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ URL::to('/') }}">Home</a>
                         </li>
                         <li class="active">
-                            <a href="#">Keranjang</a>
+                            <a href="{{ URL::to('keranjang') }}">Keranjang</a>
                         </li>
                     </ul>
                 </div>
@@ -58,27 +58,24 @@
                                     </thead>
 
                                     <tbody>
-                                        <?php $n = 1; $total = 0;?>
+                                        <?php $n = 1;
+                                        $total = 0; ?>
                                         @foreach ($keranjang as $key => $val)
                                         <tr id="dataCart">
-                                            <td colspan="7"><h4><strong>{{ $key }}</strong></h4></td>
+                                            <td colspan="7">
+                                                <h4><strong>{{ $key }}</strong></h4>
+                                            </td>
                                         </tr>
                                         @foreach ($val as $k)
-                                            <tr id="data_keranjang{{ $k->id_keranjang  }}"
-                                                data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}"
-                                                class="sum"
-                                                data-subtotal="{{ ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah  }}"
-                                                data-hargajual="{{ $k->harga_jual  }}"
-                                                data-diskon="{{ $k->produk->diskon }}">
+                                        <tr id="data_keranjang{{ $k->id_keranjang  }}" data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}" class="sum" data-subtotal="{{ ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah  }}" data-hargajual="{{ $k->harga_jual  }}" data-diskon="{{ $k->produk->diskon }}">
                                             <td>
                                                 <input type="checkbox" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
                                             </td>
                                             <td>
                                                 <div class="product__description">
-                                                    <img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}"
-                                                        alt="Purchase image" width="100">
+                                                    <img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}" alt="Purchase image" width="100">
                                                     <div class="short_desc">
-                                                        <a href="single-product.html">
+                                                        <a href="{{ URL::to('produk/'.$k->produk->id_produk) }}">
                                                             <h4>{{ $k->produk->nama_produk }}</h4>
                                                         </a>
                                                         {{-- <p>Nunc placerat mi id nisi inter dum mollis. Praesent phare...</p> --}}
@@ -88,25 +85,23 @@
                                             <td>{{ $k->produk->kategori->nama_kategori }}</td>
                                             <td class="bold" id="harga{{ $n }}">
                                                 @if($k->produk->diskon == 0)
-                                                    @currency($k->produk->harga_jual)
+                                                @currency($k->produk->harga_jual)
                                                 @else
-                                                    <strike style="color: red">@currency($k->produk->harga_jual)</strike> | @currency($k->produk->harga_jual - ($k->produk->diskon / 100 * $k->produk->harga_jual))
+                                                <strike style="color: red">@currency($k->produk->harga_jual)</strike> | @currency($k->produk->harga_jual - ($k->produk->diskon / 100 * $k->produk->harga_jual))
                                                 @endif
                                             </td>
                                             <td style="width: 10%">
-                                                <input type="number" name="qty"
-                                                    id="qty{{ $n }}" class="form-control form-control-sm"
-                                                    value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
+                                                <input type="number" name="qty" id="qty{{ $n }}" class="form-control form-control-sm" value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
                                             </td>
                                             <td id="subHarga{{ $n }}">
                                                 @if($k->produk->diskon == 0)
-                                                    @currency($k->harga_jual * $k->jumlah)
+                                                @currency($k->harga_jual * $k->jumlah)
                                                 @else
-                                                    @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
+                                                @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
                                                 @endif
                                             </td>
                                             <td class="pending">
-                                                <a href="/keranjang/hapus/{{ $k->id_keranjang }}">
+                                                <a href="{{ URL::to('keranjang/hapus/'.$k->id_keranjang) }}">
                                                     <span>Hapus</span>
                                                 </a>
                                             </td>
@@ -171,7 +166,7 @@
             let id = $(this).val();
             let total = 0;
             // $(`#check${id}`).attr('checked', false);
-            $("input:checkbox[name=check]:checked").each(function () {
+            $("input:checkbox[name=check]:checked").each(function() {
                 keranjang_id.push($(this).val());
             });
 
@@ -179,8 +174,8 @@
             //     console.log($(this).val());
             // });
             // id = $(this).val();
-            keranjang_id.forEach(function (val) {
-               total += $(`#data_keranjang${val}`).data('subtotal');
+            keranjang_id.forEach(function(val) {
+                total += $(`#data_keranjang${val}`).data('subtotal');
             });
 
             $("#total").html("Rp. " + numberFormat(parseInt(total)));
@@ -207,7 +202,7 @@
         $("input[name='qty']").change(function(e) {
             // console.log(e.originalEvent.srcElement.value);
             let n = $("input[name='qty']").index(this);
-            let qty = $("#qty"+parseInt(n+1)).val();
+            let qty = $("#qty" + parseInt(n + 1)).val();
             let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
             let diskon = $(`.sum:eq(${n})`).data('diskon');
 
@@ -224,10 +219,10 @@
                 },
                 success: function(response) {
                     if (diskon == 0) {
-                        $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(parseInt(response * qty)));
+                        $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt(response * qty)));
                         $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
                     } else {
-                        $("#subHarga"+parseInt(n+1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
+                        $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
                         $(`.sum:eq(${n})`).data('subtotal', parseInt((response - (diskon / 100 * response)) * qty));
                     }
                     // (parseInt(response) - parseInt($(`#data_keranjang${parseInt(n+1)}`) / 100 * response)) * qty
@@ -239,9 +234,9 @@
             });
         })
 
-        $("#checkout").click(function () {
+        $("#checkout").click(function() {
             let keranjang_id = [];
-            $("input:checkbox[name=check]:checked").each(function () {
+            $("input:checkbox[name=check]:checked").each(function() {
                 keranjang_id.push($(this).val());
             });
 
@@ -273,7 +268,7 @@
 
     function sumTotal() {
         totalPrice = 0;
-        $('.sum').each(function (i) {
+        $('.sum').each(function(i) {
             if ($('input:checkbox[name="check"]').eq(i).is(':checked') == true) {
                 totalPrice += $(this).data('subtotal');
             }

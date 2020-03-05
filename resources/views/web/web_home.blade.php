@@ -151,14 +151,14 @@ START PRODUCTS AREA
                     <div class="product__thumbnail">
                         <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}" alt="Product Image">
                         <div class="prod_btn">
-                            <a href="/produk/{{ $p->id_produk }}" class="transparent btn--sm btn--round">Lihat</a>
+                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="transparent btn--sm btn--round">Lihat</a>
                         </div>
                         <!-- end /.prod_btn -->
                     </div>
                     <!-- end /.product__thumbnail -->
 
                     <div class="product-desc">
-                        <a href="/produk/{{ $p->id_produk }}" class="product_title">
+                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="product_title">
                             <h4>{{ $p->nama_produk }}</h4>
                         </a>
                         <ul class="titlebtm">
@@ -173,7 +173,7 @@ START PRODUCTS AREA
                             </li>
                             <li class="product_cat">
                                 <i class="fa fa-book"></i>
-                                <a href="/kategori/{{ strtolower($p->kategori->nama_kategori) }}">{{ $p->kategori->nama_kategori }}</a>
+                                <a href="{{ URL::to('kategori/'.$p->kategori->nama_kategori) }}">{{ $p->kategori->nama_kategori }}</a>
                             </li>
                         </ul>
                     </div>
