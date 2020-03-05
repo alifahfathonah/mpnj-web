@@ -31,6 +31,7 @@
 
     {{--Includes JQuery--}}
     @stack('scripts')
+
 </body>
 
 </html>
