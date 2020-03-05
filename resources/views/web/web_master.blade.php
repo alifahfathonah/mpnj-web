@@ -47,13 +47,13 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="images/banners/slide1.jpg" alt="First slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/slide1.jpg') }}" alt="First slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="images/banners/slide2.jpg" alt="Second slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/slide2.jpg') }}" alt="Second slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="images/banners/slide3.jpg" alt="Third slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/slide3.jpg') }}" alt="Third slide">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carousel1_indicator" role="button"
@@ -79,7 +79,7 @@
                                     <h6 class="card-title">Men clothing</h6>
                                     <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
                                 </div>
-                                <img src="images/items/1.jpg" height="80" class="img-bg">
+                                <img src="{{ url('assets/mpnj/images/items/1.jpg') }}" height="80" class="img-bg">
                             </div>
 
                             <div class="card-banner border-bottom">
@@ -87,7 +87,7 @@
                                     <h6 class="card-title">Winter clothing </h6>
                                     <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
                                 </div>
-                                <img src="images/items/2.jpg" height="80" class="img-bg">
+                                <img src="{{ url('assets/mpnj/images/items/2.jpg') }}" height="80" class="img-bg">
                             </div>
 
                             <div class="card-banner border-bottom">
@@ -95,7 +95,7 @@
                                     <h6 class="card-title">Home inventory</h6>
                                     <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
                                 </div>
-                                <img src="images/items/6.jpg" height="80" class="img-bg">
+                                <img src="{{ url('assets/mpnj/images/items/6.jpg') }}" height="80" class="img-bg">
                             </div>
 
                         </aside>
@@ -129,7 +129,7 @@
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
-                            <img src="images/items/3.jpg">
+                            <img src="{{ url('assets/mpnj/images/items/3.jpg') }}">
                         </a>
                         <div class="text-wrap p-3">
                             <a href="#" class="title">Summer clothes</a>
@@ -140,7 +140,7 @@
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
-                            <img src="images/items/4.jpg">
+                            <img src="{{ url('assets/mpnj/images/items/4.jpg') }}">
                         </a>
                         <div class="text-wrap p-3">
                             <a href="#" class="title">Some category</a>
@@ -151,7 +151,7 @@
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
-                            <img src="images/items/5.jpg">
+                            <img src="{{ url('assets/mpnj/images/items/5.jpg') }}">
                         </a>
                         <div class="text-wrap p-3">
                             <a href="#" class="title">Another category</a>
@@ -162,7 +162,7 @@
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
-                            <img src="images/items/6.jpg">
+                            <img src="{{ url('assets/mpnj/images/items/6.jpg') }}">
                         </a>
                         <div class="text-wrap p-3">
                             <a href="#" class="title">Home apparel</a>
@@ -173,7 +173,7 @@
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
-                            <img src="images/items/7.jpg">
+                            <img src="{{ url('assets/mpnj/images/items/7.jpg') }}">
                         </a>
                         <div class="text-wrap p-3">
                             <a href="#" class="title text-truncate">Smart watches</a>
@@ -202,7 +202,7 @@
                         <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                             aliqua. </p>
                         <a href="#" class="btn btn-outline-primary rounded-pill">Source now</a>
-                        <img src="images/items/2.jpg" class="img-bg">
+                        <img src="{{ url('assets/mpnj/images/items/2.jpg') }}" class="img-bg">
                     </div>
 
                 </div> <!-- col.// -->
@@ -212,7 +212,7 @@
                             <a href="#" class="item">
                                 <div class="card-body">
                                     <h6 class="title">Well made women clothes with trending collection </h6>
-                                    <img class="img-sm float-right" src="images/items/1.jpg">
+                                    <img class="img-sm float-right" src="{{ url('assets/mpnj/images/items/1.jpg') }}">
                                     <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Guanjou, China</p>
                                 </div>
                             </a>
@@ -221,7 +221,7 @@
                             <a href="#" class="item">
                                 <div class="card-body">
                                     <h6 class="title">Great clothes with trending collection </h6>
-                                    <img class="img-sm float-right" src="images/items/2.jpg">
+                                    <img class="img-sm float-right" src="{{ url('assets/mpnj/images/items/2.jpg') }}">
                                     <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Beijing, China</p>
                                 </div>
                             </a>
@@ -230,7 +230,7 @@
                             <a href="#" class="item">
                                 <div class="card-body">
                                     <h6 class="title">Demo clothes with sample collection </h6>
-                                    <img class="img-sm float-right" src="images/items/3.jpg">
+                                    <img class="img-sm float-right" src="{{ url('assets/mpnj/images/items/3.jpg') }}">
                                     <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Tokyo, Japan</p>
                                 </div>
                             </a>
@@ -239,7 +239,7 @@
                             <a href="#" class="item">
                                 <div class="card-body">
                                     <h6 class="title">Home and kitchen electronic stuff collection </h6>
-                                    <img class="img-sm float-right" src="images/items/4.jpg">
+                                    <img class="img-sm float-right" src="{{ url('assets/mpnj/images/items/4.jpg') }}">
                                     <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Tashkent, Uzb</p>
                                 </div>
                             </a>
@@ -248,7 +248,7 @@
                             <a href="#" class="item">
                                 <div class="card-body">
                                     <h6 class="title">Home and kitchen electronic stuff collection </h6>
-                                    <img class="img-sm float-right" src="images/items/5.jpg">
+                                    <img class="img-sm float-right" src="{{ url('assets/mpnj/images/items/5.jpg') }}">
                                     <p class="text-muted"><i class="fa fa-map-marker-alt"></i> London, Britain</p>
                                 </div>
                             </a>
