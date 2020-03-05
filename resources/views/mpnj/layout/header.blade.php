@@ -7,9 +7,9 @@
             <div class="collapse navbar-collapse" id="navbarTop3">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> <i class="fa fa-phone"></i> Call us: 020 2366 455 </a>
+                        <a class="nav-link" href="#"> Download Aplikasi Nurul Jadid </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> USD </a>
                         <ul class="dropdown-menu small">
                             <li><a class="dropdown-item" href="#">EUR</a></li>
@@ -24,7 +24,7 @@
                             <li><a class="dropdown-item" href="#">Arabic</a></li>
                             <li><a class="dropdown-item" href="#">Russian </a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="#" class="nav-link"> My Account </a></li>
@@ -65,8 +65,8 @@
                         <div class="widget-header">
                             <small class="title text-muted">Welcome guest!</small>
                             <div>
-                                <a href="{{ URL::to('login') }}">Sign in</a> <span class="dark-transp"> | </span>
-                                <a href="{{ URL::to('register') }}"> Register</a>
+                                <a href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"> | </span>
+                                <a href="{{ URL::to('register') }}"> Daftar</a>
                             </div>
                         </div>
                         <a href="#" class="widget-header pl-3 ml-3">
