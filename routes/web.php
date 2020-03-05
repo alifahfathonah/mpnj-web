@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 //produk
 Route::get('administrator/produk', 'ProdukController@index');
