@@ -21,7 +21,7 @@ class ProdukWebController extends Controller
         }
 
         $data['kategori'] = Kategori_Produk::select('id_kategori_produk', 'nama_kategori')->get();
-        return view('web/web_master', $data);
+        return view('web/web_home', $data);
     }
 
     public function produk(Request $request)
@@ -43,7 +43,7 @@ class ProdukWebController extends Controller
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(9);
         }
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
-        return view('web/web_produk', $data);
+        return view('web/web_prodsuk', $data);
     }
 
     public function popular(Request $request)

@@ -4,7 +4,8 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-3 col-md-12">
                     <a href="http://bootstrap-ecommerce.com" class="brand-wrap">
-                        <img class="logo" src="images/logo.png">
+                        <img class="logo" src="{{ url('assets/mpnj/images/nj.png') }}">
+                        <h3>MPNJ</h3>
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-xl-6 col-lg-5 col-md-6">
