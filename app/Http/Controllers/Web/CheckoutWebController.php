@@ -59,13 +59,18 @@ class CheckoutWebController extends Controller
 		    'kode_transaksi' => time(),
 		    'waktu_transaksi' => date('Y-m-d H:i:s'),
 		    'total_bayar' => $request->totalBayar
-	    ]);
+        ]);
     	if ($simpanTrx) {
     		foreach ($request->trxDetail as $detail) {
     			//buat trigger ketika data masuk ke transaksi detail untuk mengurangi stok produk dan memperbarui field terjual
     			$detail['transaksi_id'] = $simpanTrx->id_transaksi;
-    			Transaksi_Detail::create($detail);
-		    }
+                Transaksi_Detail::create($detail);
+            }
+            foreach ($request->prosesData as $produk) {
+                foreach ($request->idp as $i) {
+                Produk::where('id_produk', $i)->update($produk);
+                }
+            }
             Keranjang::whereIn('id_keranjang', $request->idKeranjang)->delete();
 		    return response()->json($simpanTrx,200);
 	    }

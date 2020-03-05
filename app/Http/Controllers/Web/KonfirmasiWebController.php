@@ -8,6 +8,7 @@ use App\Models\Konsumen;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Validator;
 
 class KonfirmasiWebController extends Controller
 {
@@ -31,12 +32,23 @@ class KonfirmasiWebController extends Controller
 			//    		$this->kode = $data;
 			return view('web/web_konfirmasi', ['cek' => $cek]);
 		} else {
-			return redirect('konfirmasi');
+			return redirect()->back()->withInput()->with('kodeKosong', 'Perika kembali kode transaksi anda');
 		}
 	}
 
 	public function simpan(Request $request)
 	{
+	    $validator = Validator::make($request->except('token'), [
+	       'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+	    if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+
 		$foto = $request->file('bukti_transfer');
 		$filename = $foto->getClientOriginalName();
 

@@ -42,6 +42,15 @@
                                     <p>Konfirmasi pembayaran anda dengan mengunggah bukti pembayaran anda disini.</p>
                                 </div>
                                 <div class="login--form">
+                                    @if(session('kodeKosong'))
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="alert_icon lnr lnr-warning"></span>
+                                            {{ session('kodeKosong') }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span class="lnr lnr-cross" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    @endif
                                     @if(isset($cek))
                                         <div class="form-group">
                                             <label for="kode_transaksi">Kode Transaksi</label>
@@ -57,7 +66,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="rekening">Pilih Rekening</label>
-                                            <select name="rekening" id="rekening" class="text_field">
+                                            <select name="rekening" id="rekening" class="text_field" required>
                                                 <option value="1">Mandiri - 1234567890 - Nurul Jadid</option>
                                                 <option value="2">BNI - 0987654321 - Nurul Jadid</option>
                                             </select>
@@ -65,12 +74,13 @@
                                         <div class="form-group">
                                             <label for="bukti_transfer">Bukti Transfer</label>
                                             <input id="bukti_transfer" type="file" class="form-control" name="bukti_transfer">
+                                            @if($errors->has('bukti_transfer'))  <small style="color: red">{{ $errors->first('bukti_transfer') }}</small> @endif
                                         </div>
                                         <button class="btn btn--md btn--round register_btn" type="submit" name="kirim">Kirim</button>
                                     @else
                                     <div class="form-group">
                                         <label for="kode_transaksi">Kode Transaksi</label>
-                                        <input id="kode_transaksi" type="text" class="text_field" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi">
+                                        <input id="kode_transaksi" type="text" class="text_field" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi" value="{{ old('kode_transaksi') }}">
                                     </div>
                                         <button class="btn btn--md btn--round register_btn" type="submit">Lanjut</button>
                                     @endif

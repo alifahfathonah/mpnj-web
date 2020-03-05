@@ -109,6 +109,8 @@
                                                 @foreach ($val as $k)
                                                     <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k->produk_id }}"
                                                         data-hargajual="{{ $k->harga_jual }}"
+                                                        data-stok="{{ $k->produk->stok }}"
+                                                        data-terjual="{{ $k->produk->terjual }}"
                                                         data-jumlah="{{ $k->jumlah }}"
                                                         data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
                                                         data-idkeranjang="{{  $k->id_keranjang }}"
@@ -368,6 +370,8 @@
         function bayarSekarang() {
             let dataTrxDetail = [];
             let keranjangId = [];
+            let proses = [];
+            let produkId = [];
 
             //ulasan
             //1. saya harus tau jumlah pelapak nya
@@ -378,6 +382,12 @@
             for (let index = 1; index <= "{{ $m }}"; index++) {
                 for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
                     keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
+                    produkId.push($(`#data_keranjang${j}`).data('idproduk'));
+                    proses.push({
+                        'stok': $(`#data_keranjang${j}`).data('stok') - $(`#data_keranjang${j}`).data('jumlah'),
+                        'terjual' : $(`#data_keranjang${j}`).data('terjual') + $(`#data_keranjang${j}`).data('jumlah')
+                    });
+
                     dataTrxDetail.push({
                         'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
                         'pelapak_id' : $(`#data_keranjang${j}`).data('idpelapak'),
@@ -399,7 +409,9 @@
                 data: {
                     'trxDetail': dataTrxDetail,
                     'totalBayar': $("#totalBayar").data('totalbayar'),
-                    'idKeranjang': keranjangId
+                    'idKeranjang': keranjangId,
+                    'idp' : produkId,
+                    'prosesData' : proses
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
