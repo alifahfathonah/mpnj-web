@@ -39,14 +39,15 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ url('assets/mpnj/images/nj.png') }}">
+                        <img class="logo" src="{{ asset('assets/images/logo_mp1.png') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
                     <form action="#" class="search-wrap">
                         <div class="input-group w-100">
                             <select class="custom-select" name="category_name">
-                                <option value="">All type</option><option value="codex">Special</option>
+                                <option value="">All type</option>
+                                <option value="codex">Special</option>
                                 <option value="comments">Only best</option>
                                 <option value="content">Latest</option>
                             </select>
@@ -95,7 +96,7 @@
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
                         <div class="dropdown-menu">
                             @foreach ($kategori as $k)
-                                <a class="dropdown-item" href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
+                            <a class="dropdown-item" href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
                             @endforeach
                         </div>
                     </li>
