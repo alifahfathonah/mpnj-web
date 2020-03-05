@@ -4,7 +4,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop3" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTop3">
+            <div class="collapse navbar-collapse" id="navbarTop3" style="font-size:12px;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#"> Download Aplikasi Nurul Jadid </a>
