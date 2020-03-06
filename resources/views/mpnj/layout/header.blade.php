@@ -37,7 +37,7 @@
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
-    <section class="header-main pt-3 pb-3 shadow" style="background-color: white">
+    <section class="header-main pt-3 pb-3 shadow-sm" style="background-color: white">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
