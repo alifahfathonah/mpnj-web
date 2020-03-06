@@ -56,20 +56,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/images/logo_mp1.png') }}">
+                        <img class="logo" src="{{ asset('assets/mpnj/images/logo_mp1.png') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
-                    <form action="#" class="search-wrap">
+                    <form action="{{ URL::to('/produk') }}" class="search-wrap">
                         <div class="input-group w-100">
-                            <select class="custom-select" name="category_name">
-                                <option value="">All type</option>
-                                <option value="codex">Special</option>
-                                <option value="comments">Only best</option>
-                                <option value="content">Latest</option>
-                            </select>
-                            <input type="text" class="form-control" style="width:60%;" placeholder="Search">
-
+                            <input type="text" name="cari" class="form-control" style="width:60%;" placeholder="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
