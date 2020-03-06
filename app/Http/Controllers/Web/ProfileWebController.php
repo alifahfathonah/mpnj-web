@@ -178,7 +178,7 @@ class ProfileWebController extends Controller
 
         $ubah = $fix_role::where($sessionId, $user_id)->update(['alamat_utama' => $id]);
         if ($ubah) {
-            return redirect()->back();
+            return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
     }
 }
