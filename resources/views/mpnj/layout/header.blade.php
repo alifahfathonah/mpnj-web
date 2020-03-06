@@ -9,7 +9,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"> Download Aplikasi Android belaNJ disini </a>
                     </li>
-                    
+
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
@@ -60,44 +60,53 @@
                 <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end">
                         <div class="dropdown">
-                        <a href="#" class="widget-header pl-2 ml-2">
-                            <i class="icon icon-sm rounded-circle border fa fa-heart"></i>
-                        </a>
 
-                        <a href="#" class="widget-header pl-3 ml-3" data-toggle="dropdown">
-                            <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
-                        </a>
-                        
-                        <a href="{{ URL::to('/profile') }}" class="widget-header pl-2 ml-2">
-                            <i class="icon icon-sm rounded-circle border fa fa-user"></i>
-                        </a>
-
-			  <div class="dropdown-menu p-3 dropdown-menu-right" style="min-width:280px;">
-              @if(Session::has('id'))
-
-             @foreach($cart as $c)
-				   <figure class="itemside mb-3">
-					<div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
-					<figcaption class="info align-self-center">
-						<p class="title"><a href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a></p>
-                        <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
-						<div class="price">
-                        @if($c->produk->diskon == 0)
-                                @currency($c->produk->harga_jual)
-                            @else
-                            @currency($c->produk->harga_jual - ($c->produk->diskon / 100 * $c->produk->harga_jual))
-                            <p class="text-dark small"> <strike style="color: red">@currency($c->produk->harga_jual)</strike></p>
-                            @endif
-                        </div> <!-- price-wrap.// -->
-					</figcaption>
-				</figure>
-            @endforeach
-
-                @endif
-				<a href="{{ URL::to('/keranjang') }}" class="btn btn-primary btn-block"> Lihat Keranjang </a>
-			  </div> <!-- drowpdown-menu.// -->
-			</div>  <!-- dropdown.// -->
+                            <div class="d-flex justify-content-md-end widgets-wrap">
+                                <a href="{{ URL::to('/profile') }}" class="widget-header">
+                                    <div class="icontext">
+                                        <div class="icon icon-sm border rounded-circle">
+                                            <i class="fa  fa-user"></i>
+                                        </div>
+                                        <div class="text">
+                                            @if (Auth::guard(Session::get('role'))->check())
+                                            <div> Halo @if (Auth::guard(Session::get('role'))->check())
+                                                {{ Auth::guard(Session::get('role'))->user()->username }}
+                                                @endif
+                                            </div>
+                                            @else
+                                            <small><a href="{{ URL::to('login') }}">Login</a> |<a href="{{ URL::to('register') }}"> Register</a> </small>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="widget-header ml-4" data-toggle="dropdown">
+                                    <div class="icon icon-sm border rounded-circle"><i class="fa fa-shopping-cart"></i></div>
+                                    <span class="badge badge-pill badge-danger notify">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
+                                </a>
+                                <div class="dropdown-menu p-3 dropdown-menu-right" style="min-width:280px;">
+                                    @if(Session::has('id'))
+                                    @foreach($cart as $c)
+                                    <figure class="itemside mb-3">
+                                        <div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
+                                        <figcaption class="info align-self-center">
+                                            <p class="title"><a href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a></p>
+                                            <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
+                                            <div class="price">
+                                                @if($c->produk->diskon == 0)
+                                                @currency($c->produk->harga_jual)
+                                                @else
+                                                @currency($c->produk->harga_jual - ($c->produk->diskon / 100 * $c->produk->harga_jual))
+                                                <p class="text-dark small"> <strike style="color: red">@currency($c->produk->harga_jual)</strike></p>
+                                                @endif
+                                            </div> <!-- price-wrap.// -->
+                                        </figcaption>
+                                    </figure>
+                                    @endforeach
+                                    @endif
+                                    <a href="{{ URL::to('/keranjang') }}" class="btn btn-primary btn-block"> Lihat Keranjang </a>
+                                </div>
+                            </div> <!-- drowpdown-menu.// -->
+                        </div> <!-- dropdown.// -->
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
             </div> <!-- row.// -->
@@ -126,9 +135,9 @@
                         </li>
                     </ul>
                 </div> <!-- collapse .// -->
-            </div> <!-- container .// -->
-    </nav> <!-- navbar main end.// -->
+        </div> <!-- container .// -->
+        </nav> <!-- navbar main end.// -->
     </section> <!-- header-main .// -->
-    
+
     <div class="corner-ribbon bottom-right sticky blue shadow">COMMIT UNUJA</div>
 </header>
