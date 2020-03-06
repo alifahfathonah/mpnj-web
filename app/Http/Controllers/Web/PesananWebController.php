@@ -25,7 +25,7 @@ class PesananWebController extends Controller
 //                        ->get();
         $data['order'] = Transaksi_Detail::get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
         ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('status_order');
-        return view('web/web_pesanan', $data);
+        return view('web/web_profile', $data);
     }
 
     public function detail(Request $request, $id_trx)
@@ -38,10 +38,10 @@ class PesananWebController extends Controller
                             $query->where('id_transaksi_detail', $id_trx);
                         }])
                         ->first();
-        $data['review'] = Review::where('produk_id', $data['detail']->transaksi_detail->produk_id)->where('konsumen_id', $konsumen_id)->first();
+//        $data['review'] = Review::where('produk_id', $data['detail']->transaksi_detail->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
-        return view('web/web_pesanan_detail', $data);
-//        return $data['review'];
+        return view('web/web_profile', $data);
+//        return $data['detail'];
     }
     
     public function diterima(Request $request, $id_trx)

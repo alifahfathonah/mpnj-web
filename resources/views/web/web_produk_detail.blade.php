@@ -5,7 +5,7 @@
 
 @section('content')
 
-<section class="py-3 bg-light">
+<section class="py-3 bg-gray">
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
@@ -54,7 +54,7 @@
                             </li>
                         </ul>
                         <small class="label-rating text-muted">132 reviews</small>
-                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
@@ -66,6 +66,8 @@
                         <span class="text-muted">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
+
+                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>    
 
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
@@ -121,7 +123,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h5 class="title-description">Deskripsi</h5>
+                <h5 class="title-description">Deskripsi Lengkap</h5>
                 <p class="text-justify">{{$produk->keterangan}}</p>
             </div> <!-- col.// -->
 

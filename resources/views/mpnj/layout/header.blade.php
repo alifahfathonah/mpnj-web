@@ -1,5 +1,5 @@
 <header class="section-header">
-    <nav class="navbar p-md-0 navbar-expand-lg navbar-light border-bottom">
+    <nav class="navbar p-md-0 navbar-expand-lg navbar-dark shadow-sm p-3 mb-2">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop3" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,12 +34,12 @@
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
-    <section class="header-main border-bottom">
+    <section class="header-main mb-3">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/images/logo_mp1.png') }}">
+                        <img class="logo" src="{{ asset('assets/mpnj/images/mpnj.jpg') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
@@ -72,7 +72,7 @@
             </div> <!-- row.// -->
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->
-    <nav class="navbar navbar-main navbar-expand-lg border-bottom">
+    <nav class="navbar navbar-main navbar-expand-lg shadow bg-light">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav3" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -97,4 +97,5 @@
             </div> <!-- collapse .// -->
         </div> <!-- container .// -->
     </nav> <!-- navbar main end.// -->
+    <div class="corner-ribbon bottom-right sticky blue shadow">COMMIT UNUJA</div>
 </header>

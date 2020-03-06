@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo_mp2.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/mpnj/images/logomp.jpg') }}" type="image/x-icon">
 
     <head>
         <title>@yield('title')</title>
