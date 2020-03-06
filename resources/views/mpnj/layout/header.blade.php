@@ -7,7 +7,7 @@
             <div class="collapse navbar-collapse" id="navbarTop3" style="font-size:12px;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> Download Aplikasi Android NJ Market </a>
+                        <a class="nav-link" href="#"> Download Aplikasi belaNJ disini </a>
                     </li>
                     
                 </ul>
@@ -37,12 +37,12 @@
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
-    <section class="header-main pt-0 pb-0 shadow" style="background-color: white">
+    <section class="header-main pt-3 pb-3 shadow">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/mpnj/images/logo_mp1.png') }}" width="200">
+                        <img class="logo" src="{{ asset('assets/logo/belanj-hijau.png') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
