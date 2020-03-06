@@ -1,7 +1,7 @@
 @extends('mpnj.layout.main')
 
 @section('title','Belanj | Situs Belanja Online Terlengkap, Aman, dan Nyaman')
-    
+
 
 @section('content')
 
@@ -14,32 +14,19 @@
 
                 <div class="row">
                     <aside class="col-lg col-md-3 flex-lg-grow-0">
-                        <h6>MY MARKETS</h6>
+                        <h6>KATEGORI</h6>
                         <nav class="nav-home-aside">
                             <ul class="menu-category">
-                                <li><a href="#">Fashion and clothes</a></li>
-                                <li><a href="#">Automobile and motors</a></li>
-                                <li><a href="#">Gardening and agriculture</a></li>
-                                <li><a href="#">Electronics and tech</a></li>
-                                <li><a href="#">Packaginf and printing</a></li>
-                                <li><a href="#">Home and kitchen</a></li>
-                                <li><a href="#">Digital goods</a></li>
-                                <li class="has-submenu"><a href="#">More items</a>
-                                    <ul class="submenu">
-                                        <li><a href="#">Submenu name</a></li>
-                                        <li><a href="#">Great submenu</a></li>
-                                        <li><a href="#">Another menu</a></li>
-                                        <li><a href="#">Some others</a></li>
-                                    </ul>
-                                </li>
+                                @foreach ($kategori as $k)
+                                <li><a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a></li>
+                                @endforeach
                             </ul>
                         </nav>
                     </aside> <!-- col.// -->
                     <div class="col-md-9 col-xl-7 col-lg-7">
 
                         <!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
-                        <div id="carousel1_indicator" class="slider-home-banner carousel slide"
-                            data-ride="carousel">
+                        <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel1_indicator" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel1_indicator" data-slide-to="1"></li>
@@ -56,13 +43,11 @@
                                     <img src="{{ url('assets/mpnj/images/banners/slide3.jpg') }}" alt="Third slide">
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carousel1_indicator" role="button"
-                                data-slide="prev">
+                            <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carousel1_indicator" role="button"
-                                data-slide="next">
+                            <a class="carousel-control-next" href="#carousel1_indicator" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -136,7 +121,7 @@
                             <span class="badge badge-danger"> -20% </span>
                         </div>
                     </figure>
-                </div> <!-- col.// -->
+                </div>
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
@@ -147,7 +132,7 @@
                             <span class="badge badge-danger"> -5% </span>
                         </div>
                     </figure>
-                </div> <!-- col.// -->
+                </div>
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
@@ -158,7 +143,7 @@
                             <span class="badge badge-danger"> -20% </span>
                         </div>
                     </figure>
-                </div> <!-- col.// -->
+                </div>
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
@@ -169,7 +154,7 @@
                             <span class="badge badge-danger"> -15% </span>
                         </div>
                     </figure>
-                </div> <!-- col.// -->
+                </div>
                 <div class="col-md col-6">
                     <figure class="card-product-grid card-sm">
                         <a href="#" class="img-wrap">
@@ -180,7 +165,7 @@
                             <span class="badge badge-danger"> -10% </span>
                         </div>
                     </figure>
-                </div> <!-- col.// -->
+                </div>
             </div>
         </div>
 
@@ -196,23 +181,23 @@
 
         <div class="row row-sm">
             @foreach($produk as $p)
-                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                    <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid">
-                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
-                        <figcaption class="info-wrap">
-                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
-                            <div class="price mt-1">
-                                @if($p->diskon == 0)
-                                    @currency($p->harga_jual)
-                                @else
-                                <strike style="color: red">
-                                    @currency($p->harga_jual)
-                                </strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
-                                @endif
-                            </div> <!-- price-wrap.// -->
-                        </figcaption>
-                    </div>
-                </div> <!-- col.// -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid">
+                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        <div class="price mt-1">
+                            @if($p->diskon == 0)
+                            @currency($p->harga_jual)
+                            @else
+                            <strike style="color: red">
+                                @currency($p->harga_jual)
+                            </strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                            @endif
+                        </div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div>
             @endforeach
         </div> <!-- row.// -->
     </section>
