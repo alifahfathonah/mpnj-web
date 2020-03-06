@@ -20,18 +20,18 @@ class KeranjangWebController extends Controller
         $konsumen_id = $request->user($role)->$id;
 
 
-	    $data['keranjang'] = Keranjang::with(['produk', 'pembeli'])
-	                        ->where('pembeli_id', $konsumen_id)
-                            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-	                        ->where('status', 'N')
-	                        ->get()
-	                        ->groupBy('produk.pelapak.nama_toko');
+        $data['keranjang'] = Keranjang::with(['produk', 'pembeli'])
+            ->where('pembeli_id', $konsumen_id)
+            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->where('status', 'N')
+            ->get()
+            ->groupBy('produk.pelapak.nama_toko');
         // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
-//        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
-//	                    ->where('status', 'N')
-//	                    ->sum(DB::raw('jumlah * harga_jual'));
+        //        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
+        //	                    ->where('status', 'N')
+        //	                    ->sum(DB::raw('jumlah * harga_jual'));
         return view('web/web_keranjang', $data);
-//        return $data['keranjang'];
+        //        return $data['keranjang'];
     }
 
     public function simpan(Request $request)
@@ -43,9 +43,9 @@ class KeranjangWebController extends Controller
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
             'pembeli_id' => $konsumen_id,
-	        'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
-	        'jumlah' => 1,
-	        'harga_jual' => $request->harga_jual
+            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'jumlah' => $request->jumlah[1],
+            'harga_jual' => $request->harga_jual
         ]);
 
         if ($simpan) {
@@ -64,7 +64,7 @@ class KeranjangWebController extends Controller
     public function hitungTotal(Request $request)
     {
         $sum = Keranjang::with('produk')
-                ->whereIn('id_keranjang', $request->id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
+            ->whereIn('id_keranjang', $request->id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
         return $sum;
     }
 
