@@ -37,12 +37,12 @@
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
-    <section class="header-main pt-0 pb-0 shadow">
+    <section class="header-main pt-0 pb-0 shadow" style="background-color: white">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/mpnj/images/logo_mp1.png') }}">
+                        <img class="logo" src="{{ asset('assets/mpnj/images/logo_mp1.png') }}" width="200">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
