@@ -54,7 +54,7 @@
             </div>
         </header><!-- sect-heading -->
         <div class="row">
-            @foreach($produk as $p)
+            @forelse($produk as $p)
             <div class="col-md-3">
                 <figure class="card card-product-grid">
                     <div class="img-wrap">
