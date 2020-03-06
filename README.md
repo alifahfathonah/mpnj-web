@@ -1,4 +1,4 @@
-<p align="center"><img src="https://seeklogo.com/images/F/facebook-marketplace-logo-46A976DABC-seeklogo.com.png" width="100"></p>
+<p align="center"><img src="public/assets/logo/belaNJ-hijau.png" width="100"></p>
 
 <p align="center">
 <a href="#"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
