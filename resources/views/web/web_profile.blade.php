@@ -7,10 +7,7 @@
 
 
 	<section class="mb-5" id="profile_konsumen">
-		<div class="row justify-content-center my-3 text-warning">
-			<h3>Profile Konsumen</h3>
-		</div>
-
+	<br>
 		<div class="container">
 			<div class="row">
 
