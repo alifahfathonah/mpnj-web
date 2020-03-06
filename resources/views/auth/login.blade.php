@@ -17,11 +17,11 @@
         <div class="wrap-login100">
 @if(session('loginError'))
 
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
     <span class="alert_icon lnr lnr-warning"></span>
     {{ session('loginError') }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span class="lnr lnr-cross" aria-hidden="true"></span>
+        <span class="fas fa-times h6" aria-hidden="true"></span>
     </button>
 </div>
 @endif
