@@ -58,7 +58,9 @@ class ProfileWebController extends Controller
         $ubah = $init->update($data);
 
         if ($ubah) {
-            File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
+            if ($foto != null) {
+                File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
+            }
             return redirect(URL::to('profile'));
         }
     }
