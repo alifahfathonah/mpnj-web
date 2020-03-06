@@ -414,7 +414,7 @@ p:last-child {
 
 /* ================== SECTIONS =================== */
 .section-header {
-  background-color: #fff; }
+  background-color: #12225b; }
 
 /* ================== header main ==================  */
 .header-top-light .nav-link {
@@ -429,13 +429,13 @@ p:last-child {
 
 .brand-wrap .logo, .navbar-brand .logo {
   margin-right: 7px;
-  max-height: 34px;
+  max-height: 70px;
   display: inline-block; }
 
 .navbar-main {
-  background-color: #fff; }
+  background-color: #12225b; }
   .navbar-main .nav-link:hover {
-    color: #ff6a00; }
+    color: #FB9B0B; }
 
 .search-header {
   border: 2px solid #ff6a00;
@@ -463,13 +463,13 @@ p:last-child {
     display: inline-block;
     width: 36px;
     height: 30px;
-    color: #969696; }
+    color: #FFF; }
     .widget-header .icon-area .notify {
       position: absolute;
       top: 0px;
       right: 8%; }
   .widget-header .icon {
-    color: #969696; }
+    color: #FFF; }
     .widget-header .icon .notify {
       position: absolute;
       top: 0;
@@ -482,7 +482,7 @@ p:last-child {
     display: block;
     line-height: 1.2; }
   .widget-header a {
-    color: #212529; }
+    color: #FFF; }
   .widget-header form {
     min-width: 280px; }
   .widget-header:hover i {
