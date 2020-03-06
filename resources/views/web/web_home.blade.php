@@ -34,13 +34,13 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ url('assets/mpnj/images/banners/slide1.jpg') }}" alt="First slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/ppnj.jpg') }}" alt="First slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ url('assets/mpnj/images/banners/slide2.jpg') }}" alt="Second slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/Unilever.png') }}" alt="Second slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ url('assets/mpnj/images/banners/slide3.jpg') }}" alt="Third slide">
+                                    <img src="{{ url('assets/mpnj/images/banners/nippon.jpg') }}" alt="Third slide">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
