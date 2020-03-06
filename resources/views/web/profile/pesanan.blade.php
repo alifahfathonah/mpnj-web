@@ -279,6 +279,7 @@
                                             </td>
                                             <td width="250">
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                                <a href="{{ URL::to('pesanan/diterima/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Diterima </a>
                                             </td>
                                         </tr>
                                     @endforeach
