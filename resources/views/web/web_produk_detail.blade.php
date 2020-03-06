@@ -53,21 +53,21 @@
                                 <i class="fa fa-star"></i>
                             </li>
                         </ul>
-                        <small class="label-rating text-muted">132 reviews</small>
+                        <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
                         <var class="price h4">@currency ($produk->harga_jual),00</var>
-                        <span class="text-muted">Belum ada diskon</span>
+                        <span class="text">Belum ada diskon</span>
                         @else
                         <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00</var>
-                        <span class="text-muted">Harga Awal, @currency($produk->harga_jual),00</span>
+                        <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
-                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>    
+                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>
 
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
@@ -82,7 +82,7 @@
                             </div>
                         </div> <!-- col.// -->
                         <div class="form-group col-md">
-                            <form action="/keranjang" method="post">
+                            <form action="{{ URL::to('keranjang')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
@@ -96,8 +96,8 @@
                         <figure class="itemside">
                             <div class="aside"><img src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg" class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
-                                <a href="{{ URL::to('pelapak/'.$produk->pelapak->id_pelapak )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
-                                <p class="text-muted small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
+                                <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
+                                <p class="text small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
@@ -157,13 +157,14 @@
                         <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
                         <div class="price-wrap">
                             @if($pl->diskon == 0)
-                            <span class="price">@currency($pl->harga_jual),00</span>
+                            @currency($pl->harga_jual)
                             @else
-                            <span class="price">@currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual)),00</span>
-                            <small class="text-muted">Harga Awal, @currency($pl->harga_jual),00</small>
+                            <strike style="color: red">
+                                @currency($pl->harga_jual)
+                            </strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <p class="text-muted ">{{ $pl->pelapak->nama_toko }}</p>
+                        <p class="text">{{ $pl->pelapak->nama_toko }}</p>
                         <hr>
                         <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
                     </figcaption>
