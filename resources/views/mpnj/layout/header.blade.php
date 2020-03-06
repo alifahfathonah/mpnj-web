@@ -7,26 +7,16 @@
             <div class="collapse navbar-collapse" id="navbarTop3" style="font-size:12px;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> Download Aplikasi Nurul Jadid </a>
+                        <a class="nav-link" href="#"> Download Aplikasi Android NJ Market </a>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> USD </a>
-                        <ul class="dropdown-menu small">
-                            <li><a class="dropdown-item" href="#">EUR</a></li>
-                            <li><a class="dropdown-item" href="#">AED</a></li>
-                            <li><a class="dropdown-item" href="#">RUBL </a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">   Language </a>
-                        <ul class="dropdown-menu small">
-                            <li><a class="dropdown-item" href="#">English</a></li>
-                            <li><a class="dropdown-item" href="#">Arabic</a></li>
-                            <li><a class="dropdown-item" href="#">Russian </a></li>
-                        </ul>
-                    </li> -->
+                    
                 </ul>
                 <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li>
+                </ul>
+                <!--<ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link pl-0" href="{{ URL::to('/') }}"> <strong>Home</strong></a>
                         </li>
@@ -43,11 +33,7 @@
                         </li>
                     </ul>
                 <!--
-                    <ul class="navbar-nav">
-                    <li class="nav-item"><a href="#" class="nav-link"> My Account </a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"> Wishlist </a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"> Checkout </a></li>
-                </ul> <!-- list-inline //  -->
+                <!-- list-inline //  -->
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
@@ -73,17 +59,18 @@
                 </div> <!-- col.// -->
                 <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end">
-                        <div class="widget-header">
-                            <small class="title text-muted">Welcome guest!</small>
-                            <div>
-                                <a href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"> | </span>
-                                <a href="{{ URL::to('register') }}"> Daftar</a>
-                            </div>
-                        </div>
-                        <a href="#" class="widget-header pl-3 ml-3">
+                        <a href="#" class="widget-header pl-2 ml-2">
+                            <i class="icon icon-sm rounded-circle border fa fa-heart"></i>
+                        </a>
+                        <a href="#" class="widget-header pl-2 ml-2">
                             <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
                             <span class="badge badge-pill badge-danger notify">0</span>
                         </a>
+                        
+                        <a href="#" class="widget-header pl-2 ml-2">
+                            <i class="icon icon-sm rounded-circle border fa fa-user"></i>
+                        </a>
+                        
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
             </div> <!-- row.// -->
