@@ -414,7 +414,7 @@ p:last-child {
 
 /* ================== SECTIONS =================== */
 .section-header {
-  background-color: #12225b; }
+  background-color: #FFF; }
 
 /* ================== header main ==================  */
 .header-top-light .nav-link {
@@ -469,7 +469,7 @@ p:last-child {
       top: 0px;
       right: 8%; }
   .widget-header .icon {
-    color: #FFF; }
+    color: #35be32; }
     .widget-header .icon .notify {
       position: absolute;
       top: 0;

@@ -48,7 +48,7 @@
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
                     <form action="{{ URL::to('/produk') }}" class="search-wrap">
                         <div class="input-group w-100">
-                            <input type="text" name="cari" class="form-control" style="width:60%;" placeholder="Search">
+                            <input type="text" name="cari" class="form-control" style="width:60%;" placeholder="Cari produk disini...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
