@@ -141,6 +141,13 @@
                             <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
                         </div>
                     </article>
+                    <div class="form-group">
+                        <form method="POST">
+                            <label for="exampleFormControlTextarea1">Beri Review Anda</label>
+                            <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <button type="button" class="btn btn-primary btn-sm btn-block">Kirim Komentar</button>
+                        </form>
+                    </div>
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
