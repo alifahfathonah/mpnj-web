@@ -70,7 +70,32 @@
                         <a href="#" class="widget-header pl-2 ml-2">
                             <i class="icon icon-sm rounded-circle border fa fa-user"></i>
                         </a>
-                        
+
+			  <div class="dropdown-menu p-3 dropdown-menu-right" style="min-width:280px;">
+              @if(Session::has('id'))
+
+             @foreach($cart as $c)
+				   <figure class="itemside mb-3">
+					<div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
+					<figcaption class="info align-self-center">
+						<p class="title"><a href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a></p>
+                        <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
+						<div class="price">
+                        @if($c->produk->diskon == 0)
+                                @currency($c->produk->harga_jual)
+                            @else
+                            @currency($c->produk->harga_jual - ($c->produk->diskon / 100 * $c->produk->harga_jual))
+                            <p class="text-dark small"> <strike style="color: red">@currency($c->produk->harga_jual)</strike></p>
+                            @endif
+                        </div> <!-- price-wrap.// -->
+					</figcaption>
+				</figure>
+            @endforeach
+
+                @endif
+				<a href="{{ URL::to('/keranjang') }}" class="btn btn-primary btn-block"> Lihat Keranjang </a>
+			  </div> <!-- drowpdown-menu.// -->
+			</div>  <!-- dropdown.// -->
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
             </div> <!-- row.// -->
