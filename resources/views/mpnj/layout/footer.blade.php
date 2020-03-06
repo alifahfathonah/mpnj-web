@@ -5,7 +5,7 @@
 			<aside class="col-md-4">
 				<article class="mr-3">
 					<img src="{{ asset('assets/images/logo_mp1.png') }}" class="logo-footer">
-					<p class="mt-3">Market Place Nurul Jadid adalah market place pertama yang dikembangkan oleh santri.</p>
+					<p class="mt-3">NJ Market adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
 					<ul class="list-icon">
 						<li> <i class="fa fa-map-marker-alt"> </i> Jln. KH. Zaini Mun'im , Karang Anyar, Paiton Probolinggo </li>
 						<li> <i class="fa fa-envelope"> </i> commit@dev.com</li>
@@ -50,10 +50,10 @@
 		</div> <!-- row.// -->
 	</section> <!-- footer-top.// -->
 
-	<section class="footer-bottom text-center">
+	<section class="footer-bottom text-left">
 
-		<p class="text-white">Market Place Pondok Pesantren Nurul Jadid</p>
-		<p class="text-muted"> &copy <?= date('Y') ?> COMMIT All rights reserved </p>
+		<p class="text-white">NJ Market | Pondok Pesantren Nurul Jadid &copy <?= date('Y') ?> Commit UNUJA, All rights reserved</p>
+		<p class="text-muted">  </p>
 	</section>
 	</div><!-- //container -->
 </footer>

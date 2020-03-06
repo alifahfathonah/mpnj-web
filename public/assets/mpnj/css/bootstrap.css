@@ -3606,7 +3606,7 @@ input[type="button"].btn-block {
   display: block; }
 
 .navbar {
-  background-color: #ff6a00;
+  background-color: #35be32;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3910,7 +3910,7 @@ input[type="button"].btn-block {
   .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
     color: #fff; }
 .navbar-dark .nav-link {
-  color: rgba(255, 255, 255, 0.7); }
+  color: rgba(255, 255, 255, 1); }
   .navbar-dark .nav-link:hover, .navbar-dark .nav-link:focus {
     color: white; }
   .navbar-dark .nav-link.disabled {
@@ -5534,7 +5534,7 @@ button.bg-primary:focus {
   background-color: #cc5500 !important; }
 
 .bg-secondary {
-  background-color: #12225b !important; }
+  background-color: #35be32 !important; }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
 button.bg-secondary:hover,
