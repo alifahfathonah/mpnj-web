@@ -58,7 +58,7 @@ class PesananWebController extends Controller
                         ->first();
         $data['review'] = Review::where('produk_id', $data['detail']->transaksi_detail->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
-        return view('web/web_pesanan_detail', $data);
+        return view('web/web_profile', $data);
 //        return $data['review'];
     }
 }
