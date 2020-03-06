@@ -544,7 +544,7 @@ p:last-child {
   display: inline-block;
   width: 36px;
   height: 30px;
-  color: #969696;
+  color: #35be32;
 }
 .widget-header .icon-area .notify {
   position: absolute;
@@ -552,7 +552,7 @@ p:last-child {
   right: 8%;
 }
 .widget-header .icon {
-  color: #969696;
+  color: #35be32;
 }
 .widget-header .icon .notify {
   position: absolute;
@@ -568,7 +568,7 @@ p:last-child {
   line-height: 1.2;
 }
 .widget-header a {
-  color: #212529;
+  color: #35be32;
 }
 .widget-header form {
   min-width: 280px;
