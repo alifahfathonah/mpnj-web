@@ -69,7 +69,7 @@
                             <span class="badge badge-pill badge-danger notify">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
                         </a>
                         
-                        <a href="#" class="widget-header pl-2 ml-2">
+                        <a href="{{ URL::to('/profile') }}" class="widget-header pl-2 ml-2">
                             <i class="icon icon-sm rounded-circle border fa fa-user"></i>
                         </a>
 
