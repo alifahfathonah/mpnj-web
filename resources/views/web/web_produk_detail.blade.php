@@ -73,11 +73,11 @@
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
                                 <div class="input-group-append">
-                                    <button class="btn btn-light btn-number" type="button" id="button-plus" data-type="minus" data-field="quant[1]"> - </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-plus" data-type="minus" data-field="jumlah[1]"> - </button>
                                 </div>
-                                <input type="text" class="form-control input-number" name="quant[1]" value="1" min="1" max="99">
+                                <input type="text" class="form-control input-number" name="jumlah[1]" value="1" min="1" max="99" readonly>
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-light btn-number" type="button" id="button-minus" data-type="plus" data-field="quant[1]"> + </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-minus" data-type="plus" data-field="jumlah[1]"> + </button>
                                 </div>
                             </div>
                         </div> <!-- col.// -->
@@ -86,6 +86,7 @@
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
+                                <input type="hidden" class="form-control input-number" name="jumlah[1]" value="{{ $produk->jumlah[1] }}" min="1" max="99">
                                 <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
