@@ -156,7 +156,7 @@ class ProfileWebController extends Controller
 
         $ubah = Alamat::where('id_alamat', $id)->update($data);
         if ($ubah) {
-            return redirect()->back();
+            return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
     }
 
