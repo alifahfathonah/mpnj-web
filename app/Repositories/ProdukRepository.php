@@ -64,6 +64,7 @@ class ProdukRepository
                         'harga_modal' => $produks->harga_modal,
                         'harga_jual' => $produks->harga_jual,
                         'stok' => $produks->stok,
+                        'diskon' => $produks->diskon,
                         'keterangan' => $produks->keterangan,
                         'tipe_produk' => $produks->tipe_produk,
                         'wishlist' => $produks->wishlist,
