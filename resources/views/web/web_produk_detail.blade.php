@@ -5,7 +5,7 @@
 
 @section('content')
 
-<section class="py-3 bg-light">
+<section class="py-3 bg-gray">
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
@@ -54,7 +54,7 @@
                             </li>
                         </ul>
                         <small class="label-rating text-muted">132 reviews</small>
-                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
@@ -67,16 +67,16 @@
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
+                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>    
+
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
                                 <div class="input-group-append">
-
                                     <button class="btn btn-light btn-number" type="button" id="button-plus" data-type="minus" data-field="quant[1]"> - </button>
                                 </div>
                                 <input type="text" class="form-control input-number" name="quant[1]" value="1" min="1" max="99">
                                 <div class="input-group-prepend">
-
                                     <button class="btn btn-light btn-number" type="button" id="button-minus" data-type="plus" data-field="quant[1]"> + </button>
                                 </div>
                             </div>
@@ -86,25 +86,24 @@
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
-                                <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Add to cart</span></button>
+                                <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
 
                     <div class="form-row">
-                        <h2 class="title">Informasi Supplier</h2>
+                        <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
                             <div class="aside"><img src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg" class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
-                                <a href="" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
+                                <a href="{{ URL::to('pelapak/'.$produk->pelapak->id_pelapak )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
                                 <p class="text-muted small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
                                 <a href="#" class="btn btn-light">
-                                    <i class="fas fa-envelope"></i> <span class="text">Contact Supplier</span>
+                                    <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
                             </figcaption>
                         </figure>
                     </div>
-
                 </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
         </div> <!-- row.// -->
@@ -121,7 +120,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h5 class="title-description">Deskripsi</h5>
+                <h5 class="title-description">Deskripsi Lengkap</h5>
                 <p class="text-justify">{{$produk->keterangan}}</p>
             </div> <!-- col.// -->
 
@@ -135,38 +134,46 @@
                             <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
                         </div>
                     </article>
+                    <article class="media mb-3">
+                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
+                        <div class="media-body">
+                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
+                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
+                        </div>
+                    </article>
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
+        <h5 class="title">Produk Lain Pelapak</h5>
+        <div class="row">
+            @foreach($produk_pelapak as $pl)
+            <div class="col-md-3">
+                <figure class="card card-product-grid">
+                    <div class="img-wrap">
+                        <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}" alt="Product Image">
+                    </div> <!-- img-wrap.// -->
+                    <figcaption class="info-wrap">
+                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
+                        <div class="price-wrap">
+                            @if($pl->diskon == 0)
+                            <span class="price">@currency($pl->harga_jual),00</span>
+                            @else
+                            <span class="price">@currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual)),00</span>
+                            <small class="text-muted">Harga Awal, @currency($pl->harga_jual),00</small>
+                            @endif
+                        </div> <!-- price-wrap.// -->
+                        <p class="text-muted ">{{ $pl->pelapak->nama_toko }}</p>
+                        <hr>
+                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
+                    </figcaption>
+                </figure>
+            </div>
+            @endforeach
+        </div>
     </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
-
-<!-- ========================= SECTION SUBSCRIBE  ========================= -->
-<section class="padding-y-lg bg-light border-top">
-    <div class="container">
-
-        <p class="pb-2 text-center">Delivering the latest product trends and industry news straight to your inbox</p>
-
-        <div class="row justify-content-md-center">
-            <div class="col-lg-4 col-sm-6">
-                <form class="form-row">
-                    <div class="col-8">
-                        <input class="form-control" placeholder="Your Email" type="email">
-                    </div> <!-- col.// -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-block btn-warning"> <i class="fa fa-envelope"></i> Subscribe </button>
-                    </div> <!-- col.// -->
-                </form>
-                <small class="form-text">We’ll never share your email address with a third-party. </small>
-            </div> <!-- col-md-6.// -->
-        </div>
-
-    </div>
-</section>
-<!-- ========================= SECTION SUBSCRIBE END// ========================= -->
-
 @endsection
 
 @push('scripts')

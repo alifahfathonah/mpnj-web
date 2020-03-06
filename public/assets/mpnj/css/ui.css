@@ -486,8 +486,12 @@ p:last-child {
 
 /* ================== SECTIONS =================== */
 .section-header {
+<<<<<<< HEAD
   background-color: #fff;
 }
+=======
+  background-color: #FFF; }
+>>>>>>> d8246c1b3d1c6987672b137416b8f9ee2d6822a1
 
 /* ================== header main ==================  */
 .header-top-light .nav-link {
@@ -505,6 +509,7 @@ p:last-child {
 
 .brand-wrap .logo, .navbar-brand .logo {
   margin-right: 7px;
+<<<<<<< HEAD
   max-height: 34px;
   display: inline-block;
 }
@@ -515,6 +520,15 @@ p:last-child {
 .navbar-main .nav-link:hover {
   color: #ff6a00;
 }
+=======
+  max-height: 70px;
+  display: inline-block; }
+
+.navbar-main {
+  background-color: #12225b; }
+  .navbar-main .nav-link:hover {
+    color: #FB9B0B; }
+>>>>>>> d8246c1b3d1c6987672b137416b8f9ee2d6822a1
 
 .search-header {
   border: 2px solid #ff6a00;
@@ -531,6 +545,7 @@ p:last-child {
 .widget-header {
   display: inline-block;
   vertical-align: middle;
+<<<<<<< HEAD
   position: relative;
 }
 .widget-header .widget-view {
@@ -576,6 +591,43 @@ p:last-child {
 .widget-header:hover i {
   color: #212529;
 }
+=======
+  position: relative; }
+  .widget-header .widget-view {
+    padding: 5px 7px;
+    display: inline-block;
+    position: relative;
+    text-align: center; }
+  .widget-header .icon-area {
+    font-size: 24px;
+    display: inline-block;
+    width: 36px;
+    height: 30px;
+    color: #FFF; }
+    .widget-header .icon-area .notify {
+      position: absolute;
+      top: 0px;
+      right: 8%; }
+  .widget-header .icon {
+    color: #35be32; }
+    .widget-header .icon .notify {
+      position: absolute;
+      top: 0;
+      right: 0; }
+  .widget-header .text {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    line-height: 1.2; }
+  .widget-header a {
+    color: #FFF; }
+  .widget-header form {
+    min-width: 280px; }
+  .widget-header:hover i {
+    color: #212529; }
+>>>>>>> d8246c1b3d1c6987672b137416b8f9ee2d6822a1
 
 /* desktop only */
 /* desktop only .end */
