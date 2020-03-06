@@ -130,7 +130,7 @@ class ProfileWebController extends Controller
 
         $simpan = Alamat::create($data);
         if ($simpan) {
-            return redirect()->back();
+            return redirect()->back()->with('alert', 'Alamat berhasil disimpan.');
         }
     }
 
