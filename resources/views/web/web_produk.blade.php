@@ -64,13 +64,14 @@
                         <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title mb-2">{{ $p->nama_produk }}</a>
                         <div class="price-wrap">
                             @if($p->diskon == 0)
-                            <span class="price">@currency($p->harga_jual),00</span>
+                            @currency($p->harga_jual)
                             @else
-                            <span class="price">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual)),00</span>
-                            <small class="text-muted">Harga Awal, @currency($p->harga_jual),00</small>
+                            <strike style="color: red">
+                                @currency($p->harga_jual)
+                            </strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <p class="text-muted ">{{ $p->pelapak->nama_toko }}</p>
+                        <a href="{{ URL::to('pelapak/'.$p->pelapak->username )}}" class="title text-dark">{{ $p->pelapak->nama_toko }}</a>
                         <hr>
                         <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
                     </figcaption>
@@ -78,16 +79,21 @@
             </div>
             @endforeach
         </div>
-        <nav class="mb-4" aria-label="Page navigation sample">
-            <ul class="pagination">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+        <nav class="mb-4">
+            @if($produk->lastPage() > 1)
+            <ul class="pagination center">
+                @if($produk->currentPage() != $produk->onFirstPage())
+                <li class="page-item"><a class="page-link" href="{{ $produk->previousPageUrl() }}">Previous</a></li>
+                @endif
+                @for($i = 1; $i <= $produk->lastPage(); $i++)
+                    <li class="page-item active"><a class="page-link {{ $i == $produk->currentPage() ? 'current' : '' }}" href="{{ $produk->url($i) }}">{{ $i }}</a></li>
+                    @endfor
+                    @if($produk->currentPage() != $produk->lastPage())
+                    <li class="page-item"><a class="page-link" href="{{ $produk->nextPageUrl()  }}">Next</a></li>
+                    @endif
             </ul>
+            @endif
         </nav>
 
         <div class="box text-center">
