@@ -77,7 +77,7 @@
 				   <figure class="itemside mb-3">
 					<div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
 					<figcaption class="info align-self-center">
-						<p class="title">{{ $c->produk->nama_produk }}</p>
+						<p class="title"><a href="{{ URL::to('produk/detail/'.$c->produk->id_produk) }}">{{ $c->produk->nama_produk }}</a></p>
                         <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
 						<div class="price">
                         @if($c->produk->diskon == 0)
