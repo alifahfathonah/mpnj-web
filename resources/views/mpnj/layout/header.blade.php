@@ -59,12 +59,14 @@
                 </div> <!-- col.// -->
                 <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end">
+                        <div class="dropdown">
                         <a href="#" class="widget-header pl-2 ml-2">
                             <i class="icon icon-sm rounded-circle border fa fa-heart"></i>
                         </a>
-                        <a href="#" class="widget-header pl-2 ml-2">
+
+                        <a href="#" class="widget-header pl-3 ml-3" data-toggle="dropdown">
                             <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">0</span>
+                            <span class="badge badge-pill badge-danger notify">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
                         </a>
                         
                         <a href="#" class="widget-header pl-2 ml-2">
