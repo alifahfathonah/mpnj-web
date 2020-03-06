@@ -1,6 +1,6 @@
 @extends('mpnj.layout.main')
 
-@section('title','Market Place PP Nurul Jadid')
+@section('title','Belanj | Situs Belanja Online Terlengkap, Aman, dan Nyaman')
     
 
 @section('content')
