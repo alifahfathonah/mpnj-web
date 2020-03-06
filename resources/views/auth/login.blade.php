@@ -28,11 +28,12 @@
       <div class="card-body">
       <h4 class="card-title mb-4">Login</h4>
       <form action="{{ route('login') }}" method="POST">
+      @csrf
           <div class="form-group">
-			 <input name="" class="form-control" placeholder="Username" type="text">
+			 <input name="username" class="form-control" placeholder="Username" type="text">
           </div> <!-- form-group// -->
           <div class="form-group">
-			<input name="" class="form-control" placeholder="Password" type="password">
+			<input name="password" class="form-control" placeholder="Password" type="password">
           </div> <!-- form-group// -->
           
           <!-- <div class="form-group">
