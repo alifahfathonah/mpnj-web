@@ -77,13 +77,11 @@
                     </figcaption>
                 </figure>
             </div>
-        @empty
-        <div class="pagination center">
-            <div class="alert alert-warning">
-	           Pencarian Tidak Ditemukan <a href="{{url::to('/')}}" class="btn btn-warning">Kembali ke Beranda</a>
-	        </div>
-        </div>
-        @endforelse
+            @empty
+            <div class="alert alert-warning col-lg-12 col-sm-12 col-md-12 text-center">
+                Pencarian Tidak Ditemukan <a href="{{url::to('/')}}" class="btn btn-warning">Kembali ke Beranda</a>
+            </div>
+            @endforelse
         </div>
 
         <nav class="mb-4">
