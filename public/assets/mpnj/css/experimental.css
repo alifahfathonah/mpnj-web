@@ -22,7 +22,7 @@
   }
   
   .corner-ribbon.shadow{
-    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    box-shadow: 0 0 1px 0 rgba(0,0,0,.3);
   }
   
   /* Different positions */
@@ -52,11 +52,11 @@
   
   .corner-ribbon.bottom-right{
     top: auto;
-    right: -50px;
-    bottom: 25px;
+    right: -75px;
+    bottom: 225px;
     left: auto;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
   }
   
   /* Colors */

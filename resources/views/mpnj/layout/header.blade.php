@@ -104,5 +104,5 @@
             </div> <!-- collapse .// -->
         </div> <!-- container .// -->
     </nav> <!-- navbar main end.// -->
-    <div class="corner-ribbon top-right sticky blue shadow">COMMIT</div>
+    <div class="corner-ribbon bottom-right sticky blue shadow">COMMIT UNUJA</div>
 </header>
