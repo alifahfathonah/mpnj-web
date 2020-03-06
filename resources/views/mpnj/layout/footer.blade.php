@@ -4,8 +4,8 @@
 		<div class="row">
 			<aside class="col-md-4">
 				<article class="mr-3">
-					<img src="{{ asset('assets/images/logo_mp1.png') }}" class="logo-footer">
-					<p class="mt-3">NJ Market adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
+				<img src="{{ asset('assets/logo/belanj-putih.png') }}" class="logo-footer">
+					<p class="mt-3">BelanJ adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
 					<ul class="list-icon">
 						<li> <i class="fa fa-map-marker-alt"> </i> Jln. KH. Zaini Mun'im , Karang Anyar, Paiton Probolinggo </li>
 						<li> <i class="fa fa-envelope"> </i> commit@dev.com</li>

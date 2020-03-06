@@ -5,7 +5,10 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
-html { font-family: 'Inter', sans-serif; font-size: 15px; }
+html {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+}
 
 // @supports (font-variation-settings: normal) {
 //   html { font-family: 'Inter var', sans-serif; }
@@ -16,13 +19,13 @@ html { font-family: 'Inter', sans-serif; font-size: 15px; }
 INCLUDE STYLES AND COMPONENTS
 ===================== */
 
-@import "variables-custom"; 
+@import "variables-custom";
 
 /* ================== HELPERS  =================== */
 @import "ui-assets/helpers/mixins";
-@import "ui-assets/helpers/helper-classes"; 
+@import "ui-assets/helpers/helper-classes";
 @import "ui-assets/helpers/bg";
-@import "ui-assets/helpers/typography"; 
+@import "ui-assets/helpers/typography";
 
 
 /* ================== SECTIONS =================== */
@@ -49,3 +52,10 @@ INCLUDE STYLES AND COMPONENTS
 @import "ui-assets/pages/page-listing";
 @import "ui-assets/pages/page-order";
 
+.brand-wrap .logo,
+.navbar-brand .logo {
+    margin-right: 7px;
+    max-height: 70px;
+    max-height: 50px;
+    display: inline-block;
+}
