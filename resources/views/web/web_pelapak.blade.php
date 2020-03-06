@@ -54,26 +54,17 @@
 
 <section class="section-content padding-y bg-white">
 	<nav class="navbar navbar-main navbar-expand-lg border-bottom">
-		<div class="container">
-
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="main_nav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="#">Produk Hangat</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Produk Diskon</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Semua Produk</a>
-					</li>
-				</ul>
-			</div> <!-- collapse .// -->
-		</div> <!-- container .// -->
+		<!-- <div class="container"> -->
+		<div class="col-md-12">
+			<h4>Pilih Produk</h4>
+			<nav style="width: 100%">
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif" id="nav-home-tab" data-toggle="tab" href="#hangat" role="tab" aria-controls="nav-home" aria-selected="true">Produk Baru</a>
+					<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#diskon" role="tab" aria-controls="nav-home" aria-selected="true">Produk Diskon</a>
+					<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-profile" aria-selected="false">Semua Produk</a>
+				</div>
+			</nav>
+		</div>
 	</nav>
 </section>
 
@@ -81,31 +72,79 @@
 	<section class="padding-bottom-sm">
 
 		<header class="section-heading heading-line">
-			<h4 class="title-section text-uppercase">Produk</h4>
+			<h5 class="title-section text-uppercase">Produk</h5>
 		</header>
-
-		<div class="row row-sm">
-
-			@foreach($produk->sortByDesc('id_produk') as $pl)
-			<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-				<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
-					<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
-					<figcaption class="info-wrap">
-						<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
-						<div class="price-wrap">
-							@if($pl->diskon == 0)
-							@currency($pl->harga_jual)
-							@else
-							<strike style="color: red">
-								@currency($pl->harga_jual)
-							</strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
-							@endif
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade show @if(app('request')->input('tab') == 'hangat') active @else active @endif" id="hangat" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="row row-sm">
+					@foreach($produk->sortByDesc('id_produk') as $pl)
+					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
+							<figcaption class="info-wrap">
+								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<div class="price-wrap">
+									@if($pl->diskon == 0)
+									@currency($pl->harga_jual)
+									@else
+									<strike style="color: red">
+										@currency($pl->harga_jual)
+									</strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+									@endif
+								</div>
+							</figcaption>
 						</div>
-					</figcaption>
-				</div>
-			</div> <!-- col.// -->
-			@endforeach
-		</div> <!-- row.// -->
+					</div> <!-- col.// -->
+					@endforeach
+				</div> <!-- row.// -->
+			</div>
+			<div class="tab-pane fade @if(app('request')->input('tab') == 'diskon') active @endif" id="diskon" role="tabpanel" aria-labelledby="nav-profile-tab">
+				<div class="row row-sm">
+					@foreach($produk->sortByDesc('diskon') as $pl)
+					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
+							<figcaption class="info-wrap">
+								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<div class="price-wrap">
+									@if($pl->diskon == 0)
+									@currency($pl->harga_jual)
+									@else
+									<strike style="color: red">
+										@currency($pl->harga_jual)
+									</strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+									@endif
+								</div>
+							</figcaption>
+						</div>
+					</div> <!-- col.// -->
+					@endforeach
+				</div> <!-- row.// -->
+			</div>
+			<div class="tab-pane fade @if(app('request')->input('tab') == 'semua') active @endif" id="semua" role="tabpanel" aria-labelledby="nav-contact-tab">
+				<div class="row row-sm">
+					@foreach($produk as $pl)
+					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
+							<figcaption class="info-wrap">
+								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<div class="price-wrap">
+									@if($pl->diskon == 0)
+									@currency($pl->harga_jual)
+									@else
+									<strike style="color: red">
+										@currency($pl->harga_jual)
+									</strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+									@endif
+								</div>
+							</figcaption>
+						</div>
+					</div> <!-- col.// -->
+					@endforeach
+				</div> <!-- row.// -->
+			</div>
+		</div>
 	</section>
 </div>
 
