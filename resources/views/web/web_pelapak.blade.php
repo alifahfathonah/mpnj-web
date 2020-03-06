@@ -4,72 +4,208 @@
 
 
 @section('content')
-    <br>
-    <section class="signup_area section--padding2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="card mb-4">
-                        <article class="card-body">
-                            <header class="mb-4">
-                                <center>
-                                    <h4 class="card-title">Konfirmasi Pembayaran</h4>
-                                    <small>Masukkan kode transaksi anda untuk melakukan konfirmasi pembayaran.</small>
-                                </center>
-                            </header>
-                            <form action="{{ isset($cek) ? '/konfirmasi/simpan' : '/konfirmasi/data' }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-
-                                @if(session('kodeKosong'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('kodeKosong') }}
-                                    </div>
-                                @endif
-
-                                @if(isset($cek))
-                                    <div class="form-group">
-                                        <label for="kode_transaksi">Kode Transaksi</label>
-                                        <input id="kode_transaksi" type="text" class="form-control" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi" value="{{  $cek->kode_transaksi }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nama_pengirim">Nama Pengirim</label>
-                                        <input id="nama_pengirim" type="text" class="form-control" name="nama_pengirim" value="{{  $cek->pembeli->nama_lengkap }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="total_bayar">Total Bayar</label>
-                                        <input id="total_bayar" type="text" class="form-control" name="total_bayar" value="{{ $cek->total_bayar }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="rekening">Pilih Rekening</label>
-                                        <select name="rekening" id="rekening" class="form-control" required>
-                                            <option value="1">Mandiri - 1234567890 - Nurul Jadid</option>
-                                            <option value="2">BNI - 0987654321 - Nurul Jadid</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="bukti_transfer">Bukti Transfer</label>
-                                        <input id="bukti_transfer" type="file" class="form-control" name="bukti_transfer">
-                                        @if($errors->has('bukti_transfer'))  <small style="color: red">{{ $errors->first('bukti_transfer') }}</small> @endif
-                                    </div>
-                                    <button class="btn btn-primary" type="submit" name="kirim">Kirim</button>
-                                @else
-                                    <div class="form-group">
-                                        <label>Kode Transaksi</label>
-                                        <input type="text" class="form-control" placeholder="Isi dengan kode transaksi" name="kode_transaksi" value="{{ old('kode_transaksi') }}">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block"> Lanjut  </button>
-                                @endif
-                            </form>
-                        </article>
+    
+<div class="container profile-page bg-white">
+    <div class="row">
+        <div class="col-xl-4 col-lg-7 col-md-12 mt-5">
+            <div class="card-pelapak profile-header bg-dark">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-12">
+                            <h4 class="m-t-0 m-b-0"><strong>Indra</strong> Store</h4>
+                            <span class="job_post">Aktif 2 menit yang lalu</span>
+                            
+                            <div class="mt-2">
+                                    <button class="btn btn-outline-light btn-round">Follow</button>
+                                    <button class="btn btn-outline-light btn-round btn-simple">Message</button>
+                                </div>               
+                        </div> 
                     </div>
-                    <!-- card-body end .// -->
-                </div> <!-- card.// -->
-
+                </div>                    
             </div>
-            <!-- end .col-md-6 -->
         </div>
-        <!-- end .row -->
+        
+        
+        <div class="col-xl-8 col-lg-7 col-md-12 mt-5">
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                        <td><i class="fas fa-store"></i> Produk : <span class="text-primary">114</span></td>
+                        <td><i class="fas fa-store"></i> Waktu Pengemasan : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        
+                        <td><i class="fas fa-store"></i> Waktu Pengemasan : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        <td><i class="fas fa-store"></i> Waktu Pengemasan : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        </tr>
+                        <tr>
+                        <td><i class="fas fa-store"></i> Mengikuti : <span class="text-primary">20</span></td>
+                        <td><i class="fas fa-store"></i> Waktu Pengemasan : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        </tr>
+                        <tr>
+                        <td><i class="fas fa-store"></i> Total Ranting : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        <td><i class="fas fa-store"></i> Waktu Pengemasan : <span class="text-primary">Lambat (Lebih dari 2 hari)</span></td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+	</div>
+</div>
 
-        <!-- end .container -->
-    </section>
+<section class="section-content padding-y bg-white">
+<nav class="navbar navbar-main navbar-expand-lg border-bottom">
+  <div class="container">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="main_nav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+           <a class="nav-link" href="#">Halaman Utama</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Semua Produk</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Midnight Sale</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sedang Diskon</a>
+        </li>
+      </ul>
+    </div> <!-- collapse .// -->
+  </div> <!-- container .// -->
+</nav>
+</section>
+
+<div class="container">
+<section  class="padding-bottom-sm">
+
+<header class="section-heading heading-line">
+	<h4 class="title-section text-uppercase">Recommended items</h4>
+</header>
+
+<div class="row row-sm">
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/1.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/2.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Some item name here</a>
+				<div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/3.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Great product name here</a>
+				<div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/4.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/5.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/6.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Some item name here</a>
+				<div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/7.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Great product name here</a>
+				<div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/9.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/4.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/5.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Just another product name</a>
+				<div class="price mt-1">$179.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/6.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Some item name here</a>
+				<div class="price mt-1">$280.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-xl-2 col-lg-3 col-md-4 col-6">
+		<div href="#" class="card card-sm card-product-grid">
+			<a href="#" class="img-wrap"> <img src="images/items/7.jpg"> </a>
+			<figcaption class="info-wrap">
+				<a href="#" class="title">Great product name here</a>
+				<div class="price mt-1">$56.00</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+</div> <!-- row.// -->
+</section>
+</div>
+
 @endsection
