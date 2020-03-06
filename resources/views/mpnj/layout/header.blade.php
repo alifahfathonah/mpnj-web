@@ -39,7 +39,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/images/logo_mp1.png') }}">
+                        <img class="logo" src="{{ asset('assets/mpnj/images/mpnj.jpg') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">

@@ -28,14 +28,14 @@
 
         <form action="{{ route('login') }}" method="POST">
             @csrf
-        <diV>
+        <div class="text-center">
+            <img width="250px" src="{{ asset('assets/mpnj/images/mpnj.jpg') }}"></a></li>
             <span class="login100-form-title p-b-30 my-2 text-black">Selamat Datang, Silahkan Login!</span>
             <li class="login100-form-title p-b-20 mt-2"><a href="#">
-                    <img width="250px" src="{{ asset('assets/mpnj/images/mpnj.jpg') }}"></a></li>
         </div>
 
         <div class="wrap-input100 validate-input" data-validate="username">
-            <input class="input100 font-weight-bold" type="text" name="username">
+            <input class="input100 font-weight-bold" type="text" name="usernamse">
 
             <span class="focus-input100" data-placeholder="Masukkan Username"></span>
         </div>
