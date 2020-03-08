@@ -41,30 +41,55 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <tbody>
-                <tr>
-                    <td width="65">
-                        <img src="{{ asset('assets/foto_produk/'.$detail->transaksi_detail->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                    </td>
-                    <td>
-                        <p class="title mb-0">{{ $detail->transaksi_detail->produk->nama_produk }}</p>
-                        <var class="price text-muted">
-                            @if($detail->transaksi_detail->diskon == 0)
+                    <tr>
+                        <td width="65">
+                            <img src="{{ asset('assets/foto_produk/'.$detail->transaksi_detail->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                        </td>
+                        <td>
+                            <p class="title mb-0">{{ $detail->transaksi_detail->produk->nama_produk }}</p>
+                            <var class="price text-muted">
+                                @if($detail->transaksi_detail->diskon == 0)
                                 @currency($detail->transaksi_detail->harga_jual)
-                            @else
+                                @else
                                 <strike style="color: red">@currency($detail->transaksi_detail->harga_jual)</strike> <span style="color: black;">| @currency($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual))</span>
-                            @endif
-                        </var>
-                    </td>
-                    <td>Jumlah : {{ $detail->transaksi_detail->jumlah }}</td>
-                    <td> Total :
-                        @if($detail->transaksi_detail->diskon == 0)
+                                @endif
+                            </var>
+                        </td>
+                        <td>Jumlah : {{ $detail->transaksi_detail->jumlah }}</td>
+                        <td> Total :
+                            @if($detail->transaksi_detail->diskon == 0)
                             @currency($detail->transaksi_detail->jumlah * $detail->transaksi_detail->harga_jual)
-                        @else
+                            @else
                             @currency(($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual)) * $detail->transaksi_detail->jumlah)
-                        @endif </td>
-                </tr>
+                            @endif </td>
+                    </tr>
                 </tbody>
             </table>
-        </div> <!-- table-responsive .end// -->
+        </div>
+        @php $edited = false; @endphp
+
+
+        @if($detail->transaksi_detail->status_order == 'sukses')
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <h6 class="text-dark">Review</h6>
+                    @if($review != '')
+                    <div class="small">{{ $review->updated_at->format('d M Y') }}</div>
+                    <div class="rating-wrap my-3">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                @for($i = 1; $i <= $review->bintang; $i++)
+                                    <i class="fa fa-star"></i>
+                                    @endfor
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="mb-">{{ $review->review}}</p>
     </article> <!-- order-group.// -->
 </main>
