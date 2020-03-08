@@ -131,6 +131,7 @@
 
                     @foreach ($review as $r)
                     <article class="media mb-3">
+                    <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
                         <div class="media-body">
                     </article>
                     @endforeach
