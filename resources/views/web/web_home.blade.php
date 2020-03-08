@@ -57,12 +57,12 @@
                     </div> <!-- col.// -->
                     <div class="col-md d-none d-lg-block flex-grow-1">
                         <aside class="special-home-right">
-                            <h6 class="bg-blue text-center text-white mb-0 p-2">Popular category</h6>
+                            <h6 class="bg-green text-center text-white mb-0 p-2">Popular category</h6>
 
                             <div class="card-banner border-bottom">
                                 <div class="py-3" style="width:80%">
                                     <h6 class="card-title">Men clothing</h6>
-                                    <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
+                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
                                 </div>
                                 <img src="{{ url('assets/mpnj/images/items/1.jpg') }}" height="80" class="img-bg">
                             </div>
@@ -70,7 +70,7 @@
                             <div class="card-banner border-bottom">
                                 <div class="py-3" style="width:80%">
                                     <h6 class="card-title">Winter clothing </h6>
-                                    <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
+                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
                                 </div>
                                 <img src="{{ url('assets/mpnj/images/items/2.jpg') }}" height="80" class="img-bg">
                             </div>
@@ -78,7 +78,7 @@
                             <div class="card-banner border-bottom">
                                 <div class="py-3" style="width:80%">
                                     <h6 class="card-title">Home inventory</h6>
-                                    <a href="#" class="btn btn-secondary btn-sm"> Source now </a>
+                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
                                 </div>
                                 <img src="{{ url('assets/mpnj/images/items/6.jpg') }}" height="80" class="img-bg">
                             </div>
@@ -182,19 +182,116 @@
         <div class="row row-sm">
             @foreach($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid">
-                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
                         <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
                         <div class="price mt-1">
                             @if($p->diskon == 0)
-                            @currency($p->harga_jual)
+                            <span>
+                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:large;">@currency($p->harga_jual)</span>
+                            </span> 
                             @else
-                            <strike style="color: red">
-                                @currency($p->harga_jual)
-                            </strike> @currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))
+                            
+                            <span style="color: green">
+                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:large;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+                            </span> 
+                            <span style="color: gray">
+                                <strike><span style="font-size:x-small;margin-right:-2px;">Rp</span> <span style="font-size:small;">@currency($p->harga_jual)</span></strike>
+                            </span>
                             @endif
                         </div> <!-- price-wrap.// -->
+                        <div class="row" >
+                            <div class="col" style="">
+                                <ul class="rating-stars" >
+                                    <li style="width:50%" class="stars-active">
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    </li>
+                                    <li>
+                                    <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    </li>
+                                </ul>
+                            </div> <!-- rating-wrap.// -->
+                            <div class="text-right col align-middle" style="font-size:x-small;margin-top:5px;">{{$p->terjual}} terjual</div>
+                        </div>
+                        <span style="font-size:small" >PAITON {{$p->kota}}</span> <!-- selesaikan API nya ya -->
+                        
+                    </figcaption>
+                </div>
+            </div>
+            @endforeach
+        </div> <!-- row.// -->
+
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">PRODUK TERLARIS</h4>
+        </header>
+
+        <div class="row row-sm" >
+            @foreach($produk as $p)
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <div class="shadow-sm" style="background-color:#35BE32;position: absolute;
+                            left: 0;
+                            color:#fff;
+                            top: .625rem;
+                            display: -webkit-box;
+                            display: -webkit-flex;
+                            display: -moz-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-box-orient: vertical;
+                            -webkit-box-direction: normal;
+                            -webkit-flex-direction: column;
+                            -moz-box-orient: vertical;
+                            -moz-box-direction: normal;
+                            -ms-flex-direction: column;
+                            flex-direction: column;
+                            -webkit-box-align: start;
+                            -webkit-align-items: flex-start;
+                            -moz-box-align: start;
+                            -ms-flex-align: start;
+                            align-items: flex-start;
+                            z-index: 1;padding:5px;font-size:small">Star Teller</div>
+                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img  class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        <div class="price mt-1">
+                             @if($p->diskon == 0)
+                            <span>
+                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:mediun;">@currency($p->harga_jual)</span>
+                            </span> 
+                            @else
+                            
+                            <span style="color: green">
+                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:medium;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+                            </span> 
+                            <span style="color: gray">
+                                <strike><span style="font-size:x-small;margin-right:-2px;">Rp</span> <span style="font-size:small;">@currency($p->harga_jual)</span></strike>
+                            </span>
+                            @endif
+                        </div> <!-- price-wrap.// -->
+                        <div class="row" >
+                            <div class="col" style="">
+                                <ul class="rating-stars" >
+                                    <li style="width:50%" class="stars-active">
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    </li>
+                                    <li>
+                                    <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
+                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    </li>
+                                </ul>
+                            </div> <!-- rating-wrap.// -->
+                            <div class="text-right col align-middle" style="font-size:x-small;margin-top:5px;">{{$p->terjual}} terjual</div>
+                        </div>
+                        <span style="font-size:small" >PAITON {{$p->kota}}</span> <!-- selesaikan API nya ya -->
                     </figcaption>
                 </div>
             </div>
