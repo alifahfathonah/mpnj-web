@@ -205,21 +205,24 @@
                             <div class="col" style="">
                                 <ul class="rating-stars" >
                                     <li style="width:50%" class="stars-active">
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                     <li>
-                                    <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                 </ul>
+                                <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div> <!-- rating-wrap.// -->
-                            <div class="text-right col align-middle" style="font-size:x-small;margin-top:5px;">{{$p->terjual}} terjual</div>
+                            
                         </div>
-                        <span style="font-size:small" >PAITON {{$p->kota}}</span> <!-- selesaikan API nya ya -->
-                        
+                        <div class="row">
+                            <div class="col" style="font-size:small" >PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
+                        </div>
                     </figcaption>
                 </div>
             </div>
@@ -233,16 +236,8 @@
         <div class="row row-sm" >
             @foreach($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                <div class="shadow-sm" style="background-color:#35BE32;position: absolute;
-                            left: 0;
-                            color:#fff;
-                            top: .625rem;
-                            display: -webkit-box;
-                            display: -webkit-flex;
-                            display: -moz-box;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -webkit-box-orient: vertical;
+                <div class="shadow-sm" style="background-color:#35BE32;position: absolute;left: 0;color:#fff;top: .625rem;display: -webkit-box;
+                            display: -webkit-flex;display: -moz-box;display: -ms-flexbox;display: flex;-webkit-box-orient: vertical;
                             -webkit-box-direction: normal;
                             -webkit-flex-direction: column;
                             -moz-box-orient: vertical;
@@ -278,20 +273,24 @@
                             <div class="col" style="">
                                 <ul class="rating-stars" >
                                     <li style="width:50%" class="stars-active">
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                     <li>
-                                    <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i> <i class="fa fa-star" style="font-size:x-small"></i>
-                                        <i class="fa fa-star" style="font-size:x-small"></i>
+                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                 </ul>
+                                <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div> <!-- rating-wrap.// -->
-                            <div class="text-right col align-middle" style="font-size:x-small;margin-top:5px;">{{$p->terjual}} terjual</div>
+                            
                         </div>
-                        <span style="font-size:small" >PAITON {{$p->kota}}</span> <!-- selesaikan API nya ya -->
+                        <div class="row">
+                            <div class="col" style="font-size:small" >PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
+                        </div>
                     </figcaption>
                 </div>
             </div>
