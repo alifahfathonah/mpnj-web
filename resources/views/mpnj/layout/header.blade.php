@@ -7,7 +7,7 @@
             <div class="collapse navbar-collapse" id="navbarTop3" style="font-size:12px;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> Download Aplikasi Android belaNJ disini </a>
+                        <a class="nav-link" href="#"><i class="fas fa-mobile-alt"></i> Download Aplikasi Android belaNJ disini </a>
                     </li>
 
                 </ul>
