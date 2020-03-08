@@ -128,9 +128,13 @@
             <aside class="col-md-4">
                 <div class="box">
                     <h5 class="title-description">Review</h5>
+
+                    @foreach ($review as $r)
                     <article class="media mb-3">
                         <div class="media-body">
                     </article>
+                    @endforeach
+                    </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
