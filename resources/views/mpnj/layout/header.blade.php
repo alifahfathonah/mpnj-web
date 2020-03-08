@@ -12,9 +12,13 @@
 
                 </ul>
                 <ul class="navbar-nav">
+                    @if (Auth::guard(Session::get('role'))->check())
+                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                    @else
                     <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></li>
                     <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li>
+                    @endif
                 </ul>
                 <!--<ul class="navbar-nav">
                         <li class="nav-item">
