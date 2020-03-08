@@ -131,16 +131,16 @@
 
                     @foreach ($review as $r)
                     <article class="media mb-3">
-                    <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
+                        <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
                         <div class="media-body">
                             <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
                             <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
                             <div class="rating-wrap my-3">
                                 <ul class="rating-stars">
                                     <li style="width:80%" class="stars-active">
-                                    @for($i = 1; $i <= $r->bintang; $i++)
-                                        <i class="fa fa-star"></i>
-                                    @endfor
+                                        @for($i = 1; $i <= $r->bintang; $i++)
+                                            <i class="fa fa-star"></i>
+                                            @endfor
                                     </li>
                                     <li>
                                         <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -152,7 +152,7 @@
                             <p class="mb-">{{ $r->review}}</p>
                     </article>
                     @endforeach
-                    </div> <!-- box.// -->
+                </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
