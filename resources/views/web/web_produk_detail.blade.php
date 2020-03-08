@@ -129,27 +129,8 @@
                 <div class="box">
                     <h5 class="title-description">Review</h5>
                     <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
                         <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
                     </article>
-                    <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
-                        <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
-                    </article>
-                    <div class="form-group">
-                        <form method="POST">
-                            <label for="exampleFormControlTextarea1">Beri Review Anda</label>
-                            <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button type="button" class="btn btn-primary btn-sm btn-block">Kirim Komentar</button>
-                        </form>
-                    </div>
-                </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
