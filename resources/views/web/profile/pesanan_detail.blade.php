@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
-                    <h6 class="text-muted">Oleh</h6>
+                    <h6 class="text-dark">Oleh</h6>
                     <p>{{ $detail->pembeli->nama_lengkap }}<br>
                         Telepon {{ $detail->pembeli->alamat_fix->nomor_telepon }}<br>
                         Alamat:{{ $detail->pembeli->alamat_fix->alamat_lengkap}}, {{ $detail->pembeli->alamat_fix->nama_kota }}, {{ $detail->pembeli->alamat_fix->nama_provinsi }} <br>
@@ -15,7 +15,7 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <h6 class="text-muted">Status</h6>
+                    <h6 class="text-dark">Status</h6>
                     <span class="text-success">
 						<i class="fab fa-lg fa-cc-visa"></i>
 					    {{ $detail->transaksi_detail->status_order }}
