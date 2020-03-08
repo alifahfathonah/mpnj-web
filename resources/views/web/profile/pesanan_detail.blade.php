@@ -17,21 +17,21 @@
                 <div class="col-md-4">
                     <h6 class="text-dark">Status</h6>
                     <span class="text-success">
-						<i class="fab fa-lg fa-cc-visa"></i>
-					    {{ $detail->transaksi_detail->status_order }}
-					</span>
+                        <i class="fab fa-lg fa-cc-visa"></i>
+                        {{ $detail->transaksi_detail->status_order }}
+                    </span>
                     <p>Subtotal:
                         @if($detail->transaksi_detail->diskon == 0)
-                            @currency($detail->transaksi_detail->jumlah * $detail->transaksi_detail->harga_jual)
+                        @currency($detail->transaksi_detail->jumlah * $detail->transaksi_detail->harga_jual)
                         @else
-                            @currency(($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual)) * $detail->transaksi_detail->jumlah)
+                        @currency(($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual)) * $detail->transaksi_detail->jumlah)
                         @endif <br>
-                        Kurir:  {{ $detail->transaksi_detail->kurir }} - {{ $detail->transaksi_detail->service }} <br>
+                        Kurir: {{ $detail->transaksi_detail->kurir }} - {{ $detail->transaksi_detail->service }} <br>
                         Ongkir: @currency($detail->transaksi_detail->ongkir) <br>
-                        <span class="b">Total:  @if($detail->transaksi_detail->diskon == 0)
-                                @currency(($detail->transaksi_detail->jumlah * $detail->transaksi_detail->harga_jual) + $detail->transaksi_detail->ongkir)
+                        <span class="b">Total: @if($detail->transaksi_detail->diskon == 0)
+                            @currency(($detail->transaksi_detail->jumlah * $detail->transaksi_detail->harga_jual) + $detail->transaksi_detail->ongkir)
                             @else
-                                @currency(($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual)) * $detail->transaksi_detail->jumlah + $detail->transaksi_detail->ongkir)
+                            @currency(($detail->transaksi_detail->harga_jual - ($detail->transaksi_detail->diskon / 100 * $detail->transaksi_detail->harga_jual)) * $detail->transaksi_detail->jumlah + $detail->transaksi_detail->ongkir)
                             @endif
                         </span>
                     </p>
