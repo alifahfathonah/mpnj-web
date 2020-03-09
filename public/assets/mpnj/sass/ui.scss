@@ -59,3 +59,12 @@ INCLUDE STYLES AND COMPONENTS
     max-height: 50px;
     display: inline-block;
 }
+
+.namaProduk-rapi {
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    min-height: 3em;
+}

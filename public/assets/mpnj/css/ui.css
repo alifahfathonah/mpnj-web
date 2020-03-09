@@ -544,7 +544,7 @@ p:last-child {
   display: inline-block;
   width: 36px;
   height: 30px;
-  color: #35be32;
+  color: #969696;
 }
 .widget-header .icon-area .notify {
   position: absolute;
@@ -552,7 +552,7 @@ p:last-child {
   right: 8%;
 }
 .widget-header .icon {
-  color: #35be32;
+  color: #969696;
 }
 .widget-header .icon .notify {
   position: absolute;
@@ -568,7 +568,7 @@ p:last-child {
   line-height: 1.2;
 }
 .widget-header a {
-  color: #35be32;
+  color: #212529;
 }
 .widget-header form {
   min-width: 280px;
@@ -1577,6 +1577,15 @@ body {
   max-height: 70px;
   max-height: 50px;
   display: inline-block;
+}
+
+.namaProduk-rapi {
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 3em;
 }
 
 /*# sourceMappingURL=ui.css.map */
