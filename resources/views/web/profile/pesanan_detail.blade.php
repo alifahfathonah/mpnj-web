@@ -91,5 +91,27 @@
                         </ul>
                     </div>
                     <p class="mb-">{{ $review->review}}</p>
+                    @else
+                    <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
+                        @csrf
+                        <ul>
+                        <input type="hidden" name="id_produk" value="{{ $detail->transaksi_detail->produk->id_produk }}">
+                        <div class="rating_field">
+                            <label for="rating_field">Komentar</label>
+                            <textarea name="review" id="rating_field" class="text_field" placeholder="Beri komentar Barang yang Sesuai. "></textarea>
+                        </div>
+                        <div class="rating_field">
+                            <label for="rating_field">Foto</label>
+                            <input type="file" name="foto_review" id="foto_review" class="form-control">
+                            <p class="notice">Terima kasih Sudah Mereview Barang Kami. </p>
+                        </div>
+                        <button type="submit" class="btn btn--round btn--default">Kirim</button>
+                    </form>
+                    @endif
+
+                </div>
+            </div> <!-- row.// -->
+        </div>
+        @endif
     </article> <!-- order-group.// -->
 </main>
