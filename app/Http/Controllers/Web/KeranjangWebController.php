@@ -44,7 +44,7 @@ class KeranjangWebController extends Controller
             'produk_id' => $request->id_produk,
             'pembeli_id' => $konsumen_id,
             'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
-            'jumlah' => $request->jumlah[1],
+            'jumlah' => $request->jumlah,
             'harga_jual' => $request->harga_jual
         ]);
 

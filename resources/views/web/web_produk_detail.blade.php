@@ -73,11 +73,12 @@
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
                                 <div class="input-group-append">
-                                    <button class="btn btn-light btn-number" type="button" id="button-plus" data-type="minus" data-field="jumlah[1]"> - </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-minus"> - </button>
                                 </div>
-                                <input type="text" class="form-control input-number" name="jumlah[1]" value="1" min="1" max="99" readonly>
+                                <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99" readonly>
+
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-light btn-number" type="button" id="button-minus" data-type="plus" data-field="jumlah[1]"> + </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-plus"> + </button>
                                 </div>
                             </div>
                         </div> <!-- col.// -->
@@ -86,7 +87,7 @@
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
-                                <input type="hidden" class="form-control input-number" name="jumlah[1]" value="{{ $produk->jumlah[1] }}" min="1" max="99">
+                                <input type="hidden" class="form-control input-number" id="jumlah" name="jumlah" value="1">
                                 <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
@@ -128,27 +129,30 @@
             <aside class="col-md-4">
                 <div class="box">
                     <h5 class="title-description">Review</h5>
+
+                    @foreach ($review as $r)
                     <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
+                        <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
                         <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
+                            <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
+                            <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
+                            <div class="rating-wrap my-3">
+                                <ul class="rating-stars">
+                                    <li style="width:80%" class="stars-active">
+                                        @for($i = 1; $i <= $r->bintang; $i++)
+                                            <i class="fa fa-star"></i>
+                                            @endfor
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="mb-">{{ $r->review}}</p>
                     </article>
-                    <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
-                        <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
-                    </article>
-                    <div class="form-group">
-                        <form method="POST">
-                            <label for="exampleFormControlTextarea1">Beri Review Anda</label>
-                            <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button type="button" class="btn btn-primary btn-sm btn-block">Kirim Komentar</button>
-                        </form>
-                    </div>
+                    @endforeach
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
@@ -186,81 +190,25 @@
 @endsection
 
 @push('scripts')
-<script>
-    function gantiFoto(id) {
-        let src = $("#foto_produk" + id).attr('src');
-        $("#thumbFoto").attr('src', src);
-    };
-    $('.btn-number').click(function(e) {
-        e.preventDefault();
+    <script>
+        $(function() {
+            $("#button-plus").click(function() {
+                //   alert()
+                let jml = $("#jml").val();
+                $("#jumlah").val(parseInt(jml) + 1);
+                $("#jml").val(parseInt(jml) + 1);
+            });
 
-        fieldName = $(this).attr('data-field');
-        type = $(this).attr('data-type');
-        var input = $("input[name='" + fieldName + "']");
-        var currentVal = parseInt(input.val());
-        if (!isNaN(currentVal)) {
-            if (type == 'minus') {
+            $("#button-minus").click(function() {
+                let jml = $("#jml").val();
+                $("#jumlah").val(parseInt(jml) - 1);
+                $("#jml").val(parseInt(jml) - 1);
+            });
+        });
+        function gantiFoto(id) {
+            let src = $("#foto_produk" + id).attr('src');
+            $("#thumbFoto").attr('src', src);
+        };
 
-                if (currentVal > input.attr('min')) {
-                    input.val(currentVal - 1).change();
-                }
-                if (parseInt(input.val()) == input.attr('min')) {
-                    $(this).attr('disabled', true);
-                }
-
-            } else if (type == 'plus') {
-
-                if (currentVal < input.attr('max')) {
-                    input.val(currentVal + 1).change();
-                }
-                if (parseInt(input.val()) == input.attr('max')) {
-                    $(this).attr('disabled', true);
-                }
-
-            }
-        } else {
-            input.val(0);
-        }
-    });
-    $('.input-number').focusin(function() {
-        $(this).data('oldValue', $(this).val());
-    });
-    $('.input-number').change(function() {
-
-        minValue = parseInt($(this).attr('min'));
-        maxValue = parseInt($(this).attr('max'));
-        valueCurrent = parseInt($(this).val());
-
-        name = $(this).attr('name');
-        if (valueCurrent >= minValue) {
-            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-        } else {
-            alert('Maaf, minimum order 1 item');
-            $(this).val($(this).data('oldValue'));
-        }
-        if (valueCurrent <= maxValue) {
-            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-        } else {
-            alert('Maaf, maksimum order 99 item');
-            $(this).val($(this).data('oldValue'));
-        }
-
-
-    });
-    $(".input-number").keydown(function(e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-            // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) ||
-            // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-            // let it happen, don't do anything
-            return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
-</script>
+    </script>
 @endpush
