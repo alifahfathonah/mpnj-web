@@ -95,6 +95,19 @@
                     <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
                         @csrf
                         <ul>
+                            <li>
+                                <p>Bintang</p>
+                                <div class="right_content btn btn--round btn--white btn--md">
+                                    <select name="bintang" class="give_rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
                         <input type="hidden" name="id_produk" value="{{ $detail->transaksi_detail->produk->id_produk }}">
                         <div class="rating_field">
                             <label for="rating_field">Komentar</label>
