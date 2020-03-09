@@ -66,30 +66,5 @@
                 </tbody>
             </table>
         </div>
-        @php $edited = false; @endphp
-
-
-        @if($detail->transaksi_detail->status_order == 'sukses')
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-10">
-                    <h6 class="text-dark">Review</h6>
-                    @if($review != '')
-                    <div class="small">{{ $review->updated_at->format('d M Y') }}</div>
-                    <div class="rating-wrap my-3">
-                        <ul class="rating-stars">
-                            <li style="width:80%" class="stars-active">
-                                @for($i = 1; $i <= $review->bintang; $i++)
-                                    <i class="fa fa-star"></i>
-                                    @endfor
-                            </li>
-                            <li>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <p class="mb-">{{ $review->review}}</p>
     </article> <!-- order-group.// -->
 </main>
