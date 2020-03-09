@@ -185,19 +185,21 @@
                 <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
-                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        <div class="namaProduk-rapi">
+                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        </div>
                         <div class="price mt-1">
                             @if($p->diskon == 0)
                             <span>
-                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:large;">@currency($p->harga_jual)</span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
                             </span> 
                             @else
                             
                             <span style="color: green">
-                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:large;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
                             </span> 
                             <span style="color: gray">
-                                <strike><span style="font-size:x-small;margin-right:-2px;">Rp</span> <span style="font-size:small;">@currency($p->harga_jual)</span></strike>
+                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
                             </span>
                             @endif
                         </div> <!-- price-wrap.// -->
@@ -253,19 +255,21 @@
                 <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img  class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
-                        <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        <div class="namaProduk-rapi">
+                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                        </div>
                         <div class="price mt-1">
                              @if($p->diskon == 0)
-                            <span>
-                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:mediun;">@currency($p->harga_jual)</span>
+                             <span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
                             </span> 
                             @else
                             
                             <span style="color: green">
-                                <span style="font-size:small;margin-right:-2px;">Rp</span> <span style="font-size:medium;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
                             </span> 
                             <span style="color: gray">
-                                <strike><span style="font-size:x-small;margin-right:-2px;">Rp</span> <span style="font-size:small;">@currency($p->harga_jual)</span></strike>
+                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
                             </span>
                             @endif
                         </div> <!-- price-wrap.// -->
