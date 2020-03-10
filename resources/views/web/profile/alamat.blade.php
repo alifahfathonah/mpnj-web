@@ -112,7 +112,7 @@
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="alamat_lengkap" cols="30" rows="10"></textarea>
+                        <textarea name="alamat_lengkap" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
