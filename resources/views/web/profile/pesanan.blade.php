@@ -5,17 +5,17 @@
         <h3 >Pesanan Saya</h3>
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif" id="nav-home-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home" aria-selected="true">Semua</a>
-                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="nav-home" aria-selected="true">Pending</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#verifikasi" role="tab" aria-controls="nav-profile" aria-selected="false">Verifikasi</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#packing" role="tab" aria-controls="nav-contact" aria-selected="false">Packing</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#dikirim" role="tab" aria-controls="nav-contact" aria-selected="false">Dikirim</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#sukses" role="tab" aria-controls="nav-contact" aria-selected="false">Sukses</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#batal" role="tab" aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif" id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home" aria-selected="true">Semua</a>
+                <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="nav-home" aria-selected="true">Menunggu Konfirmasi</a>
+                <a class="nav-item nav-link" id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab" aria-controls="nav-profile" aria-selected="false">Telah Dikonfirmasi</a>
+                <a class="nav-item nav-link" id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab" aria-controls="nav-contact" aria-selected="false">Dikemas</a>
+                <a class="nav-item nav-link" id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab" aria-controls="nav-contact" aria-selected="false">Dikirim</a>
+                <a class="nav-item nav-link" id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab" aria-controls="nav-contact" aria-selected="false">Telah Sampai</a>
+                <a class="nav-item nav-link" id="nav-batal-tab" data-toggle="tab" href="#batal" role="tab" aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show @if(app('request')->input('tab') == 'semua') active @else active @endif" id="semua" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade show @if(app('request')->input('tab') == 'semua') active @else active @endif" id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -69,7 +69,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') active @endif" id="pending" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') active @endif" id="pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -118,14 +118,14 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="5">Tidak ada data</td>
+                                <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
                         @endif
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'verifikasi') active @endif" id="verifikasi" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'verifikasi') active @endif" id="verifikasi" role="tabpanel" aria-labelledby="nav-verifikasi-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -140,7 +140,7 @@
                         <tbody>
                         @if($order->has('verifikasi'))
                             @foreach($order as $key => $v)
-                                @if($key == 'verifikasi ')
+                                @if($key == 'verifikasi')
                                     @foreach($order[$key] as $val)
                                         <tr>
                                             <td width="65">
@@ -181,7 +181,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'packing') active @endif" id="packing" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'packing') active @endif" id="packing" role="tabpanel" aria-labelledby="nav-packing-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -237,7 +237,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'dikirim') active @endif" id="dikirim" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'dikirim') active @endif" id="dikirim" role="tabpanel" aria-labelledby="nav-dikirim-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -294,7 +294,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses" role="tabpanel" aria-labelledby="nav-sukses-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -350,7 +350,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'batal') active @endif" id="batal" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'batal') active @endif" id="batal" role="tabpanel" aria-labelledby="nav-batal-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
