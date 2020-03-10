@@ -45,9 +45,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="#" class="btn btn--icon btn-sm btn--round btn-primary" data-toggle="modal" data-target="#alamatUtamaConfirm" onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
-                                    <i class="fa fa-podcast" aria-hidden="true"></i>
-                                    </a>
+                                    @if ($a->id_alamat != $a->user->alamat_utama)
+                                        <a href="#" class="btn btn--icon btn-sm btn--round btn-primary" data-toggle="modal" data-target="#alamatUtamaConfirm" onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
+                                            <i class="fa fa-podcast" aria-hidden="true"></i>
+                                        </a>
+                                    @endif
                                     <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalEdit{{ $n }}" data-toggle="modal">Edit
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
