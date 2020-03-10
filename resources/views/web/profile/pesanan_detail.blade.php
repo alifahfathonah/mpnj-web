@@ -46,7 +46,9 @@
                             <img src="{{ asset('assets/foto_produk/'.$detail->transaksi_detail->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
                         </td>
                         <td>
-                            <p class="title mb-0">{{ $detail->transaksi_detail->produk->nama_produk }}</p>
+                            <a href="{{ URL::to('produk/'.$detail->transaksi_detail->produk->slug) }}">
+                                <p class="title mb-0">{{ $detail->transaksi_detail->produk->nama_produk }}</p>
+                            </a>
                             <var class="price text-muted">
                                 @if($detail->transaksi_detail->diskon == 0)
                                 @currency($detail->transaksi_detail->harga_jual)

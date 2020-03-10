@@ -36,7 +36,9 @@
                                             <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
                                         </td>
                                         <td>
-                                            <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                            <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
+                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                            </a>
                                             <var class="price text-muted">
                                                 @if($val->diskon == 0)
                                                     <span style="color: black">@currency($val->harga_jual)</span>

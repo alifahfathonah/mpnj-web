@@ -18,7 +18,9 @@
                         <nav class="nav-home-aside">
                             <ul class="menu-category">
                                 @foreach ($kategori as $k)
-                                <li><a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a></li>
+                                    <li>
+                                        <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </nav>
@@ -182,11 +184,11 @@
         <div class="row row-sm">
             @foreach($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
-                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
-                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                            <a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
                         </div>
                         <div class="price mt-1">
                             @if($p->diskon == 0)
@@ -252,11 +254,11 @@
                             -ms-flex-align: start;
                             align-items: flex-start;
                             z-index: 1;padding:5px;font-size:small">Star Teller</div>
-                <div href="{{ URL::to('produk/'.$p->id_produk) }}" class="card card-sm card-product-grid shadow-sm">
-                    <a href="{{ URL::to('produk/'.$p->id_produk) }}" class=""> <img  class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img  class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
-                            <a href="{{ URL::to('produk/'.$p->id_produk) }}" class="title">{{ $p->nama_produk }}</a>
+                            <a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
                         </div>
                         <div class="price mt-1">
                              @if($p->diskon == 0)

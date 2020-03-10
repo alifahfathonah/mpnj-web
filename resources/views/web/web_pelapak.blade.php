@@ -79,10 +79,10 @@
 				<div class="row row-sm">
 					@foreach($produk->sortByDesc('id_produk') as $pl)
 					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+						<div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid">
 							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
 							<figcaption class="info-wrap">
-								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
 								<div class="price-wrap">
 									@if($pl->diskon == 0)
 									@currency($pl->harga_jual)
@@ -102,10 +102,10 @@
 				<div class="row row-sm">
 					@foreach($produk->sortByDesc('diskon') as $pl)
 					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+						<div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid">
 							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
 							<figcaption class="info-wrap">
-								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
 								<div class="price-wrap">
 									@if($pl->diskon == 0)
 									@currency($pl->harga_jual)
@@ -125,10 +125,10 @@
 				<div class="row row-sm">
 					@foreach($produk as $pl)
 					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-						<div href="{{ URL::to('produk/'.$pl->id_produk) }}" class="card card-sm card-product-grid">
+						<div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid">
 							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
 							<figcaption class="info-wrap">
-								<a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title">{{ $pl->nama_produk }}</a>
+								<a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
 								<div class="price-wrap">
 									@if($pl->diskon == 0)
 									@currency($pl->harga_jual)
