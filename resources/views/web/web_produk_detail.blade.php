@@ -157,7 +157,9 @@
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
-        <h5 class="title">Produk Lain Pelapak</h5>
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">PRODUK LAIN</h4>
+        </header>
         <div class="row">
             @foreach($produk_pelapak as $pl)
             <div class="col-md-3">
@@ -166,7 +168,7 @@
                         <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}" alt="Product Image">
                     </div> <!-- img-wrap.// -->
                     <figcaption class="info-wrap">
-                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
+                        <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
                         <div class="price-wrap">
                             @if($pl->diskon == 0)
                             @currency($pl->harga_jual)
@@ -178,7 +180,7 @@
                         </div> <!-- price-wrap.// -->
                         <p class="text">{{ $pl->pelapak->nama_toko }}</p>
                         <hr>
-                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
+                        <a href="{{ URL::to('produk/'.$pl->slug) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
                     </figcaption>
                 </figure>
             </div>
