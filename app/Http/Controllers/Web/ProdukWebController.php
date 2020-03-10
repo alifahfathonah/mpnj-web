@@ -54,12 +54,16 @@ class ProdukWebController extends Controller
         return view('web/web_produk', $data);
     }
 
-    public function produkId($id)
+    public function produkId($slug)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('id_produk', $id)->first();
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('slug', $slug)->first();
         $data['produk_pelapak'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('pelapak_id', $data['produk']->pelapak->id_pelapak)->get();
-        $data['review'] = Review::with(['produk', 'konsumen'])->where('produk_id', $id)->get();
-        $data['counts'] = Review::with(['produk', 'konsumen'])->where('produk_id', $id)->count();
+        $data['review'] = Review::with(['produk' => function($query) use ($slug) {
+            $query->where('slug', $slug);
+        }, 'konsumen'])->get();
+        $data['counts'] = Review::with(['produk' => function($query) use ($slug) {
+            $query->where('slug', $slug);
+        }, 'konsumen'])->count();
         return view('web/web_produk_detail', $data);
     }
 }
