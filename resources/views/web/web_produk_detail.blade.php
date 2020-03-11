@@ -96,7 +96,7 @@
                     <div class="form-row">
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
-                            <div class="aside"><img src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg" class="icon icon-md rounded-circle"></div>
+                            <div class="aside"><img src="{{ url('assets/foto_profil_konsumen/'. $produk->pelapak->foto_profil) }}" class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
@@ -132,7 +132,7 @@
 
                     @foreach ($review as $r)
                     <article class="media mb-3">
-                        <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
+                        <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
                         <div class="media-body">
                             <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
                             <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
