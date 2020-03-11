@@ -45,9 +45,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="#" class="btn btn--icon btn-sm btn--round btn-primary" data-toggle="modal" data-target="#alamatUtamaConfirm" onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
-                                    <i class="fa fa-podcast" aria-hidden="true"></i>
-                                    </a>
+                                    @if ($a->id_alamat != $a->user->alamat_utama)
+                                        <a href="#" class="btn btn--icon btn-sm btn--round btn-primary" data-toggle="modal" data-target="#alamatUtamaConfirm" onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
+                                            <i class="fa fa-podcast" aria-hidden="true"></i>
+                                        </a>
+                                    @endif
                                     <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalEdit{{ $n }}" data-toggle="modal">Edit
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
@@ -112,7 +114,7 @@
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="alamat_lengkap" cols="30" rows="10"></textarea>
+                        <textarea name="alamat_lengkap" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
@@ -144,7 +146,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nama Santri</label>
-                        <input type="text" name="nama" class="form-control">
+                        <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
                     </div>
                         <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
                         <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
@@ -155,31 +157,31 @@
 
                     <div class="form-group">
                         <label>Wilayah</label>
-                        <select name="wilayah" class="form-control" readonly>
-                            <option value="Pusat" selected>Pusat</option>
-                            <option value="Dalem Barat" selected>Dalem Barat</option>
-                            <option value="Dalem Timur" selected>Dalem Timur</option>
-                            <option value="Dalem Selatan" selected>Dalem Selatan</option>
-                            <option value="Al-Amiri" selected>Al-Amiri</option>
-                            <option value="Zaid Bin Tsabit" selected>Zaid Bin Tsabit</option>
+                        <select name="wilayah" class="form-control">
+                            <option value="Pusat" {{ ($a->wilayah == 'Pusat' ? 'selected' : '') }}>Pusat</option>
+                            <option value="Dalem Barat" {{ ($a->wilayah == 'Dalem Barat' ? 'selected' : '') }}>Dalem Barat</option>
+                            <option value="Dalem Timur" {{ ($a->wilayah == 'Dalem Timur' ? 'selected' : '') }}>Dalem Timur</option>
+                            <option value="Dalem Selatan" {{ ($a->wilayah == 'Dalem Selatan' ? 'selected' : '') }}>Dalem Selatan</option>
+                            <option value="Al-Amiri" {{ ($a->wilayah == 'Al-Amiri' ? 'selected' : '') }}>Al-Amiri</option>
+                            <option value="Zaid Bin Tsabit" {{ ($a->wilayah == 'Zaid Bin Tsabit' ? 'selected' : '') }}>Zaid Bin Tsabit</option>
                         </select>
                         </div>
                     <div class="form-group">
                         <label>Gang</label>
                         <select name="gang" class="form-control" readonly>
-                            <option value="A" selected>A</option>
-                            <option value="B" selected>B</option>
-                            <option value="C" selected>C</option>
-                            <option value="D" selected>D</option>
-                            <option value="E" selected>E</option>
-                            <option value="F" selected>F</option>
-                            <option value="G" selected>G</option>
-                            <option value="H" selected>H</option>
-                            <option value="I" selected>I</option>
-                            <option value="J" selected>J</option>
-                            <option value="K" selected>K</option>
-                            <option value="L" selected>L</option>
-                            <option value="M" selected>M</option>
+                            <option value="A" {{ ($a->gang == 'A' ? 'selected' : '') }}>A</option>
+                            <option value="B" {{ ($a->gang == 'B' ? 'selected' : '') }}>B</option>
+                            <option value="C" {{ ($a->gang == 'C' ? 'selected' : '') }}>C</option>
+                            <option value="D" {{ ($a->gang == 'D' ? 'selected' : '') }}>D</option>
+                            <option value="E" {{ ($a->gang == 'E' ? 'selected' : '') }}>E</option>
+                            <option value="F" {{ ($a->gang == 'F' ? 'selected' : '') }}>F</option>
+                            <option value="G" {{ ($a->gang == 'G' ? 'selected' : '') }}>G</option>
+                            <option value="H" {{ ($a->gang == 'H' ? 'selected' : '') }}>H</option>
+                            <option value="I" {{ ($a->gang == 'I' ? 'selected' : '') }}>I</option>
+                            <option value="J" {{ ($a->gang == 'J' ? 'selected' : '') }}>J</option>
+                            <option value="K" {{ ($a->gang == 'K' ? 'selected' : '') }}>K</option>
+                            <option value="L" {{ ($a->gang == 'L' ? 'selected' : '') }}>L</option>
+                            <option value="M" {{ ($a->gang == 'M' ? 'selected' : '') }}>M</option>
                         </select>
                     </div>
                     

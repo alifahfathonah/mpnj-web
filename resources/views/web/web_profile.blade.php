@@ -18,6 +18,7 @@
 						<a href="{{ URL::to('profile') }}" class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }} list-group-item list-group-item-action">Profil</a>
 						<a href="{{ URL::to('profile/alamat') }}" class="{{ Route::currentRouteName() == 'alamat' ? 'active' : '' }} list-group-item list-group-item-action">Alamat</a>
 						<a href="{{ URL::to('pesanan') }}" class="{{ Route::currentRouteName() == 'pesanan' ? 'active' : '' }} list-group-item list-group-item-action">Transaksi</a>
+						<a href="{{ URL::to('konfirmasi') }}" class="{{ Route::currentRouteName() == 'konfirmasi' ? 'active' : '' }} list-group-item list-group-item-action">Konfirmasi</a>
 					</div>
 
 					<a class="btn btn-light btn-block" href="{{ route('keluar') }}"> <i class="fa fa-power-off"></i> <span class="text">Keluar</span> </a>
