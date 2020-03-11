@@ -126,32 +126,6 @@
                 </div> <!-- col.// -->
             </div> <!-- row.// -->
         </div> <!-- container.// -->
-        <!--
-        <nav class="navbar navbar-expand-sm p-md-0 bg-light mb-0 pb-0">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav3" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="main_nav3">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-0" href="{{ URL::to('/') }}"> <strong>Home</strong></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::to('/produk') }}">Semua Produk</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-                            <div class="dropdown-menu">
-                                @foreach ($kategori as $k)
-                                <a class="dropdown-item" href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
-                                @endforeach
-                            </div>
-                        </li>
-                    </ul>
-                </div>  collapse .// -->
-        </div> <!-- container .// -->
-        </nav> <!-- navbar main end.// -->
     </section> <!-- header-main .// -->
 
     <div class="corner-ribbon bottom-right sticky blue shadow">COMMIT UNUJA</div>
