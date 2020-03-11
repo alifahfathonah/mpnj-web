@@ -72,10 +72,11 @@
      @php $edited = false; @endphp
         <hr>
 
+        @if($detail->status_order == 'sukses')
         <div class="card-body">
             <div class="row">
                 <div class="col-md-10">
-                    <h6 class="text-dark">Review</h6>
+                  <h4 class="card-title mb-4">Review</h4>
                     @if($review != '')
                     <div class="small">{{ $review->updated_at->format('d M Y') }}</div>
                     <div class="rating-wrap my-3">
@@ -94,36 +95,64 @@
                     </div>
                     <p class="mb-">{{ $review->review}}</p>
                     @else
-                    <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
-                        @csrf
-                        <ul>
-                            <li>
-                                <p>Bintang</p>
-                                <div class="right_content btn btn--round btn--white btn--md">
-                                    <select name="bintang" class="give_rating">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </li>
-                        </ul>
-                        <input type="hidden" name="id_produk" value="{{ $detail->transaksi_detail->produk->id_produk }}">
-                        <div class="rating_field">
-                            <label for="rating_field">Komentar</label>
-                            <textarea name="review" id="rating_field" class="text_field" placeholder="Beri komentar Barang yang Sesuai. "></textarea>
-                        </div>
-                        <div class="rating_field">
-                            <label for="rating_field">Foto</label>
-                            <input type="file" name="foto_review" id="foto_review" class="form-control">
-                            <p class="notice">Terima kasih Sudah Mereview Barang Kami. </p>
-                        </div>
-                        <button type="submit" class="btn btn--round btn--default">Kirim</button>
-                    </form>
-                    @endif
+                   
+                   
+      <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="id_produk" value="{{ $detail->produk->id_produk }}">
+		<h5 class="card-title">Bintang</h5>
+                                        
+            <label class="custom-control custom-radio">
+            <input type="radio" name="bintang" checked="" class="custom-control-input" value="1">
+            <div class="custom-control-label text-warning"> 
+            <i class="fa fa-star"></i>
+        </div>
+            </label>
 
+            <label class="custom-control custom-radio">
+            <input type="radio" name="bintang" checked="" class="custom-control-input" value="2">
+            <div class="custom-control-label text-warning"> 
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+        </div>
+            </label>
+
+            <label class="custom-control custom-radio">
+            <input type="radio" name="bintang" class="custom-control-input" value="3">
+            <div class="custom-control-label text-warning"> 
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+        </div>
+            </label>
+
+            <label class="custom-control custom-radio">
+            <input type="radio" name="bintang" class="custom-control-input" value="4">
+            <div class="custom-control-label text-warning"> 
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+            <i class="fa fa-star"></i> 
+        </div>
+            </label>
+
+            <label class="custom-control custom-radio">
+            <input type="radio" name="bintang" class="custom-control-input" value="5">
+            <div class="custom-control-label text-warning"> 
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+        </div>
+            </label>
+
+            <br>
+
+		<div class="form-group">
+			<label>Komentar Produk</label>
+			<textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
+		</div>
+		<div class="form-group">
+			<label for="exampleFormControlFile1">
+    			<input type="file" name="foto_review" id="foto_review" class="form-control-file">
+    		</label>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Send</button>
+      </form>
+                 @endif
                 </div>
             </div> <!-- row.// -->
         </div>
