@@ -20,24 +20,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li> -->
                     @endif
                 </ul>
-                <!--<ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-0" href="{{ URL::to('/') }}"> <strong>Home</strong></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::to('/produk') }}">Semua Produk</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-                            <div class="dropdown-menu">
-                                @foreach ($kategori as $k)
-                                <a class="dropdown-item" href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}">{{ $k->nama_kategori }}</a>
-                                @endforeach
-                            </div>
-                        </li>
-                    </ul>
-                <!--
-                <!-- list-inline //  -->
             </div> <!-- navbar-collapse .// -->
         </div> <!-- container //  -->
     </nav>
