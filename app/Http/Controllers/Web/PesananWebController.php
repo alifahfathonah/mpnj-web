@@ -34,11 +34,12 @@ class PesananWebController extends Controller
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
 
-        $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($id_trx) {
-                            $query->where('id_transaksi_detail', $id_trx);
-                        }])
-                        ->first();
        $data['review'] = Review::where('produk_id', $data['detail']->transaksi_detail->produk_id)->where('konsumen_id', $konsumen_id)->first();
+        // $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($id_trx) {
+        //     $query->where('id_transaksi_detail', $id_trx);
+        // }])
+        //     ->first();
+        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id_trx)->first();
 
         return view('web/web_profile', $data);
 //        return $data['detail'];
