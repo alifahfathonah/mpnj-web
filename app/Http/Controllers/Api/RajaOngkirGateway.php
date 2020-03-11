@@ -19,7 +19,7 @@ class RajaOngkirGateway extends Controller
     public function provinsi()
     {
 //        $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
+        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
             'headers' => [
                 'key' => $this->token
             ]
@@ -28,11 +28,23 @@ class RajaOngkirGateway extends Controller
         return $data;
     }
 
+    public function semuaKota()
+    {
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://pro.rajaongkir.com/api/city?city', [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['kota'] = json_decode($request, false);
+        return $data;
+    }
+
     public function kota(Request $request)
     {
         $id = $request->query('provinsi');
 //        $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://api.rajaongkir.com/starter/city?province='.$id, [
+        $request = $this->client->get('https://pro.rajaongkir.com/api/city?province='.$id, [
             'headers' => [
                 'key' => $this->token
             ]
@@ -45,12 +57,38 @@ class RajaOngkirGateway extends Controller
     {
         $id = $request->query('id');
 //        $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://api.rajaongkir.com/starter/city?id='.$id, [
+        $request = $this->client->get('https://pro.rajaongkir.com/api/city?id='.$id, [
             'headers' => [
                 'key' => $this->token
             ]
         ])->getBody()->getContents();
         $data['kota'] = json_decode($request, false);
+        return $data;
+    }
+
+    public function kecamatan(Request $request)
+    {
+        $id = $request->query('id');
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://pro.rajaongkir.com/api/subdistrict?city='.$id, [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['kecamatan'] = json_decode($request, false);
+        return $data;
+    }
+
+    public function kecamatanId(Request $request)
+    {
+        $id = $request->query('id');
+//        $response = $this->client->get('http://guzzlephp.org');
+        $request = $this->client->get('https://pro.rajaongkir.com/api/subdistrict?id='.$id, [
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['kecamatan'] = json_decode($request, false);
         return $data;
     }
 
@@ -61,7 +99,7 @@ class RajaOngkirGateway extends Controller
         $berat = $request->berat;
         $kurir = $request->kurir;
 
-        $request = $this->client->post('https://api.rajaongkir.com/starter/cost',[
+        $request = $this->client->post('https://pro.rajaongkir.com/api/cost',[
             'form_params' => [
                 'origin' => $asal,
                 'destination' => $tujuan,
