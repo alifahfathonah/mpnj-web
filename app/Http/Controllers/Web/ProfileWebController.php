@@ -121,9 +121,11 @@ class ProfileWebController extends Controller
             'city_id' => $request->kota,
             'nama_kota' => $request->nama_kota,
             'kode_pos' => $request->kode_pos,
-            'kecamatan_id' => 0,
+            'kecamatan_id' => $request->kecamatan,
+            'nama_kecamatan' => $request->nama_kecamatan,
+            ($request->exists('wilayah') ? ['wilayah' => $request->wilayah ] : ''),
+            ($request->exists('gang') ? ['gang' => $request->gang] : ''),
             'alamat_lengkap' => $request->alamat_lengkap,
-            'alamat_santri' => 'wilayah : ' . $request->wilayah . ', Gang : ' . $request->gang,
             'user_id' => $user_id,
             'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
@@ -148,7 +150,10 @@ class ProfileWebController extends Controller
             'city_id' => $request->kota,
             'nama_kota' => $request->nama_kota,
             'kode_pos' => $request->kode_pos,
-            'kecamatan_id' => 0,
+            'kecamatan_id' => $request->kecamatan,
+            'nama_kecamatan' => $request->nama_kecamatan,
+            ($request->exists('wilayah') ? ['wilayah' => $request->wilayah ] : ''),
+            ($request->exists('gang') ? ['gang' => $request->gang] : ''),
             'alamat_lengkap' => $request->alamat_lengkap,
             'user_id' => $user_id,
             'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
