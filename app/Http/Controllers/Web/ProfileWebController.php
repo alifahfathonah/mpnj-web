@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Api\RajaOngkirGateway;
 use App\Http\Controllers\Controller;
 use App\Models\Alamat;
 use App\Models\Konsumen;
@@ -89,20 +90,24 @@ class ProfileWebController extends Controller
             ->get();
 
         $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://api.rajaongkir.com/starter/province', [
+        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
             'headers' => [
                 'key' => $this->token
             ]
         ])->getBody()->getContents();
         $data['provinsi'] = json_decode($request, false);
 
-        $request = $this->client->get('https://api.rajaongkir.com/starter/city', [
+        $request = $this->client->get('https://pro.rajaongkir.com/api/city', [
             'headers' => [
                 'key' => $this->token
             ]
         ])->getBody()->getContents();
 
         $data['kota'] = json_decode($request, false);
+
+//        $rajaongkirGateway = new RajaOngkirGateway();
+//        $data['provinsi'] = $rajaongkirGateway->provinsi();
+//        $data['kota'] = $rajaongkirGateway->semuaKota();
 
         return view('web/web_profile', $data);
     }
