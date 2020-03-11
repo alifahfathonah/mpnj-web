@@ -109,8 +109,15 @@
                         <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label>Kecamatan</label>
+                        <select name="kecamatan" id="kecamatan" class="form-control">
+                            <option>-- PILIH Kecamatan --</option>
+                        </select>
+                        <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label>Kode Pos</label>
-                        <input type="text" name="kode_pos" id="kode_pos" class="form-control" readonly>
+                        <input type="text" name="kode_pos" id="kode_pos" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
@@ -249,8 +256,15 @@
                             <input type="hidden" name="nama_kota" id="edit_nama_kota{{ $m }}" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="editKecamatan" class="form-control" onchange="editKecamatan({{ $m }})">
+                                <option>-- PILIH Kecamatan --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Kode Pos</label>
-                            <input type="text" name="kode_pos" id="kode_pos{{ $m }}" class="form-control" value="{{ $a->kode_pos }}" readonly>
+                            <input type="text" name="kode_pos" id="kode_pos{{ $m }}" class="form-control" value="{{ $a->kode_pos }}">
                         </div>
                         <div class="form-group">
                             <label>Alamat</label>
@@ -339,17 +353,26 @@
                $("#nama_kota").val($("#kota option:selected").html());
                $.ajax({
                    async: true,
-                   url: '{{ URL::to('api/gateway/kotaId?id=') }}' + $('#kota').val(),
+                   url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
                    type: 'GET',
                    success: function(response) {
-                       // console.log(response.kota);
-                       $('#kode_pos').val(response.kota.rajaongkir.results.postal_code);
+                       // console.log(response);
+                       $("#kecamatan option").remove();
+                       response.kecamatan.rajaongkir.results.map(e => {
+                           $("#kecamatan").append(`
+                                <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
+                           `);
+                       });
                    },
                    error: function(error) {
                        console.log(error);
                    }
                });
            });
+
+            $("#kecamatan").on('change', function () {
+                $("#nama_kecamatan").val($("#kecamatan option:selected").html());
+            });
 
         });
 
@@ -388,6 +411,10 @@
                     console.log(error);
                 }
             });
+        }
+
+        function editKecamatan(i) {
+            $(`#edit_nama_kecamatan${i}`).val($(`#editKecamatan${i} option:selected`).html());
         }
 
         function hapusAlamat(id) {
