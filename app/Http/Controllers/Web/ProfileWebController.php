@@ -128,12 +128,15 @@ class ProfileWebController extends Controller
             'kode_pos' => $request->kode_pos,
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
-            ($request->exists('wilayah') ? ['wilayah' => $request->wilayah ] : ''),
-            ($request->exists('gang') ? ['gang' => $request->gang] : ''),
             'alamat_lengkap' => $request->alamat_lengkap,
             'user_id' => $user_id,
             'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
+
+        if ($request->has('wilayah') AND $request->has('gang')) {
+            $data['wilayah'] = $request->wilayah;
+            $data['gang'] = $request->gang;
+        }
 
         $simpan = Alamat::create($data);
         if ($simpan) {
