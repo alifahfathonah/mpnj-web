@@ -16,19 +16,29 @@ class ReviewWebController extends Controller
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
 
-        $foto_review = $request->file('foto_review');
-        $name = uniqid() . '_foto_review_' . trim($foto_review->getClientOriginalName());
-        $img = ImageResize::make($foto_review->path());
-        // --------- [ Resize Image ] ---------------
-        $img->resize(100, 100)->save('assets/foto_review/'.$name);
+        if ($request->hasFile('foto_review')) {
+            $foto_review = $request->file('foto_review');
+            $name = uniqid() . '_foto_review_' . trim($foto_review->getClientOriginalName());
 
-        $review = [
-            'konsumen_id' => $konsumen_id,
-            'produk_id' => $request->id_produk,
-            'review' => $request->review,
-            'bintang' => $request->bintang,
-            'foto_review' => $name
-        ];
+            $img = ImageResize::make($foto_review);
+            // --------- [ Resize Image ] ---------------
+            $img->resize(100, 100)->save('assets/foto_review/'.$name);
+
+            $review = [
+                'konsumen_id' => $konsumen_id,
+                'produk_id' => $request->id_produk,
+                'review' => $request->review,
+                'bintang' => $request->bintang,
+                'foto_review' => $name
+            ];
+        } else {
+            $review = [
+                'konsumen_id' => $konsumen_id,
+                'produk_id' => $request->id_produk,
+                'review' => $request->review,
+                'bintang' => $request->bintang
+            ];
+        }
 
         $simpan = Review::create($review);
         if ($simpan) {
