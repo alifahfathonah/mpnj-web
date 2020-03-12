@@ -96,7 +96,7 @@
                     <div class="form-row">
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
-                            <div class="aside"><img src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg" class="icon icon-md rounded-circle"></div>
+                            <div class="aside"><img src="{{ url('assets/foto_profil_konsumen/'. $produk->pelapak->foto_profil) }}" class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
@@ -132,7 +132,7 @@
 
                     @foreach ($review as $r)
                     <article class="media mb-3">
-                        <img class="img-sm mr-3" src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
+                        <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
                         <div class="media-body">
                             <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
                             <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
@@ -162,27 +162,52 @@
         </header>
         <div class="row">
             @foreach($produk_pelapak as $pl)
-            <div class="col-md-3">
-                <figure class="card card-product-grid">
-                    <div class="img-wrap">
-                        <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}" alt="Product Image">
-                    </div> <!-- img-wrap.// -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
-                        <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
-                        <div class="price-wrap">
+                        <div class="namaProduk-rapi">
+                            <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
+                        </div>
+                        <div class="price mt-1">
                             @if($pl->diskon == 0)
-                            @currency($pl->harga_jual)
+                            <span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($pl->harga_jual)</span>
+                            </span>
                             @else
-                            <strike style="color: red">
-                                @currency($pl->harga_jual)
-                            </strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+
+                            <span style="color: green">
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))</span>
+                            </span>
+                            <span style="color: gray">
+                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
+                            </span>
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <p class="text">{{ $pl->pelapak->nama_toko }}</p>
-                        <hr>
-                        <a href="{{ URL::to('produk/'.$pl->slug) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
+                        <div class="row">
+                            <div class="col" style="">
+                                <ul class="rating-stars">
+                                    <li style="width:50%" class="stars-active">
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
+                                    </li>
+                                </ul>
+                                <span class="rating-stars" style="font-size:small;">(125)</span>
+                            </div> <!-- rating-wrap.// -->
+
+                        </div>
+                        <div class="row">
+                            <div class="col" style="font-size:small">PAITON {{$pl->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="text-right col text-success" style="font-size:small;">{{$pl->terjual}} terjual</div>
+                        </div>
                     </figcaption>
-                </figure>
+                </div>
             </div>
             @endforeach
         </div>
@@ -192,25 +217,25 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(function() {
-            $("#button-plus").click(function() {
-                //   alert()
-                let jml = $("#jml").val();
-                $("#jumlah").val(parseInt(jml) + 1);
-                $("#jml").val(parseInt(jml) + 1);
-            });
-
-            $("#button-minus").click(function() {
-                let jml = $("#jml").val();
-                $("#jumlah").val(parseInt(jml) - 1);
-                $("#jml").val(parseInt(jml) - 1);
-            });
+<script>
+    $(function() {
+        $("#button-plus").click(function() {
+            //   alert()
+            let jml = $("#jml").val();
+            $("#jumlah").val(parseInt(jml) + 1);
+            $("#jml").val(parseInt(jml) + 1);
         });
-        function gantiFoto(id) {
-            let src = $("#foto_produk" + id).attr('src');
-            $("#thumbFoto").attr('src', src);
-        };
 
-    </script>
+        $("#button-minus").click(function() {
+            let jml = $("#jml").val();
+            $("#jumlah").val(parseInt(jml) - 1);
+            $("#jml").val(parseInt(jml) - 1);
+        });
+    });
+
+    function gantiFoto(id) {
+        let src = $("#foto_produk" + id).attr('src');
+        $("#thumbFoto").attr('src', src);
+    };
+</script>
 @endpush
