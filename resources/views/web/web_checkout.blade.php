@@ -47,7 +47,7 @@
                     <div class="card table-responsive">
 
                         <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-muted">
+                            <thead class="text-dark">
                             <tr class="small text-uppercase">
                                 <th scope="col">Produk</th>
                                 <th scope="col">Berat</th>
