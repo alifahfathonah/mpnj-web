@@ -153,6 +153,23 @@
                             <p class="mb-">{{ $r->review}}</p>
                     </article>
                     @endforeach
+
+                    <nav class="mb-4">
+            @if($review->lastPage() > 1)
+            <ul class="pagination center">
+                @if($review->currentPage() != $review->onFirstPage())
+                <li class="page-item"><a class="page-link" href="{{ $review->previousPageUrl() }}">Previous</a></li>
+                @endif
+                @for($i = 1; $i <= $review->lastPage(); $i++)
+                    <li class="page-item active"><a class="page-link {{ $i == $review->currentPage() ? 'current' : '' }}" href="{{ $review->url($i) }}">{{ $i }}</a></li>
+                    @endfor
+                    @if($review->currentPage() != $review->lastPage())
+                    <li class="page-item"><a class="page-link" href="{{ $review->nextPageUrl()  }}">Next</a></li>
+                    @endif
+            </ul>
+            @endif
+        </nav>
+
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
