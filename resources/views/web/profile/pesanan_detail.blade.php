@@ -94,6 +94,7 @@
                         </ul>
                     </div>
                     <p class="mb-">{{ $review->review}}</p>
+                        <img src="{{ asset('assets/foto_review/'.$review->foto_review) }}" class="img-x border">
                     @else
                    
                    
