@@ -63,6 +63,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/', 'CheckoutWebController@index');
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
+        Route::get('batal/{id}', 'CheckoutWebController@batal');
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
