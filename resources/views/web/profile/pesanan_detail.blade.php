@@ -113,67 +113,67 @@
                         </ul>
                     </div>
                     <p class="mb-">{{ $review->review}}</p>
-                        <img src="{{ asset('assets/foto_review/'.$review->foto_review) }}" class="img-x border">
+                    <img src="{{ asset('assets/foto_review/'.$review->foto_review) }}" class="img-x border">
                     @else
-                   
-                   
-      <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="id_produk" value="{{ $detail->produk->id_produk }}">
-		<h5 class="card-title">Bintang</h5>
-                                        
-            <label class="custom-control custom-radio">
-            <input type="radio" name="bintang" checked="" class="custom-control-input" value="1">
-            <div class="custom-control-label text-warning"> 
-            <i class="fa fa-star"></i>
-        </div>
-            </label>
 
-            <label class="custom-control custom-radio">
-            <input type="radio" name="bintang" checked="" class="custom-control-input" value="2">
-            <div class="custom-control-label text-warning"> 
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-        </div>
-            </label>
 
-            <label class="custom-control custom-radio">
-            <input type="radio" name="bintang" class="custom-control-input" value="3">
-            <div class="custom-control-label text-warning"> 
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-        </div>
-            </label>
+                    <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id_produk" value="{{ $detail->produk->id_produk }}">
+                        <h5 class="card-title">Bintang</h5>
 
-            <label class="custom-control custom-radio">
-            <input type="radio" name="bintang" class="custom-control-input" value="4">
-            <div class="custom-control-label text-warning"> 
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-            <i class="fa fa-star"></i> 
-        </div>
-            </label>
+                        <label class="custom-control custom-radio">
+                            <input type="radio" name="bintang" checked="" class="custom-control-input" value="1">
+                            <div class="custom-control-label text-warning">
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </label>
 
-            <label class="custom-control custom-radio">
-            <input type="radio" name="bintang" class="custom-control-input" value="5">
-            <div class="custom-control-label text-warning"> 
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-        </div>
-            </label>
+                        <label class="custom-control custom-radio">
+                            <input type="radio" name="bintang" checked="" class="custom-control-input" value="2">
+                            <div class="custom-control-label text-warning">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                            </div>
+                        </label>
 
-            <br>
+                        <label class="custom-control custom-radio">
+                            <input type="radio" name="bintang" class="custom-control-input" value="3">
+                            <div class="custom-control-label text-warning">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                            </div>
+                        </label>
 
-		<div class="form-group">
-			<label>Komentar Produk</label>
-			<textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
-		</div>
-		<div class="form-group">
-			<label>Foto Produk</label><br>
-			<label for="exampleFormControlFile1">
-    			<input type="file" name="foto_review" id="foto_review" class="form-control-file">
-    		</label>
-		</div>
-		<button type="submit" class="btn btn-primary btn-block">Send</button>
-      </form>
-                 @endif
+                        <label class="custom-control custom-radio">
+                            <input type="radio" name="bintang" class="custom-control-input" value="4">
+                            <div class="custom-control-label text-warning">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </label>
+
+                        <label class="custom-control custom-radio">
+                            <input type="radio" name="bintang" class="custom-control-input" value="5">
+                            <div class="custom-control-label text-warning">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                            </div>
+                        </label>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Komentar Produk</label>
+                            <textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Foto Produk</label><br>
+                            <label for="exampleFormControlFile1">
+                                <input type="file" name="foto_review" id="foto_review" class="form-control-file">
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                    </form>
+                    @endif
                 </div>
             </div> <!-- row.// -->
         </div>
