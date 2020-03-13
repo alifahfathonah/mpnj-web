@@ -59,7 +59,7 @@
                             <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">
                                 <p class="title mb-0">{{ $detail->produk->nama_produk }}</p>
                             </a>
-                            <var class="price text-muted">
+                            <var class="price text">
                                 @if($detail->diskon == 0)
                                 @currency($detail->harga_jual)
                                 @else
