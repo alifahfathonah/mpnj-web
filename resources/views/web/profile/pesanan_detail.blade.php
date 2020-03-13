@@ -157,6 +157,7 @@
 			<textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
 		</div>
 		<div class="form-group">
+			<label>Foto Produk</label><br>
 			<label for="exampleFormControlFile1">
     			<input type="file" name="foto_review" id="foto_review" class="form-control-file">
     		</label>
