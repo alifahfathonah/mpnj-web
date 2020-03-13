@@ -74,19 +74,28 @@
                             @else
                             @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah)
                             @endif </td>
-                            
+
                     </tr>
                 </tbody>
             </table>
         </div>
-     @php $edited = false; @endphp
+        @php $edited = false; @endphp
         <hr>
-
+        @if($detail->transaksi->proses_pembayaran == 'belum')
+        @if($detail->status_order == 'pending')
+        <a href="{{ URL::to('pesanan/dibatalkan/'.$detail->id_transaksi_detail) }}" class="btn btn-danger">Batalkan</a>
+        @endif
+        @if($detail->status_order == 'batal')
+        <div class="alert alert-info">
+            Pesanan <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">Produk ini</a> Telah Anda Batalkan !
+        </div>
+        @endif
+        @endif
         @if($detail->status_order == 'sukses')
         <div class="card-body">
             <div class="row">
                 <div class="col-md-10">
-                  <h4 class="card-title mb-4">Review</h4>
+                    <h4 class="card-title mb-4">Review</h4>
                     @if($review != '')
                     <div class="small">{{ $review->updated_at->format('d M Y') }}</div>
                     <div class="rating-wrap my-3">
