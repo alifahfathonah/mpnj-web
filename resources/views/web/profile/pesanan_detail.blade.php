@@ -1,17 +1,17 @@
 <main class="col-md-12">
     <article class="card">
         <header class="card-header">
-            <strong class="d-inline-block mr-3">Kode Transaksi: {{ $detail->transaksi->kode_transaksi }}</strong>
+            <strong class="d-inline-block">Kode Transaksi: {{ $detail->transaksi->kode_transaksi }}</strong>
             <hr>
             <div class="col-md-8">
-                    <h6 class="text-dark">Keterangan</h6>
-                    <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
-                     <span class="text-danger">
+                <h6 class="text-dark">Keterangan</h6>
+                <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
+                    <span class="text-danger">
                         {{ $detail->transaksi->proses_pembayaran }} dibayar
                     </span><br>
-                        Waktu Pesanan: {{ $detail->transaksi->waktu_transaksi }}<br>
-                    </p>
-                </div>
+                    Waktu Pesanan: {{ $detail->transaksi->waktu_transaksi }}<br>
+                </p>
+            </div>
 
         </header>
         <div class="card-body">
