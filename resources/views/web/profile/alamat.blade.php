@@ -132,74 +132,78 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Tambah Data Alamat Santri</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!-- end /.modal-header -->
+@foreach($alamat as $a)
+    <div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Tambah Data Alamat Santri</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
 
-            <div class="modal-body">
-                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <h3>Pondok Pesantren Nurul Jadid</h3>
-                        <h4>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</h4>
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Santri</label>
-                        <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
-                    </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <h3>Pondok Pesantren Nurul Jadid</h3>
+                            <h4>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</h4>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Santri</label>
+                            <input type="text" name="nama" class="form-control" value="{{ $a->wilayah }}">
+                        </div>
                         <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
                         <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
+                        <input type="hidden" name="nama_kecamatan" class="form-control" value="Paiton">
                         <input type="hidden" name="kode_pos" class="form-control" value="67291">
                         <input type="hidden" name="alamat_lengkap" class="form-control" value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
                         <input type="hidden" name="provinsi" class="form-control" value="11">
                         <input type="hidden" name="kota" class="form-control" value="369">
+                        <input type="hidden" name="kecamatan" class="form-control" value="5155">
 
-                    <div class="form-group">
-                        <label>Wilayah</label>
-                        <select name="wilayah" class="form-control">
-                            <option value="Pusat" {{ ($a->wilayah == 'Pusat' ? 'selected' : '') }}>Pusat</option>
-                            <option value="Dalem Barat" {{ ($a->wilayah == 'Dalem Barat' ? 'selected' : '') }}>Dalem Barat</option>
-                            <option value="Dalem Timur" {{ ($a->wilayah == 'Dalem Timur' ? 'selected' : '') }}>Dalem Timur</option>
-                            <option value="Dalem Selatan" {{ ($a->wilayah == 'Dalem Selatan' ? 'selected' : '') }}>Dalem Selatan</option>
-                            <option value="Al-Amiri" {{ ($a->wilayah == 'Al-Amiri' ? 'selected' : '') }}>Al-Amiri</option>
-                            <option value="Zaid Bin Tsabit" {{ ($a->wilayah == 'Zaid Bin Tsabit' ? 'selected' : '') }}>Zaid Bin Tsabit</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Wilayah</label>
+                            <select name="wilayah" class="form-control">
+                                <option value="Pusat" {{ ($a->wilayah == 'Pusat' ? 'selected' : '') }}>Pusat</option>
+                                <option value="Dalem Barat" {{ ($a->wilayah == 'Dalem Barat' ? 'selected' : '') }}>Dalem Barat</option>
+                                <option value="Dalem Timur" {{ ($a->wilayah == 'Dalem Timur' ? 'selected' : '') }}>Dalem Timur</option>
+                                <option value="Dalem Selatan" {{ ($a->wilayah == 'Dalem Selatan' ? 'selected' : '') }}>Dalem Selatan</option>
+                                <option value="Al-Amiri" {{ ($a->wilayah == 'Al-Amiri' ? 'selected' : '') }}>Al-Amiri</option>
+                                <option value="Zaid Bin Tsabit" {{ ($a->wilayah == 'Zaid Bin Tsabit' ? 'selected' : '') }}>Zaid Bin Tsabit</option>
+                            </select>
                         </div>
-                    <div class="form-group">
-                        <label>Gang</label>
-                        <select name="gang" class="form-control" readonly>
-                            <option value="A" {{ ($a->gang == 'A' ? 'selected' : '') }}>A</option>
-                            <option value="B" {{ ($a->gang == 'B' ? 'selected' : '') }}>B</option>
-                            <option value="C" {{ ($a->gang == 'C' ? 'selected' : '') }}>C</option>
-                            <option value="D" {{ ($a->gang == 'D' ? 'selected' : '') }}>D</option>
-                            <option value="E" {{ ($a->gang == 'E' ? 'selected' : '') }}>E</option>
-                            <option value="F" {{ ($a->gang == 'F' ? 'selected' : '') }}>F</option>
-                            <option value="G" {{ ($a->gang == 'G' ? 'selected' : '') }}>G</option>
-                            <option value="H" {{ ($a->gang == 'H' ? 'selected' : '') }}>H</option>
-                            <option value="I" {{ ($a->gang == 'I' ? 'selected' : '') }}>I</option>
-                            <option value="J" {{ ($a->gang == 'J' ? 'selected' : '') }}>J</option>
-                            <option value="K" {{ ($a->gang == 'K' ? 'selected' : '') }}>K</option>
-                            <option value="L" {{ ($a->gang == 'L' ? 'selected' : '') }}>L</option>
-                            <option value="M" {{ ($a->gang == 'M' ? 'selected' : '') }}>M</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
-                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
-                </form>
+                        <div class="form-group">
+                            <label>Gang</label>
+                            <select name="gang" class="form-control" readonly>
+                                <option value="A" {{ ($a->gang == 'A' ? 'selected' : '') }}>A</option>
+                                <option value="B" {{ ($a->gang == 'B' ? 'selected' : '') }}>B</option>
+                                <option value="C" {{ ($a->gang == 'C' ? 'selected' : '') }}>C</option>
+                                <option value="D" {{ ($a->gang == 'D' ? 'selected' : '') }}>D</option>
+                                <option value="E" {{ ($a->gang == 'E' ? 'selected' : '') }}>E</option>
+                                <option value="F" {{ ($a->gang == 'F' ? 'selected' : '') }}>F</option>
+                                <option value="G" {{ ($a->gang == 'G' ? 'selected' : '') }}>G</option>
+                                <option value="H" {{ ($a->gang == 'H' ? 'selected' : '') }}>H</option>
+                                <option value="I" {{ ($a->gang == 'I' ? 'selected' : '') }}>I</option>
+                                <option value="J" {{ ($a->gang == 'J' ? 'selected' : '') }}>J</option>
+                                <option value="K" {{ ($a->gang == 'K' ? 'selected' : '') }}>K</option>
+                                <option value="L" {{ ($a->gang == 'L' ? 'selected' : '') }}>L</option>
+                                <option value="M" {{ ($a->gang == 'M' ? 'selected' : '') }}>M</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
+                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                    </form>
+                </div>
+                <!-- end /.modal-body -->
             </div>
-            <!-- end /.modal-body -->
         </div>
     </div>
-</div>
+@endforeach
 
 @php $m = 1; @endphp
 @foreach($alamat as $a)
