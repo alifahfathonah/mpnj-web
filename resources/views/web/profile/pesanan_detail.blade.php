@@ -1,8 +1,18 @@
 <main class="col-md-12">
     <article class="card">
         <header class="card-header">
-            <strong class="d-inline-block mr-3">ID Pesanan: {{ $detail->id_transaksi_detail }}</strong>
-            <span>Waktu Pesanan: {{ $detail->waktu_transaksi }}</span>
+            <strong class="d-inline-block mr-3">Kode Transaksi: {{ $detail->transaksi->kode_transaksi }}</strong>
+            <hr>
+            <div class="col-md-8">
+                    <h6 class="text-dark">Keterangan</h6>
+                    <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
+                     <span class="text-danger">
+                        {{ $detail->transaksi->proses_pembayaran }} dibayar
+                    </span><br>
+                        Waktu Pesanan: {{ $detail->transaksi->waktu_transaksi }}<br>
+                    </p>
+                </div>
+
         </header>
         <div class="card-body">
             <div class="row">
@@ -147,6 +157,7 @@
 			<textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
 		</div>
 		<div class="form-group">
+			<label>Foto Produk</label><br>
 			<label for="exampleFormControlFile1">
     			<input type="file" name="foto_review" id="foto_review" class="form-control-file">
     		</label>
