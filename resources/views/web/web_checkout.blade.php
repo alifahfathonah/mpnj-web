@@ -328,7 +328,7 @@
             let ko = 0;
             for (let index = 1; index <= "{{ $m }}"; index++) {
                 if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
-                    break;
+                    ko += 0;
                 } else {
                     ko += $(`#dataPelapak${index}`).data('ongkir');
                 }
