@@ -164,6 +164,7 @@
                         <input type="hidden" name="provinsi" class="form-control" value="11">
                         <input type="hidden" name="kota" class="form-control" value="369">
                         <input type="hidden" name="kecamatan" class="form-control" value="5155">
+                        <input type="hidden" name="santri" class="form-control" value="Y">
 
                         <div class="form-group">
                             <label>Wilayah</label>
