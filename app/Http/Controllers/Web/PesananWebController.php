@@ -62,16 +62,5 @@ class PesananWebController extends Controller
 
     public function dibatalkan(Request $request, $id_trx)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
-        $batal = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'batal']);
-
-        $data['detail'] = Transaksi_Detail::with('transaksi',)->where('id_transaksi_detail', $id_trx)->first();
-
-        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
-
-        return view('web/web_profile', $data);
     }
 }
