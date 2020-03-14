@@ -53,7 +53,7 @@ class PesananWebController extends Controller
 
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'sukses']);
 
-        $data['detail'] = Transaksi_Detail::with('transaksi',)->where('id_transaksi_detail', $id_trx)->first();
+        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id_trx)->first();
 
         $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
