@@ -161,7 +161,7 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             ($request->exists('wilayah') ? ['wilayah' => $request->wilayah ] : ''),
-            ($request->exists('gang') ? ['gang' => $request->gang] : ''),
+            ($request->exists('kamar') ? ['kamar' => $request->kamar] : ''),
             'alamat_lengkap' => $request->alamat_lengkap,
             'user_id' => $user_id,
             'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
