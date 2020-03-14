@@ -110,9 +110,6 @@
                                                 @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
                                             @endif
                                         </td>
-                                        <td>
-                                            <a href="{{url::to('/checkout/batal/'.$k->id_keranjang)}}" class="btn btn-danger">Batalkan</a>
-                                        </td>
                                     </tr>
                                     <?php $n++; ?>
                                 @endforeach
@@ -132,7 +129,8 @@
                         </table>
 
                         <div class="card-body border-top">
-                            <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang<i class="fa fa-chevron-right"></i></button>
+                            <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                            <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
                         </div>
                     </div> <!-- card.// -->
 
@@ -168,6 +166,29 @@
 
         </div> <!-- container .//  -->
     </section>
+
+    <div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Anda Yakin Ingin Membatalkan Transaksi Ini</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    <form method="POST" id="formBatalCheckout">
+                        @csrf
+                        <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
+                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                    </form>
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <?php $m = 1; ?>
@@ -378,6 +399,14 @@
 
         function numberFormat(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+        }
+        
+        function batalCheckoutConfirm() {
+            $("#formBatalCheckout").attr('action', '{{ URL::to('checkout/batal')}}');
+        }
+
+        function submitBatalCheckout() {
+            $("#formBatalCheckout").submit();
         }
     </script>
 @endpush
