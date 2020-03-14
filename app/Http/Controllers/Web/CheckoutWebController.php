@@ -81,4 +81,14 @@ class CheckoutWebController extends Controller
     	$data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
     	return view('web/web_checkout_sukses', $data);
     }
+
+
+    public function batal($id)
+    {
+        $batal = keranjang::where('id_keranjang', $id)->update(['status' => 'N']);
+            if ($batal) {
+                return redirect('/checkout');
+            }
+    }
+
 }

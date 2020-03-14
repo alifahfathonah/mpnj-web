@@ -4,9 +4,10 @@
 /storage/*.key
 /public/assets/images
 /public/assets/foto_produk
+/public/assets/foto_profil_konsumen
+/public/assets/konfirmasi
 /public/assets/foto_bukti_tf
 /public/assets/foto_review
-/public/assets/foto_profil_konsumen
 /vendor
 .idea
 .env

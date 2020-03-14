@@ -47,13 +47,14 @@
                     <div class="card table-responsive">
 
                         <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-muted">
+                            <thead class="text-dark">
                             <tr class="small text-uppercase">
                                 <th scope="col">Produk</th>
                                 <th scope="col">Berat</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col" width="120">Jumlah</th>
                                 <th scope="col" width="120">Sub Harga</th>
+                                <th scope="col">Pilihan</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -108,6 +109,9 @@
                                             @else
                                                 @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{url::to('/checkout/batal/'.$k->id_keranjang)}}" class="btn btn-danger">Batalkan</a>
                                         </td>
                                     </tr>
                                     <?php $n++; ?>
