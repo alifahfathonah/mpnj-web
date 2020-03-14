@@ -226,7 +226,7 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
+                        <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
                         <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                     </form>
                 </div>
@@ -305,7 +305,7 @@
                             <label>Alamat</label>
                             <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10">{{ $a->alamat_lengkap }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
+                        <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
                         <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                     </form>
                 </div>
