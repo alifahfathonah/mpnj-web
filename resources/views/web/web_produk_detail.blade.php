@@ -55,14 +55,19 @@
                         </ul>
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
+                        @if($produk->stok <= 5) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            <small class="label-rating text">JANGAN SAMPAI KEHABISAN</small>
+                            @else
+                            <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            @endif
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00</var>
+                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}} </var>
                         <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00</var>
+                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00 / {{$produk->satuan}}</var>
                         <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
