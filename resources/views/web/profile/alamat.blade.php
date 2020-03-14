@@ -154,7 +154,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nama Santri</label>
-                            <input type="text" name="nama" class="form-control" value="{{ $a->wilayah }}">
+                            <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
                         </div>
                         <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
                         <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
