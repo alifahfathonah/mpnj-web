@@ -25,7 +25,7 @@
                                 @else
                                     <div class="information_module order_summary">
                                         <div class="toggle_title" id="dataPembeli"
-                                             data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
+                                             data-destination="{{ $val[0]->pembeli->alamat_fix->kecamatan_id }}">
                                             <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
                                             <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
                                         </div>
