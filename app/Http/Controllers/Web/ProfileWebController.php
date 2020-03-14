@@ -133,9 +133,9 @@ class ProfileWebController extends Controller
             'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
         ];
 
-        if ($request->has('wilayah') AND $request->has('gang')) {
+        if ($request->has('wilayah') AND $request->has('kamar')) {
             $data['wilayah'] = $request->wilayah;
-            $data['gang'] = $request->gang;
+            $data['kamar'] = $request->kamar;
         }
 
         $simpan = Alamat::create($data);
