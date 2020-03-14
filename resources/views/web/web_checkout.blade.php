@@ -258,7 +258,9 @@
                 type: 'POST',
                 data: {
                     'asal': $(`#dataPelapak${n}`).data('origin'),
+                    'origin_type': 'city',
                     'tujuan': $(`#dataPembeli`).data('destination'),
+                    'destinationType': 'subdistrict ',
                     'berat': $(`#dataPelapak${n}`).data('berat'),
                     'kurir': kurir
                 },
