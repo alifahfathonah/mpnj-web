@@ -194,7 +194,7 @@ select[multiple] {
 
 select:focus {
     outline: 0;
-    border-color: #0674ec;
+    border-color: #35be32;
 }
 
 .select--field {
