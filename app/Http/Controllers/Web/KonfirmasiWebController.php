@@ -24,16 +24,12 @@ class KonfirmasiWebController extends Controller
 		return view('web/web_konfirmasi');
 	}
 
-	public function data(Request $request)
+	public function data(Request $request, $id_trx)
 	{
-		$kode_transaksi = $request->kode_transaksi;
-		$cek = Transaksi::with('pembeli')->where('kode_transaksi', $kode_transaksi)->first();
-		if ($cek != null) {
-			//    		$this->kode = $data;
+		$cek = Transaksi::with('pembeli')->where('kode_transaksi', $id_trx)->first();
 			return view('web/web_konfirmasi', ['cek' => $cek]);
-		} else {
-			return redirect()->back()->withInput()->with('kodeKosong', 'Perika kembali kode transaksi anda');
-		}
+			// return $cek;
+	
 	}
 
 	public function simpan(Request $request)
