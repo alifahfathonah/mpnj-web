@@ -35,7 +35,7 @@
         <section class="section-name border-top padding-y">
             <div class="container">
                 <p>Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda dengan mengunggah foto bukti transafer agar transaksi anda segera di proses.</p>
-                <a href="{{ URL::to('konfirmasi') }}"><button type="button" class="btn btn-primary btn-block">Lanjutkan Proses <i class="fa fa-chevron-right"></i></button></a>
+                <a href="{{ URL::to('konfirmasi/data/'.$order_sukses->kode_transaksi) }}"><button type="button" class="btn btn-primary btn-block">Lanjutkan Proses <i class="fa fa-chevron-right"></i></button></a>
             </div>
         </section>
     </div>
