@@ -4,12 +4,21 @@
 
 
 @section('content')
+<style>
+    .custom-control-label:before{
+  background-color:#35be32;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color:#35be32;
+  border-color: #35be32;
+}
+</style>
     <section class="section-content padding-y">
         <div class="container">
 
             <div class="row">
                 <main class="col-md-9">
-                    <div class="card">
+                    <div class="card table-responsive">
 
                         <table class="table table-borderless table-shopping-cart">
                             <thead class="text-muted">
