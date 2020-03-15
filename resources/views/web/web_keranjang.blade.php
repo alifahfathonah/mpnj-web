@@ -37,7 +37,10 @@
                                         data-hargajual="{{ $k->harga_jual  }}"
                                         data-diskon="{{ $k->produk->diskon }}">
                                         <td>
-                                            <input type="checkbox" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
+                                            <div class="custom-control-label"></div>
+                                        </label>
                                         </td>
                                         <td>
                                             <figure class="itemside">
