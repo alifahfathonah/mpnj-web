@@ -4,14 +4,7 @@
 
 
 @section('content')
-<style>
-    .custom-control-label:before{
-  background-color:#35be32;
-}
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
-  background-color:#35be32;
-  border-color: #35be32;
-}
+
 </style>
     <section class="section-content padding-y">
         <div class="container">
