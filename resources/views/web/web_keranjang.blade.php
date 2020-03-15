@@ -15,10 +15,10 @@
                             <thead class="text-muted">
                             <tr class="small text-uppercase">
                                 <th>#</th>
-                                <th scope="col">Produk</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col" width="120">Jumlah</th>
-                                <th scope="col" width="120">Sub Harga</th>
+                                <th scope="col" class="text-dark">Produk</th>
+                                <th scope="col" class="text-dark">Harga</th>
+                                <th scope="col" class="text-dark" width="120">Jumlah</th>
+                                <th scope="col" class="text-dark" width="120">Sub Harga</th>
                                 <th scope="col" class="text-right" width="200"> </th>
                             </tr>
                             </thead>
