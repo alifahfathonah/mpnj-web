@@ -136,7 +136,7 @@
                     @include('web.load.paginate')
                 </div>
                 @else
-                    Belum ada review
+                    No data found :(
                 @endif
 
             
