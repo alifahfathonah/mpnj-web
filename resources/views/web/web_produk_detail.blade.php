@@ -54,20 +54,36 @@
                         </ul>
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
+                        @if($produk->stok <= 5) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            <small class="label-rating text">JANGAN SAMPAI KEHABISAN</small>
+                            @else
+                            <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            @endif
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00</var>
+                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}}</var>
                         <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00</var>
+                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00 / {{$produk->satuan}}</var>
                         <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
                     <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>
-
+                    <div class="alert alert-warning d-none" role="alert" id="alertMax">
+                        <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
+                        <button type="button" class="close" id="closeAlertMax">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-warning d-none" role="alert" id="alertMin">
+                        <strong>MINIMAL 1 PESANAN BARANG</strong>
+                        <button type="button" class="close" id="closeAlertMin">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
