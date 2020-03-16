@@ -145,16 +145,14 @@
                 <div class="box">
                     <h5 class="title-description">Review</h5>
 
-
-                @if (count($review) > 0)
-                <div class="mpnj">
-                    @include('web.load.paginate')
-                </div>
-                @else
+                    @if (count($review) > 0)
+                    <div class="mpnj">
+                        @include('web.load.paginate')
+                    </div>
+                    @else
                     No data found :(
-                @endif
+                    @endif
 
-            
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
