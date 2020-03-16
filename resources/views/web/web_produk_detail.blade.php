@@ -91,7 +91,7 @@
                                     <button class="btn btn-light btn-number" type="button" id="button-minus"> - </button>
                                 </div>
                                 <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99" readonly>
-
+                                <input type="hidden" class="form-control input-number" id="stok" name="stok" value="{{$produk->stok}}">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-light btn-number" type="button" id="button-plus"> + </button>
                                 </div>
