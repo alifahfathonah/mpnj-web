@@ -13,6 +13,7 @@ use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class CheckoutWebController extends Controller
 {
@@ -83,11 +84,15 @@ class CheckoutWebController extends Controller
     }
 
 
-    public function batal($id)
+    public function batal(Request $request)
     {
-        $batal = keranjang::where('id_keranjang', $id)->update(['status' => 'N']);
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $batal = keranjang::where('pembeli_id', $konsumen_id)->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')->update(['status' => 'N']);
             if ($batal) {
-                return redirect('/checkout');
+                return redirect(URL::to('keranjang'));
             }
     }
 

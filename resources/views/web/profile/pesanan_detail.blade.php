@@ -14,6 +14,11 @@
             </div>
 
         </header>
+
+        @if($detail->transaksi->proses_pembayaran == 'belum')
+        <a href="{{ URL::to('konfirmasi/data/'.$detail->transaksi->kode_transaksi) }}" class="btn btn-primary">Transaksi</a>
+        @endif
+
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">

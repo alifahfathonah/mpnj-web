@@ -95,14 +95,18 @@ class RajaOngkirGateway extends Controller
     public function ongkir(Request $request)
     {
         $asal = $request->asal;
+        $originType = $request->origin_type;
         $tujuan = $request->tujuan;
+        $destinationType = $request->destinationType;
         $berat = $request->berat;
         $kurir = $request->kurir;
 
         $request = $this->client->post('https://pro.rajaongkir.com/api/cost',[
             'form_params' => [
                 'origin' => $asal,
+                'originType' => $originType,
                 'destination' => $tujuan,
+                'destinationType' => $destinationType,
                 'weight' => $berat,
                 'courier' => $kurir
             ],
