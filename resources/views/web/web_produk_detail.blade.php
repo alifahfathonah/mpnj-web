@@ -2,14 +2,13 @@
 
 @section('title','Market Place PP Nurul Jadid')
 
-
 @section('content')
 
 <section class="py-3 bg-gray">
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ URL::to('kategori/'.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ URL::to('produk?kategori='.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $produk->nama_produk}}</li>
         </ol>
     </div>
