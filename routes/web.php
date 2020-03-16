@@ -90,6 +90,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/', 'PesananWebController@index')->name('pesanan')->middleware('checkUserLogin');
         Route::get('detail/{id}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
         Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {
