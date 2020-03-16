@@ -2,14 +2,13 @@
 
 @section('title','Market Place PP Nurul Jadid')
 
-
 @section('content')
 
 <section class="py-3 bg-gray">
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ URL::to('kategori/'.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ URL::to('produk?kategori='.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $produk->nama_produk}}</li>
         </ol>
     </div>
@@ -55,20 +54,36 @@
                         </ul>
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
+                        @if($produk->stok <= 5) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            <small class="label-rating text">JANGAN SAMPAI KEHABISAN</small>
+                            @else
+                            <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            @endif
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00</var>
+                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}}</var>
                         <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00</var>
+                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00 / {{$produk->satuan}}</var>
                         <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
-                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>
-
+                    <p class="text-justify">{!! substr($produk->keterangan,0,450) !!}...</p>
+                    <div class="alert alert-warning d-none" role="alert" id="alertMax">
+                        <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
+                        <button type="button" class="close" id="closeAlertMax">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-warning d-none" role="alert" id="alertMin">
+                        <strong>MINIMAL 1 PESANAN BARANG</strong>
+                        <button type="button" class="close" id="closeAlertMin">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
@@ -76,7 +91,7 @@
                                     <button class="btn btn-light btn-number" type="button" id="button-minus"> - </button>
                                 </div>
                                 <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99" readonly>
-
+                                <input type="hidden" class="form-control input-number" id="stok" name="stok" value="{{$produk->stok}}">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-light btn-number" type="button" id="button-plus"> + </button>
                                 </div>
@@ -123,23 +138,21 @@
         <div class="row">
             <div class="col-md-8">
                 <h5 class="title-description">Deskripsi Lengkap</h5>
-                <p class="text-justify">{{$produk->keterangan}}</p>
+                <p class="text-justify">{!! $produk->keterangan !!}</p>
             </div> <!-- col.// -->
 
             <aside class="col-md-4">
                 <div class="box">
                     <h5 class="title-description">Review</h5>
 
-
-                @if (count($review) > 0)
-                <div class="mpnj">
-                    @include('web.load.paginate')
-                </div>
-                @else
+                    @if (count($review) > 0)
+                    <div class="mpnj">
+                        @include('web.load.paginate')
+                    </div>
+                    @else
                     No data found :(
-                @endif
+                    @endif
 
-            
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
@@ -172,7 +185,7 @@
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">
-                            <div class="col" style="">
+                            <div class="col">
                                 <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
@@ -207,16 +220,33 @@
 <script>
     $(function() {
         $("#button-plus").click(function() {
-            //   alert()
             let jml = $("#jml").val();
+            let stok = $("#stok").val();
             $("#jumlah").val(parseInt(jml) + 1);
             $("#jml").val(parseInt(jml) + 1);
+            if (parseInt(jml) >= parseInt(stok)) {
+                $('#alertMax').removeClass('d-none');
+                $("#jumlah").val(parseInt(jml) - 1 + 1);
+                $("#jml").val(parseInt(jml) - 1 + 1);
+            }
         });
 
         $("#button-minus").click(function() {
             let jml = $("#jml").val();
             $("#jumlah").val(parseInt(jml) - 1);
             $("#jml").val(parseInt(jml) - 1);
+            if (parseInt(jml) <= 1) {
+                $('#alertMin').removeClass('d-none');
+                $("#jumlah").val(parseInt(jml) + 1 - 1);
+                $("#jml").val(parseInt(jml) + 1 - 1);
+            }
+        });
+
+        $("#closeAlertMax").click(function() {
+            $('#alertMax').addClass('d-none');
+        });
+        $("#closeAlertMin").click(function() {
+            $('#alertMin').addClass('d-none');
         });
     });
 
