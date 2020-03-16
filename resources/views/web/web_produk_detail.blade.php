@@ -9,7 +9,7 @@
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ URL::to('/') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ URL::to('produk?kategori='.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ URL::to('kategori/'.$produk->kategori->nama_kategori)}}">{{ $produk->kategori->nama_kategori }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $produk->nama_produk}}</li>
         </ol>
     </div>
@@ -55,19 +55,14 @@
                         </ul>
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
-                        @if($produk->stok <= 5) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
-                            <small class="label-rating text">JANGAN SAMPAI KEHABISAN</small>
-                            @else
-                            <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
-                            @endif
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}} </var>
+                        <var class="price h4">@currency ($produk->harga_jual),00</var>
                         <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00 / {{$produk->satuan}}</var>
+                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 * $produk->harga_jual)),00</var>
                         <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
@@ -135,52 +130,22 @@
                 <div class="box">
                     <h5 class="title-description">Review</h5>
 
-                    @foreach ($review as $r)
-                    <article class="media mb-3">
-                        <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
-                        <div class="media-body">
-                            <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
-                            <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
-                            <div class="rating-wrap my-3">
-                                <ul class="rating-stars">
-                                    <li style="width:80%" class="stars-active">
-                                        @for($i = 1; $i <= $r->bintang; $i++)
-                                            <i class="fa fa-star"></i>
-                                            @endfor
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p class="mb-">{{ $r->review}}</p>
-                    </article>
-                    @endforeach
 
-                    <nav class="mb-4">
-                        @if($review->lastPage() > 1)
-                        <ul class="pagination center">
-                            @if($review->currentPage() != $review->onFirstPage())
-                            <li class="page-item"><a class="page-link" href="{{ $review->previousPageUrl() }}">Previous</a></li>
-                            @endif
-                            @for($i = 1; $i <= $review->lastPage(); $i++)
-                                <li class="page-item active"><a class="page-link {{ $i == $review->currentPage() ? 'current' : '' }}" href="{{ $review->url($i) }}">{{ $i }}</a></li>
-                                @endfor
-                                @if($review->currentPage() != $review->lastPage())
-                                <li class="page-item"><a class="page-link" href="{{ $review->nextPageUrl()  }}">Next</a></li>
-                                @endif
-                        </ul>
-                        @endif
-                    </nav>
+                @if (count($review) > 0)
+                <div class="mpnj">
+                    @include('web.load.paginate')
+                </div>
+                @else
+                    No data found :(
+                @endif
 
+            
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
         <header class="section-heading heading-line">
-            <h4 class="title-section text-uppercase">PRODUK SERUPA</h4>
+            <h4 class="title-section text-uppercase">PRODUK LAIN</h4>
         </header>
         <div class="row">
             @foreach($produk_pelapak as $pl)
