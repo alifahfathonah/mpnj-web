@@ -142,7 +142,7 @@
                     @include('web.load.paginate')
                 </div>
                 @else
-                    No data found :(
+                    Belum ada review
                 @endif
 
             
