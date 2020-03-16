@@ -71,7 +71,7 @@
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
-                    <p class="text-justify">{{substr($produk->keterangan,0,450)}}...</p>
+                    <p class="text-justify">{!! substr($produk->keterangan,0,450) !!}...</p>
                     <div class="alert alert-warning d-none" role="alert" id="alertMax">
                         <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
                         <button type="button" class="close" id="closeAlertMax">
@@ -138,7 +138,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h5 class="title-description">Deskripsi Lengkap</h5>
-                <p class="text-justify">{{$produk->keterangan}}</p>
+                <p class="text-justify">{!! $produk->keterangan !!}</p>
             </div> <!-- col.// -->
 
             <aside class="col-md-4">
