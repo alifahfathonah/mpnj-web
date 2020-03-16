@@ -128,13 +128,7 @@
 
             <aside class="col-md-4">
                 <div class="box">
-                    <h5 class="title-description">Review  
-                    @if (count($review) > 0)
-                        
-                        {{$counts}}
-
-                    @endif
-                    </h5>
+                    <h5 class="title-description">Review</h5>
 
 
                 @if (count($review) > 0)
