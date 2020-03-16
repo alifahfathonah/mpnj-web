@@ -53,10 +53,19 @@ class PesananWebController extends Controller
 
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'sukses']);
 
-            $data['detail'] = Transaksi_Detail::with('transaksi',)->where('id_transaksi_detail', $id_trx)->first();
+        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id_trx)->first();
 
         $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
         return view('web/web_profile', $data);
+    }
+
+    public function dibatalkan(Request $request, $id_trx)
+    {
+        
+       Transaksi::where('id_transaksi', $request->id )->update(['total_bayar' => $request->total3]);
+       Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'batal']);
+        return redirect()->back();
+        
     }
 }

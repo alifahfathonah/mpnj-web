@@ -1,8 +1,6 @@
-
-
 <div class="row my-1">
     <div class="col-md-12">
-        <h3 >Pesanan Saya</h3>
+        <h3>Pesanan Saya</h3>
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif" id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home" aria-selected="true">Semua</a>
@@ -28,45 +26,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if(COUNT($order) > 0)
+                            @if(COUNT($order) > 0)
                             @foreach($order as $key => $v)
-                                @foreach($order[$key] as $val)
-                                    <tr>
-                                        <td width="65">
-                                            <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                        </td>
-                                        <td>
-                                            <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                            </a>
-                                            <var class="price text-muted">
-                                                @if($val->diskon == 0)
-                                                    <span style="color: black">@currency($val->harga_jual)</span>
-                                                @else
-                                                    <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                @endif
-                                            </var>
-                                        </td>
-                                        <td>
-                                            Jumlah : {{ $val->jumlah }} <br>
-                                            Kurir : {{ $val->kurir }} <br>
-                                            Service : {{ $val->service }} <br>
-                                            Ongkir : @currency($val->ongkir)
-                                        </td>
-                                        <td>
-                                            @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                        </td>
-                                        <td width="250">
-                                            <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
+                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    </a>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }} <br>
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -75,54 +73,54 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('pending'))
+                            @if($order->has('pending'))
                             @foreach($order as $key => $v)
-                                @if($key == 'pending')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'pending')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -131,54 +129,54 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('verifikasi'))
+                            @if($order->has('verifikasi'))
                             @foreach($order as $key => $v)
-                                @if($key == 'verifikasi')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'verifikasi')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -187,54 +185,54 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('packing'))
+                            @if($order->has('packing'))
                             @foreach($order as $key => $v)
-                                @if($key == 'packing')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'packing')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -243,55 +241,55 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('dikirim'))
+                            @if($order->has('dikirim'))
                             @foreach($order as $key => $v)
-                                @if($key == 'dikirim')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                                <a href="{{ URL::to('pesanan/diterima/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Diterima </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'dikirim')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                    <a href="{{ URL::to('pesanan/diterima/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Diterima </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -300,54 +298,54 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('sukses'))
+                            @if($order->has('sukses'))
                             @foreach($order as $key => $v)
-                                @if($key == 'sukses')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'sukses')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -356,54 +354,54 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-                            <th>Informasi Tambahan</th>
-                            <th>Total</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>Produk</th>
+                                <th></th>
+                                <th>Informasi Tambahan</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($order->has('batal'))
+                            @if($order->has('batal'))
                             @foreach($order as $key => $v)
-                                @if($key == 'batal')
-                                    @foreach($order[$key] as $val)
-                                        <tr>
-                                            <td width="65">
-                                                <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                            </td>
-                                            <td>
-                                                <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                <var class="price text-muted">
-                                                    @if($val->diskon == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                    @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                    @endif
-                                                </var>
-                                            </td>
-                                            <td>
-                                                Jumlah : {{ $val->jumlah }} <br>
-                                                Kurir : {{ $val->kurir }} <br>
-                                                Service : {{ $val->service }}
-                                                Ongkir : @currency($val->ongkir)
-                                            </td>
-                                            <td>
-                                                @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                            </td>
-                                            <td width="250">
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                            @if($key == 'batal')
+                            @foreach($order[$key] as $val)
+                            <tr>
+                                <td width="65">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                                </td>
+                                <td>
+                                    <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    <var class="price text-muted">
+                                        @if($val->diskon == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }}
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        @else
+                            @endif
+                            @endforeach
+                            @else
                             <tr>
                                 <td colspan="5" align="center">Tidak ada data</td>
                             </tr>
-                        @endif
+                            @endif
                         </tbody>
                     </table>
                 </div>

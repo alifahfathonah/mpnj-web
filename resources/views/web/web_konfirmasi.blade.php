@@ -17,16 +17,8 @@
                                     <small>Masukkan kode transaksi anda untuk melakukan konfirmasi pembayaran.</small>
                                 </center>
                             </header>
-                            <form action="{{ isset($cek) ? '/konfirmasi/simpan' : '/konfirmasi/data' }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ URL::to('konfirmasi/simpan') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-
-                                @if(session('kodeKosong'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('kodeKosong') }}
-                                    </div>
-                                @endif
-
-                                @if(isset($cek))
                                     <div class="form-group">
                                         <label for="kode_transaksi">Kode Transaksi</label>
                                         <input id="kode_transaksi" type="text" class="form-control" placeholder="Isi dengan kode transaksi anda" name="kode_transaksi" value="{{  $cek->kode_transaksi }}" readonly>
@@ -52,13 +44,7 @@
                                         @if($errors->has('bukti_transfer'))  <small style="color: red">{{ $errors->first('bukti_transfer') }}</small> @endif
                                     </div>
                                     <button class="btn btn-primary" type="submit" name="kirim">Kirim</button>
-                                @else
-                                    <div class="form-group">
-                                        <label>Kode Transaksi</label>
-                                        <input type="text" class="form-control" placeholder="Isi dengan kode transaksi" name="kode_transaksi" value="{{ old('kode_transaksi') }}">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block"> Lanjut  </button>
-                                @endif
+                                
                             </form>
                         </article>
                     </div>
