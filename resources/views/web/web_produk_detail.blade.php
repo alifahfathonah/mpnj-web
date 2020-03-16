@@ -185,7 +185,7 @@
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">
-                            <div class="col" style="">
+                            <div class="col">
                                 <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
