@@ -73,11 +73,12 @@
                         <div class="form-group col-md flex-grow-0">
                             <div class="input-group mb-3 input-spinner">
                                 <div class="input-group-append">
-                                    <button class="btn btn-light btn-number" type="button" id="button-plus" data-type="minus" data-field="jumlah[1]"> - </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-minus"> - </button>
                                 </div>
-                                <input type="text" class="form-control input-number" name="jumlah[1]" value="1" min="1" max="99" readonly>
+                                <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99" readonly>
+
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-light btn-number" type="button" id="button-minus" data-type="plus" data-field="jumlah[1]"> + </button>
+                                    <button class="btn btn-light btn-number" type="button" id="button-plus"> + </button>
                                 </div>
                             </div>
                         </div> <!-- col.// -->
@@ -86,7 +87,7 @@
                                 @csrf
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
-                                <input type="hidden" class="form-control input-number" name="jumlah[1]" value="{{ $produk->jumlah[1] }}" min="1" max="99">
+                                <input type="hidden" class="form-control input-number" id="jumlah" name="jumlah" value="1">
                                 <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
@@ -95,7 +96,7 @@
                     <div class="form-row">
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
-                            <div class="aside"><img src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg" class="icon icon-md rounded-circle"></div>
+                            <div class="aside"><img src="{{ url('assets/foto_profil_konsumen/'. $produk->pelapak->foto_profil) }}" class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}" class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak : {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
@@ -128,55 +129,102 @@
             <aside class="col-md-4">
                 <div class="box">
                     <h5 class="title-description">Review</h5>
+
+                    @foreach ($review as $r)
                     <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
+                        <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
                         <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
+                            <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
+                            <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
+                            <div class="rating-wrap my-3">
+                                <ul class="rating-stars">
+                                    <li style="width:80%" class="stars-active">
+                                        @for($i = 1; $i <= $r->bintang; $i++)
+                                            <i class="fa fa-star"></i>
+                                            @endfor
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="mb-">{{ $r->review}}</p>
                     </article>
-                    <article class="media mb-3">
-                        <a href="#"><img class="img-sm mr-3" src="/assets/foto_profil_konsumen/cMcpYGq5VkchA92.jpg"></a>
-                        <div class="media-body">
-                            <h6 class="mt-0"><a href="#">Ahmad Usama Oyo</a></h6>
-                            <p class="mb-2"> Produk ini sangat sesuai dengan deskripsi. Enak Mantap</p>
-                        </div>
-                    </article>
-                    <div class="form-group">
-                        <form method="POST">
-                            <label for="exampleFormControlTextarea1">Beri Review Anda</label>
-                            <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button type="button" class="btn btn-primary btn-sm btn-block">Kirim Komentar</button>
-                        </form>
-                    </div>
+                    @endforeach
+
+                    <nav class="mb-4">
+            @if($review->lastPage() > 1)
+            <ul class="pagination center">
+                @if($review->currentPage() != $review->onFirstPage())
+                <li class="page-item"><a class="page-link" href="{{ $review->previousPageUrl() }}">Previous</a></li>
+                @endif
+                @for($i = 1; $i <= $review->lastPage(); $i++)
+                    <li class="page-item active"><a class="page-link {{ $i == $review->currentPage() ? 'current' : '' }}" href="{{ $review->url($i) }}">{{ $i }}</a></li>
+                    @endfor
+                    @if($review->currentPage() != $review->lastPage())
+                    <li class="page-item"><a class="page-link" href="{{ $review->nextPageUrl()  }}">Next</a></li>
+                    @endif
+            </ul>
+            @endif
+        </nav>
+
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
 
-        <h5 class="title">Produk Lain Pelapak</h5>
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">PRODUK LAIN</h4>
+        </header>
         <div class="row">
             @foreach($produk_pelapak as $pl)
-            <div class="col-md-3">
-                <figure class="card card-product-grid">
-                    <div class="img-wrap">
-                        <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}" alt="Product Image">
-                    </div> <!-- img-wrap.// -->
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
+                    <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
                     <figcaption class="info-wrap">
-                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="title mb-2">{{ $pl->nama_produk }}</a>
-                        <div class="price-wrap">
+                        <div class="namaProduk-rapi">
+                            <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
+                        </div>
+                        <div class="price mt-1">
                             @if($pl->diskon == 0)
-                            @currency($pl->harga_jual)
+                            <span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($pl->harga_jual)</span>
+                            </span>
                             @else
-                            <strike style="color: red">
-                                @currency($pl->harga_jual)
-                            </strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+
+                            <span style="color: green">
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))</span>
+                            </span>
+                            <span style="color: gray">
+                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
+                            </span>
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <p class="text">{{ $pl->pelapak->nama_toko }}</p>
-                        <hr>
-                        <a href="{{ URL::to('produk/'.$pl->id_produk) }}" class="btn btn-outline-primary"> <i class="fa fa-angle-double-right"></i> Detail Produk </a>
+                        <div class="row">
+                            <div class="col" style="">
+                                <ul class="rating-stars">
+                                    <li style="width:50%" class="stars-active">
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i>
+                                    </li>
+                                </ul>
+                                <span class="rating-stars" style="font-size:small;">(125)</span>
+                            </div> <!-- rating-wrap.// -->
+
+                        </div>
+                        <div class="row">
+                            <div class="col" style="font-size:small">PAITON {{$pl->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="text-right col text-success" style="font-size:small;">{{$pl->terjual}} terjual</div>
+                        </div>
                     </figcaption>
-                </figure>
+                </div>
             </div>
             @endforeach
         </div>
@@ -187,80 +235,24 @@
 
 @push('scripts')
 <script>
+    $(function() {
+        $("#button-plus").click(function() {
+            //   alert()
+            let jml = $("#jml").val();
+            $("#jumlah").val(parseInt(jml) + 1);
+            $("#jml").val(parseInt(jml) + 1);
+        });
+
+        $("#button-minus").click(function() {
+            let jml = $("#jml").val();
+            $("#jumlah").val(parseInt(jml) - 1);
+            $("#jml").val(parseInt(jml) - 1);
+        });
+    });
+
     function gantiFoto(id) {
         let src = $("#foto_produk" + id).attr('src');
         $("#thumbFoto").attr('src', src);
     };
-    $('.btn-number').click(function(e) {
-        e.preventDefault();
-
-        fieldName = $(this).attr('data-field');
-        type = $(this).attr('data-type');
-        var input = $("input[name='" + fieldName + "']");
-        var currentVal = parseInt(input.val());
-        if (!isNaN(currentVal)) {
-            if (type == 'minus') {
-
-                if (currentVal > input.attr('min')) {
-                    input.val(currentVal - 1).change();
-                }
-                if (parseInt(input.val()) == input.attr('min')) {
-                    $(this).attr('disabled', true);
-                }
-
-            } else if (type == 'plus') {
-
-                if (currentVal < input.attr('max')) {
-                    input.val(currentVal + 1).change();
-                }
-                if (parseInt(input.val()) == input.attr('max')) {
-                    $(this).attr('disabled', true);
-                }
-
-            }
-        } else {
-            input.val(0);
-        }
-    });
-    $('.input-number').focusin(function() {
-        $(this).data('oldValue', $(this).val());
-    });
-    $('.input-number').change(function() {
-
-        minValue = parseInt($(this).attr('min'));
-        maxValue = parseInt($(this).attr('max'));
-        valueCurrent = parseInt($(this).val());
-
-        name = $(this).attr('name');
-        if (valueCurrent >= minValue) {
-            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-        } else {
-            alert('Maaf, minimum order 1 item');
-            $(this).val($(this).data('oldValue'));
-        }
-        if (valueCurrent <= maxValue) {
-            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-        } else {
-            alert('Maaf, maksimum order 99 item');
-            $(this).val($(this).data('oldValue'));
-        }
-
-
-    });
-    $(".input-number").keydown(function(e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-            // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) ||
-            // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-            // let it happen, don't do anything
-            return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
 </script>
 @endpush

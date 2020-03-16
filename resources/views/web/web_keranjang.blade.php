@@ -48,7 +48,7 @@
                                             <figure class="itemside">
                                                 <div class="aside"><img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}" class="img-sm"></div>
                                                 <figcaption class="info">
-                                                    <a href="{{ URL::to('produk/'.$k->produk->id_produk) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
+                                                    <a href="{{ URL::to('produk/'.$k->produk->slug) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
                                                     <p class="text-muted small">Kategori: {{ $k->produk->kategori->nama_kategori }}</p>
                                                 </figcaption>
                                             </figure>

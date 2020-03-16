@@ -25,7 +25,7 @@
                                 @else
                                     <div class="information_module order_summary">
                                         <div class="toggle_title" id="dataPembeli"
-                                             data-destination="{{ $val[0]->pembeli->alamat_fix->city_id }}">
+                                             data-destination="{{ $val[0]->pembeli->alamat_fix->kecamatan_id }}">
                                             <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
                                             <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
                                         </div>
@@ -47,13 +47,14 @@
                     <div class="card table-responsive">
 
                         <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-muted">
+                            <thead class="text-dark">
                             <tr class="small text-uppercase">
                                 <th scope="col">Produk</th>
                                 <th scope="col">Berat</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col" width="120">Jumlah</th>
                                 <th scope="col" width="120">Sub Harga</th>
+                                <th scope="col">Pilihan</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,7 +85,7 @@
                                             <figure class="itemside">
                                                 <div class="aside"><img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}" class="img-sm"></div>
                                                 <figcaption class="info">
-                                                    <a href="{{ URL::to('produk/'.$k->produk->id_produk) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
+                                                    <a href="{{ URL::to('produk/'.$k->produk->slug) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
                                                     <p class="text-muted small">Kategori: {{ $k->produk->kategori->nama_kategori }}</p>
                                                 </figcaption>
                                             </figure>
@@ -128,7 +129,8 @@
                         </table>
 
                         <div class="card-body border-top">
-                            <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang<i class="fa fa-chevron-right"></i></button>
+                            <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                            <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
                         </div>
                     </div> <!-- card.// -->
 
@@ -164,6 +166,29 @@
 
         </div> <!-- container .//  -->
     </section>
+
+    <div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Anda Yakin Ingin Membatalkan Transaksi Ini</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    <form method="POST" id="formBatalCheckout">
+                        @csrf
+                        <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
+                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                    </form>
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <?php $m = 1; ?>
@@ -254,7 +279,9 @@
                 type: 'POST',
                 data: {
                     'asal': $(`#dataPelapak${n}`).data('origin'),
+                    'origin_type': 'city',
                     'tujuan': $(`#dataPembeli`).data('destination'),
+                    'destinationType': 'subdistrict ',
                     'berat': $(`#dataPelapak${n}`).data('berat'),
                     'kurir': kurir
                 },
@@ -301,7 +328,7 @@
             let ko = 0;
             for (let index = 1; index <= "{{ $m }}"; index++) {
                 if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
-                    break;
+                    ko += 0;
                 } else {
                     ko += $(`#dataPelapak${index}`).data('ongkir');
                 }
@@ -372,6 +399,14 @@
 
         function numberFormat(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+        }
+        
+        function batalCheckoutConfirm() {
+            $("#formBatalCheckout").attr('action', '{{ URL::to('checkout/batal')}}');
+        }
+
+        function submitBatalCheckout() {
+            $("#formBatalCheckout").submit();
         }
     </script>
 @endpush

@@ -31,8 +31,7 @@ class ApiProdukController extends Controller
         $data = Produk::where('id_produk',$id_produk)->get();
         if (count($data) > 0 ){
             $produk = $this->produkRepository->findById($id_produk);
-            $res ['pesan'] = "Sukses!";
-            $res ['data'] = $produk;
+            $res = $produk;
         return response()->json($res);
         }else{
             $res2 ['pesan'] = "Gagal!";

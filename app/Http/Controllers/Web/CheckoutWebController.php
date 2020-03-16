@@ -13,6 +13,7 @@ use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class CheckoutWebController extends Controller
 {
@@ -81,4 +82,18 @@ class CheckoutWebController extends Controller
     	$data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
     	return view('web/web_checkout_sukses', $data);
     }
+
+
+    public function batal(Request $request)
+    {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $batal = keranjang::where('pembeli_id', $konsumen_id)->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')->update(['status' => 'N']);
+            if ($batal) {
+                return redirect(URL::to('keranjang'));
+            }
+    }
+
 }
