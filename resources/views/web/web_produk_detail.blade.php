@@ -130,46 +130,16 @@
                 <div class="box">
                     <h5 class="title-description">Review</h5>
 
-                    @foreach ($review as $r)
-                    <article class="media mb-3">
-                        <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
-                        <div class="media-body">
-                            <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
-                            <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
-                            <div class="rating-wrap my-3">
-                                <ul class="rating-stars">
-                                    <li style="width:80%" class="stars-active">
-                                        @for($i = 1; $i <= $r->bintang; $i++)
-                                            <i class="fa fa-star"></i>
-                                            @endfor
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p class="mb-">{{ $r->review}}</p>
-                    </article>
-                    @endforeach
 
-                    <nav class="mb-4">
-            @if($review->lastPage() > 1)
-            <ul class="pagination center">
-                @if($review->currentPage() != $review->onFirstPage())
-                <li class="page-item"><a class="page-link" href="{{ $review->previousPageUrl() }}">Previous</a></li>
+                @if (count($review) > 0)
+                <div class="mpnj">
+                    @include('web.load.paginate')
+                </div>
+                @else
+                    No data found :(
                 @endif
-                @for($i = 1; $i <= $review->lastPage(); $i++)
-                    <li class="page-item active"><a class="page-link {{ $i == $review->currentPage() ? 'current' : '' }}" href="{{ $review->url($i) }}">{{ $i }}</a></li>
-                    @endfor
-                    @if($review->currentPage() != $review->lastPage())
-                    <li class="page-item"><a class="page-link" href="{{ $review->nextPageUrl()  }}">Next</a></li>
-                    @endif
-            </ul>
-            @endif
-        </nav>
 
+            
                 </div> <!-- box.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
