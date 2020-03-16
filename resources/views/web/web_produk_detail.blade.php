@@ -220,16 +220,33 @@
 <script>
     $(function() {
         $("#button-plus").click(function() {
-            //   alert()
             let jml = $("#jml").val();
+            let stok = $("#stok").val();
             $("#jumlah").val(parseInt(jml) + 1);
             $("#jml").val(parseInt(jml) + 1);
+            if (parseInt(jml) >= parseInt(stok)) {
+                $('#alertMax').removeClass('d-none');
+                $("#jumlah").val(parseInt(jml) - 1 + 1);
+                $("#jml").val(parseInt(jml) - 1 + 1);
+            }
         });
 
         $("#button-minus").click(function() {
             let jml = $("#jml").val();
             $("#jumlah").val(parseInt(jml) - 1);
             $("#jml").val(parseInt(jml) - 1);
+            if (parseInt(jml) <= 1) {
+                $('#alertMin').removeClass('d-none');
+                $("#jumlah").val(parseInt(jml) + 1 - 1);
+                $("#jml").val(parseInt(jml) + 1 - 1);
+            }
+        });
+
+        $("#closeAlertMax").click(function() {
+            $('#alertMax').addClass('d-none');
+        });
+        $("#closeAlertMin").click(function() {
+            $('#alertMin').addClass('d-none');
         });
     });
 
