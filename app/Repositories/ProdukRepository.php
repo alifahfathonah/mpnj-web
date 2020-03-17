@@ -39,6 +39,7 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
+                            'foto_pelapak' => $produks->pelapak->foto_profil,
                             'alamat' => $produks->pelapak->alamat
                         ]
                     ];
