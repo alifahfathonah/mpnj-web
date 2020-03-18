@@ -44,6 +44,7 @@ Route::get('/pelapak', 'Api\ApiPelapakController@index');
 Route::post('/pelapak', 'Api\ApiPelapakController@create');
 Route::delete('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@delete');
 Route::get('/pelapak/{id_pelapak}', 'Api\ApiPelapakController@getDetail');
+Route::post('/pelapak/upload', 'Api\ApiPelapakController@upload');
 
 //keranjang
 Route::get('/keranjang', 'Api\ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1

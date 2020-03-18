@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\PelapakResource;
 use App\Models\Pelapak;
+use File;
 
 use App\Repositories\PelapakRepository;
 
@@ -60,5 +61,32 @@ class ApiPelapakController extends Controller
 
                 return response()->json($res2);
             }
+    }
+    public function upload(Request $request)
+        {
+            $user = Pelapak::where('id_pelapak', $request->id_pelapak)->first();
+            if ($user) {
+                    File::delete('assets/foto_pelapak/' .$user->foto_profil);
+                    $simpan = Pelapak::find($user->id_pelapak);
+                    $file = $request->file('file');
+                    $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
+                    $file->move('assets/foto_pelapak', $name);
+                    $simpan->foto_profil = $name;
+                    $simpan->save();
+                    $res['pesan'] = "Sukses!";
+                    $res['data'] = [$simpan];
+                    return response()->json($res);
+            } else {
+                  $res2['pesan'] = "Gagal!";
+                  $res2['data'] = [];
+
+            return response()->json($res2);
+            }
+        }
+          public static function acakhuruf($length)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 }
