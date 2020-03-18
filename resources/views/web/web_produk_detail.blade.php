@@ -222,23 +222,41 @@
         $("#button-plus").click(function() {
             let jml = $("#jml").val();
             let stok = $("#stok").val();
-            $("#jumlah").val(parseInt(jml) + 1);
             $("#jml").val(parseInt(jml) + 1);
+            $("#jumlah").val($("#jml").val());
             if (parseInt(jml) >= parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
-                $("#jumlah").val(parseInt(jml) - 1 + 1);
                 $("#jml").val(parseInt(jml) - 1 + 1);
+                $("#jumlah").val($("#jml").val());
             }
         });
 
         $("#button-minus").click(function() {
             let jml = $("#jml").val();
-            $("#jumlah").val(parseInt(jml) - 1);
+            let stok = $("#stok").val();
             $("#jml").val(parseInt(jml) - 1);
-            if (parseInt(jml) <= 1) {
+            $("#jumlah").val($("#jml").val());
+            if (parseInt(jml) < 1) {
                 $('#alertMin').removeClass('d-none');
-                $("#jumlah").val(parseInt(jml) + 1 - 1);
                 $("#jml").val(parseInt(jml) + 1 - 1);
+                $("#jumlah").val($("#jml").val());
+            }
+        });
+
+        $("#jml").on('input', function() {
+            let jml = $("#jml").val();
+            let stok = $("#stok").val();
+            // alert($("#jml").val());
+            $("#jumlah").val($("#jml").val());
+            if (parseInt(jml) >= parseInt(stok)) {
+                $('#alertMax').removeClass('d-none');
+                $("#jml").val($("#stok").val());
+                $("#jumlah").val($("#jml").val());
+            }
+            if (parseInt(jml) < 1) {
+                $('#alertMin').removeClass('d-none');
+                $("#jml").val($("#stok").val());
+                $("#jumlah").val($("#jml").val());
             }
         });
 
