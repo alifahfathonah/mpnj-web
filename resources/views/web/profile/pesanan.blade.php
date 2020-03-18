@@ -22,7 +22,7 @@
                                 <th></th>
                                 <th>Informasi Tambahan</th>
                                 <th>Total</th>
-                                <th>Aksi</th>
+                                <th>Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
