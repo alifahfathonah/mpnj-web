@@ -19,7 +19,9 @@ class CreateKeranjangTable extends Migration
             $table->foreign('produk_id')->references('id_produk')->on('produk');
             $table->integer('pembeli_id');
             $table->string('pembeli_type');
-//            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
+            $table->enum('status', ['N', 'Y'])->default('N');
+            $table->integer('jumlah');
+            $table->integer('harga_jual');
             $table->timestamps();
         });
     }
