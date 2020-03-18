@@ -14,7 +14,7 @@ class AddAlamatUtamaToKonsumen extends Migration
     public function up()
     {
         Schema::table('konsumen', function (Blueprint $table) {
-            $table->integer('alamat_utama')->unsigned();
+            $table->integer('alamat_utama')->after('status')->unsigned();
             $table->foreign('alamat_utama')->references('id_alamat')->on('alamat');
         });
     }
