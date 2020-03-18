@@ -28,7 +28,12 @@
                         <tbody>
                             @if(COUNT($order) > 0)
                             @foreach($order as $key => $v)
-                            @foreach($order[$key] as $val)
+
+                            <tr id="dataCart" style="background-color: #ccffcc;">
+                                    <td colspan="4"><strong>Kode Transaksi: {{ $key }}</strong></td>
+                                    <td ><strong>{{ $v[0]->transaksi->waktu_transaksi }}</strong></td>
+                                </tr>
+                            @foreach($v as $val)
                             <tr>
                                 <td width="65">
                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
