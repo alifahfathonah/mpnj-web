@@ -89,6 +89,14 @@
                                 </td>
                             </tr>
                             @endforeach
+                            <tr id="dataCart">
+                                    <td><i class="fa fa-shopping-cart"></i></td>
+                                    <td colspan="2">Jumlah yang harus dibayar :</td>
+                                    <td><h5 class="text-primary"> @currency($v[0]->transaksi->total_bayar) </h5></td>
+                                    <td>
+                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                        </td>
+                                    </tr>
                             @endforeach
                             @else
                             <tr>
