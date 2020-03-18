@@ -79,6 +79,13 @@
                                         @else
                                     {{ $val->transaksi->proses_pembayaran}}
                                         @endif
+                                        <br>
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-box" style="color: #3377ff;"></i>
+                                            {{ $val->status_order}}
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                             @endforeach
