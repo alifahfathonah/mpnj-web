@@ -60,7 +60,25 @@
                                     @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
                                 </td>
                                 <td width="250">
-                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
+                                        @if($val->transaksi->proses_pembayaran == 'sudah')
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-check" style="color: #00e600;"></i>
+                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                        </li>
+                                    </ul>
+
+                                        @elseif($val->transaksi->proses_pembayaran == 'belum')
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-times" style="color: red;"></i>
+                                            {{ $val->transaksi->proses_pembayaran}} bayar
+                                        </li>
+                                    </ul>
+
+                                        @else
+                                    {{ $val->transaksi->proses_pembayaran}}
+                                        @endif
                                 </td>
                             </tr>
                             @endforeach
