@@ -14,27 +14,22 @@
                             <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
                             <hr>
                             <p class="text-center mb-3">
-                            @foreach($order as $key => $val)
-                                @if($val[0]->pembeli->alamat_fix == null)
-                                    <div class="information_module order_summary">
-                                        <div class="toggle_title">
-                                            <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
-                                                        href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
-                                        </div>
+                            @if($pembeli->alamat_fix != null)
+                                <div class="information_module order_summary">
+                                    <div class="toggle_title" id="dataPembeli"
+                                         data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
+                                        <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}</h5>
+                                        <h4>{{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}</h4>
                                     </div>
-                                @else
-                                    <div class="information_module order_summary">
-                                        <div class="toggle_title" id="dataPembeli"
-                                             data-destination="{{ $val[0]->pembeli->alamat_fix->kecamatan_id }}">
-                                            <h5>{{ $val[0]->pembeli->alamat_fix->nama }} | {{ $val[0]->pembeli->alamat_fix->nomor_telepon }}</h5>
-                                            <h4>{{ $val[0]->pembeli->alamat_fix->alamat_lengkap }}, {{ $val[0]->pembeli->alamat_fix->nama_kota }}, {{ $val[0]->pembeli->alamat_fix->nama_provinsi }}, {{ $val[0]->pembeli->alamat_fix->kode_pos }}</h4>
-                                        </div>
+                                </div>
+                            @else
+                                <div class="information_module order_summary">
+                                    <div class="toggle_title">
+                                        <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
+                                                    href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
                                     </div>
-                                    @if($val[0] != null)
-                                        @break;
-                                    @endif
-                                @endif
-                            @endforeach
+                                </div>
+                            @endif
                             </p>
 
                         </div> <!-- card-body.// -->
@@ -59,55 +54,55 @@
                             </thead>
                             <tbody>
                             <?php $o = 0; $n = 1; $x = 1; $total = 0;?>
-                            @foreach($order as $key => $val)
+                            @foreach($data_keranjang as $val)
                                 <tr id="dataPelapak{{ $x }}"
-                                    data-origin="{{ $val[0]->produk->pelapak->city_id }}"
-                                    data-berat="{{ $berat[$o]->total_berat }}"
-                                    data-jumlahbarang="{{ COUNT($val) }}"
+                                    data-origin="{{ $val['alamat']['city_id'] }}"
+                                    data-berat="{{ $val['total_berat'] }}"
+                                    data-jumlahbarang="{{ COUNT($val['item']) }}"
                                     data-mulai="{{ $n }}"
-                                    data-akhir="{{ COUNT($val) == 1 ? $n : $n + COUNT($val) - 1}}">
+                                    data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
                                     <td colspan="7">
-                                        <h4><strong>{{ $key }}</strong></h4>
+                                        <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
                                     </td>
                                 </tr>
                                 <?php $x++; ?>
-                                @foreach ($val as $k)
-                                    <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k->produk_id }}"
-                                        data-hargajual="{{ $k->harga_jual }}"
-                                        data-stok="{{ $k->produk->stok }}"
-                                        data-terjual="{{ $k->produk->terjual }}"
-                                        data-jumlah="{{ $k->jumlah }}"
-                                        data-subtotal="{{ $k->jumlah * $k->harga_jual }}"
-                                        data-idkeranjang="{{  $k->id_keranjang }}"
-                                        data-idpelapak="{{ $k->produk->pelapak->id_pelapak }}"
-                                        data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}">
+                                @foreach ($val['item'] as $k)
+                                    <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}"
+                                        data-hargajual="{{ $k['harga_jual'] }}"
+                                        data-stok="{{ $k['stok'] }}"
+                                        data-terjual="{{ $k['terjual'] }}"
+                                        data-jumlah="{{ $k['jumlah'] }}"
+                                        data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}"
+                                        data-idkeranjang="{{  $k['id_keranjang'] }}"
+                                        data-idpelapak="{{ $val['id_toko'] }}"
+                                        data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
                                         <td>
                                             <figure class="itemside">
-                                                <div class="aside"><img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}" class="img-sm"></div>
+                                                <div class="aside"><img src="{{ $k['foto'] }}" class="img-sm"></div>
                                                 <figcaption class="info">
-                                                    <a href="{{ URL::to('produk/'.$k->produk->slug) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
-                                                    <p class="text-muted small">Kategori: {{ $k->produk->kategori->nama_kategori }}</p>
+                                                    <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
+                                                    <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>
                                                 </figcaption>
                                             </figure>
                                         </td>
                                         <td>
-                                            {{ $k->produk->berat }} gram
+                                            {{ $k['berat'] }} gram
                                         </td>
                                         <td class="bold" id="harga{{ $n }}">
-                                            @if($k->produk->diskon == 0)
-                                                @currency($k->produk->harga_jual)
+                                            @if($k['diskon'] == 0)
+                                                @currency($k['harga_jual'])
                                             @else
-                                                <strike style="color: red">@currency($k->produk->harga_jual)</strike> | @currency($k->produk->harga_jual - ($k->produk->diskon / 100 * $k->produk->harga_jual))
+                                                <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $k->jumlah }}
+                                            {{ $k['jumlah'] }}
                                         </td>
                                         <td id="subHarga{{ $n }}">
-                                            @if($k->produk->diskon == 0)
-                                                @currency($k->harga_jual * $k->jumlah)
+                                            @if($k['diskon'] == 0)
+                                                @currency($k['harga_jual'] * $k['jumlah'])
                                             @else
-                                                @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
+                                                @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
                                             @endif
                                         </td>
                                     </tr>
@@ -192,13 +187,13 @@
 
     <!-- Modal -->
     <?php $m = 1; ?>
-    @foreach($order as $key => $val)
+    @foreach($data_keranjang as $val)
         <div class="modal fade" id="modalKurir{{ $m }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Pilih Kurir Pengiriman
-                            Untuk {{ $val[0]->produk->pelapak->nama_toko }}</h5>
+                            Untuk {{ $val['nama_toko'] }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -240,28 +235,19 @@
                 <!-- end /.modal-header -->
 
                 <div class="modal-body">
-                    @foreach($order as $key => $val)
-                        @foreach($val as $val)
-                            @foreach($val->pembeli->daftar_alamat as $v)
-                                @if($val->pembeli->alamat_utama != $v->id_alamat)
-                                    <div class="information_module order_summary">
-                                        <div class="toggle_title"
-                                             data-destination="{{ $v->city_id }}">
-                                            <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
-                                            <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
-                                            <br>
-                                            <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
-                                                <button type="submit" class="btn btn--round modal_close">Pilih
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                @endif
-                            @endforeach
-                            @break;
-                        @endforeach
-                        @break;
+                    @foreach($pembeli->daftar_alamat as $v)
+                        <div class="information_module order_summary">
+                            <div class="toggle_title"
+                                 data-destination="{{ $v->kecamatan_id }}">
+                                <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
+                                <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
+                                <br>
+                                <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                                    <button type="submit" class="btn btn--round modal_close">Pilih
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
                 <!-- end /.modal-body -->
@@ -400,7 +386,7 @@
         function numberFormat(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
         }
-        
+
         function batalCheckoutConfirm() {
             $("#formBatalCheckout").attr('action', '{{ URL::to('checkout/batal')}}');
         }
