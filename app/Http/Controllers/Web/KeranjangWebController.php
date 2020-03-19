@@ -20,7 +20,7 @@ class KeranjangWebController extends Controller
         $konsumen_id = $request->user($role)->$id;
 
 
-        $data['keranjang'] = Keranjang::with(['produk', 'pembeli'])
+        $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix'])
             ->where('pembeli_id', $konsumen_id)
             ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
             ->where('status', 'N')
