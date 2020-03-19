@@ -31,7 +31,7 @@ class CheckoutWebController extends Controller
         //                 ->where('keranjang.status', 'Y')
         //                 ->get()
         //                 ->groupBy('keranjang.konsumen_id');
-        $data['order'] = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
+        $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
                         ->where('pembeli_id', $konsumen_id)
                         ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
                         ->where('status', 'Y')
