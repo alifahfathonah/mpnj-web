@@ -25,6 +25,15 @@ class PesananWebController extends Controller
         //                        ->get();
         $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
             ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
+        $data['order'] = collect();
+        foreach ($order as $key => $value) {
+            $data['order']->push([
+                'kode_transaksi' => $value->kode_transaksi,
+                'waktu_transaksi' => $value->waktu_transaksi,
+                'total_bayar' => $value->total_bayar,
+                'item' => $value->transaksi_detail
+            ]);
+        }
         return view('web/web_profile', $data);
 
         // return $data;
