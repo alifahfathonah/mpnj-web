@@ -89,9 +89,9 @@
                                 </td>
                             </tr>
                             @endforeach
-                            <tr id="dataCart">
-                                    <td><i class="fa fa-shopping-cart"></i></td>
-                                    <td colspan="2">Jumlah yang harus dibayar :</td>
+                            <tr>
+                                    <td>{{ $order[$key]->count() }} Produk</td>
+                                    <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                     <td><h5 class="text-primary"> @currency($v[0]->transaksi->total_bayar) </h5></td>
                                     <td>
                                     <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
