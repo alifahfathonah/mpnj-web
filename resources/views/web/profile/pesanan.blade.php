@@ -27,11 +27,11 @@
                         </thead>
                         <tbody>
                             @if(COUNT($order) > 0)
-                            @foreach($order as $key => $v)
+                            @foreach($order as $v)
 
                             <tr id="dataCart" style="background-color: #ccffcc;">
-                                    <td colspan="4"><strong>Kode Transaksi: {{ $key }}</strong></td>
-                                    <td ><strong>{{ $v[0]->transaksi->waktu_transaksi }}</strong></td>
+                                    <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
+                                    <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                 </tr>
                             @foreach($v as $val)
                             <tr>
