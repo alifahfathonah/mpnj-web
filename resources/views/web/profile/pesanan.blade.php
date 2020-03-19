@@ -95,7 +95,7 @@
                             <tr>
                                     <td>{{ $v['item']->count() }} Produk</td>
                                     <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                    <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                    <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                     <td>
                                     <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                         </td>
@@ -190,7 +190,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
@@ -282,7 +282,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
@@ -374,7 +374,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
@@ -466,7 +466,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
@@ -558,7 +558,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
@@ -650,7 +650,7 @@
                                             <tr>
                                                 <td>{{ $v['item']->count() }} Produk</td>
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency(50000) </h5></td>
+                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
                                                 <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
                                                     </td>
