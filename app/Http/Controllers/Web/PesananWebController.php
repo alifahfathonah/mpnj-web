@@ -19,12 +19,13 @@ class PesananWebController extends Controller
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
         //
-        //        $data['order'] = Transaksi::with('pembeli')
-        //                        ->where('pembeli_id', $konsumen_id)
-        //                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
-        //                        ->get();
-        $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-            ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
+        $order = Transaksi::with(['transaksi_detail', 'pembeli', 'transaksi_detail.produk.foto_produk'])
+                            ->where('pembeli_id', $konsumen_id)
+                            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
+                            ->groupBy('kode_transaksi')
+                            ->get();
+        // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+        //     ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
         $data['order'] = collect();
         foreach ($order as $key => $value) {
             $data['order']->push([
@@ -35,8 +36,7 @@ class PesananWebController extends Controller
             ]);
         }
         return view('web/web_profile', $data);
-
-        // return $data;
+        // return $data['order'];
     }
 
     public function detail(Request $request, $id_trx)
