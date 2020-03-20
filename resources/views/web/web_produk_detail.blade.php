@@ -236,9 +236,9 @@
             let stok = $("#stok").val();
             $("#jml").val(parseInt(jml) - 1);
             $("#jumlah").val($("#jml").val());
-            if (parseInt(jml) < 1) {
+            if (parseInt(jml) <= 1) {
                 $('#alertMin').removeClass('d-none');
-                $("#jml").val(parseInt(jml) + 1 - 1);
+                $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
         });
