@@ -103,7 +103,7 @@
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
                                 <input type="hidden" class="form-control input-number" id="jumlah" name="jumlah" value="1">
-                                <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
+                                <button type="submit" id="btnKeranjang" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
