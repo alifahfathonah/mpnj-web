@@ -31,7 +31,7 @@ class CheckoutWebController extends Controller
         //                 ->where('keranjang.status', 'Y')
         //                 ->get()
         //                 ->groupBy('keranjang.konsumen_id');
-        $data['order'] = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
+        $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
                         ->where('pembeli_id', $konsumen_id)
                         ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
                         ->where('status', 'Y')
@@ -40,10 +40,46 @@ class CheckoutWebController extends Controller
 //        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
 //                        ->where('status', 'Y')
 //                        ->sum(DB::raw('jumlah * harga_jual'));
-        $data['berat'] = DB::table("keranjang")
-                        ->select(DB::raw("SUM(produk.berat * keranjang.jumlah) as total_berat"))
-                        ->leftjoin("produk","keranjang.produk_id","=","produk.id_produk")->groupBy('produk.pelapak_id')
-                        ->get();
+//        $data['berat'] = DB::table("keranjang")
+//                        ->select(DB::raw("SUM(produk.berat * keranjang.jumlah) as total_berat"))
+//                        ->leftjoin("produk","keranjang.produk_id","=","produk.id_produk")->groupBy('produk.pelapak_id')
+//                        ->get();
+        $data['data_keranjang'] = collect();
+        $total_berat = 0;
+        $data['pembeli'] = [];
+        $data['total'] = 0;
+
+        foreach ($keranjang as $key => $value) {
+            $item = collect();
+            foreach ($value as $val) {
+                $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+                $item->push([
+                    'id_keranjang' => $val->id_keranjang,
+                    'jumlah' => $val->jumlah,
+                    'harga_jual' => $val->harga_jual,
+                    'diskon' => $val->produk->diskon,
+                    'id_produk' => $val->produk->id_produk,
+                    'nama_produk' => $val->produk->nama_produk,
+                    'berat' => $val->produk->berat,
+                    'stok' => $val->produk->stok,
+                    'slug' => $val->produk->slug,
+                    'terjual' => $val->produk->terjual,
+                    'kategori' => $val->produk->kategori->nama_kategori,
+                    'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
+                ]);
+                $total_berat += $val->produk->berat;
+            }
+
+            $data['data_keranjang']->push([
+                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'nama_toko' => $key,
+                'alamat' => $keranjang[$key][0]->produk->pelapak->alamat_fix,
+                'total_berat' => $total_berat,
+                'item' => $item,
+            ]);
+            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $total_berat = 0;
+        }
 
         return view('web/web_checkout', $data);
     }
