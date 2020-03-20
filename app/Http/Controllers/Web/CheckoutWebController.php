@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Foto_Produk;
+use App\Models\Rekening_Admin;
 use App\Models\Keranjang;
 use App\Models\Konsumen;
 use App\Models\Pelapak;
@@ -116,6 +117,7 @@ class CheckoutWebController extends Controller
     public function sukses($kodeTrx)
     {
     	$data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
+        $data['rekening_admin'] = Rekening_Admin::with('bank')->get();
     	return view('web/web_checkout_sukses', $data);
     }
 
