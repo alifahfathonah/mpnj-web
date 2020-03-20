@@ -248,14 +248,14 @@
             let stok = $("#stok").val();
             // alert($("#jml").val());
             $("#jumlah").val($("#jml").val());
-            if (parseInt(jml) >= parseInt(stok)) {
+            if (parseInt(jml) > parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
                 $("#jml").val($("#stok").val());
                 $("#jumlah").val($("#jml").val());
             }
             if (parseInt(jml) < 1) {
                 $('#alertMin').removeClass('d-none');
-                $("#jml").val($("#stok").val());
+                $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
         });
