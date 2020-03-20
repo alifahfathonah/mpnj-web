@@ -258,7 +258,25 @@
                 $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
+            if (isNaN(jml)) {
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
+            }
         });
+
+        $('#jml').blur(function() {
+            if (!this.value) { // zero-length string
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
+            }
+        });
+
+        if ($("#stok").val() == 0) {
+            $("#alertStok").text("STOK HABIS!!!");
+            $("#jml").val($("#stok").val());
+            $("#jumlah").val($("#jml").val());
+            $("#btnKeranjang").attr("disabled", true);
+        }
 
         $("#closeAlertMax").click(function() {
             $('#alertMax').addClass('d-none');
