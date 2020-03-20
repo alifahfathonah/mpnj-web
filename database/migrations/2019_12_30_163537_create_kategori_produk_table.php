@@ -16,7 +16,6 @@ class CreateKategoriProdukTable extends Migration
         Schema::create('kategori_produk', function (Blueprint $table) {
             $table->increments('id_kategori_produk');
             $table->string('nama_kategori',50);
-            // $table->timestamps();
         });
     }
 

@@ -27,8 +27,10 @@ class CreateTransaksiDetailTable extends Migration
             $table->integer('ongkir')->nullable();
             $table->string('etd')->nullable();
             $table->integer('sub_total')->default(0);
-            $table->enum('status_order', ['pending','verifikasi','packing','dikirim','sukses']);
-            // $table->timestamps();
+            $table->enum('status_order', ['pending','verifikasi','packing','dikirim','sukses'])->default('pending');
+            $table->integer('pelapak_id')->unsigned();
+            $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            $table->timestamps();
         });
     }
 

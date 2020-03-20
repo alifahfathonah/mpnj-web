@@ -1588,4 +1588,14 @@ body {
   min-height: 3em;
 }
 
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 /*# sourceMappingURL=ui.css.map */

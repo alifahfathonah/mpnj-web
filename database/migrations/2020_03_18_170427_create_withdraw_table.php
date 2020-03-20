@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPelapakIdOnTransaksiDetail extends Migration
+class CreateWithdrawTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class AddPelapakIdOnTransaksiDetail extends Migration
      */
     public function up()
     {
-        Schema::table('transaksi_detail', function (Blueprint $table) {
+        Schema::create('withdraw', function (Blueprint $table) {
+            $table->increments('id_withdraw');
             $table->integer('pelapak_id')->unsigned();
             $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            $table->integer('nominal');
+            $table->enum('status', ['pending', 'diterima', 'sukses'])->default('pending');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +30,6 @@ class AddPelapakIdOnTransaksiDetail extends Migration
      */
     public function down()
     {
-        Schema::table('transaksi_detail', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('withdraw');
     }
 }

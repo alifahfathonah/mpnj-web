@@ -54,8 +54,8 @@
                         </ul>
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
-                        @if($produk->stok <= 5) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
-                            <small class="label-rating text">JANGAN SAMPAI KEHABISAN</small>
+                        @if($produk->stok <= 10) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
+                            <small class="badge badge-danger blink"> STOK TERBATAS !!!</small>
                             @else
                             <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
                             @endif

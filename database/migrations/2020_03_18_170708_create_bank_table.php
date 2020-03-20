@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToKeranjang extends Migration
+class CreateBankTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddStatusToKeranjang extends Migration
      */
     public function up()
     {
-        Schema::table('keranjang', function (Blueprint $table) {
-            $table->enum('status', ['Y','N'])->default('N');
+        Schema::create('bank', function (Blueprint $table) {
+            $table->increments('id_bank');
+            $table->string('nama_bank')->unique();
+//            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ class AddStatusToKeranjang extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keranjang');
+        Schema::dropIfExists('bank');
     }
 }
