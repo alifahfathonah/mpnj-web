@@ -98,7 +98,7 @@
                                     <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                     <td>
                                     @if( $v['proses_pembayaran'] == 'belum')
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
+                                    <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
                                         </td>
                                     </tr>
                                     @else
@@ -198,7 +198,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
+                                                    <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
                                                 </td>
                                             </tr>
                                     @endif
