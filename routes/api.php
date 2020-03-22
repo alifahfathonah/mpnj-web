@@ -18,6 +18,7 @@ Route::get('/kategori', function () {
 Route::get('/produk', 'Api\ApiProdukController@index');
 Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
 Route::post('/produk', 'Api\ApiProdukController@create');
+Route::get('/produk/cari/{nama}', 'Api\ApiProdukController@cari');
 
 // KONSUMEN
 Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
