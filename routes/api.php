@@ -69,3 +69,4 @@ Route::get('/gateway/kota', 'Api\RajaOngkirGateway@kota');
 Route::get('/gateway/kotaId', 'Api\RajaOngkirGateway@kotaId');
 Route::get('/gateway/kecamatan', 'Api\RajaOngkirGateway@kecamatan');
 Route::get('/gateway/kecamatanId', 'Api\RajaOngkirGateway@kecamatanId');
+Route::post('/gateway/tracking', 'Api\RajaOngkirGateway@tracking_check');
