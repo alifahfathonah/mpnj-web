@@ -32,6 +32,7 @@ class PesananWebController extends Controller
                 'kode_transaksi' => $value->kode_transaksi,
                 'waktu_transaksi' => $value->waktu_transaksi,
                 'total_bayar' => $value->total_bayar,
+                'proses_pembayaran' => $value->proses_pembayaran,
                 'item' => $value->transaksi_detail
             ]);
         }
