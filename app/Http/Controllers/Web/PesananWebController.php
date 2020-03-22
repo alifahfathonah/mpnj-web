@@ -8,6 +8,7 @@ use App\Models\Pelapak;
 use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -76,7 +77,14 @@ class PesananWebController extends Controller
         
        Transaksi::where('id_transaksi', $request->id )->update(['total_bayar' => $request->total3]);
        Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'batal']);
-        return redirect()->back();
+       return redirect()->back();
         
+    }
+
+    public function tracking()
+    {
+        $data['resi'] = '020810015419720';
+        $data['kurir'] = 'jne';
+        return view('web/web_profile', $data);
     }
 }
