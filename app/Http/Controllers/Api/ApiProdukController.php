@@ -38,7 +38,6 @@ class ApiProdukController extends Controller
             $res2 ['data'] = [];
             return response()->json($res2);
         };
-        
     }
 
     public function create(request $request)
@@ -77,6 +76,12 @@ class ApiProdukController extends Controller
             $res2 ['pesan'] = "Tambah Data produk Gagal!";
             return response()->json($res2);
         }
+    }
+
+    public function cari($nama)
+    {
+        $produks = $this->produkRepository->cari($nama);
+        return $produks;
     }
 
 }
