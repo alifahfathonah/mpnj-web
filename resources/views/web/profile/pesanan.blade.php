@@ -400,13 +400,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'dikirim'))
+                                    @if($v['item']->contains('status_order', 'Dikirim'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'dikirim')
+                                            @if($val->status_order == 'Dikirim')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
