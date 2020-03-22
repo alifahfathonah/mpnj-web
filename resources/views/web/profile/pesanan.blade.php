@@ -34,7 +34,7 @@
                                     <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                 </tr>
                             @foreach($v['item'] as $val)
-                                @if($val->status_order == 'pending')
+                                @if($val->status_order == 'Menunggu Konfirmasi')
 
                                 @endif
                             <tr>
