@@ -119,4 +119,22 @@ class RajaOngkirGateway extends Controller
         $data['ongkir'] = json_decode($request, false);
         return $data;
     }
+
+    public function tracking_check(Request $request)
+    {
+        $resi = $request->waybill;
+        $kurir = $request->courier;
+
+        $request = $this->client->post('https://pro.rajaongkir.com/api/waybill', [
+            'form_params' => [
+                'waybill' => $resi,
+                'courier' => $kurir
+            ],
+            'headers' => [
+                'key' => $this->token
+            ]
+        ])->getBody()->getContents();
+        $data['waybill'] = json_decode($request, false);
+        return $data;
+    }
 }
