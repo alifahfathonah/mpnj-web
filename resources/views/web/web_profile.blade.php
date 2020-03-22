@@ -44,6 +44,8 @@
 										@include('web.profile.pesanan')
 									@elseif(Route::currentRouteName() == 'pesananDetail')
 										@include('web.profile.pesanan_detail')
+									@elseif(Route::currentRouteName() == 'tracking')
+										@include('web.profile.tracking')
 									@endif
 								</div>
 							</div>
