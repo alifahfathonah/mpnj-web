@@ -85,38 +85,7 @@
             </table>
         </div>
         @php $edited = false; @endphp
-        <hr>
-        @if($detail->transaksi->proses_pembayaran == 'belum')
-        @if($detail->status_order == 'pending')
 
-        <form method="post" action="{{ URL::to('pesanan/dibatalkan/'.$detail->id_transaksi_detail) }}">
-        @csrf
-        <input type="hidden" name="id" value="{{$detail->transaksi_id}}">
-        
-        <input type="hidden" name="total1" value="@if($detail->diskon == 0)
-                            {{($detail->jumlah * $detail->harga_jual) + $detail->ongkir}}
-                            @else
-                            {{($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir}}
-                            @endif">
-
-        <input type="hidden" name="total2" value="{{ $detail->transaksi->total_bayar }}" >
-        <input type="hidden" name="total3" value="@if($detail->diskon == 0)
-                            {{$detail->transaksi->total_bayar - ($detail->jumlah * $detail->harga_jual) + $detail->ongkir}}
-                            @else
-                            {{ $detail->transaksi->total_bayar - ($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir}}
-                            @endif
-                            ">
-        <button type="submit" class="btn btn-danger">Batalkan</button>
-        </form>
-
-        
-        @endif
-        @if($detail->status_order == 'batal')
-        <div class="alert alert-info">
-            Pesanan <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">Produk ini</a> Telah Anda Batalkan !
-        </div>
-        @endif
-        @endif
         @if($detail->status_order == 'sukses')
         <div class="card-body">
             <div class="row">
