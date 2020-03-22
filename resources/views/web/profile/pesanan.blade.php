@@ -97,9 +97,15 @@
                                     <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                     <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                     <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                    @if( $v['proses_pembayaran'] == 'belum')
+                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
                                         </td>
                                     </tr>
+                                    @else
+                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
+                                        </td>
+                                    </tr>
+                                    @endif
                             @endforeach
                             @else
                             <tr>
