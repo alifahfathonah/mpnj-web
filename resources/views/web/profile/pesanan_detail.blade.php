@@ -1,32 +1,26 @@
 <main class="col-md-12">
     <article class="card">
         <header class="card-header">
-            <strong class="d-inline-block">Kode Transaksi: {{ $detail->transaksi->kode_transaksi }}</strong>
+            <strong class="d-inline-block">Kode Transaksi: {{ $detail->kode_transaksi }}</strong>
             <hr>
             <div class="col-md-8">
                 <h6 class="text-dark">Keterangan</h6>
                 <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
                     <span class="text-danger">
-                        {{ $detail->transaksi->proses_pembayaran }} dibayar
+                        {{ $detail->proses_pembayaran }} dibayar
                     </span><br>
-                    Waktu Pesanan: {{ $detail->transaksi->waktu_transaksi }}<br>
+                    Waktu Pesanan: {{ $detail->waktu_transaksi }}<br>
                 </p>
             </div>
-
         </header>
-
-        @if($detail->transaksi->proses_pembayaran == 'belum')
-        <a href="{{ URL::to('konfirmasi/data/'.$detail->transaksi->kode_transaksi) }}" class="btn btn-primary">Transaksi</a>
-        @endif
-
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
                     <h6 class="text-dark">Oleh</h6>
-                    <p>{{ $detail->transaksi->pembeli->alamat_fix->nama }}<br>
-                        Telepon {{ $detail->transaksi->pembeli->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->transaksi->pembeli->alamat_fix->alamat_lengkap}}, {{ $detail->transaksi->pembeli->alamat_fix->nama_kota }}, {{ $detail->transaksi->pembeli->alamat_fix->nama_provinsi }} <br>
-                        Kode Pos: {{ $detail->transaksi->pembeli->alamat_fix->kode_pos }}
+                    <p>{{ $detail->pembeli->alamat_fix->nama }}<br>
+                        Telepon {{ $detail->pembeli->alamat_fix->nomor_telepon }}<br>
+                        Alamat:{{ $detail->pembeli->alamat_fix->alamat_lengkap}}, {{ $detail->pembeli->alamat_fix->nama_kota }}, {{ $detail->pembeli->alamat_fix->nama_provinsi }} <br>
+                        Kode Pos: {{ $detail->pembeli->alamat_fix->kode_pos }}
                     </p>
                 </div>
                 <div class="col-md-4">
@@ -56,31 +50,33 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <tbody>
+                    @foreach( $detail->transaksi_detail as $d)
                     <tr>
                         <td width="65">
-                            <img src="{{ asset('assets/foto_produk/'.$detail->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                            <img src="{{ asset('assets/foto_produk/'.$d->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
                         </td>
                         <td>
-                            <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">
-                                <p class="title mb-0">{{ $detail->produk->nama_produk }}</p>
+                            <a href="{{ URL::to('produk/'.$d->produk->slug) }}">
+                                <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
                             </a>
                             <var class="price text">
-                                @if($detail->diskon == 0)
-                                @currency($detail->harga_jual)
+                                @if($d->diskon == 0)
+                                @currency($d->harga_jual)
                                 @else
-                                <strike style="color: red">@currency($detail->harga_jual)</strike> <span style="color: black;">| @currency($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual))</span>
+                                <strike style="color: red">@currency($d->harga_jual)</strike> <span style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 * $d->harga_jual))</span>
                                 @endif
                             </var>
                         </td>
-                        <td>Jumlah : {{ $detail->jumlah }}</td>
+                        <td>Jumlah : {{ $d->jumlah }}</td>
                         <td> Total :
-                            @if($detail->diskon == 0)
-                            @currency($detail->jumlah * $detail->harga_jual)
+                            @if($d->diskon == 0)
+                            @currency($d->jumlah * $d->harga_jual)
                             @else
-                            @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah)
+                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah)
                             @endif </td>
 
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
