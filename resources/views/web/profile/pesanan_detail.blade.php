@@ -29,8 +29,7 @@
 {{--                        <i class="fab fa-lg fa-cc-visa"></i>--}}
 {{--                        {{ $detail->proses_pembayaran }}--}}
                     </span>
-                    <p>Total Bayar: @currency($detail->transaksi_detail->sum('sub_total')) <br>
-                       Total Ongkir: @currency($detail->transaksi_detail->sum('ongkir'))
+                    <p>Total Bayar: @currency($detail->total_bayar)
                     </p>
                 </div>
             </div> <!-- row.// -->
