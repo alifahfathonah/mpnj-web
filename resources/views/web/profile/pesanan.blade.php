@@ -34,7 +34,7 @@
                                     <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                 </tr>
                             @foreach($v['item'] as $val)
-                                @if($val->status_order == 'pending')
+                                @if($val->status_order == 'Menunggu Konfirmasi')
 
                                 @endif
                             <tr>
@@ -97,9 +97,15 @@
                                     <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                     <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                     <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                    @if( $v['proses_pembayaran'] == 'belum')
+                                    <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
                                         </td>
                                     </tr>
+                                    @else
+                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
+                                        </td>
+                                    </tr>
+                                    @endif
                             @endforeach
                             @else
                             <tr>
@@ -124,13 +130,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'pending'))
+                                    @if($v['item']->contains('status_order', 'Menunggu Konfirmasi'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'pending')
+                                            @if($val->status_order == 'Menunggu Konfirmasi')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -192,8 +198,8 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
-                                                    </td>
+                                                    <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
+                                                </td>
                                             </tr>
                                     @endif
                                 
@@ -216,13 +222,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'verifikasi'))
+                                    @if($v['item']->contains('status_order', 'Telah Dikonfirmasi'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'verifikasi')
+                                            @if($val->status_order == 'Telah Dikonfirmasi')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -284,7 +290,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
                                                     </td>
                                             </tr>
                                     @endif
@@ -308,13 +314,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'packing'))
+                                    @if($v['item']->contains('status_order', 'Dikemas'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'packing')
+                                            @if($val->status_order == 'Dikemas')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -376,7 +382,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
                                                     </td>
                                             </tr>
                                     @endif
@@ -400,13 +406,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'dikirim'))
+                                    @if($v['item']->contains('status_order', 'Dikirim'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'dikirim')
+                                            @if($val->status_order == 'Dikirim')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -468,7 +474,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
                                                     </td>
                                             </tr>
                                     @endif
@@ -492,13 +498,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'sukses'))
+                                    @if($v['item']->contains('status_order', 'Telah Sampai'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'sukses')
+                                            @if($val->status_order == 'Telah Sampai')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -560,7 +566,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
                                                     </td>
                                             </tr>
                                     @endif
@@ -584,13 +590,13 @@
                         </thead>
                         <tbody>
                                 @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'batal'))
+                                    @if($v['item']->contains('status_order', 'Dibatalkan'))
                                         <tr id="dataCart" style="background-color: #ccffcc;">
                                         <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
                                         <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
                                     </tr>
                                         @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'batal')
+                                            @if($val->status_order == 'Dibatalkan')
                                             <tr>
                                                 <td width="95">
                                                     <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
@@ -652,7 +658,7 @@
                                                 <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
                                                 <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
                                                 <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$val->id_transaksi_detail) }}" class="btn btn-success"> Bayar Sekarang </a>
+                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
                                                     </td>
                                             </tr>
                                     @endif

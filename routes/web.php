@@ -88,7 +88,7 @@ Route::group(['namespace' => 'Web'], function () {
 
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'PesananWebController@index')->name('pesanan')->middleware('checkUserLogin');
-        Route::get('detail/{id}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::get('detail/{id_trx}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
         Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
         Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
