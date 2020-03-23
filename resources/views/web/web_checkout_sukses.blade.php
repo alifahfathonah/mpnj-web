@@ -26,9 +26,9 @@
                                 {{$ra->nomer_rekening}} / {{$ra->atas_nama_rekening}}<br>
                                 @endforeach
                             </span>
-                            <p>Subtotal: @currency($order_sukses->transaksi_detail->sub_total) <br>
-                                Shipping fee: - <br>
-                                <span class="b">Total: @currency($order_sukses->total_bayar)</span>
+                            <p>Total Belanja : @currency($order_total) <br>
+                                Total Ongkir : @currency($order_ongkir) <br>
+                                <span class="b">Total Bayar: @currency($order_sukses->total_bayar)</span>
                             </p>
                         </div>
                         <div class="col-md-4">
