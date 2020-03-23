@@ -68,41 +68,44 @@ class CheckoutWebController extends Controller
 
         return view('web/web_checkout', $data);
     }
-    
+
     public function simpanTransaksi(Request $request)
     {
         $role = Session::get('role');
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
 
-    	$simpanTrx = Transaksi::create([
-    		'pembeli_id' => $konsumen_id,
+        $simpanTrx = Transaksi::create([
+            'pembeli_id' => $konsumen_id,
             'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
-		    'kode_transaksi' => time(),
-		    'waktu_transaksi' => date('Y-m-d H:i:s'),
-		    'total_bayar' => $request->totalBayar
+            'kode_transaksi' => time(),
+            'waktu_transaksi' => date('Y-m-d H:i:s'),
+            'total_bayar' => $request->totalBayar
         ]);
-    	if ($simpanTrx) {
-    		foreach ($request->trxDetail as $detail) {
-    			//buat trigger ketika data masuk ke transaksi detail untuk mengurangi stok produk dan memperbarui field terjual
-    			$detail['transaksi_id'] = $simpanTrx->id_transaksi;
+        if ($simpanTrx) {
+            foreach ($request->trxDetail as $detail) {
+                //buat trigger ketika data masuk ke transaksi detail untuk mengurangi stok produk dan memperbarui field terjual
+                $detail['transaksi_id'] = $simpanTrx->id_transaksi;
                 Transaksi_Detail::create($detail);
             }
             foreach ($request->prosesData as $produk) {
                 foreach ($request->idp as $i) {
-                Produk::where('id_produk', $i)->update($produk);
+                    Produk::where('id_produk', $i)->update($produk);
                 }
             }
             Keranjang::whereIn('id_keranjang', $request->idKeranjang)->delete();
-		    return response()->json($simpanTrx,200);
-	    }
+            return response()->json($simpanTrx, 200);
+        }
     }
-    
+
     public function sukses($kodeTrx)
     {
-    	$data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
+        $data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
+        $data['order_detail'] = Transaksi_Detail::where('transaksi_id', $data['order_sukses']->id_transaksi)->get();
+        $data['order_total'] =  $data['order_detail']->sum("sub_total");
+        $data['order_ongkir'] =  $data['order_detail']->sum("ongkir");
         $data['rekening_admin'] = Rekening_Admin::with('bank')->get();
-    	return view('web/web_checkout_sukses', $data);
+        return view('web/web_checkout_sukses', $data);
     }
 
 
