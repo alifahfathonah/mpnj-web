@@ -65,10 +65,7 @@ class PesananWebController extends Controller
 
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
 
-
-
         return redirect()->back();
-
     }
 
     public function dibatalkan(Request $request, $id_trx)

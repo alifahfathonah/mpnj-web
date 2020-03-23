@@ -47,6 +47,7 @@
                             <a href="{{ URL::to('produk/'.$d->produk->slug) }}">
                                 <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
                             </a>
+                                <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
                             <var class="price text">
                                 @if($d->diskon == 0)
                                 @currency($d->harga_jual)
