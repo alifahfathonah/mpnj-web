@@ -19,15 +19,14 @@
                             <span class="text-success font-weight-bold">
                                 @foreach($rekening_admin as $ra)
                                 @if($ra->bank->nama_bank == 'BNI')
-                                <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
+                                    <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
                                 @elseif($ra->bank->nama_bank == 'Mandiri')
-                                <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
+                                    <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
                                 @endif
-                                {{$ra->nomer_rekening}} / {{$ra->atas_nama_rekening}}<br>
+                                | {{$ra->nomor_rekening}} | {{$ra->atas_nama_rekening}}<br>
                                 @endforeach
                             </span>
-                            <p>Total Belanja : @currency($order_total) <br>
-                                Total Ongkir : @currency($order_ongkir) <br>
+                            <p>Total Ongkir : @currency($order_ongkir) <br>
                                 <span class="b">Total Bayar: @currency($order_sukses->total_bayar)</span>
                             </p>
                         </div>
