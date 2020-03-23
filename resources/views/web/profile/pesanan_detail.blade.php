@@ -55,15 +55,15 @@
                                 @endif
                             </var>
                         </td>
-                        <td>Jumlah : {{ $d->jumlah }}</td>
+                        <td>Jumlah : {{ $d->jumlah }} Ongkir : <br>{{ $d->ongkir }}</td>
                         <td> Total :
                             @if($d->diskon == 0)
-                            @currency($d->jumlah * $d->harga_jual)
+                            @currency($d->jumlah * $d->harga_jual + $d->ongkir)
                             @else
-                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah)
+                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         <td>
-                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}" class="btn btn-warning"> Lacak Barang </a>
+                            <a href="{{ URL::to('Tracking') }}" class="btn btn-warning"> Lacak Barang </a>
                         </td>
                          <td>
                             <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}" class="btn btn-success"> Pesanan Diterima </a>
