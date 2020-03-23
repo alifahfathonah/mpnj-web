@@ -23,28 +23,12 @@ class CheckoutWebController extends Controller
         $role = Session::get('role');
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
-        // $data['order'] = DB::table('keranjang')
-        //                 ->select('pelapak.nama_toko','produk.id_produk','konsumen.id_konsumen','keranjang.konsumen_id','keranjang.produk_id','pelapak.id_pelapak','produk.pelapak_id')
-        //                 ->leftJoin('produk', 'produk.id_produk', '=', 'keranjang.produk_id')
-        //                 ->leftJoin('pelapak', 'produk.pelapak_id', '=', 'pelapak.id_pelapak')
-        //                 ->leftJoin('konsumen', 'konsumen.id_konsumen', '=', 'keranjang.konsumen_id')
-        //                 ->where('keranjang.konsumen_id', 1)
-        //                 ->where('keranjang.status', 'Y')
-        //                 ->get()
-        //                 ->groupBy('keranjang.konsumen_id');
         $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
-                        ->where('pembeli_id', $konsumen_id)
-                        ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
-                        ->where('status', 'Y')
-                        ->get()
-                        ->groupBy('produk.pelapak.nama_toko');
-//        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
-//                        ->where('status', 'Y')
-//                        ->sum(DB::raw('jumlah * harga_jual'));
-//        $data['berat'] = DB::table("keranjang")
-//                        ->select(DB::raw("SUM(produk.berat * keranjang.jumlah) as total_berat"))
-//                        ->leftjoin("produk","keranjang.produk_id","=","produk.id_produk")->groupBy('produk.pelapak_id')
-//                        ->get();
+            ->where('pembeli_id', $konsumen_id)
+            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
+            ->where('status', 'Y')
+            ->get()
+            ->groupBy('produk.pelapak.nama_toko');
         $data['data_keranjang'] = collect();
         $total_berat = 0;
         $data['pembeli'] = [];
