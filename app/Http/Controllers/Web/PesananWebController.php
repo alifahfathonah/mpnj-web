@@ -67,6 +67,8 @@ class PesananWebController extends Controller
 
 
 
+        return redirect()->back();
+
     }
 
     public function dibatalkan(Request $request, $id_trx)
