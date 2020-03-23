@@ -60,7 +60,7 @@ class KonfirmasiWebController extends Controller
 		]);
 
 		if ($simpanKonfirmasi) {
-		    Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
+			Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
 			$folder = 'assets/konfirmasi';
 			$foto->move($folder, $filename);
 			return redirect()->away('/pesanan');
