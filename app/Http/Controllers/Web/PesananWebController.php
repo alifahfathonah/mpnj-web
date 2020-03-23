@@ -51,10 +51,10 @@ class PesananWebController extends Controller
         // }])
         //     ->first();
         $data['detail'] = Transaksi::with('transaksi_detail','transaksi_detail.produk.foto_produk')->where('kode_transaksi', $id_trx)->first();
-        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
+//        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
         return view('web/web_profile', $data);
-            //    return $data['detail'];
+//                return $data['detail'];
     }
 
     public function diterima(Request $request, $id_trx)
