@@ -24,25 +24,13 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <h6 class="text-dark">Status</h6>
+                    <h6 class="text-dark">Overview</h6>
                     <span class="text-success">
-                        <i class="fab fa-lg fa-cc-visa"></i>
-                        {{ $detail->status_order }}
+{{--                        <i class="fab fa-lg fa-cc-visa"></i>--}}
+{{--                        {{ $detail->proses_pembayaran }}--}}
                     </span>
-                    <p>Subtotal:
-                        @if($detail->diskon == 0)
-                        @currency($detail->jumlah * $detail->harga_jual)
-                        @else
-                        @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah)
-                        @endif <br>
-                        Kurir: {{ $detail->kurir }} - {{ $detail->service }} <br>
-                        Ongkir: @currency($detail->ongkir) <br>
-                        <span class="b">Total: @if($detail->diskon == 0)
-                            @currency(($detail->jumlah * $detail->harga_jual) + $detail->ongkir)
-                            @else
-                            @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir)
-                            @endif
-                        </span>
+                    <p>Total Bayar: @currency($detail->transaksi_detail->sum('sub_total')) <br>
+                       Total Ongkir: @currency($detail->transaksi_detail->sum('ongkir'))
                     </p>
                 </div>
             </div> <!-- row.// -->
