@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Konfirmasi;
 use App\Models\Konsumen;
 use App\Models\Transaksi;
+use App\Models\Rekening_Admin;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Validator;
@@ -26,24 +27,25 @@ class KonfirmasiWebController extends Controller
 
 	public function data(Request $request, $id_trx)
 	{
-		$cek = Transaksi::with('pembeli')->where('kode_transaksi', $id_trx)->first();
-			return view('web/web_konfirmasi', ['cek' => $cek]);
-			// return $cek;
-	
+		$cek['transaksi'] = Transaksi::with('pembeli')->where('kode_transaksi', $id_trx)->first();
+		$cek['rekening_admin'] = Rekening_Admin::with('bank')->get();
+		return view('web/web_konfirmasi', $cek);
+		// return $cek;
+
 	}
 
 	public function simpan(Request $request)
 	{
-	    $validator = Validator::make($request->except('token'), [
-	       'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
+		$validator = Validator::make($request->except('token'), [
+			'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+		]);
 
-	    if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors($validator);
-        }
+		if ($validator->fails()) {
+			return redirect()
+				->back()
+				->withInput()
+				->withErrors($validator);
+		}
 
 		$foto = $request->file('bukti_transfer');
 		$filename = $foto->getClientOriginalName();
@@ -58,7 +60,7 @@ class KonfirmasiWebController extends Controller
 		]);
 
 		if ($simpanKonfirmasi) {
-		    Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
+			Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
 			$folder = 'assets/konfirmasi';
 			$foto->move($folder, $filename);
 			return redirect()->away('/pesanan');

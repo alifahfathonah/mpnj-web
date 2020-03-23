@@ -70,6 +70,7 @@
                                     <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}"
                                         data-hargajual="{{ $k['harga_jual'] }}"
                                         data-stok="{{ $k['stok'] }}"
+                                        data-diskon="{{ $k['diskon'] }}"
                                         data-terjual="{{ $k['terjual'] }}"
                                         data-jumlah="{{ $k['jumlah'] }}"
                                         data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}"
@@ -348,13 +349,14 @@
                     dataTrxDetail.push({
                         'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
                         'pelapak_id' : $(`#data_keranjang${j}`).data('idpelapak'),
+                        'diskon' : $(`#data_keranjang${j}`).data('diskon'),
                         'kurir': $(`#dataPelapak${index}`).data('kurir'),
                         'service': $(`#dataPelapak${index}`).data('service'),
                         'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
                         'etd': $(`#dataPelapak${index}`).data('etd'),
                         'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
                         'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
-                        'sub_total': parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir'))
+                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
                     });
                 }
             }

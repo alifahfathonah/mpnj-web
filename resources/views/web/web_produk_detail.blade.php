@@ -55,7 +55,7 @@
                         <small class="label-rating text">132 reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> {{$produk->terjual}} orders </small>
                         @if($produk->stok <= 10) <small class="label-rating text-primary"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
-                            <small class="badge badge-danger blink"> STOK TERBATAS !!!</small>
+                            <small class="badge badge-danger blink" id="alertStok"> STOK TERBATAS !!!</small>
                             @else
                             <small class="label-rating text-success"> <i class="fa fa-box"></i> {{$produk->stok}} stok </small>
                             @endif
@@ -90,7 +90,7 @@
                                 <div class="input-group-append">
                                     <button class="btn btn-light btn-number" type="button" id="button-minus"> - </button>
                                 </div>
-                                <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99" readonly>
+                                <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99">
                                 <input type="hidden" class="form-control input-number" id="stok" name="stok" value="{{$produk->stok}}">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-light btn-number" type="button" id="button-plus"> + </button>
@@ -103,7 +103,7 @@
                                 <input type="hidden" name="id_produk" id="id_produk" value="{{ $produk->id_produk }}">
                                 <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $produk->harga_jual }}">
                                 <input type="hidden" class="form-control input-number" id="jumlah" name="jumlah" value="1">
-                                <button type="submit" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
+                                <button type="submit" id="btnKeranjang" class="btn btn-primary"> <i class="fas fa-shopping-cart"></i> <span class="text">Masukkan Keranjang</span></button>
                             </form>
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
@@ -222,25 +222,61 @@
         $("#button-plus").click(function() {
             let jml = $("#jml").val();
             let stok = $("#stok").val();
-            $("#jumlah").val(parseInt(jml) + 1);
             $("#jml").val(parseInt(jml) + 1);
+            $("#jumlah").val($("#jml").val());
             if (parseInt(jml) >= parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
-                $("#jumlah").val(parseInt(jml) - 1 + 1);
                 $("#jml").val(parseInt(jml) - 1 + 1);
+                $("#jumlah").val($("#jml").val());
             }
         });
 
         $("#button-minus").click(function() {
             let jml = $("#jml").val();
-            $("#jumlah").val(parseInt(jml) - 1);
+            let stok = $("#stok").val();
             $("#jml").val(parseInt(jml) - 1);
+            $("#jumlah").val($("#jml").val());
             if (parseInt(jml) <= 1) {
                 $('#alertMin').removeClass('d-none');
-                $("#jumlah").val(parseInt(jml) + 1 - 1);
-                $("#jml").val(parseInt(jml) + 1 - 1);
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
             }
         });
+
+        $("#jml").on('input', function() {
+            let jml = $("#jml").val();
+            let stok = $("#stok").val();
+            // alert($("#jml").val());
+            $("#jumlah").val($("#jml").val());
+            if (parseInt(jml) > parseInt(stok)) {
+                $('#alertMax').removeClass('d-none');
+                $("#jml").val($("#stok").val());
+                $("#jumlah").val($("#jml").val());
+            }
+            if (parseInt(jml) < 1) {
+                $('#alertMin').removeClass('d-none');
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
+            }
+            if (isNaN(jml)) {
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
+            }
+        });
+
+        $('#jml').blur(function() {
+            if (!this.value) { // zero-length string
+                $("#jml").val(1);
+                $("#jumlah").val($("#jml").val());
+            }
+        });
+
+        if ($("#stok").val() == 0) {
+            $("#alertStok").text("STOK HABIS!!!");
+            $("#jml").val($("#stok").val());
+            $("#jumlah").val($("#jml").val());
+            $("#btnKeranjang").attr("disabled", true);
+        }
 
         $("#closeAlertMax").click(function() {
             $('#alertMax').addClass('d-none');
