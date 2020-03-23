@@ -116,9 +116,8 @@ class CheckoutWebController extends Controller
         $konsumen_id = $request->user($role)->$id;
 
         $batal = keranjang::where('pembeli_id', $konsumen_id)->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')->update(['status' => 'N']);
-            if ($batal) {
-                return redirect(URL::to('keranjang'));
-            }
+        if ($batal) {
+            return redirect(URL::to('keranjang'));
+        }
     }
-
 }
