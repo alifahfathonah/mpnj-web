@@ -39,15 +39,17 @@
                             <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }}</p>
                         </div>
                     </div>
+                    <br>
+                        <a href="{{ URL::to('konfirmasi/data/'.$order_sukses->kode_transaksi) }}"><button type="button" class="btn btn-primary btn-block">Lanjutkan Proses <i class="fa fa-chevron-right"></i></button></a>
+
                     <hr>
                     <div class="container">
                         <p>Penting : Pastikan anda melakukan pembayaran melalui rekening yang sudah tertera diatas.<br> Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda dengan mengunggah foto bukti transafer agar transaksi anda segera di proses (Tekan tombol Lanjutkan Proses jika anda telah melakukan transfer).</p>
-                        <a href="{{ URL::to('konfirmasi/data/'.$order_sukses->kode_transaksi) }}"><button type="button" class="btn btn-primary btn-block">Lanjutkan Proses <i class="fa fa-chevron-right"></i></button></a>
 
                         <form action="{{ URL::to('pesanan/dibatalkan/'.$order_sukses->kode_transaksi) }}" method="post">
                             @csrf
                         <input type="hidden" value="{{$order_sukses->id_transaksi}}" name="idtr">
-                        <button type="submit" class="btn btn-danger btn-block">Batalkan Pesanan <i class="fa fa-chevron-left"></i></button>
+                        <button type="submit" class="btn btn-outline-danger">Batalkan Pesanan <i class="fa fa-times-circle"></i></button>
                         </form>
                     </div>
                 </div>
