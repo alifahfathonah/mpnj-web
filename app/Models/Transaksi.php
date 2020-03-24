@@ -8,7 +8,7 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['kode_transaksi','pembeli_id','pembeli_type','waktu_transaksi','total_bayar'];
+    protected $fillable = ['kode_transaksi','pembeli_id','pembeli_type','waktu_transaksi','total_bayar','status_transaksi'];
 	public $timestamps = false;
 
     public function transaksi_detail()
