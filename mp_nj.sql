@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Mar 2020 pada 20.25
+-- Waktu pembuatan: 24 Mar 2020 pada 19.43
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.7
 
@@ -190,7 +190,8 @@ CREATE TABLE `konfirmasi` (
 INSERT INTO `konfirmasi` (`id_konfirmasi`, `kode_transaksi`, `total_transfer`, `nama_pengirim`, `tanggal_transfer`, `bukti_transfer`, `waktu_konfirmasi`, `rekening_admin_id`) VALUES
 (1, '1584713319', 920500, 'M. Ilham Surya Pratama', '2020-03-20 00:00:00', 'bank bri syariah.png', NULL, 2),
 (2, '1584902084', 942000, 'M. Ilham Surya Pratama', '2020-03-22 00:00:00', 'Screenshot (20).png', NULL, 1),
-(3, '1584902455', 4514000, 'M. Ilham Surya Pratama', '2020-03-22 00:00:00', 'Screenshot (19).png', NULL, 1);
+(3, '1584902455', 4514000, 'M. Ilham Surya Pratama', '2020-03-22 00:00:00', 'Screenshot (19).png', NULL, 1),
+(4, '1584988879', 2510000, 'M. Ilham Surya Pratama', '2020-03-23 00:00:00', 'Screenshot (20).png', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -344,15 +345,15 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `slug`, `satuan`, `berat`, `harga_modal`, `harga_jual`, `diskon`, `stok`, `keterangan`, `foto`, `tipe_produk`, `pelapak_id`, `wishlist`, `terjual`, `created_at`, `updated_at`, `kategori_produk_id`) VALUES
-(1, 'Adidas TeamVision Black List White', 'adidas-teamvision-black-list-white', 'pcs', 5, 70000, 80000, 0, -1, '<p>Kami menjual sepatu olahraga running, lari, futsal, badminton. 100% ORIGINAL</p>\r\n\r\n<p>Sepatu PRO ATT adalah sepatu yang diproduksi oleh PT. INTIDRAGON SURYATAMA (ISO 90001) di Mojokerto Indonesia yang terkenal dengan kekuatannya dari jaman dahulu, Sol yang dipress oleh pabrik sehingga tidak mudah jebol dan rusak, Nyaman dipakai, Design stylish dan attractive</p>\r\n\r\n<p>Keunggulan produk ini: - Original 100% PRO ATT - Kualitas istimewa standar pabrik - Bahan PVC, Tekstil, EVA yang terjamin - Sol karet Injection Kuat khas pabrik anti licin - Nyaman digunakan ~ Design keren ~ Bonus gantungan kunci</p>\r\n', NULL, 'single', 1, 0, 2, NULL, '2020-03-22 11:34:44', 6),
-(2, 'Converse Allstar CT Mono Full White Putih Low Pria Wanita Couple', 'converse-allstar-ct-mono-full-white-putih-low-pria-wanita-couple', 'pcs', 10, 90000, 950000, 10, -1, '<p>barang yang kami jual adalah sesuai dengan gambar kami menjual produk lokal dengan kualitas terbaik karna kami suplayer tangan pertama Stock kami selau tersedia dan siap di kirim ke alamat anda Kualitas Terjamin 100% terbaik Siap menerima Partai besar/Grosir dengan harga yang jauh dari harga satuan menerima juga Reseller dan Dropshipper Silahkan Bandingkan Kualitas dan Harga kami Dengan Toko sebelah Untung sedikit yg penting berkah amanah dan lancar Sepatu bisa di tukar bila kebesaran ataupun kekecilan yg penting kondisi sepatu masih seperti pertama di terima..</p>\r\n\r\n<p>Sambil kakak santai silahkan mainkan jari kakak untuk Berinteraksi Bersama kami dan dapatkan harga termurah darI GREENLAKESTORE</p>\r\n', NULL, 'single', 1, 0, 2, NULL, '2020-03-22 11:34:44', 6),
-(3, 'Allstar CT Mono Full White Putih Low Pria Wanita Couple', 'allstar-ct-mono-full-white-putih-low-pria-wanita-couple', 'pcs', 12, 70000, 85000, 10, -1, '<p>*Nama produk, photo dan deskripsi dari toko kami yang di pakai toko lain dengan harga murah, kakak harus lebih smart, teliti dan berhati hati.</p>\r\n\r\n<p>*Queen_wedges309 mengutamakan kepuasan customer ( silahkan kakak cek di ulasan kami ya kak) *harga menjamin kualitas barang.</p>\r\n\r\n<p>*pengemasan dijamin rapih.</p>\r\n\r\n<p>*100% barang baru melalui kualitas kontrol yang baik. Kami jual produk lokal dengan harga kompetitif dan kualitas terbaik ya kak, dan bisa di bandingkan dengan sebelah.</p>\r\n\r\n<p>*di toko kami juga menerima orderan dengan jumlah besar, baik itu partaian, atau untuk dijual kembali.</p>\r\n\r\n<p>*barang boleh sama, tapi kualitas barang bisa kami jamin berbeda. Karena tujuan kami memberikan kepuasan dan kenyamanan kepada costumer.</p>\r\n\r\n<p>*melayani 24 jam, dengan fast respon dan ramah.</p>\r\n\r\n<p>*utamakan tanyakan dulu barang yang mau dipesan, karena barang tidak selalu ready. Barang yang dikirim sesuai dengan pesanan dan gambar.</p>\r\n\r\n<p>*orderan langsung dikirim di hari pemesanan setelah melakukan transaksi atau transfer.</p>\r\n\r\n<p>*ingattt !!! Cantumkan size dan warna sepatu yang anda pesan dan selalu pantau juga toko kami di shopee . karena selalu ada produk baru di setiap harinya SELAMAT BERBELANJA Salam manis dari kami Queen_wedges309</p>\r\n', NULL, 'single', 1, 0, 2, NULL, '2020-03-22 10:37:55', 6),
+(1, 'Adidas TeamVision Black List White', 'adidas-teamvision-black-list-white', 'pcs', 5, 70000, 80000, 0, -2, '<p>Kami menjual sepatu olahraga running, lari, futsal, badminton. 100% ORIGINAL</p>\r\n\r\n<p>Sepatu PRO ATT adalah sepatu yang diproduksi oleh PT. INTIDRAGON SURYATAMA (ISO 90001) di Mojokerto Indonesia yang terkenal dengan kekuatannya dari jaman dahulu, Sol yang dipress oleh pabrik sehingga tidak mudah jebol dan rusak, Nyaman dipakai, Design stylish dan attractive</p>\r\n\r\n<p>Keunggulan produk ini: - Original 100% PRO ATT - Kualitas istimewa standar pabrik - Bahan PVC, Tekstil, EVA yang terjamin - Sol karet Injection Kuat khas pabrik anti licin - Nyaman digunakan ~ Design keren ~ Bonus gantungan kunci</p>\r\n', NULL, 'single', 1, 0, 3, NULL, '2020-03-24 11:36:43', 6),
+(2, 'Converse Allstar CT Mono Full White Putih Low Pria Wanita Couple', 'converse-allstar-ct-mono-full-white-putih-low-pria-wanita-couple', 'pcs', 10, 90000, 950000, 10, -2, '<p>barang yang kami jual adalah sesuai dengan gambar kami menjual produk lokal dengan kualitas terbaik karna kami suplayer tangan pertama Stock kami selau tersedia dan siap di kirim ke alamat anda Kualitas Terjamin 100% terbaik Siap menerima Partai besar/Grosir dengan harga yang jauh dari harga satuan menerima juga Reseller dan Dropshipper Silahkan Bandingkan Kualitas dan Harga kami Dengan Toko sebelah Untung sedikit yg penting berkah amanah dan lancar Sepatu bisa di tukar bila kebesaran ataupun kekecilan yg penting kondisi sepatu masih seperti pertama di terima..</p>\r\n\r\n<p>Sambil kakak santai silahkan mainkan jari kakak untuk Berinteraksi Bersama kami dan dapatkan harga termurah darI GREENLAKESTORE</p>\r\n', NULL, 'single', 1, 0, 3, NULL, '2020-03-24 11:36:43', 6),
+(3, 'Allstar CT Mono Full White Putih Low Pria Wanita Couple', 'allstar-ct-mono-full-white-putih-low-pria-wanita-couple', 'pcs', 12, 70000, 85000, 10, -2, '<p>*Nama produk, photo dan deskripsi dari toko kami yang di pakai toko lain dengan harga murah, kakak harus lebih smart, teliti dan berhati hati.</p>\r\n\r\n<p>*Queen_wedges309 mengutamakan kepuasan customer ( silahkan kakak cek di ulasan kami ya kak) *harga menjamin kualitas barang.</p>\r\n\r\n<p>*pengemasan dijamin rapih.</p>\r\n\r\n<p>*100% barang baru melalui kualitas kontrol yang baik. Kami jual produk lokal dengan harga kompetitif dan kualitas terbaik ya kak, dan bisa di bandingkan dengan sebelah.</p>\r\n\r\n<p>*di toko kami juga menerima orderan dengan jumlah besar, baik itu partaian, atau untuk dijual kembali.</p>\r\n\r\n<p>*barang boleh sama, tapi kualitas barang bisa kami jamin berbeda. Karena tujuan kami memberikan kepuasan dan kenyamanan kepada costumer.</p>\r\n\r\n<p>*melayani 24 jam, dengan fast respon dan ramah.</p>\r\n\r\n<p>*utamakan tanyakan dulu barang yang mau dipesan, karena barang tidak selalu ready. Barang yang dikirim sesuai dengan pesanan dan gambar.</p>\r\n\r\n<p>*orderan langsung dikirim di hari pemesanan setelah melakukan transaksi atau transfer.</p>\r\n\r\n<p>*ingattt !!! Cantumkan size dan warna sepatu yang anda pesan dan selalu pantau juga toko kami di shopee . karena selalu ada produk baru di setiap harinya SELAMAT BERBELANJA Salam manis dari kami Queen_wedges309</p>\r\n', NULL, 'single', 1, 0, 3, NULL, '2020-03-24 11:36:43', 6),
 (4, 'DELL Latitude E-Series Core I5-M2520', 'dell-latitude-e-series-core-i5-m2520', 'pcs', 150, 3000000, 4500000, 0, 9, 'Dell Latitude E-Series \r\n\r\nBONUS(Free)\r\n- FREE  INTALASI PROGRAM  ( LAPTOP SIAP PAKAI )\r\n- FREE BUBLE + ASURANSI \r\nRECOMDED JNE\r\n(dijamin 100% Aman untk Pengiriman Luar kota/luar pulau)\r\n\r\nSPESIFIKASI :\r\nProcessor : Intel Core i5-M520 / i5-M2520 CPU 2.40GHz \r\nRAM : 2X2048 MB DDR3 (4 GB Pc3 10600 ) \r\nHarddisk : 250 GB \r\nVGA : Intel HD Graphics, Dedicated 64 MB, Shared 1632 MB, Up to 1696 MB \r\nBaterai : 6 / 9 Cell \r\nFitur : WiFi, DVD, Cardreader, 4 port USB 2.0, VGAa out, IEEE 1394a connector, Express Card Slot, Broadcom NetXtreme Gigabit Ethernet \r\nLayar : 13\",14\",15\" LED (WXGA 1280X800) (kirim random)\r\nBerat Barang : 2.5 Kg \r\nBerat Kemasan : 3.4 Kg \r\nUkuran Barang : 33.8 x 24.5 x 3.5 cm \r\nUkuran Kemasan : 47.5 x 26 x 6 cm \r\nWarna : Grey \r\nOperation System (OS) : Windows 7 \r\nGaransi : 1 Bulan \r\n\r\n* Barang Bekas Display mesin 100% OK, casing 85% ada gores dikit(stok terbatas )', NULL, 'single', 2, 0, 1, NULL, '2020-03-09 01:57:01', 5),
 (5, 'HP 14s DK0073AU Amd 7th A4 9125 ', 'hp-14s-dk0073au-amd-7th-a4-9125', 'pcs', 20, 3000000, 3500000, 0, 10, 'Keuntungan Beli Disini:\r\n- Bonus Tas Original\r\n- Jaminan 100% Produk Baru & Garansi Resmi(Sparepart & Service)\r\n- Free Request Aplikasi(Yang Tersedia)Jadi Terima Laptop Siap Pakai\r\n- Untuk Pengiriman Luar Kota Dipacking se-aman mungkin( Bubble berlapis Dan Asuransi 100% AMAN)\r\n- Garansi Resmi HP INDONESIA 1TAHUN\r\n\r\nSpesifikasi:\r\n- AMD A4-9125 Dual-Core Processor (2.3 GHz base frequency, up to 2.6 GHz burst frequency, 1 MB cache)\r\n- 4 GB DDR4-2133 SDRAM (1 x 4 GB)\r\n- 1TB 5400 rpm SATA\r\n- Amd Radeon R3 Graphic\r\n- Wifi,Bluetooth,Camera\r\n- 14\" diagonal HD SVA BrightView WLED-backlit (1366 x 768)\r\n- No Dvd\r\n- Windows 10 Original 64bit', NULL, 'single', 2, 0, 0, NULL, NULL, 5),
 (6, 'Miyako PSG-607', 'miyako-psg-607', 'pcs', 10, 120000, 150000, 0, 0, 'Jual Megic com Miyako PSG-607, Kapasitas 0.63 L Berkualitas\r\n\r\nKami menjual Megic com Miyako PSG-607, Kapasitas 0.63 L serta aneka Peralatan Dapur, Peralatan Memasak & Ruang Makan lainnya dengan kualitas baik dan harga terjangkau.\r\n\r\nDapatkan segera aneka Peralatan Dapur dan Memasak di toko kami seperti Penyimpanan Makanan, Peralatan Makan & Minum, Bekal, Peralatan Masak, Alat Masak Khusus, Peralatan Dapur, Dapur Lainnya, Aksesoris Dapur, Peralatan Baking, Food & Drink Maker dan Elektronik Rumah Tangga.\r\n\r\nMegic com Miyako PSG-607, Kapasitas 0.63 L\r\nPemasak Serbaguna (multi cooker)\r\n- Memasak Nasi\r\n- Memasak Mie\r\nMegic com Miyako PSG-607 merupakan rice cooker yang berfungsi untuk menanak nasi (cook), dan untuk mengkukus (steam).\r\nSpesifikasi :\r\n- Penanak Nasi 0.63 L\r\n- Daya Listrik 300 W\r\n- Voltase 220 Vac - 50 Hz\r\n\r\n\r\nSegera order Megic com Miyako PSG-607, Kapasitas 0.63 L (TOPSH-DPK-Pd Selamat-Rice Cooker-113515) sebelum stock habis. Silahkan Chat Untuk Ketersediaan Barang - FAST RESPONS!', NULL, 'single', 3, 0, 1, NULL, '2020-03-20 07:08:39', 2),
 (7, 'Cosmos 16-XDC Kipas Angin / Stand Fan', 'cosmos-16-xdc-kipas-angin-stand-fan', 'pcs', 20, 12000, 150000, 0, 0, 'Detail produk dari Cosmos 16-XDC - Kipas Angin / Stand Fan 16 inch Black/Green (Random Color)\r\nKipas Angin 16 Inch\r\nBaling-Baling Super Spread\r\nGaransi Motor 5 Tahun\r\n46W / 220V\r\nWarna Random : Black/Green (Tergantung persediaan stock)\r\nCosmos Stand Fan 16 inch – 16XDC Dilengkapi thermofuse yang berfungsi untuk mencegah terbakarnya motor kipas. Terdapat 3 level kekuatan angin. Motor halus dan tidak berisik dan Mudah Dibersihkan.\r\n\r\nKeunggulan:\r\n\r\nHembusan angin kencang\r\nAwet dan tahan lama digunakan\r\nKaki penyangga kipas yang kuat dan kokoh\r\nPenggunaan daya listrik rendah\r\nDilengkapi dengan 3 pilihan kecepatan sesuai dengan kebutuhan\r\nBaling-baling berukuran besar\r\nKetinggian kipas yang bisa diatur', NULL, 'single', 3, 0, 1, NULL, '2020-03-20 07:08:39', 2),
 (8, 'Sony Cyber-shot DSC-H300 Digital ', 'sony-cyber-shot-dsc-h300-digital', 'pcs', 20, 1500000, 2000000, 0, 9, 'Garansi Resmi 1 Tahun Sony Indonesia\r\n\r\n20.1 MP 1/2.3\" Super HAD CCD Sensor\r\n35x Optical Zoom 4.5-157.5mm Lens\r\n25-875mm (35mm Equivalent)\r\n3.0\" 461k-Dot Clear Photo LCD Screen\r\n1280 x 720 HD Video Recording at 30 fps\r\nOptical SteadyShot Image Stabilization\r\nISO Range of 80-3200\r\nBuilt-In Flash\r\nFace Detection, Panorama, & Other Modes\r\nRuns on 4 AA Batteries\r\n\r\nThe black Sony Cyber-shot DSC-H300 Digital Camera is a point-and-shoot camera featuring a 20.1 MP 1/2.3\" Super HAD CCD image sensor for producing high resolution still imagery and HD 720p video. This sensor is benefited by the inclusion of a long-reaching 35x optical zoom lens, giving a 35mm-equivalent focal length range of 25-875mm. For shooting in low-light conditions and when working at greater zoom magnifications, Optical SteadyShot image stabilization is available to counter the effects of camera shake.', NULL, 'single', 3, 0, 1, NULL, '2020-03-22 11:40:55', 2),
-(9, 'Panasonic Lumix DMC-G7 Kit 14-42mm', 'panasonic-lumix-dmc-g7-kit-14-42mm', 'pcs', 10, 2000000, 2500000, 0, 9, 'Offering true recording versatility, the silver Panasonic Lumix DMC-G7 is a true hybrid mirrorless camera that blends 4K UHD video with advanced still capture and burst shooting capabilities. Revolving around a 16 MP Live MOS Micro Four Thirds sensor and Venus Engine 9 image processor, the G7 features notable low-light sensitivity to ISO 25600, continuous shooting to 8 fps with single-shot AF, as well as a trio of 30 fps shooting rates based on the 4K UHD video recording. Complementing the fast burst shooting modes is an equally adept DFD autofocus system, which works to quicken focusing speeds and emphasize accurate subject tracking for consistently sharp imagery in fast-paced and trying working conditions. Rounding out the feature-set of the G7 is a contemporary body design accentuated by physical exposure control dials, six customizable function buttons, both a high-resolution EVF and 3.0\" tilting touchscreen LCD, and built-in Wi-Fi for wireless sharing and remote camera control. Bridging the gap between stills and video, the Lumix DMC-G7 pairs these two high-resolution mediums with refined focusing and shooting controls for the utmost in shooting versatility.\r\n\r\nCatatan PENGIRIMAN:\r\n1. Pengiriman Gosend Same Day/Grab Same Day akan dikirim di hari yg sama jika order masuk sebelum 14.00\r\n2. Pengiriman Gosend Instant/Grab Instant akan dikirim di hari yg sama jika order masuk sebelum 16.00\r\n3. Pengiriman JNE/J&T/SiCepat akan dikirim di hari yg sama jika order masuk sebelum 17.00\r\n4. Pengiriman luar kota jika ingin cepat harap menggunakan JNE YES.\r\n5. Double packing rapi dan aman menggunakan Bubble Wrap untuk Kamera, Lensa dan aksesoris lainnya yang membutuhkan packing extra.\r\n6. Jika barang diterima tidak sesuai atau dalam keadaan tidak baik, mohon langsung segera hubungi kami.\r\n7. Follow toko JPC KEMANG untuk mendapatkan update promo dan barang terbaru.', NULL, 'single', 3, 0, 1, NULL, '2020-03-22 11:40:55', 2);
+(9, 'Panasonic Lumix DMC-G7 Kit 14-42mm', 'panasonic-lumix-dmc-g7-kit-14-42mm', 'pcs', 10, 2000000, 2500000, 0, 8, 'Offering true recording versatility, the silver Panasonic Lumix DMC-G7 is a true hybrid mirrorless camera that blends 4K UHD video with advanced still capture and burst shooting capabilities. Revolving around a 16 MP Live MOS Micro Four Thirds sensor and Venus Engine 9 image processor, the G7 features notable low-light sensitivity to ISO 25600, continuous shooting to 8 fps with single-shot AF, as well as a trio of 30 fps shooting rates based on the 4K UHD video recording. Complementing the fast burst shooting modes is an equally adept DFD autofocus system, which works to quicken focusing speeds and emphasize accurate subject tracking for consistently sharp imagery in fast-paced and trying working conditions. Rounding out the feature-set of the G7 is a contemporary body design accentuated by physical exposure control dials, six customizable function buttons, both a high-resolution EVF and 3.0\" tilting touchscreen LCD, and built-in Wi-Fi for wireless sharing and remote camera control. Bridging the gap between stills and video, the Lumix DMC-G7 pairs these two high-resolution mediums with refined focusing and shooting controls for the utmost in shooting versatility.\r\n\r\nCatatan PENGIRIMAN:\r\n1. Pengiriman Gosend Same Day/Grab Same Day akan dikirim di hari yg sama jika order masuk sebelum 14.00\r\n2. Pengiriman Gosend Instant/Grab Instant akan dikirim di hari yg sama jika order masuk sebelum 16.00\r\n3. Pengiriman JNE/J&T/SiCepat akan dikirim di hari yg sama jika order masuk sebelum 17.00\r\n4. Pengiriman luar kota jika ingin cepat harap menggunakan JNE YES.\r\n5. Double packing rapi dan aman menggunakan Bubble Wrap untuk Kamera, Lensa dan aksesoris lainnya yang membutuhkan packing extra.\r\n6. Jika barang diterima tidak sesuai atau dalam keadaan tidak baik, mohon langsung segera hubungi kami.\r\n7. Follow toko JPC KEMANG untuk mendapatkan update promo dan barang terbaru.', NULL, 'single', 3, 0, 2, NULL, '2020-03-23 11:41:19', 2);
 
 -- --------------------------------------------------------
 
@@ -420,6 +421,7 @@ CREATE TABLE `transaksi` (
   `waktu_transaksi` datetime NOT NULL DEFAULT current_timestamp(),
   `total_bayar` int(11) NOT NULL,
   `proses_pembayaran` enum('belum','sudah','terima','tolak') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'belum',
+  `status_transaksi` enum('proses','batal','sukes') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'proses',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -428,10 +430,12 @@ CREATE TABLE `transaksi` (
 -- Dumping data untuk tabel `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `kode_transaksi`, `pembeli_id`, `pembeli_type`, `waktu_transaksi`, `total_bayar`, `proses_pembayaran`, `created_at`, `updated_at`) VALUES
-(2, '1584898675', 1, 'App\\Models\\Konsumen', '2020-03-22 17:37:55', 87500, 'belum', NULL, NULL),
-(3, '1584902084', 1, 'App\\Models\\Konsumen', '2020-03-22 18:34:44', 942000, 'sudah', NULL, NULL),
-(4, '1584902455', 1, 'App\\Models\\Konsumen', '2020-03-22 18:40:55', 4514000, 'sudah', NULL, NULL);
+INSERT INTO `transaksi` (`id_transaksi`, `kode_transaksi`, `pembeli_id`, `pembeli_type`, `waktu_transaksi`, `total_bayar`, `proses_pembayaran`, `status_transaksi`, `created_at`, `updated_at`) VALUES
+(2, '1584898675', 1, 'App\\Models\\Konsumen', '2020-03-22 17:37:55', 87500, 'belum', 'batal', NULL, NULL),
+(3, '1584902084', 1, 'App\\Models\\Konsumen', '2020-03-22 18:34:44', 942000, 'sudah', 'proses', NULL, NULL),
+(4, '1584902455', 1, 'App\\Models\\Konsumen', '2020-03-22 18:40:55', 4514000, 'sudah', 'proses', NULL, NULL),
+(5, '1584988879', 1, 'App\\Models\\Konsumen', '2020-03-23 18:41:19', 2510000, 'sudah', 'proses', NULL, NULL),
+(6, '1585075003', 1, 'App\\Models\\Konsumen', '2020-03-24 18:36:43', 1018500, 'belum', 'batal', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -462,11 +466,15 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `transaksi_id`, `produk_id`, `jumlah`, `harga_jual`, `diskon`, `kurir`, `service`, `ongkir`, `etd`, `sub_total`, `status_order`, `pelapak_id`, `created_at`, `updated_at`) VALUES
-(5, 2, 3, 1, 85000, 0, 'tiki', 'ECO', 11000, '6', 96000, 'Menunggu Konfirmasi', 1, NULL, NULL),
-(6, 3, 2, 1, 950000, 0, 'jne', 'CTC', 7000, '3-6', 957000, 'Telah Dikonfirmasi', 1, NULL, NULL),
+(5, 2, 3, 1, 85000, 0, 'tiki', 'ECO', 11000, '6', 96000, 'Dibatalkan', 1, NULL, NULL),
+(6, 3, 2, 1, 950000, 0, 'jne', 'CTC', 7000, '3-6', 957000, 'Menunggu Konfirmasi', 1, NULL, NULL),
 (7, 3, 1, 1, 80000, 0, 'jne', 'CTC', 7000, '3-6', 87000, 'Telah Dikonfirmasi', 1, NULL, NULL),
-(8, 4, 9, 1, 2500000, 0, 'tiki', 'REG', 14000, '5', 2514000, 'Dikemas', 3, NULL, NULL),
-(9, 4, 8, 1, 2000000, 0, 'tiki', 'REG', 14000, '5', 2014000, 'Dikemas', 3, NULL, NULL);
+(8, 4, 9, 1, 2500000, 0, 'tiki', 'REG', 14000, '5', 2514000, 'Telah Sampai', 3, NULL, NULL),
+(9, 4, 8, 1, 2000000, 0, 'tiki', 'REG', 14000, '5', 2014000, 'Dikemas', 3, NULL, NULL),
+(10, 5, 9, 1, 2500000, 0, 'pos', 'Express Next Day Barang', 10000, '24 JAM', 2510000, 'Telah Sampai', 3, NULL, NULL),
+(11, 6, 1, 1, 80000, 0, 'jne', 'CTC', 7000, '3-6', 87000, 'Dibatalkan', 1, NULL, NULL),
+(12, 6, 2, 1, 950000, 10, 'jne', 'CTC', 7000, '3-6', 855000, 'Dibatalkan', 1, NULL, NULL),
+(13, 6, 3, 1, 85000, 10, 'jne', 'CTC', 7000, '3-6', 76500, 'Dibatalkan', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -683,13 +691,13 @@ ALTER TABLE `kategori_produk`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_keranjang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_konfirmasi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `konsumen`
@@ -737,13 +745,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_transaksi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_transaksi_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_transaksi_detail` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
