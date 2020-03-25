@@ -66,7 +66,9 @@
                                         @if($val['diskon'] == 0)
                                         <span style="color: black">@currency($val->harga_jual)</span>
                                         @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span
+                                            style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
+                                            $val->harga_jual))</span>
                                         @endif
                                     </var>
                                 </td>
