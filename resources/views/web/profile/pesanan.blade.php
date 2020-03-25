@@ -113,19 +113,25 @@
                             </tr>
                             @endforeach
                             <tr>
-                                    <td>{{ $v['item']->count() }} Produk</td>
-                                    <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                    <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
-                                    <td>
+                                <td>{{ $v['item']->count() }} Produk</td>
+                                <td colspan="2">
+                                    <h6> Jumlah yang harus dibayar : </h6>
+                                </td>
+                                <td>
+                                    <h5 class="text-primary"> @currency($v['total_bayar']) </h5>
+                                </td>
+                                <td>
                                     @if( $v['proses_pembayaran'] == 'belum')
-                                    <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}" class="btn btn-danger"> Bayar Sekarang </a>
-                                        </td>
-                                    </tr>
-                                    @else
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
-                                        </td>
-                                    </tr>
-                                    @endif
+                                    <a href="{{ URL::to('konfirmasi/data/'.$v['kode_transaksi']) }}"
+                                        class="btn btn-danger"> Bayar Sekarang </a>
+                                </td>
+                            </tr>
+                            @else
+                            <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success">
+                                Lihat Pesanan </a>
+                            </td>
+                            </tr>
+                            @endif
                             @endforeach
                             @else
                             <tr>
