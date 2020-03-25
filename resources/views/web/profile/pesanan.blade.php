@@ -142,7 +142,8 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') active @endif" id="pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') active @endif" id="pending"
+                role="tabpanel" aria-labelledby="nav-pending-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
