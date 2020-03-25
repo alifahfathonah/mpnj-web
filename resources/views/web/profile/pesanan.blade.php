@@ -462,86 +462,96 @@
                             </tr>
                         </thead>
                         <tbody>
-                                @foreach($order as $v)
-                                    @if($v['item']->contains('status_order', 'Dikirim'))
-                                        <tr id="dataCart" style="background-color: #ccffcc;">
-                                        <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                        <td ><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                                    </tr>
-                                        @foreach($v['item'] as $val)
-                                            @if($val->status_order == 'Dikirim')
-                                            <tr>
-                                                <td width="95">
-                                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                                                </td>
-                                                <td>
-                                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                                    </a>
-                                                    <var class="price text-muted">
-                                                        @if($val['diskon'] == 0)
-                                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                                        @else
-                                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))</span>
-                                                        @endif
-                                                    </var>
-                                                </td>
-                                                <td>
-                                                    Jumlah : {{ $val->jumlah }} <br>
-                                                    Kurir : {{ $val->kurir }} <br>
-                                                    Service : {{ $val->service }} <br>
-                                                    Ongkir : @currency($val->ongkir)
-                                                </td>
-                                                <td>
-                                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
-                                                </td>
-                                                <td width="250">
-                                                        @if($val->transaksi->proses_pembayaran == 'sudah')
-                                                    <ul style="list-style-type:none;">
-                                                        <li>
-                                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
-                                                        </li>
-                                                    </ul>
+                            @foreach($order as $v)
+                            @if($v['item']->contains('status_order', 'Dikirim'))
+                            <tr id="dataCart" style="background-color: #ccffcc;">
+                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
+                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
+                            </tr>
+                            @foreach($v['item'] as $val)
+                            @if($val->status_order == 'Dikirim')
+                            <tr>
+                                <td width="95">
+                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
+                                        class="img-xs border">
+                                </td>
+                                <td>
+                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
+                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
+                                    </a>
+                                    <var class="price text-muted">
+                                        @if($val['diskon'] == 0)
+                                        <span style="color: black">@currency($val->harga_jual)</span>
+                                        @else
+                                        <strike style="color: red">@currency($val->harga_jual)</strike> <span
+                                            style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
+                                            $val->harga_jual))</span>
+                                        @endif
+                                    </var>
+                                </td>
+                                <td>
+                                    Jumlah : {{ $val->jumlah }} <br>
+                                    Kurir : {{ $val->kurir }} <br>
+                                    Service : {{ $val->service }} <br>
+                                    Ongkir : @currency($val->ongkir)
+                                </td>
+                                <td>
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) *
+                                    $val->jumlah) + $val->ongkir)
+                                </td>
+                                <td width="250">
+                                    @if($val->transaksi->proses_pembayaran == 'sudah')
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-check" style="color: #00e600;"></i>
+                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                        </li>
+                                    </ul>
 
-                                                        @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                                    <ul style="list-style-type:none;">
-                                                        <li>
-                                                            <i class="fa fa-times" style="color: red;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                                        </li>
-                                                    </ul>
+                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-times" style="color: red;"></i>
+                                            {{ $val->transaksi->proses_pembayaran}} bayar
+                                        </li>
+                                    </ul>
 
-                                                        @else
-                                                    {{ $val->transaksi->proses_pembayaran}}
-                                                        @endif
-                                                        <br>
-                                                    <ul style="list-style-type:none;">
-                                                        <li>
-                                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                                            {{ $val->status_order}}
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                            @endif  
-                                        @endforeach
-                                            <tr>
-                                                <td>{{ $v['item']->count() }} Produk</td>
-                                                <td colspan="2"> <h6> Jumlah yang harus dibayar : </h6></td>
-                                                <td><h5 class="text-primary"> @currency($v['total_bayar']) </h5></td>
-                                                <td>
-                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}" class="btn btn-success"> Lihat Pesanan </a>
-                                                    </td>
-                                            </tr>
+                                    @else
+                                    {{ $val->transaksi->proses_pembayaran}}
                                     @endif
-                                
-                                @endforeach
+                                    <br>
+                                    <ul style="list-style-type:none;">
+                                        <li>
+                                            <i class="fa fa-box" style="color: #3377ff;"></i>
+                                            {{ $val->status_order}}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            <tr>
+                                <td>{{ $v['item']->count() }} Produk</td>
+                                <td colspan="2">
+                                    <h6> Jumlah yang harus dibayar : </h6>
+                                </td>
+                                <td>
+                                    <h5 class="text-primary"> @currency($v['total_bayar']) </h5>
+                                </td>
+                                <td>
+                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
+                                        class="btn btn-success"> Lihat Pesanan </a>
+                                </td>
+                            </tr>
+                            @endif
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses" role="tabpanel" aria-labelledby="nav-sukses-tab">
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses"
+                role="tabpanel" aria-labelledby="nav-sukses-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
