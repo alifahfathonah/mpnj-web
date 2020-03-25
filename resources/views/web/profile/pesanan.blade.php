@@ -99,10 +99,10 @@
                                         </li>
                                     </ul>
 
-                                        @else
+                                    @else
                                     {{ $val->transaksi->proses_pembayaran}}
-                                        @endif
-                                        <br>
+                                    @endif
+                                    <br>
                                     <ul style="list-style-type:none;">
                                         <li>
                                             <i class="fa fa-box" style="color: #3377ff;"></i>
