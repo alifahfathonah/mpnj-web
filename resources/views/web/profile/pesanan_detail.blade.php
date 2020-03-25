@@ -19,15 +19,17 @@
                     <h6 class="text-dark">Oleh</h6>
                     <p>{{ $detail->pembeli->alamat_fix->nama }}<br>
                         Telepon {{ $detail->pembeli->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->pembeli->alamat_fix->alamat_lengkap}}, {{ $detail->pembeli->alamat_fix->nama_kota }}, {{ $detail->pembeli->alamat_fix->nama_provinsi }} <br>
+                        Alamat:{{ $detail->pembeli->alamat_fix->alamat_lengkap}},
+                        {{ $detail->pembeli->alamat_fix->nama_kota }}, {{ $detail->pembeli->alamat_fix->nama_provinsi }}
+                        <br>
                         Kode Pos: {{ $detail->pembeli->alamat_fix->kode_pos }}
                     </p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="text-dark">Overview</h6>
                     <span class="text-success">
-{{--                        <i class="fab fa-lg fa-cc-visa"></i>--}}
-{{--                        {{ $detail->proses_pembayaran }}--}}
+                        {{--                        <i class="fab fa-lg fa-cc-visa"></i>--}}
+                        {{--                        {{ $detail->proses_pembayaran }}--}}
                     </span>
                     <p>Total Bayar: @currency($detail->total_bayar)
                     </p>
@@ -40,18 +42,21 @@
                     @foreach( $detail->transaksi_detail as $d)
                     <tr>
                         <td width="65">
-                            <img src="{{ asset('assets/foto_produk/'.$d->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
+                            <img src="{{ asset('assets/foto_produk/'.$d->produk->foto_produk[0]->foto_produk) }}"
+                                class="img-xs border">
                         </td>
                         <td>
                             <a href="{{ URL::to('produk/'.$d->produk->slug) }}">
                                 <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
                             </a>
-                                <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
+                            <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
                             <var class="price text">
                                 @if($d->diskon == 0)
                                 @currency($d->harga_jual)
                                 @else
-                                <strike style="color: red">@currency($d->harga_jual)</strike> <span style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 * $d->harga_jual))</span>
+                                <strike style="color: red">@currency($d->harga_jual)</strike> <span
+                                    style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 *
+                                    $d->harga_jual))</span>
                                 @endif
                             </var>
                         </td>
@@ -63,10 +68,11 @@
                             @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         <td>
-                            <a href="{{ URL::to('Tracking') }}" class="btn btn-warning"> Lacak Barang </a>
+                            <a href="{{ URL::to('Tracking') }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
                         </td>
-                         <td>
-                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}" class="btn btn-success"> Pesanan Diterima </a>
+                        <td>
+                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
+                                class="btn btn-success btn-sm"> Pesanan Diterima </a>
                         </td>
                     </tr>
                     @endforeach
@@ -147,7 +153,8 @@
 
                         <div class="form-group">
                             <label>Komentar Produk</label>
-                            <textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
+                            <textarea name="review" class="form-control" rows="3"
+                                placeholder="Beri komentar Barang yang Sesuai."></textarea>
                         </div>
                         <div class="form-group">
                             <label>Foto Produk</label><br>
