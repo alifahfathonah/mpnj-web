@@ -1,19 +1,35 @@
 <div class="row my-1">
     <div class="col-md-12">
         <h3>Pesanan Saya</h3>
+        @if ( session()->has('message') )
+        <div class="alert alert-success alert-dismissable">{{ session()->get('message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif" id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home" aria-selected="true">Semua</a>
-                <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="nav-home" aria-selected="true">Menunggu Konfirmasi</a>
-                <a class="nav-item nav-link" id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab" aria-controls="nav-profile" aria-selected="false">Telah Dikonfirmasi</a>
-                <a class="nav-item nav-link" id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab" aria-controls="nav-contact" aria-selected="false">Dikemas</a>
-                <a class="nav-item nav-link" id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab" aria-controls="nav-contact" aria-selected="false">Dikirim</a>
-                <a class="nav-item nav-link" id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab" aria-controls="nav-contact" aria-selected="false">Telah Sampai</a>
-                <a class="nav-item nav-link" id="nav-batal-tab" data-toggle="tab" href="#batal" role="tab" aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif"
+                    id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home"
+                    aria-selected="true">Semua</a>
+                <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Menunggu Konfirmasi</a>
+                <a class="nav-item nav-link" id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">Telah Dikonfirmasi</a>
+                <a class="nav-item nav-link" id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Dikemas</a>
+                <a class="nav-item nav-link" id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Dikirim</a>
+                <a class="nav-item nav-link" id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Telah Sampai</a>
+                <a class="nav-item nav-link" id="nav-batal-tab" data-toggle="tab" href="#batal" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show @if(app('request')->input('tab') == 'semua') active @else active @endif" id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
+            <div class="tab-pane fade show @if(app('request')->input('tab') == 'semua') active @else active @endif"
+                id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
