@@ -91,7 +91,7 @@
                                         </li>
                                     </ul>
 
-                                        @elseif($val->transaksi->proses_pembayaran == 'belum')
+                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
                                     <ul style="list-style-type:none;">
                                         <li>
                                             <i class="fa fa-times" style="color: red;"></i>
