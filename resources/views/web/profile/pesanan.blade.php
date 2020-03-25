@@ -79,10 +79,11 @@
                                     Ongkir : @currency($val->ongkir)
                                 </td>
                                 <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) * $val->jumlah) + $val->ongkir)
+                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual)) *
+                                    $val->jumlah) + $val->ongkir)
                                 </td>
                                 <td width="250">
-                                        @if($val->transaksi->proses_pembayaran == 'sudah')
+                                    @if($val->transaksi->proses_pembayaran == 'sudah')
                                     <ul style="list-style-type:none;">
                                         <li>
                                             <i class="fa fa-check" style="color: #00e600;"></i>
