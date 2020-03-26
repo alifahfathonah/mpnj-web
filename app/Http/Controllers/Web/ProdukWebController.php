@@ -39,7 +39,7 @@ class ProdukWebController extends Controller
             })->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
             // })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->orderBy('terjual', $order == 'laris' , 'DESC')->paginate(12);
         } else if ($nama_produk != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
         } else {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(12);
         }
