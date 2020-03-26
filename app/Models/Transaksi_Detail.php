@@ -8,7 +8,21 @@ class Transaksi_Detail extends Model
 {
     protected $table = 'transaksi_detail';
     protected $primaryKey = 'id_transaksi_detail';
-    protected $fillable = ['transaksi_id','produk_id','pelapak_id','jumlah','harga_jual','diskon','kurir','service','ongkir','etd','sub_total','status_order'];
+    protected $fillable = [
+        'transaksi_id',
+        'produk_id',
+        'pelapak_id',
+        'jumlah',
+        'harga_jual',
+        'diskon',
+        'kurir',
+        'service',
+        'ongkir',
+        'etd',
+        'sub_total',
+        'status_order',
+        'resi'
+    ];
 	public $timestamps = false;
 
 	public function produk()
