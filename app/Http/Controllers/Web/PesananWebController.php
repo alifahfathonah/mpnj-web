@@ -78,8 +78,9 @@ class PesananWebController extends Controller
         
     }
 
-    public function tracking()
+    public function tracking($id)
     {
+        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id)->first();
         $data['resi'] = '020810015419720';
         $data['kurir'] = 'jne';
         return view('web/web_profile', $data);
