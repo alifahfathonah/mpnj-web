@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori_Produk;
 use App\Models\Produk;
+use DB;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
