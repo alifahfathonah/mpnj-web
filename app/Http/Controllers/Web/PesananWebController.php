@@ -64,13 +64,9 @@ class PesananWebController extends Controller
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
 
-        $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'sukses']);
+        $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
 
-        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id_trx)->first();
-
-        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
-
-        return view('web/web_profile', $data);
+        return redirect()->back();
     }
 
     public function dibatalkan(Request $request, $id_trx)
