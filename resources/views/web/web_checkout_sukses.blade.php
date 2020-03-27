@@ -21,9 +21,9 @@
                             <span class="text-success font-weight-bold">
                                 @foreach($rekening_admin as $ra)
                                 @if($ra->bank->nama_bank == 'BNI')
-                                    <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
+                                <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
                                 @elseif($ra->bank->nama_bank == 'Mandiri')
-                                    <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
+                                <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
                                 @endif
                                 | {{$ra->nomor_rekening}} | {{$ra->atas_nama_rekening}}<br>
                                 @endforeach
