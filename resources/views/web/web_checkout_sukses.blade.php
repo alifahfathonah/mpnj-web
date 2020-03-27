@@ -34,17 +34,36 @@
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Contact Pengirim</h6>
-                            <p> {{ $order_sukses->pembeli->nama_lengkap }} <br> {{ $order_sukses->pembeli->nomor_hp }} <br> {{ $order_sukses->pembeli->email }}</p>
+                            <p> {{ $order_sukses->pembeli->nama_lengkap }} <br> {{ $order_sukses->pembeli->nomor_hp }}
+                                <br> {{ $order_sukses->pembeli->email }}</p>
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Alamat Pengiriman</h6>
-                            <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }}</p>
+                            <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }} {{strtotime("+1 day")}}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="container">
-                        <p>Penting : Pastikan anda melakukan pembayaran melalui rekening yang sudah tertera diatas.<br> Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda dengan mengunggah foto bukti transafer agar transaksi anda segera di proses (Tekan tombol Lanjutkan Proses jika anda telah melakukan transfer).</p>
-                        <a href="{{ URL::to('konfirmasi/data/'.$order_sukses->kode_transaksi) }}"><button type="button" class="btn btn-primary btn-block">Lanjutkan Proses <i class="fa fa-chevron-right"></i></button></a>
+                        <ul class="list-unstyled">
+                            <li>Penting :
+                                <ol>
+                                    <li>Pastikan anda melakukan pembayaran melalui rekening yang sudah tertera diatas.
+                                    </li>
+                                    <li>Pastikan anda melakukan pembayaran sesuai dengan total bayar yang sudah tertera
+                                        diatas.
+                                    </li>
+                                    <li>Jika anda tidak melakukan pembayaran sampai <strong>Batas Pembayaran</strong>
+                                        transaksi anda otomatis dibatalkan.</li>
+                                    <li>Setelah melakukan pembayaran, pastikan anda mengkonfirmasi pembayaran anda
+                                        dengan mengunggah
+                                        foto bukti transafer agar transaksi anda segera di proses (Tekan tombol
+                                        Lanjutkan Proses / Konfirmasi di laman profil pesanan).</li>
+                                </ol>
+                            </li>
+                        </ul>
+                        <a href="{{ URL::to('konfirmasi/data/'.$order_sukses->kode_transaksi) }}"><button type="button"
+                                class="btn btn-primary btn-block">Lanjutkan Proses <i
+                                    class="fa fa-chevron-right"></i></button></a>
                     </div>
                 </div>
             </article>
