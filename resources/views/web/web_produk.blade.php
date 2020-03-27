@@ -143,16 +143,17 @@
             let urlParams = new URLSearchParams(window.location.search);
             let kategoriParams = urlParams.has('kategori');
             let cariParams = urlParams.has('cari');
+            let filter = $(this).val();
 
             if (kategoriParams || cariParams) {
                 if (urlParams.has('order')) {
                     let order = urlParams.get('order');
-                    var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
+                    var newUrl = location.href.replace(order, filter == 'low' ? ('low') : (filter == 'laris' ? ('laris') : ('high')));
                     // urlParams = newUrl;
                     // alert(newUrl);
                     window.location.href = newUrl;
                 } else {
-                    window.location.href += '&order=' + $(this).val();
+                    window.location.href += '&order=' + filter;
                 }
             } else {
                 alert('Tidak Bisa Melakukan Sorting');
