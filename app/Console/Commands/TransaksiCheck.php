@@ -39,8 +39,9 @@ class TransaksiCheck extends Command
     public function handle()
     {
         //Database logic
-        $cek['transaksi'] = Transaksi::with('pembeli')->get();
-        if ($cek > 0) {
+        $dateTime = date('Y-m-d H:i:s');
+        $cek['transaksi'] = Transaksi::with('pembeli')->where('batas_transaksi', $dateTime)->get();
+        if ($cek) {
             Transaksi::where('proses_pembayaran', 'belum')->update(['proses_pembayaran' => 'tolak']);
             echo "Data Updated";
         }
