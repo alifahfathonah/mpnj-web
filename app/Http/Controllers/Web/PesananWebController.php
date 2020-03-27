@@ -31,6 +31,7 @@ class PesananWebController extends Controller
             $data['order']->push([
                 'kode_transaksi' => $value->kode_transaksi,
                 'waktu_transaksi' => $value->waktu_transaksi,
+                'status_transaksi' => $value->status_transaksi,
                 'total_bayar' => $value->total_bayar,
                 'proses_pembayaran' => $value->proses_pembayaran,
                 'item' => $value->transaksi_detail
