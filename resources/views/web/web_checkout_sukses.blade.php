@@ -8,9 +8,11 @@
         <div class="col-md-12">
             <article class="card order-group">
                 <header class="card-header text-center">
-                    <b class="d-inline-block mr-3">No. Transaksi: <a class="title ml-3 h4" id="noTransaksi" value="{{ $order_sukses->kode_transaksi }}">{{ $order_sukses->kode_transaksi }}</a></b>
+                    <b class="d-inline-block mr-3">No. Transaksi: <a class="title ml-3 h4" id="noTransaksi"
+                            value="{{ $order_sukses->kode_transaksi }}">{{ $order_sukses->kode_transaksi }}</a></b>
                     <br>
-                    <span>Waktu Transaksi: {{ $order_sukses->waktu_transaksi  }}</span>
+                    <span>Waktu Transaksi: {{ $order_sukses->waktu_transaksi  }} | Batas Pembayaran:
+                        {{ $order_sukses->batas_transaksi  }}</span>
                 </header>
                 <div class="card-body">
                     <div class="row">
