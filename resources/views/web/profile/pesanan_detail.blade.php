@@ -7,7 +7,11 @@
                 <h6 class="text-dark">Keterangan</h6>
                 <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
                     <span class="text-danger">
-                        {{ $detail->proses_pembayaran }} dibayar
+                        @if($detail->status_transaksi == 'batal')
+                            Dibatalkan
+                        @else
+                            {{ $detail->proses_pembayaran }} dibayar
+                        @endif
                     </span><br>
                     Waktu Pesanan: {{ $detail->waktu_transaksi }}<br>
                 </p>
@@ -67,13 +71,15 @@
                             @else
                             @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
-                        <td>
-                            <a href="{{ URL::to('Tracking') }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
-                        </td>
-                        <td>
-                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
-                                class="btn btn-success btn-sm"> Pesanan Diterima </a>
-                        </td>
+                        @if($detail->status_transaksi != 'batal')
+                            <td>
+                                <a href="{{ URL::to('Tracking') }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
+                            </td>
+                            <td>
+                                <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
+                                   class="btn btn-success btn-sm"> Pesanan Diterima </a>
+                            </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
