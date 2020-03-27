@@ -50,7 +50,7 @@
                     <option selected>--Harga Produk--</option>
                     <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
                     <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
-                    <option value="lrs" {{ app('request')->input('order') == 'lrs' ? 'selected' : ''  }}>Terlaris</option>
+                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
                 </select>
             </div>
         </header><!-- sect-heading -->
