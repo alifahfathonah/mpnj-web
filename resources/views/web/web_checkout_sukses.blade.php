@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Alamat Pengiriman</h6>
-                            <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }} {{strtotime("+1 day")}}</p>
+                            <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }} </p>
                         </div>
                     </div>
                     <hr>
