@@ -141,33 +141,12 @@
                     keranjang_id.push($(this).val());
                 });
 
-                // $("input:checkbox[name=check]:not(:checked)").each(function() {
-                //     console.log($(this).val());
-                // });
-                // id = $(this).val();
                 keranjang_id.forEach(function(val) {
                     total += $(`#data_keranjang${val}`).data('subtotal');
                 });
 
                 $("#total").html("Rp. " + numberFormat(parseInt(total)));
 
-                // $.ajax({
-                //     url: '/keranjang/hitungTotal',
-                //     type: 'POST',
-                //     data: {
-                //         'id_keranjang': keranjang_id
-                //     },
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     },
-                //     success: function(response) {
-                //         console.log(response);
-                //         // $("#total").html("Rp. " + numberFormat(parseInt(response)));
-                //     },
-                //     error: function(error) {
-                //         console.log(error);
-                //     }
-                // });
             });
 
             $("input[name='qty']").change(function(e) {
