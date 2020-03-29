@@ -50,6 +50,7 @@
                     <option selected>--Harga Produk--</option>
                     <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
                     <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
+                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
                 </select>
             </div>
         </header><!-- sect-heading -->
@@ -142,27 +143,17 @@
             let urlParams = new URLSearchParams(window.location.search);
             let kategoriParams = urlParams.has('kategori');
             let cariParams = urlParams.has('cari');
+            let filter = $(this).val();
 
-            if (kategoriParams) {
+            if (kategoriParams || cariParams) {
                 if (urlParams.has('order')) {
                     let order = urlParams.get('order');
-                    var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
+                    var newUrl = location.href.replace(order, filter == 'low' ? ('low') : (filter == 'laris' ? ('laris') : ('high')));
                     // urlParams = newUrl;
                     // alert(newUrl);
                     window.location.href = newUrl;
                 } else {
-                    window.location.href += '&order=' + $(this).val();
-                }
-                // let newUrl = window.location.href += '&order='+$(this).val();
-            } else if (cariParams) {
-                if (urlParams.has('order')) {
-                    let order = urlParams.get('order');
-                    var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
-                    // urlParams = newUrl;
-                    // alert(newUrl);
-                    window.location.href = newUrl;
-                } else {
-                    window.location.href += '&order=' + $(this).val();
+                    window.location.href += '&order=' + filter;
                 }
             } else {
                 alert('Tidak Bisa Melakukan Sorting');
