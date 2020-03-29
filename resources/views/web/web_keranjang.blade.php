@@ -150,12 +150,23 @@
             });
 
             $("input[name='qty']").change(function(e) {
-                // console.log(e.originalEvent.srcElement.value);
+
                 let n = $("input[name='qty']").index(this);
+                let inputStk = $(this).closest('td').find('input[name="stok"]').val();
+                if (!this.value) { // zero-length string
+                    $("#qty" + parseInt(n + 1)).val(1);
+                }
+                if (parseInt($("#qty" + parseInt(n + 1)).val()) > parseInt($(this).closest('td').find('input[name="stok"]').val())) {
+                    $('#alertMax').removeClass('d-none');
+                    $(this).closest('td').find('input[name="qty"]').val(inputStk);
+                }
+                if (parseInt($("#qty" + parseInt(n + 1)).val()) < 1) {
+                    $('#alertMin').removeClass('d-none');
+                    $(this).closest('td').find('input[name="qty"]').val(1);
+                } 
                 let qty = $("#qty" + parseInt(n + 1)).val();
                 let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
                 let diskon = $(`.sum:eq(${n})`).data('diskon');
-
                 $.ajax({
                     async: true,
                     url: '/keranjang/updateJumlah',
