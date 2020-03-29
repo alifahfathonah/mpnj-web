@@ -131,9 +131,7 @@
     var totalPrice = 0;
         $(function() {
             var jml = 0;
-            //
-            // $("#total").html(totalPrice);
-            // console.log(totalPrice);
+
             $("input:checkbox[name=check]").on('click', function() {
                 let keranjang_id = [];
                 let id = $(this).val();
