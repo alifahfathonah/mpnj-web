@@ -5,15 +5,9 @@
             <hr>
             <div class="col-md-8">
                 <h6 class="text-dark">Keterangan</h6>
-                <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
-                    <span class="text-danger">
-                        @if($detail->status_transaksi == 'batal')
-                            Dibatalkan
-                        @else
-                            {{ $detail->proses_pembayaran }} dibayar
-                        @endif
-                    </span><br>
+                <p>
                     Waktu Pesanan: {{ $detail->waktu_transaksi }}<br>
+                    Dibayar Pada : {{ $detail->konfirmasi == null ? '-' : $detail->konfirmasi->tanggal_transfer }}
                 </p>
             </div>
         </header>
