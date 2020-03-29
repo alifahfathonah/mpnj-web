@@ -74,12 +74,11 @@ class CheckoutWebController extends Controller
         $role = Session::get('role');
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
-
         $simpanTrx = Transaksi::create([
             'pembeli_id' => $konsumen_id,
             'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
             'kode_transaksi' => time(),
-            'waktu_transaksi' => date('Y-m-d H:i:s'),
+            'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
             'total_bayar' => $request->totalBayar
         ]);
         if ($simpanTrx) {
