@@ -50,7 +50,7 @@
                             <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
                             <var class="price text">
                                 @if($d->diskon == 0)
-                                @currency($d->harga_jual)
+                                    @currency($d->harga_jual)
                                 @else
                                 <strike style="color: red">@currency($d->harga_jual)</strike> <span
                                     style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 *
@@ -58,21 +58,23 @@
                                 @endif
                             </var>
                         </td>
-                        <td>Jumlah : {{ $d->jumlah }} Ongkir : <br>{{ $d->ongkir }}</td>
-                        <td> Total :
+                        <td>Jumlah : {{ $d->jumlah }}  <br> Ongkir : {{ $d->ongkir }}</td>
+                        <td {{ $d->status_order != 'Dikirim' ? "colspan=3" : '' }}> Total :
                             @if($d->diskon == 0)
-                            @currency($d->jumlah * $d->harga_jual + $d->ongkir)
+                                @currency($d->jumlah * $d->harga_jual + $d->ongkir)
                             @else
-                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
+                                @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         @if($detail->status_transaksi != 'batal')
-                            <td>
-                                <a href="{{ URL::to('Tracking') }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
-                            </td>
-                            <td>
-                                <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
-                                   class="btn btn-success btn-sm"> Pesanan Diterima </a>
-                            </td>
+                            @if($d->status_order == 'Dikirim' || $d->status_order == 'Telah Sampai')
+                                <td>
+                                    <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
+                                </td>
+                                <td>
+                                    <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
+                                       class="btn btn-success btn-sm"> Pesanan Diterima </a>
+                                </td>
+                            @endif
                         @endif
                     </tr>
                     @endforeach
