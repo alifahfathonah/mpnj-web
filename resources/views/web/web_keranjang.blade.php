@@ -151,47 +151,28 @@
             $("input[name='qty']").change(function(e) {
 
                 let n = $("input[name='qty']").index(this);
+                let qty = $("#qty" + parseInt(n + 1)).val();
+                let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
+                let diskon = $(`.sum:eq(${n})`).data('diskon');
+
                 let inputStk = $(this).closest('td').find('input[name="stok"]').val();
                 if (!this.value) { // zero-length string
                     $("#qty" + parseInt(n + 1)).val(1);
                 }
-                if (parseInt($("#qty" + parseInt(n + 1)).val()) > parseInt($(this).closest('td').find('input[name="stok"]').val())) {
+                if (parseInt($("#qty" + parseInt(n + 1)).val()) > $(`#data_keranjang${id_cart}`).data('stok')) {
                     $('#alertMax').removeClass('d-none');
-                    $(this).closest('td').find('input[name="qty"]').val(inputStk);
+                    $("#qty" + parseInt(n + 1)).val(parseInt(qty-1));
+                    $("#stokLebih"+parseInt(n + 1)).html('Melebihi Stok');
+                    setTimeout(function(){ $("#stokLebih"+parseInt(n + 1)).html(''); }, 1000);
+                } else {
+                    updateJumlah(id_cart, qty, diskon, n);
                 }
+
                 if (parseInt($("#qty" + parseInt(n + 1)).val()) < 1) {
                     $('#alertMin').removeClass('d-none');
                     $(this).closest('td').find('input[name="qty"]').val(1);
-                } 
-                let qty = $("#qty" + parseInt(n + 1)).val();
-                let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
-                let diskon = $(`.sum:eq(${n})`).data('diskon');
-                $.ajax({
-                    async: true,
-                    url: '/keranjang/updateJumlah',
-                    type: 'POST',
-                    data: {
-                        'id_keranjang': id_cart,
-                        'qty': qty
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (diskon == 0) {
-                            $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt(response * qty)));
-                            $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
-                        } else {
-                            $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
-                            $(`.sum:eq(${n})`).data('subtotal', parseInt((response - (diskon / 100 * response)) * qty));
-                        }
-                        sumTotal();
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
+                }
+
             });
                 
             $("#checkout").click(function() {
