@@ -60,6 +60,8 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <input type="hidden" class="form-control input-number" id="stok{{ $n }}" name="stok"
+                                        value="{{ $k['stok'] }}">
                                     <input type="number" name="qty" id="qty{{ $n }}"
                                         class="form-control form-control-sm"
                                         value="{{ $k['jumlah'] != 0 ? $k['jumlah'] : 1 }}">
