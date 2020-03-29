@@ -108,21 +108,12 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
-                                        @if($v['status_transaksi'] == 'batal')
-                                            <button type="button" class="btn btn-danger">Batal</button>
-                                        @else
-                                            @if($v['proses_pembayaran'] == 'belum')
-                                                <a href="{{ URL::to('konfirmasi/data/'.$v['kode_transaksi']) }}"
-                                                   class="btn btn-danger"> Bayar Sekarang </a>
-                                            @elseif($v['proses_pembayaran'] == 'sudah' || $v['proses_pembayaran'] == 'terima' || $v['proses_pembayaran'] == 'tolak')
-                                                <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                                   class="btn btn-success">
-                                                    Lihat Pesanan </a>
-                                            @endif
-                                        @endif
+                                        <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
+                                           class="btn btn-success">
+                                            Lihat Pesanan </a>
                                     </td>
                                 </tr>
                             @endforeach
