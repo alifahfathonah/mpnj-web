@@ -187,15 +187,14 @@
                             $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
                             $(`.sum:eq(${n})`).data('subtotal', parseInt((response - (diskon / 100 * response)) * qty));
                         }
-                        // (parseInt(response) - parseInt($(`#data_keranjang${parseInt(n+1)}`) / 100 * response)) * qty
                         sumTotal();
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
-            })
-
+            });
+                
             $("#checkout").click(function() {
                 let keranjang_id = [];
                 $("input:checkbox[name=check]:checked").each(function() {
