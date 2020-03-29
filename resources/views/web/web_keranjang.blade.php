@@ -211,6 +211,35 @@
             });
         });
 
+        function updateJumlah(id_cart, qty, diskon, n) {
+            $.ajax({
+                async: true,
+                url: '/keranjang/updateJumlah',
+                type: 'POST',
+                data: {
+                    'id_keranjang': id_cart,
+                    'qty': qty
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (diskon == 0) {
+                        $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt(response * qty)));
+                        $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
+                    } else {
+                        $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt((response - (diskon / 100 * response)) * qty)));
+                        $(`.sum:eq(${n})`).data('subtotal', parseInt((response - (diskon / 100 * response)) * qty));
+                    }
+                    sumTotal();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+
         function numberFormat(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
         }
