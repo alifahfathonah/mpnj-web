@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori_Produk;
 use App\Models\Produk;
+use DB;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -35,10 +36,10 @@ class ProdukWebController extends Controller
                 $query->whereHas('kategori', function ($query) use ($kategori) {
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
                 });
-            })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
+            })->orderBy($order == 'laris' ? 'terjual' : DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? ('DESC') : ($order == 'laris' ? ('DESC') : ('ASC')))->paginate(12);
             // })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->orderBy('terjual', $order == 'laris' , 'DESC')->paginate(12);
         } else if ($nama_produk != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
         } else {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->paginate(12);
         }
