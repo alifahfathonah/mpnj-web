@@ -32,7 +32,7 @@
                                 data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}"
                                 data-subtotal="{{ ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}"
                                 data-hargajual="{{ $k['harga_jual']  }}" data-diskon="{{ $k['diskon'] }}"
-                                data-stok="{{ $k['stok'] }}">
+                                data-stok="{{ $k['stok'] }}" data-jumlah="{{ $k['jumlah'] }}">
                                 <td>
                                     <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" name="check"
