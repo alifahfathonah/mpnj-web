@@ -171,8 +171,6 @@
                     keranjang_id.push($(this).val());
                 });
 
-                console.log(keranjang_id);
-
                 $.ajax({
                     url: '/keranjang/go_checkout',
                     type: 'POST',
@@ -207,7 +205,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    console.log(response);
                     if (diskon == 0) {
                         $("#subHarga" + parseInt(n + 1)).html("Rp. " + numberFormat(parseInt(response * qty)));
                         $(`.sum:eq(${n})`).data('subtotal', qty * parseInt(response));
