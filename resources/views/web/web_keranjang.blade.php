@@ -79,18 +79,6 @@
                                         class="btn btn-light"> Hapus</a>
                                 </td>
                             </tr>
-                            <div class="alert alert-warning d-none" role="alert" id="alertMax">
-                                <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
-                                <button type="button" class="close" id="closeAlertMax">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="alert alert-warning d-none" role="alert" id="alertMin">
-                                <strong>MINIMAL PESAN 1 BARANG, SILAHKAN INPUT 1 BARANG</strong>
-                                <button type="button" class="close" id="closeAlertMin">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
                             <?php $n++; ?>
                             @endforeach
                             @endforeach
