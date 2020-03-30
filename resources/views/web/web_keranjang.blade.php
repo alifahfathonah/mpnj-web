@@ -139,30 +139,28 @@
 
             $("input[name='qty']").on('input',function(e) {
                 let n = $("input[name='qty']").index(this);
-                // let qty = $("#qty" + parseInt(n + 1)).val();
+                let qty = $("#qty" + parseInt(n + 1)).val();
                 let id_cart = $(`input:checkbox[name=check]:eq(${n})`).val();
                 let diskon = $(`.sum:eq(${n})`).data('diskon');
                 let stok = $(`#data_keranjang${id_cart}`).data('stok');
 
-                if (!this.value) { // zero-length string
-                    $("#stokLebih" +parseInt(n + 1)).html('!Boleh Kosong');
-                    setTimeout(function(){ $("#stokLebih"+parseInt(n + 1)).html(''); }, 1000);
-                }
-
-                if (parseInt($("#qty" + parseInt(n + 1)).val()) > $(`#data_keranjang${id_cart}`).data('stok')) {
-                    $(this).closest('td').find('input[name="qty"]').val($(`#data_keranjang${id_cart}`).data('stok'));
+                if (qty > stok) {
+                    $(this).closest('td').find('input[name="qty"]').val($(`#data_keranjang${id_cart}`).data('jml'));
                     $("#stokLebih" +parseInt(n + 1)).html('Max Stok ' + stok);
                     setTimeout(function(){ $("#stokLebih"+parseInt(n + 1)).html(''); }, 1000);
-                } 
-
-                if (parseInt($("#qty" + parseInt(n + 1)).val()) < 1) {
-                    $(this).closest('td').find('input[name="qty"]').val(1);
+                } else if (qty < 1) {
+                    // $(this).closest('td').find('input[name="qty"]').val(stok);
                     $("#stokLebih" +parseInt(n + 1)).html('Min Pesan 1');
-                    setTimeout(function(){ $("#stokLebih"+parseInt(n + 1)).html(''); }, 1000);
                 }
-               
-                let qty = $("#qty" + parseInt(n + 1)).val();
-                updateJumlah(id_cart, qty, diskon, n);
+                // let qty = $("#qty" + parseInt(n + 1)).val();
+                console.log(stok);
+                if (this.value != '') {
+                    if (qty <= stok && qty >= 1) {
+                        $("#stokLebih"+parseInt(n + 1)).html('');
+                        $(`#data_keranjang${id_cart}`).data('jml', qty);
+                        updateJumlah(id_cart, qty, diskon, n);
+                    }
+                }
             });
                 
             $("#checkout").click(function() {
