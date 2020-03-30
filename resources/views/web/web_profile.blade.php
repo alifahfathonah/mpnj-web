@@ -88,7 +88,31 @@
 </div>
 
 <div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Ganti Password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				<form action="{{ route('cek') }}" method="post">
+					<div class="form-group mb-0">
+						<input type="input" name="lama" class="form-control" id="lama" placeholder="Password Lama">
+						<br>
+						<input type="input" name="baru" class="form-control" id="baru" placeholder="Password Baru">
+						<br>
+						<input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi">
+					</div>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+
+			</div>
+		</div>
+	</div>
 </div>
 
 @endsection
