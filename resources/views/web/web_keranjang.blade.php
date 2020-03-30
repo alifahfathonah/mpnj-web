@@ -191,13 +191,6 @@
                 });
             });
 
-            $("#closeAlertMax").click(function() {
-                $('#alertMax').addClass('d-none');
-            });
-
-            $("#closeAlertMin").click(function() {
-                $('#alertMin').addClass('d-none');
-            });
         });
 
         function updateJumlah(id_cart, qty, diskon, n) {
