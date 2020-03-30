@@ -23,6 +23,8 @@
 						class="{{ Route::currentRouteName() == 'pesanan' ? 'active' : '' }} list-group-item list-group-item-action">Transaksi</a>
 					<a href="#" class="list-group-item list-group-item-action" data-target="#modalKonfirmasi"
 						data-toggle="modal">Konfirmasi</a>
+					<a href="#" class="list-group-item list-group-item-action" data-target="#modalPassword"
+						data-toggle="modal">Ganti Password</a>
 				</div>
 
 				<a class="btn btn-light btn-block" href="{{ route('keluar') }}"> <i class="fa fa-power-off"></i> <span
