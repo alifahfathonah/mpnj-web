@@ -87,4 +87,8 @@
 	</div>
 </div>
 
+<div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	
+</div>
+
 @endsection
