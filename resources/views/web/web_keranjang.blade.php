@@ -9,64 +9,67 @@
 
             <div class="row">
                 <main class="col-md-9">
-                    <div class="card">
+                    <div class="card table-responsive">
 
                         <table class="table table-borderless table-shopping-cart">
                             <thead class="text-muted">
                             <tr class="small text-uppercase">
                                 <th>#</th>
-                                <th scope="col">Produk</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col" width="120">Jumlah</th>
-                                <th scope="col" width="120">Sub Harga</th>
+                                <th scope="col" class="text-dark">Produk</th>
+                                <th scope="col" class="text-dark">Harga</th>
+                                <th scope="col" class="text-dark" width="120">Jumlah</th>
+                                <th scope="col" class="text-dark" width="120">Sub Harga</th>
                                 <th scope="col" class="text-right" width="200"> </th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $n = 1;
                             $total = 0; ?>
-                            @foreach($keranjang as $key => $val)
+                            @foreach($data_keranjang as $val)
                                 <tr id="dataCart">
-                                    <td colspan="5"><strong>{{ $key }}</strong></td>
+                                    <td colspan="5"><strong>{{ $val['nama_toko'] }}</strong></td>
                                 </tr>
-                                @foreach ($val as $k)
-                                    <tr id="data_keranjang{{ $k->id_keranjang  }}"
+                                @foreach ($val['item'] as $k)
+                                    <tr id="data_keranjang{{ $k['id_keranjang']  }}"
                                         class="sum"
-                                        data-total="{{ $total += ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah }}"
-                                        data-subtotal="{{ ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah  }}"
-                                        data-hargajual="{{ $k->harga_jual  }}"
-                                        data-diskon="{{ $k->produk->diskon }}">
+                                        data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}"
+                                        data-subtotal="{{ ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}"
+                                        data-hargajual="{{ $k['harga_jual']  }}"
+                                        data-diskon="{{ $k['diskon'] }}">
                                         <td>
-                                            <input type="checkbox" name="check" id="check{{ $k->id_keranjang }}" value="{{ $k->id_keranjang }}" checked="true">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="check" id="check{{ $k['id_keranjang'] }}" value="{{ $k['id_keranjang'] }}" checked="true">
+                                            <div class="custom-control-label"></div>
+                                        </label>
                                         </td>
                                         <td>
                                             <figure class="itemside">
-                                                <div class="aside"><img src="{{ asset('assets/foto_produk/'.$k->produk->foto_produk[0]->foto_produk) }}" class="img-sm"></div>
+                                                <div class="aside"><img src="{{ asset($k['foto']) }}" class="img-sm"></div>
                                                 <figcaption class="info">
-                                                    <a href="{{ URL::to('produk/'.$k->produk->id_produk) }}" class="title text-dark">{{ $k->produk->nama_produk }}</a>
-                                                    <p class="text-muted small">Kategori: {{ $k->produk->kategori->nama_kategori }}</p>
+                                                    <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
+                                                    <p class="text-muted small" style="color: black">Kategori: {{ $k['kategori'] }}</p>
                                                 </figcaption>
                                             </figure>
                                         </td>
                                         <td class="bold" id="harga{{ $n }}">
-                                            @if($k->produk->diskon == 0)
-                                                @currency($k->produk->harga_jual)
+                                            @if($k['diskon'] == 0)
+                                                @currency($k['harga_jual'])
                                             @else
-                                                <strike style="color: red">@currency($k->produk->harga_jual)</strike> | @currency($k->produk->harga_jual - ($k->produk->diskon / 100 * $k->produk->harga_jual))
+                                                <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
                                             @endif
                                         </td>
                                         <td>
-                                            <input type="number" name="qty" id="qty{{ $n }}" class="form-control form-control-sm" value="{{ $k->jumlah != 0 ? $k->jumlah : 1 }}">
+                                            <input type="number" name="qty" id="qty{{ $n }}" class="form-control form-control-sm" value="{{ $k['jumlah'] != 0 ? $k['jumlah'] : 1 }}">
                                         </td>
                                         <td id="subHarga{{ $n }}">
-                                            @if($k->produk->diskon == 0)
-                                                @currency($k->harga_jual * $k->jumlah)
+                                            @if($k['diskon'] == 0)
+                                                @currency($k['harga_jual'] * $k['jumlah'])
                                             @else
-                                                @currency(($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah)
+                                                @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
                                             @endif
                                         </td>
                                         <td class="text-right">
-                                            <a href="{{ URL::to('keranjang/hapus/'.$k->id_keranjang) }}" class="btn btn-light"> Hapus</a>
+                                            <a href="{{ URL::to('keranjang/hapus/'.$k['id_keranjang']) }}" class="btn btn-light"> Hapus</a>
                                         </td>
                                     </tr>
                                     <?php $n++; ?>

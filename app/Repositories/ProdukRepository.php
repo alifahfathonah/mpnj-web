@@ -24,6 +24,7 @@ class ProdukRepository
                         'berat' => $produks->berat,
                         'harga_modal' => $produks->harga_modal,
                         'harga_jual' => $produks->harga_jual,
+                        'diskon' => $produks->diskon,
                         'stok' => $produks->stok,
                         'keterangan' => $produks->keterangan,
                         'tipe_produk' => $produks->tipe_produk,
@@ -38,6 +39,7 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
+                            'foto_pelapak' => $produks->pelapak->foto_profil,
                             'alamat' => $produks->pelapak->alamat
                         ]
                     ];
@@ -64,6 +66,7 @@ class ProdukRepository
                         'harga_modal' => $produks->harga_modal,
                         'harga_jual' => $produks->harga_jual,
                         'stok' => $produks->stok,
+                        'diskon' => $produks->diskon,
                         'keterangan' => $produks->keterangan,
                         'tipe_produk' => $produks->tipe_produk,
                         'wishlist' => $produks->wishlist,
@@ -77,6 +80,7 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
+                            'foto_pelapak' => $produks->pelapak->foto_profil,
                             'alamat' => $produks->pelapak->alamat,
                             'bergabung' => $produks->pelapak->created_at
                         ]

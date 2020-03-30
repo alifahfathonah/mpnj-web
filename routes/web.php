@@ -63,12 +63,14 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/', 'CheckoutWebController@index');
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
+        Route::post('batal', 'CheckoutWebController@batal');
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
         Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
         Route::get('data', 'KonfirmasiWebController@data')->middleware('checkUserLogin');
-        Route::post('data', 'KonfirmasiWebController@data');
+        Route::get('data/{id}', 'KonfirmasiWebController@data');
+        Route::get('cek', 'KonfirmasiWebController@cek')->name('cek');
         Route::post('simpan', 'KonfirmasiWebController@simpan');
         Route::get('akun/{id}', 'KonfirmasiWebController@akun');
         Route::get('verified', 'KonfirmasiWebController@verified');
@@ -87,8 +89,9 @@ Route::group(['namespace' => 'Web'], function () {
 
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'PesananWebController@index')->name('pesanan')->middleware('checkUserLogin');
-        Route::get('detail/{id}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
-        Route::get('diterima/{id}', 'PesananWebController@diterima')->middleware('checkUserLogin');
+        Route::get('detail/{id_trx}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {

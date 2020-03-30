@@ -15,11 +15,10 @@ class CreateKonfirmasiTable extends Migration
     {
         Schema::create('konfirmasi', function (Blueprint $table) {
             $table->increments('id_konfirmasi');
-            $table->string('kode_transaksi');
+            $table->string('kode_transaksi')->unique();
             $table->integer('total_transfer');
-            $table->integer('rekening_admin_id');
             $table->string('nama_pengirim');
-            $table->dateTime('tanggal_transfer');
+            $table->dateTime('tanggal_transfer')->useCurrent();
             $table->string('bukti_transfer');
             $table->dateTime('waktu_konfirmasi')->nullable();
 //            $table->timestamps();

@@ -18,10 +18,17 @@ class CreateAlamatTable extends Migration
             $table->string('nama');
             $table->char('nomor_telepon');
             $table->integer('privinsi_id');
+            $table->string('nama_provinsi');
             $table->integer('city_id');
+            $table->string('nama_kota');
             $table->integer('kecamatan_id');
+            $table->string('nama_kecamatan');
             $table->char('kode_pos');
             $table->text('alamat_lengkap');
+            $table->enum('santri', ['N', 'Y'])->default('N');
+            $table->string('wilayah')->nullable();
+            $table->string('kamar')->nullable();
+            $table->text('alamat_santri')->nullable();
             $table->integer('user_id');
             $table->string('user_type');
         });

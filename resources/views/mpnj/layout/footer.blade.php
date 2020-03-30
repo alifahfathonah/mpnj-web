@@ -4,11 +4,11 @@
 		<div class="row">
 			<aside class="col-md-4">
 				<article class="mr-3">
-					<img src="{{ asset('assets/logo/belanj-putih.png') }}" class="logo-footer">
-					<p class="mt-3">BelanJ adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
+				<img src="{{ asset('assets/logo/belanj-putih.png') }}" class="logo-footer">
+					<p class="mt-3">Belanj adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
 					<ul class="list-icon">
 						<li> <i class="fa fa-map-marker-alt"> </i> Jln. KH. Zaini Mun'im , Karang Anyar, Paiton Probolinggo </li>
-						<li> <i class="fa fa-envelope"> </i> commit@dev.com</li>
+						<li> <i class="fa fa-envelope"> </i> cs@belanj.id</li>
 						<li> <i class="fa fa-phone"> </i> Phone: +6289-875-2235</li>
 					</ul>
 					</ul>
@@ -52,7 +52,7 @@
 
 	<section class="footer-bottom text-left">
 
-		<p class="text-white">belaNJ.id | Pondok Pesantren Nurul Jadid &copy <?= date('Y') ?> Commit UNUJA, All rights reserved</p>
+		<p class="text-white">belanj.id | Pondok Pesantren Nurul Jadid &copy <?= date('Y') ?> Commit UNUJA, All rights reserved</p>
 		<p class="text-muted">  </p>
 	</section>
 	</div><!-- //container -->

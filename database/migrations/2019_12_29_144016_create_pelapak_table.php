@@ -15,20 +15,21 @@ class CreatePelapakTable extends Migration
     {
         Schema::create('pelapak', function (Blueprint $table) {
             $table->increments('id_pelapak');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
-            $table->enum('status_official', ['santri','official']);
-            $table->string('nama_toko');
-            $table->text('alamat_toko');
-            $table->integer('provinsi_id');
-            $table->integer('city_id');
-            $table->text('alamat');
-            $table->char('kode_pos', 5);
-            $table->string('nomor_hp');
-            $table->string('email');
-            $table->string('rating');
-            $table->integer('saldo');
-            $table->enum('status', ['aktif','nonaktif']);
+            $table->enum('status_official', ['santri','official'])->default('santri');
+            $table->string('nama_toko')->unique();
+            $table->string('foto_profil')->nullable();
+            $table->string('foto_toko')->nullable();
+//             $table->integer('provinsi_id');
+//            $table->integer('city_id');
+//            $table->text('alamat');
+//            $table->char('kode_pos', 5);
+            $table->string('nomor_hp')->unique();
+            $table->string('email')->unique();
+            $table->string('rating')->nullable();
+            $table->integer('saldo')->default(0);
+            $table->enum('status', ['aktif','nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }

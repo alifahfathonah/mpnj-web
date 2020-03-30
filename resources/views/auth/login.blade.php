@@ -1,73 +1,65 @@
 @extends('mpnj.layout.main')
 
 @section('title','Login')
-    
+
 
 @section('content')
 
 
-
-<link rel="stylesheet" type="text/css" href="{{ url('assets/mpnj/css/main.css ') }} ">
-<script src="{{ url('assets/mpnj/js/main.js')}}"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url('assets/mpnj/css/material-design-iconic-font.min.css') }}>
-
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-@if(session('loginError'))
+            @if(session('loginError'))
 
-<div class="alert alert-danger" role="alert">
-    <span class="alert_icon lnr lnr-warning"></span>
-    {{ session('loginError') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span class="lnr lnr-cross" aria-hidden="true"></span>
-    </button>
-</div>
-@endif
-
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-        <div class="text-center">
-            <img width="250px" src="{{ asset('assets/mpnj/images/mpnj.jpg') }}"></a></li>
-            <span class="login100-form-title p-b-30 my-2 text-black">Selamat Datang, Silahkan Login!</span>
-            <li class="login100-form-title p-b-20 mt-2"><a href="#">
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate="username">
-            <input class="input100 font-weight-bold" type="text" name="usernamse">
-
-            <span class="focus-input100" data-placeholder="Masukkan Username"></span>
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate="Enter password">
-            <span class="btn-show-pass">
-                <i class="zmdi zmdi-eye"></i>
-            </span>
-            <input class="input100 font-weight-bold" type="password" name="password" value="">
-            <span class="focus-input100" data-placeholder="Masukkan Password"></span>
-        </div>
-
-        <div style="margin-top: -20px">
-            <a href="{{ URL::to('register') }}" class="text-center text-info">Belum punya akun,register</a>
-            <a class="float-right text-info float-right" href="{{ URL::to('password/reset') }}">Lupa Password</a>
-        </div>
-
-        <div class="container-login100-form-btn mt-1">
-            <div class="wrap-login100-form-btn">
-
-                <div class="login100-form-bgbtn"></div>
-                <button class="login100-form-btn" type="submit">
-                    LOGIN <i class="fa fa-fw fa-sign-in fa-lg"></i>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert_icon lnr lnr-warning"></span>
+                {{ session('loginError') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span class="fas fa-times h6" aria-hidden="true"></span>
+                </button>
             </div>
+            @endif
+
+            <!-- ========================= SECTION CONTENT ========================= -->
+            <section class="section-conten padding-y" style="min-height:84vh">
+
+                <!-- ============================ COMPONENT LOGIN   ================================= -->
+                <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Login</h4>
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input name="username" class="form-control" placeholder="Username" type="text" required>
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <input name="password" class="form-control" placeholder="Password" type="password" required>
+                            </div> <!-- form-group// -->
+
+                            <!-- <div class="form-group">
+          	<a href="#" class="float-right">Forgot password?</a> 
+            <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
+          </div> form-group form-check .// -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                            </div> <!-- form-group// -->
+                            <div class="mt-2">
+                                <a href="{{ URL::to('register') }}" class="text-center">Belum punya akun,register</a>
+                                <a class="float-right float-right" href="{{ URL::to('password/reset') }}">Lupa Password</a>
+                            </div>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+
+                <!-- <a class="text-center mt-4">Don't have account? <a href="#">Sign up</a></p> -->
+                <br><br>
+                <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+
+            </section>
+            <!-- ========================= SECTION CONTENT END// ========================= -->
         </div>
-
-
-</div>
-</form>
-
-</div>
-</div>
+    </div>
 
 </div>
 
