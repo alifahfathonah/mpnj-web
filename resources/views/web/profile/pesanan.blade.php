@@ -212,16 +212,11 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
-                                        @if($v['proses_pembayaran'] == 'sudah')
-                                            <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                               class="btn btn-success"> Lihat Pesanan </a>
-                                        @else
-                                            <a href="{{ URL::to('checkout/sukses/'.$v['kode_transaksi']) }}"
-                                               class="btn btn-danger"> Bayar Sekarang </a>
-                                        @endif
+                                        <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
+                                           class="btn btn-success"> Lihat Pesanan </a>
                                     </td>
                                 </tr>
                             @endif
@@ -314,7 +309,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
@@ -411,7 +406,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
@@ -508,7 +503,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
@@ -608,7 +603,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
@@ -708,7 +703,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <h6> Jumlah yang harus dibayar : @currency($v['total_bayar'])</h6>
+                                        <h6> Total : @currency($v['total_bayar'])</h6>
                                     </td>
                                     <td>
                                         <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
