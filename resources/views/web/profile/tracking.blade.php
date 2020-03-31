@@ -40,19 +40,15 @@
                             <div class="aside"><img src="{{ asset('assets/foto_produk/'.$detail->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
                             <figcaption class="info align-self-center">
                                 <p class="title">{{ $detail->produk->nama_produk }} <br></p>
-                                <span class="text-muted">$145 </span>
+                                @if($detail->diskon == 0)
+                                    <span style="color: black">@currency($detail->harga_jual) x {{ $detail->jumlah }}</span>
+                                @else
+                                    <strike style="color: red;">{{ $detail->harga_jual }}</strike> | <span>{{ $detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual) }} x {{ $detail->jumlah }}</span>
+                                @endif
                             </figcaption>
                         </figure>
                     </li>
                 </ul>
-
-
-                <p><strong>Note: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
                 <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Kembali ke Pesanan</a>
             </div> <!-- card-body.// -->
