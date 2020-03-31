@@ -68,7 +68,12 @@
                                 @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         <td>
-                            <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
+                            @if($d->resi != '')
+                                <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
+                            @else
+                                <a href="#" class="btn btn-warning btn-sm" data-target="#modalLacak"
+                                   data-toggle="modal"> Lacak Barang </a>
+                            @endif
                         </td>
                         <td>
                             <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
@@ -171,3 +176,17 @@
         @endif
     </article> <!-- order-group.// -->
 </main>
+
+<div class="modal fade" id="modalLacak" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Belum Ada Resi Dari Penjual</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
