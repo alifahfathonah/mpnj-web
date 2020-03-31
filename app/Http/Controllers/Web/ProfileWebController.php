@@ -211,7 +211,7 @@ class ProfileWebController extends Controller
 
         $passwordlama = Request::get('passwordlama');
         $passwordbaru = Request::get('passwordbaru');
-        $hashlama = Hash::make($passwordlama);
+        $hashlama = Auth::guard($role)->user()->password;
         $hashbaru = Hash::make($passwordbaru);
 
 
