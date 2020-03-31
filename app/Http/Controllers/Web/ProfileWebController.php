@@ -194,4 +194,33 @@ class ProfileWebController extends Controller
             return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
     }
+
+    public function gantipassword(Request $request, $id)
+    {
+        $role = Session::get('role');
+        $sessionId = Session::get('id');
+        $user_id = Auth::guard($role)->user()->$sessionId;
+
+        $request = Validator::make(Request::all(),[
+            'passwordbaru' => 'required',
+            'passwordlama' => 'required',
+        ]);
+
+        $passwordlama = Request::get('passwordlama');
+        $passwordbaru = Request::get('passwordbaru');
+        $hashlama = Hash::make($passwordlama);
+        $hashbaru = Hash::make($passwordbaru);
+
+
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
+
+        if (Hash::check($passwordlama, $hashlama)) {
+            $ubah = $fix_role::where($sessionId, $user_id)->update(['password' => $hashbaru]);
+            return redirect()->back()->with('alert', 'Password berhasil diganti.'.$passwordlama.'|' .$hashbaru );
+        } else {
+            return redirect()->back()->with('alert', $request->messages());
+        }
+
+    }
+
 }
