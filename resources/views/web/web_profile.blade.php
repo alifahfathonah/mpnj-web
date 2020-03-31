@@ -98,6 +98,10 @@
 			</div>
 			<div class="modal-body text-center">
 				<form action="{{ route('cek') }}" method="post">
+			@php
+			$id = Session::get('id');
+			$role = Session::get('role');
+			@endphp
 					<div class="form-group mb-0">
 						<input type="input" name="lama" class="form-control" id="lama" placeholder="Password Lama">
 						<br>
