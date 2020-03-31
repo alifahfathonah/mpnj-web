@@ -8,10 +8,13 @@ use App\Models\Alamat;
 use App\Models\Konsumen;
 use App\Models\Pelapak;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use File;
 
 class ProfileWebController extends Controller
