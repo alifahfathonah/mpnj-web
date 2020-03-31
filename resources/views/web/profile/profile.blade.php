@@ -1,11 +1,18 @@
 <div class="card">
-    @if (session('alert'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{ session('alert') }}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    @if (session('suksesGantiPassword'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('suksesGantiPassword') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif(session('gagalGantiPassword'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session('gagalGantiPassword') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
     <div class="card-body">
         <h4 class="card-title mb-4">Profile</h4>
