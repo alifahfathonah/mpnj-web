@@ -68,7 +68,7 @@
                             @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         <td>
-                            <a href="{{ URL::to('Tracking') }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
+                            <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
                         </td>
                         <td>
                             <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
