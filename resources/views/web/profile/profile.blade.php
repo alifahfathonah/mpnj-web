@@ -12,7 +12,7 @@
         @php
         $id = Session::get('id');
         @endphp
-        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard('konsumen')->user()->$id) }}"
+        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard(Session::get('role'))->user()->$id) }}"
             method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
