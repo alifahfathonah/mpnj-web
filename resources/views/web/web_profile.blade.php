@@ -97,17 +97,18 @@
 				</button>
 			</div>
 			<div class="modal-body text-center">
-				<form action="{{ route('cek') }}" method="post">
 			@php
 			$id = Session::get('id');
 			$role = Session::get('role');
 			@endphp
+				<form action="{{ URL::to('profile/gantipassword/'.$role.'/'.Auth::guard($role)->user()->$id) }}" method="post">
+					@csrf
 					<div class="form-group mb-0">
-						<input type="input" name="lama" class="form-control" id="lama" placeholder="Password Lama">
+						<input type="input" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama">
 						<br>
-						<input type="input" name="baru" class="form-control" id="baru" placeholder="Password Baru">
-						<br>
-						<input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi">
+						<input type="input" name="passwordbaru" class="form-control" id="passwordbaru" placeholder="Password Baru">
+						<!-- <br>
+						<input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
 					</div>
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</form>
