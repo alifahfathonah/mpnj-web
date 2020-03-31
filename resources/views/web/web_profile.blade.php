@@ -104,17 +104,15 @@
 				<form action="{{ URL::to('profile/gantipassword/'.$role.'/'.Auth::guard($role)->user()->$id) }}" method="post">
 					@csrf
 					<div class="form-group mb-0">
-						<input type="input" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama">
+						<input type="text" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama" required>
 						<br>
-						<input type="input" name="passwordbaru" class="form-control" id="passwordbaru" placeholder="Password Baru">
+						<input type="text" name="passwordbaru" class="form-control" id="passwordbaru" placeholder="Password Baru" required>
 						<!-- <br>
 						<input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
 					</div>
+					<br>
 					<button type="submit" class="btn btn-primary">Simpan</button>
 				</form>
-			</div>
-			<div class="modal-footer">
-
 			</div>
 		</div>
 	</div>
