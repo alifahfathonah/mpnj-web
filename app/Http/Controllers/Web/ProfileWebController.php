@@ -224,11 +224,12 @@ class ProfileWebController extends Controller
 
         if (Hash::check($passwordlama, $hashlama)) {
             $ubah = $fix_role::where($sessionId, $user_id)->update(['password' => $hashbaru]);
-            return redirect()->back()->with('alert', 'Password berhasil diganti.');
+            if ($ubah) {
+                return redirect()->back()->with('suksesGantiPassword', 'Password berhasil diganti.');
+            }
         } else {
-            return redirect()->back()->with('alert', 'Gagal'.$request->messages());
+            return redirect()->back()->with('gagalGantiPassword', 'Gagal. Periksa Kembali Data Anda. Pastikan data yang anda masukkan sudah benar.');
         }
-
     }
 
 }
