@@ -203,17 +203,6 @@ class ProfileWebController extends Controller
         $sessionId = Session::get('id');
         $user_id = Auth::guard($role)->user()->$sessionId;
 
-        $validator = Validator::make($request->all(),[
-            'passwordbaru' => 'required',
-            'passwordlama' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->with('gagalGantiPassword', 'Gagal. Periksa Kembali Data Anda.');
-        }
-
         $passwordlama = $request->passwordlama;
         $passwordbaru = $request->passwordbaru;
         $hashlama = Auth::guard($role)->user()->password;
