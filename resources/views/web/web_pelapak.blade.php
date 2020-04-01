@@ -76,26 +76,60 @@
 		</header>
 		<div class="tab-content" id="nav-tabContent">
 			<div class="tab-pane fade show @if(app('request')->input('tab') == 'hangat') active @else active @endif" id="hangat" role="tabpanel" aria-labelledby="nav-home-tab">
-				<div class="row row-sm">
-					@foreach($produk->sortByDesc('id_produk') as $pl)
+				<div class="row">
+					@forelse($produk->sortByDesc('id_produk') as $p)
 					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
-						<div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid">
-							<a class="img-wrap"> <img src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
+						<div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
+							<a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
 							<figcaption class="info-wrap">
-								<a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
-								<div class="price-wrap">
-									@if($pl->diskon == 0)
-									@currency($pl->harga_jual)
+								<div class="namaProduk-rapi">
+									<a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
+								</div>
+								<div class="price mt-1">
+									@if($p->diskon == 0)
+									<span>
+										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
+									</span>
 									@else
-									<strike style="color: red">
-										@currency($pl->harga_jual)
-									</strike> @currency($pl->harga_jual - ($pl->diskon / 100 * $pl->harga_jual))
+
+									<span style="color: green">
+										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+									</span>
+									<span style="color: gray">
+										<strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
+									</span>
 									@endif
+								</div> <!-- price-wrap.// -->
+								<div class="row">
+									<div class="col" style="">
+										<ul class="rating-stars">
+											<li style="width:50%" class="stars-active">
+												<i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+												<i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+												<i class="fa fa-star" style="font-size:small"></i>
+											</li>
+											<li>
+												<i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+												<i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+												<i class="fa fa-star" style="font-size:small"></i>
+											</li>
+										</ul>
+										<span class="rating-stars" style="font-size:small;">(125)</span>
+									</div> <!-- rating-wrap.// -->
+
+								</div>
+								<div class="row">
+									<div class="col" style="font-size:small">PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
+									<div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
 								</div>
 							</figcaption>
 						</div>
-					</div> <!-- col.// -->
-					@endforeach
+					</div>
+					@empty
+					<div class="alert alert-warning col-lg-12 col-sm-12 col-md-12 text-center">
+						Pencarian Tidak Ditemukan <a href="{{url::to('/')}}" class="btn btn-warning">Kembali ke Beranda</a>
+					</div>
+					@endforelse
 				</div> <!-- row.// -->
 			</div>
 			<div class="tab-pane fade @if(app('request')->input('tab') == 'diskon') active @endif" id="diskon" role="tabpanel" aria-labelledby="nav-profile-tab">
