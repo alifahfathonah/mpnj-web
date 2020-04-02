@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use File;
 
 class ProfileWebController extends Controller
@@ -62,7 +64,7 @@ class ProfileWebController extends Controller
             if ($foto != null) {
                 File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
             }
-            return redirect(URL::to('profile'))->with('alert', 'Data profil berhasil disimpan.');
+            return redirect(URL::to('profile'))->with('suksesUbahProfile', 'Data profil berhasil disimpan.');
         }
     }
 
@@ -194,4 +196,29 @@ class ProfileWebController extends Controller
             return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
     }
+
+    public function gantipassword(Request $request, $id)
+    {
+        $role = Session::get('role');
+        $sessionId = Session::get('id');
+        $user_id = Auth::guard($role)->user()->$sessionId;
+
+        $passwordlama = $request->passwordlama;
+        $passwordbaru = $request->passwordbaru;
+        $hashlama = Auth::guard($role)->user()->password;
+        $hashbaru = Hash::make($passwordbaru);
+
+
+        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
+
+        if (Hash::check($passwordlama, $hashlama)) {
+            $ubah = $fix_role::where($sessionId, $user_id)->update(['password' => $hashbaru]);
+            if ($ubah) {
+                return redirect()->back()->with('suksesGantiPassword', 'Password berhasil diganti.');
+            }
+        } else {
+            return redirect()->back()->with('gagalGantiPassword', 'Gagal. Periksa Kembali Data Anda. Pastikan data yang anda masukkan sudah benar.');
+        }
+    }
+
 }

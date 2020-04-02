@@ -21,6 +21,11 @@ class Transaksi extends Model
     //    	return $this->hasOne(Konsumen::class, 'id_konsumen', 'konsumen_id');
     //    }
 
+    public function konfirmasi()
+    {
+        return $this->hasOne(Konfirmasi::class, 'kode_transaksi', 'kode_transaksi');
+    }
+
     public function pembeli()
     {
         return $this->morphTo();
