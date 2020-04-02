@@ -10,7 +10,7 @@
         @endif
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @endif"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua' || app('request')->input('tab') == '') active @endif"
                    id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home"
                    aria-selected="true">Semua</a>
                 <a class="nav-item nav-link @if(app('request')->input('tab') == 'pending') active @endif" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab"
@@ -28,7 +28,7 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'semua') show active @endif"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'semua' || app('request')->input('tab') == '') show active @endif"
                  id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
