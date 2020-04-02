@@ -85,12 +85,16 @@
                         @endif
                     </tr>
                     @endforeach
-                    @if($detail->proses_pembayaran == 'belum')
-                        <tr>
-                            <td colspan="4">
-                                <a href="{{ URL::to('checkout/sukses/'.$detail->kode_transaksi) }}" class="btn btn-danger btn-sm">Bayar Sekarang</a>
-                            </td>
-                        </tr>
+                    @if($detail->status_transaksi != 'batal')
+                        @if($detail->proses_pembayaran == 'belum')
+                            <tr>
+                                <td colspan="4">
+                                    <a href="{{ URL::to('checkout/sukses/'.$detail->kode_transaksi) }}" class="btn btn-danger btn-sm">Bayar Sekarang</a>
+                                    <a href="#" class="btn btn-danger btn-sm" data-target="#modalBatalTransaksi"
+                                       data-toggle="modal" onclick="batalTransaksiConfirm({{ $detail->kode_transaksi }}, {{ $detail->id_transaksi }})">Batalkan Pesanan</a>
+                                </td>
+                            </tr>
+                        @endif
                     @endif
                 </tbody>
             </table>
@@ -187,3 +191,40 @@
         @endif
     </article> <!-- order-group.// -->
 </main>
+
+<div class="modal fade" id="modalBatalTransaksi" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Apa anda yangkin ingin membatalkan transaksi ini ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="formBatalTransaksi">
+                @csrf
+                <div class="modal-body text-center">
+                    <input type="hidden" class="form-control" id="kode_transaksi" name="kode_transaksi">
+                    Pembatalan transaksi akan membuat anda kehilangan transaksi ini yang artinya transaksi ini tidak akan lagi diproses. Yakinkan diri anda terlebih dahulu untuk terus membatalkan transaksi ini. Jika anda yakin, tekan tombol lanjutkan.
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalTransakai()">Ya, Lanjutkan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+    <script>
+        function batalTransaksiConfirm(kode, id_transaksi) {
+            $("#kode_transaksi").val(kode);
+            $("#formBatalTransaksi").attr('action', '{{ URL::to('pesanan/dibatalkan')}}/'+id_transaksi);
+        }
+
+        function submitBatalTransakai() {
+            $("#formBatalTransaksi").submit();
+        }
+    </script>
+@endpush
