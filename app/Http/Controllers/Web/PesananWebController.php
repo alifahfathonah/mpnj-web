@@ -8,7 +8,6 @@ use App\Models\Pelapak;
 use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -32,6 +31,7 @@ class PesananWebController extends Controller
             $data['order']->push([
                 'kode_transaksi' => $value->kode_transaksi,
                 'waktu_transaksi' => $value->waktu_transaksi,
+                'status_transaksi' => $value->status_transaksi,
                 'total_bayar' => $value->total_bayar,
                 'proses_pembayaran' => $value->proses_pembayaran,
                 'item' => $value->transaksi_detail
@@ -51,7 +51,7 @@ class PesananWebController extends Controller
         //     $query->where('id_transaksi_detail', $id_trx);
         // }])
         //     ->first();
-        $data['detail'] = Transaksi::with('transaksi_detail','transaksi_detail.produk.foto_produk')->where('kode_transaksi', $id_trx)->first();
+        $data['detail'] = Transaksi::with('transaksi_detail','transaksi_detail.produk.foto_produk', 'konfirmasi')->where('kode_transaksi', $id_trx)->first();
 //        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
         return view('web/web_profile', $data);
@@ -69,18 +69,15 @@ class PesananWebController extends Controller
         return redirect()->back();
     }
 
-    public function dibatalkan(Request $request, $id_trx)
+    public function dibatalkan(Request $request, $id)
     {
         
-       Transaksi::where('id_transaksi', $request->id )->update(['total_bayar' => $request->total3]);
-       Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'batal']);
-       return redirect()->back();
-        
-    }
-
-    public function tracking($id)
-    {
-        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id)->first();
-        return view('web/web_profile', $data);
+       $batalTrx = Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['status_transaksi' => 'batal']);
+       if ($batalTrx) {
+           $batalTrxDetail = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
+           if ($batalTrxDetail) {
+               return redirect()->back();
+           }
+       }
     }
 }
