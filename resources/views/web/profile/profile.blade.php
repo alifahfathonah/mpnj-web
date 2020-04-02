@@ -13,6 +13,13 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+    @elseif(session('suksesUbahProfile'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('suksesUbahProfile') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
     <div class="card-body">
         <h4 class="card-title mb-4">Profile</h4>
