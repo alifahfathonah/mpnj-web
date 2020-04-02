@@ -80,11 +80,11 @@
                                             $val->jumlah) + $val->ongkir)
                                         </td>
                                         <td width="250">
-                                            @if($val->transaksi->proses_pembayaran == 'sudah')
+                                            @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                 <ul style="list-style-type:none;">
                                                     <li>
                                                         <i class="fa fa-check" style="color: #00e600;"></i>
-                                                        {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                        Sudah Dibayar
                                                     </li>
                                                 </ul>
 
@@ -180,11 +180,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Dibayar
                                                         </li>
                                                     </ul>
 
@@ -280,11 +280,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Dibayar
                                                         </li>
                                                     </ul>
 
@@ -377,11 +377,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Bayar
                                                         </li>
                                                     </ul>
 
@@ -474,11 +474,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Dibayar
                                                         </li>
                                                     </ul>
 
@@ -571,11 +571,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Dibayar
                                                         </li>
                                                     </ul>
 
@@ -671,11 +671,11 @@
                                                 $val->jumlah) + $val->ongkir)
                                             </td>
                                             <td width="250">
-                                                @if($val->transaksi->proses_pembayaran == 'sudah')
+                                                @if($val->transaksi->proses_pembayaran == 'sudah' || $val->transaksi->proses_pembayaran == 'terima')
                                                     <ul style="list-style-type:none;">
                                                         <li>
                                                             <i class="fa fa-check" style="color: #00e600;"></i>
-                                                            {{ $val->transaksi->proses_pembayaran}} dibayar
+                                                            Sudah Dibayar
                                                         </li>
                                                     </ul>
 
