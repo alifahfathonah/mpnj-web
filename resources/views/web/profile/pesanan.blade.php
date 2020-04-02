@@ -10,25 +10,25 @@
         @endif
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @endif"
                    id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home"
                    aria-selected="true">Semua</a>
-                <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'pending') active @endif" id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab"
                    aria-controls="nav-home" aria-selected="true">Menunggu Konfirmasi</a>
-                <a class="nav-item nav-link" id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'verifikasi') active @endif" id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab"
                    aria-controls="nav-profile" aria-selected="false">Telah Dikonfirmasi</a>
-                <a class="nav-item nav-link" id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'packing') active @endif" id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab"
                    aria-controls="nav-contact" aria-selected="false">Dikemas</a>
-                <a class="nav-item nav-link" id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'dikirim') active @endif" id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab"
                    aria-controls="nav-contact" aria-selected="false">Dikirim</a>
-                <a class="nav-item nav-link" id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab"
+                <a class="nav-item nav-link @if(app('request')->input('tab') == 'sukses') active @endif" id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab"
                    aria-controls="nav-contact" aria-selected="false">Telah Sampai</a>
-                <a class="nav-item nav-link" id="nav-batal-tab" data-toggle="tab" href="#batal" role="tab"
+                <a class="nav-item nav-link" id="nav-batal-tab @if(app('request')->input('tab') == 'batal') active @endif" data-toggle="tab" href="#batal" role="tab"
                    aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show @if(app('request')->input('tab') == 'semua') active @else active @endif"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'semua') show active @endif"
                  id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -126,7 +126,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') active @endif" id="pending"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') show active @endif" id="pending"
                  role="tabpanel" aria-labelledby="nav-pending-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -226,7 +226,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'verifikasi') active @endif" id="verifikasi"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'verifikasi') show active @endif" id="verifikasi"
                  role="tabpanel" aria-labelledby="nav-verifikasi-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -323,7 +323,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'packing') active @endif" id="packing"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'packing') show active @endif" id="packing"
                  role="tabpanel" aria-labelledby="nav-packing-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -420,7 +420,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'dikirim') active @endif" id="dikirim"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'dikirim') show active @endif" id="dikirim"
                  role="tabpanel" aria-labelledby="nav-dikirim-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -517,7 +517,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') active @endif" id="sukses"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') show active @endif" id="sukses"
                  role="tabpanel" aria-labelledby="nav-sukses-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -617,7 +617,7 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'batal') active @endif" id="batal"
+            <div class="tab-pane fade @if(app('request')->input('tab') == 'batal') show active @endif" id="batal"
                  role="tabpanel" aria-labelledby="nav-batal-tab">
                 <div class="table-responsive">
                     <table class="table table-hover">
