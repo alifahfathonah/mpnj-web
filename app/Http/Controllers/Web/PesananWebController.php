@@ -69,12 +69,15 @@ class PesananWebController extends Controller
         return redirect()->back();
     }
 
-    public function dibatalkan(Request $request, $id_trx)
+    public function dibatalkan(Request $request, $id)
     {
         
-       Transaksi::where('kode_transaksi', $id_trx )->update(['status_transaksi' => 'batal']);
-       Transaksi_Detail::where('transaksi_id', $request->idtr)->update(['status_order' => 'Dibatalkan']);
-        return redirect()->back();
-        
+       $batalTrx = Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['status_transaksi' => 'batal']);
+       if ($batalTrx) {
+           $batalTrxDetail = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
+           if ($batalTrxDetail) {
+               return redirect()->back();
+           }
+       }
     }
 }
