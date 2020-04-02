@@ -64,7 +64,7 @@ class ProfileWebController extends Controller
             if ($foto != null) {
                 File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
             }
-            return redirect(URL::to('profile'))->with('alert', 'Data profil berhasil disimpan.');
+            return redirect(URL::to('profile'))->with('suksesUbahProfile', 'Data profil berhasil disimpan.');
         }
     }
 
