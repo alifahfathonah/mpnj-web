@@ -59,6 +59,7 @@ Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 
 //kategori
 Route::get('/kategori', 'Api\ApiKategoriController@index');
+Route::get('/kategori/{id}', 'Api\ApiKategoriController@produk');
 
 //konfirmasi
 Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
