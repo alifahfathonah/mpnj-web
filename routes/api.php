@@ -1,14 +1,11 @@
 <?php
 
-// use App\Http\Resources\DetailProdukResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProdukResource as ProdukResource;
 use App\Http\Resources\KategoriResource as KategoriResource;
 use App\Http\Resources\DetailProdukResource as DetailProdukResource;
 use App\Models\Produk;
 use App\Models\Kategori_Produk;
-// use Illuminate\Routing\Route;
-// use Illuminate\Support\Facades\Route;
 
 
 // PRODUK
