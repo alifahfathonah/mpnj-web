@@ -177,7 +177,7 @@
 					@endif
 					@empty
 					<div class="alert alert-warning col-lg-12 col-sm-12 col-md-12 text-center">
-						Pencarian Tidak Ditemukan <a href="{{url::to('/')}}" class="btn btn-warning">Kembali ke Beranda</a>
+						Produk Tidak Ada
 					</div>
 					@endforelse
 				</div> <!-- row.// -->
