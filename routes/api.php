@@ -57,6 +57,8 @@ Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
 Route::get('/transaksi', 'Api\ApiTransaksiController@index');
 Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 
+//kategori
+Route::get('/kategori', 'Api\ApiKategoriController@index');
 
 //konfirmasi
 Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
