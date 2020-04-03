@@ -135,6 +135,7 @@
 			<div class="tab-pane fade @if(app('request')->input('tab') == 'diskon') active @endif" id="diskon" role="tabpanel" aria-labelledby="nav-profile-tab">
 				<div class="row">
 					@forelse($produk->sortByDesc('diskon') as $p)
+					@if($p->diskon != 0)
 					<div class="col-xl-2 col-lg-3 col-md-4 col-6">
 						<div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
 							<a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
@@ -143,19 +144,10 @@
 									<a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
 								</div>
 								<div class="price mt-1">
-									@if($p->diskon == 0)
+
 									<span>
 										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
 									</span>
-									@else
-
-									<span style="color: green">
-										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
-									</span>
-									<span style="color: gray">
-										<strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
-									</span>
-									@endif
 								</div> <!-- price-wrap.// -->
 								<div class="row">
 									<div class="col" style="">
@@ -182,6 +174,7 @@
 							</figcaption>
 						</div>
 					</div>
+					@endif
 					@empty
 					<div class="alert alert-warning col-lg-12 col-sm-12 col-md-12 text-center">
 						Pencarian Tidak Ditemukan <a href="{{url::to('/')}}" class="btn btn-warning">Kembali ke Beranda</a>
