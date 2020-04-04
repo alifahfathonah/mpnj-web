@@ -67,37 +67,37 @@
                             @if($p->diskon == 0)
                             <span>
                                 <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
-                            </span> 
+                            </span>
                             @else
-                            
+
                             <span style="color: green">
                                 <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
-                            </span> 
+                            </span>
                             <span style="color: gray">
                                 <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
                             </span>
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <div class="row" >
+                        <div class="row">
                             <div class="col" style="">
-                                <ul class="rating-stars" >
+                                <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
-                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                     <li>
-                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                 </ul>
                                 <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div> <!-- rating-wrap.// -->
-                            
+
                         </div>
                         <div class="row">
-                            <div class="col" style="font-size:small" >PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="col" style="font-size:small">PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
                             <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
                         </div>
                     </figcaption>
