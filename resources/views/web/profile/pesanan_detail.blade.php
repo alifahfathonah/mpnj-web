@@ -50,7 +50,7 @@
                             <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
                             <var class="price text">
                                 @if($d->diskon == 0)
-                                    @currency($d->harga_jual)
+                                @currency($d->harga_jual)
                                 @else
                                 <strike style="color: red">@currency($d->harga_jual)</strike> <span
                                     style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 *
@@ -58,47 +58,52 @@
                                 @endif
                             </var>
                         </td>
-                        <td>Jumlah : {{ $d->jumlah }}  <br> Ongkir : {{ $d->ongkir }}</td>
+                        <td>Jumlah : {{ $d->jumlah }} <br> Ongkir : {{ $d->ongkir }}</td>
                         <td> Total :
                             @if($d->diskon == 0)
-                                @currency($d->jumlah * $d->harga_jual + $d->ongkir)
+                            @currency($d->jumlah * $d->harga_jual + $d->ongkir)
                             @else
-                                @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
+                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
                             @endif </td>
                         @if($detail->status_transaksi != 'batal')
-                            @if($d->status_order == 'Dikirim')
-                                <td>
-                                	@if($d->resi != '')
-                                		<a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}" class="btn btn-warning btn-sm"> Lacak Barang </a>
-                            		@else
-                                		<a href="#" class="btn btn-warning btn-sm" data-target="#modalLacak" data-toggle="modal"> Lacak Barang </a>
-                            		@endif
-                                    <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
-                                       class="btn btn-success btn-sm"> Pesanan Diterima </a>
-                                </td>
-                            @elseif($d->status_order == 'Telah Dikonfirmasi' || $d->status_order == 'Dikemas')
-                                <td>
-                                    <button type="button" class="btn btn-warning btn-sm">Menunggu Pengiriman</button>
-                                </td>
-                            @elseif($d->status_order == 'Telah Sampai')
-                                <td colspan="2">
-                                    <a href="{{ URL::to('nilai/'.$d->id_transaksi_detail) }}"
-                                       class="btn btn-success btn-sm"> Nilai</a>
-                                </td>
+                        @if($d->status_order == 'Dikirim')
+                        <td>
+                            @if($d->resi != '')
+                            <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}"
+                                class="btn btn-warning btn-sm"> Lacak Barang </a>
+                            @else
+                            <a href="#" class="btn btn-warning btn-sm" data-target="#modalLacak" data-toggle="modal">
+                                Lacak Barang </a>
                             @endif
+                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
+                                class="btn btn-success btn-sm"> Pesanan Diterima </a>
+                        </td>
+                        @elseif($d->status_order == 'Telah Dikonfirmasi' || $d->status_order == 'Dikemas')
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm">Menunggu Pengiriman</button>
+                        </td>
+                        @elseif($d->status_order == 'Telah Sampai')
+                        <td colspan="2">
+                            <a href="{{ URL::to('review/produk/'.$d->produk->slug) }}" class="btn btn-success btn-sm">
+                                Beri Nilai</a>
+                        </td>
+                        @endif
                         @endif
                     </tr>
                     @endforeach
                     @if($detail->status_transaksi != 'batal')
-                        @if($detail->proses_pembayaran == 'belum')
-                            <tr>
-                                <td colspan="4">
-                                    <a href="{{ URL::to('checkout/sukses/'.$detail->kode_transaksi) }}" class="btn btn-danger btn-sm">Bayar Sekarang</a>
-                                    <a href="#" class="btn btn-danger btn-sm" data-target="#modalBatalTransaksi"
-                                       data-toggle="modal" onclick="batalTransaksiConfirm({{ $detail->kode_transaksi }}, {{ $detail->id_transaksi }})">Batalkan Pesanan</a>
-                                </td>
-                            </tr>
-                        @endif
+                    @if($detail->proses_pembayaran == 'belum')
+                    <tr>
+                        <td colspan="4">
+                            <a href="{{ URL::to('checkout/sukses/'.$detail->kode_transaksi) }}"
+                                class="btn btn-danger btn-sm">Bayar Sekarang</a>
+                            <a href="#" class="btn btn-danger btn-sm" data-target="#modalBatalTransaksi"
+                                data-toggle="modal"
+                                onclick="batalTransaksiConfirm({{ $detail->kode_transaksi }}, {{ $detail->id_transaksi }})">Batalkan
+                                Pesanan</a>
+                        </td>
+                    </tr>
+                    @endif
                     @endif
                 </tbody>
             </table>
@@ -206,7 +211,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                Untuk saat ini anda tidak dapat melacak pesanan anda. Tunggu hingga penjual mengirimkan nomor resi pesanan, setelah itu anda dapat melacak pesanan anda.
+                Untuk saat ini anda tidak dapat melacak pesanan anda. Tunggu hingga penjual mengirimkan nomor resi
+                pesanan, setelah itu anda dapat melacak pesanan anda.
             </div>
             <div class="modal-footer">
                 <button class="btn btn--round modal_close" data-dismiss="modal">Tutup</button>
@@ -215,11 +221,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalBatalTransaksi" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalBatalTransaksi" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Apa anda yangkin ingin membatalkan transaksi ini ?</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Apa anda yangkin ingin membatalkan transaksi ini ?
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -228,10 +236,13 @@
                 @csrf
                 <div class="modal-body text-center">
                     <input type="hidden" class="form-control" id="kode_transaksi" name="kode_transaksi">
-                    Pembatalan transaksi akan membuat anda kehilangan transaksi ini yang artinya transaksi ini tidak akan lagi diproses. Yakinkan diri anda terlebih dahulu untuk terus membatalkan transaksi ini. Jika anda yakin, tekan tombol lanjutkan.
+                    Pembatalan transaksi akan membuat anda kehilangan transaksi ini yang artinya transaksi ini tidak
+                    akan lagi diproses. Yakinkan diri anda terlebih dahulu untuk terus membatalkan transaksi ini. Jika
+                    anda yakin, tekan tombol lanjutkan.
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalTransakai()">Ya, Lanjutkan</button>
+                    <button type="submit" class="btn btn--round btn-danger btn--default"
+                        onclick="submitBatalTransakai()">Ya, Lanjutkan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </div>
             </form>
@@ -240,14 +251,14 @@
 </div>
 
 @push('scripts')
-    <script>
-        function batalTransaksiConfirm(kode, id_transaksi) {
-            $("#kode_transaksi").val(kode);
-            $("#formBatalTransaksi").attr('action', '{{ URL::to('pesanan/dibatalkan')}}/'+id_transaksi);
-        }
+<script>
+    function batalTransaksiConfirm(kode, id_transaksi) {
+        $("#kode_transaksi").val(kode);
+        $("#formBatalTransaksi").attr('action', '{{ URL::to('pesanan/dibatalkan')}}/'+id_transaksi);
+    }
 
-        function submitBatalTransakai() {
-            $("#formBatalTransaksi").submit();
-        }
-    </script>
+    function submitBatalTransakai() {
+        $("#formBatalTransaksi").submit();
+    }
+</script>
 @endpush
