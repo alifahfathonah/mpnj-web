@@ -12,9 +12,6 @@ use App\Models\Kategori_Produk;
 
 
 // PRODUK
-Route::get('/kategori', function () {
-    return KategoriResource::collection(kategori_Produk::all());
-});
 Route::get('/produk', 'Api\ApiProdukController@index');
 Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
 Route::post('/produk', 'Api\ApiProdukController@create');
