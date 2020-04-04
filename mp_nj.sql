@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Mar 2020 pada 19.43
+-- Waktu pembuatan: 03 Apr 2020 pada 19.28
 -- Versi server: 10.3.16-MariaDB
 -- Versi PHP: 7.3.7
 
@@ -309,9 +309,9 @@ CREATE TABLE `pelapak` (
 --
 
 INSERT INTO `pelapak` (`id_pelapak`, `nama_lengkap`, `username`, `password`, `status_official`, `nama_toko`, `foto_profil`, `foto_toko`, `nomor_hp`, `email`, `rating`, `saldo`, `status`, `created_at`, `updated_at`, `alamat_utama`, `alamat_toko`) VALUES
-(1, 'Indra Irawanto', 'indra', 'e24f6e3ce19ee0728ff1c443e4ff488d', 'santri', 'Dunia Sepatu', NULL, NULL, '085330150827', 'indra@gmail.com', NULL, 0, 'aktif', '2020-01-01 14:53:00', '2020-03-01 10:31:05', 2, NULL),
-(2, 'Hafid Masruri', 'yolo', '4fded1464736e77865df232cbcb4cd19', 'santri', 'Dunia Laptop', NULL, NULL, '085330150826', 'hafid@gmail.com', NULL, 0, 'aktif', '2020-01-10 17:18:00', '2020-01-10 17:18:00', NULL, NULL),
-(3, 'Luthfi N', 'luthfi', 'luthfi', 'santri', 'Elektronik World', NULL, NULL, '085330150825', 'luthfi@gmail.com', NULL, 0, 'aktif', '2020-01-01 14:53:00', '2020-01-01 14:53:00', 2, NULL);
+(1, 'Indra Irawanto', 'indra', 'e24f6e3ce19ee0728ff1c443e4ff488d', 'santri', 'Dunia Sepatu', 'kyJVSFd3ra4yn5Y.jpg', NULL, '085330150827', 'indra@gmail.com', NULL, 0, 'aktif', '2020-01-01 14:53:00', '2020-04-03 17:23:03', 2, NULL),
+(2, 'Hafid Masruri', 'yolo', '4fded1464736e77865df232cbcb4cd19', 'santri', 'Dunia Laptop', '6CHpe8PVTWSpgNn.jpg', NULL, '085330150826', 'hafid@gmail.com', NULL, 0, 'aktif', '2020-01-10 17:18:00', '2020-04-03 17:23:24', NULL, NULL),
+(3, 'Luthfi N P', 'luthfi', '$2y$10$nTLCbiM8ODx8n3Fz9nznoeDogwXKEcojAy/LA1kFufwCYl2k1vqT2', 'santri', 'Elektronik World', 'WZpNRV0CkDhLI8E.png', NULL, '085330150825', 'luthfi@gmail.com', NULL, 0, 'aktif', '2020-01-01 14:53:00', '2020-04-03 17:23:35', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -468,7 +468,7 @@ CREATE TABLE `transaksi_detail` (
 INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `transaksi_id`, `produk_id`, `jumlah`, `harga_jual`, `diskon`, `kurir`, `service`, `ongkir`, `etd`, `sub_total`, `status_order`, `pelapak_id`, `created_at`, `updated_at`) VALUES
 (5, 2, 3, 1, 85000, 0, 'tiki', 'ECO', 11000, '6', 96000, 'Dibatalkan', 1, NULL, NULL),
 (6, 3, 2, 1, 950000, 0, 'jne', 'CTC', 7000, '3-6', 957000, 'Menunggu Konfirmasi', 1, NULL, NULL),
-(7, 3, 1, 1, 80000, 0, 'jne', 'CTC', 7000, '3-6', 87000, 'Telah Dikonfirmasi', 1, NULL, NULL),
+(7, 3, 1, 1, 80000, 0, 'jne', 'CTC', 7000, '3-6', 87000, 'Telah Sampai', 1, NULL, NULL),
 (8, 4, 9, 1, 2500000, 0, 'tiki', 'REG', 14000, '5', 2514000, 'Telah Sampai', 3, NULL, NULL),
 (9, 4, 8, 1, 2000000, 0, 'tiki', 'REG', 14000, '5', 2014000, 'Dikemas', 3, NULL, NULL),
 (10, 5, 9, 1, 2500000, 0, 'pos', 'Express Next Day Barang', 10000, '24 JAM', 2510000, 'Telah Sampai', 3, NULL, NULL),
