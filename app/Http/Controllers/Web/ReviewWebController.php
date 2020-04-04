@@ -5,13 +5,31 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\Produk;
+use App\Models\Transaksi;
+use App\Models\Konsumen;
+use App\Models\Pelapak;
+use App\Models\Kategori_Produk;
 use File;
 use ImageResize;
 use Illuminate\Support\Facades\Session;
 
 class ReviewWebController extends Controller
 {
-    public function postReview(Request $request){
+
+    public function index(Request $request, $slug)
+    {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('slug', $slug)->first();
+        $data['review'] = Review::with(['konsumen', 'produk'])->where('produk_id', $data['produk']->id_produk)->where('konsumen_id', $konsumen_id)->first();
+        return view('web/web_review_produk', $data);
+    }
+
+    public function postReview(Request $request)
+    {
         $role = Session::get('role');
         $id = Session::get('id');
         $konsumen_id = $request->user($role)->$id;
