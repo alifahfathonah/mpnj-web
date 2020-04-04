@@ -145,9 +145,13 @@
 								</div>
 								<div class="price mt-1">
 
-									<span>
-										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
+									<span style="color: green">
+										<span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
 									</span>
+									<span style="color: gray">
+										<strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
+									</span>
+
 								</div> <!-- price-wrap.// -->
 								<div class="row">
 									<div class="col" style="">
