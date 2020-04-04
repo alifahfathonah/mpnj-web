@@ -119,4 +119,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('jual', 'Pelapak\PelapakController@index');
 
 //review
+Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
 Route::post('review/produk', 'Web\ReviewWebController@postReview');
+Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');
