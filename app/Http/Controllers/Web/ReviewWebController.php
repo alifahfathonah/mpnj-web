@@ -58,9 +58,50 @@ class ReviewWebController extends Controller
             ];
         }
 
-        $simpan = Review::create($review);
-        if ($simpan) {
-            return redirect()->back();
+        $cekReviewer = Review::with(['konsumen', 'produk'])->where('produk_id', $request->id_produk)->where('konsumen_id', $konsumen_id)->get()->count(1);
+        if ($cekReviewer) {
+            return redirect()->back()->with('message', 'Anda Sudah Mereview Produk Ini');
+        } else {
+            Review::create($review);
+            return redirect()->back()->with('message', 'Terimakasih Atas Review Anda');
+        }
+    }
+
+    public function updateReview(Request $request, $id)
+    {
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $konsumen_id = $request->user($role)->$id;
+        $foto_review = $request->file('foto_review');
+        if ($request->hasFile('foto_review')) {
+
+            $name = uniqid() . '_foto_review_' . trim($foto_review->getClientOriginalName());
+
+            $img = ImageResize::make($foto_review);
+            // --------- [ Resize Image ] ---------------
+            $img->resize(100, 100)->save('assets/foto_review/' . $name);
+
+            $review = [
+                'review' => $request->review,
+                'bintang' => $request->bintang,
+                'foto_review' => $name
+            ];
+            $foto_review->move('assets/foto_review/', $name);
+        } else {
+            $review = [
+                'review' => $request->review,
+                'bintang' => $request->bintang
+            ];
+        }
+
+        $find = Review::where('produk_id', $request->id_produk)->where('konsumen_id', $konsumen_id)->first();
+        $update = $find->update($review);
+
+        if ($update) {
+            // if ($foto_review != null) {
+            //     File::delete('assets/foto_review' . $find->foto_review);
+            // }
+            return redirect()->back()->with('message', 'Review Diupdate');
         }
     }
 }
