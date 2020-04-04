@@ -40,7 +40,7 @@ class ReviewWebController extends Controller
 
             $img = ImageResize::make($foto_review);
             // --------- [ Resize Image ] ---------------
-            $img->resize(100, 100)->save('assets/foto_review/'.$name);
+            $img->resize(100, 100)->save('assets/foto_review/' . $name);
 
             $review = [
                 'konsumen_id' => $konsumen_id,
