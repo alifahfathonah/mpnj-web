@@ -253,6 +253,7 @@
             $("#jumlah").val($("#jml").val());
             if (parseInt(jml) >= parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
+                setTimeout(function(){ $('#alertMax').addClass('d-none');}, 1000);
                 $("#jml").val(parseInt(jml) - 1 + 1);
                 $("#jumlah").val($("#jml").val());
             }
@@ -265,6 +266,7 @@
             $("#jumlah").val($("#jml").val());
             if (parseInt(jml) <= 1) {
                 $('#alertMin').removeClass('d-none');
+                setTimeout(function(){ $('#alertMin').addClass('d-none');}, 1000);
                 $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
