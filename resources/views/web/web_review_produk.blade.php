@@ -2,7 +2,6 @@
 
 @section('title','Market Place PP Nurul Jadid')
 
-
 @section('content')
 <br />
 <section class="signup_area section--padding2">
@@ -28,7 +27,7 @@
                         <form method="post" action="{{ URL::to('review/produk/update/'.$review->produk->id_produk) }}"
                             enctype="multipart/form-data">
                             @csrf
-                            <input type="input" name="id_produk" value="{{ $review->produk->id_produk }}">
+                            <input type="hidden" name="id_produk" value="{{ $review->produk->id_produk }}">
                             <label>Bintang</label><br>
 
                             <label class="custom-control custom-radio">
@@ -87,7 +86,7 @@
                         @else
                         <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
                             @csrf
-                            <input type="input" name="id_produk" value="{{ $produk->id_produk }}">
+                            <input type="hidden" name="id_produk" value="{{ $produk->id_produk }}">
                             <label>Bintang</label><br>
 
                             <label class="custom-control custom-radio">
