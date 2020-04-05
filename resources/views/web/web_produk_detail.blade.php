@@ -308,13 +308,6 @@
             $("#jumlah").val($("#jml").val());
             $("#btnKeranjang").attr("disabled", true);
         }
-
-        $("#closeAlertMax").click(function() {
-            $('#alertMax').addClass('d-none');
-        });
-        $("#closeAlertMin").click(function() {
-            $('#alertMin').addClass('d-none');
-        });
     });
 
     function gantiFoto(id) {
