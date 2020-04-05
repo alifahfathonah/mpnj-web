@@ -17,9 +17,9 @@
             @endif
             <div class="row no-gutters">
                 <aside class="col-md-3 my-auto">
-                    <div class="info-main">
+                    <a href="#" class="img-wrap">
                         <img src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}">
-                    </div>
+                    </a>
                 </aside> <!-- col.// -->
                 <div class="col-md-6">
                     <div class="info-main">
