@@ -83,17 +83,11 @@
                     </div> <!-- price-detail-wrap .// -->
 
                     <p class="text-justify">{!! substr($produk->keterangan,0,450) !!}...</p>
-                    <div class="alert alert-warning d-none" role="alert" id="alertMax">
+                    <div class="alert alert-warning d-none text-center" role="alert" id="alertMax">
                         <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
-                        <button type="button" class="close" id="closeAlertMax">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
-                    <div class="alert alert-warning d-none" role="alert" id="alertMin">
+                    <div class="alert alert-warning d-none text-center" role="alert" id="alertMin">
                         <strong>MINIMAL 1 PESANAN BARANG</strong>
-                        <button type="button" class="close" id="closeAlertMin">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
