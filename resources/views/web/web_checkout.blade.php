@@ -200,40 +200,37 @@
 </div>
 
 
-    <div class="modal fade rating_modal item_remove_modal"
-         id="pilihAlamat"
-         tabindex="-1" role="dialog" aria-labelledby="myModal2">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Pilih Alamat Pengiriman</h3>
-                    {{-- <p>You will not be able to recover this file!</p> --}}
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- end /.modal-header -->
-
-                <div class="modal-body">
-                    @foreach($pembeli->daftar_alamat as $v)
-                        <div class="information_module order_summary">
-                            <div class="toggle_title"
-                                 data-destination="{{ $v->kecamatan_id }}">
-                                <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
-                                <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
-                                <br>
-                                <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
-                                    <button type="submit" class="btn btn--round modal_close">Pilih
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <!-- end /.modal-body -->
+<div class="modal fade rating_modal item_remove_modal" id="pilihAlamat" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Pilih Alamat Pengiriman</h3>
+                {{-- <p>You will not be able to recover this file!</p> --}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                @foreach($pembeli->daftar_alamat as $v)
+                <div class="information_module order_summary">
+                    <div class="toggle_title" data-destination="{{ $v->kecamatan_id }}">
+                        <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
+                        <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
+                        <br>
+                        <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                            <button type="submit" class="btn btn--round modal_close">Pilih
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <!-- end /.modal-body -->
         </div>
     </div>
+</div>
 @endsection
 
 @push('scripts')
