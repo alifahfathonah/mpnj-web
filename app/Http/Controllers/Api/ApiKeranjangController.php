@@ -134,7 +134,7 @@ class ApiKeranjangController extends Controller
         $gantiStatus = $this->keranjangRepository->goCheckOut($idGanti, 'id_keranjang');
         if ($gantiStatus) {
             return response()->json([
-                'status' => $gantiStatus
+                'status_updated' => $gantiStatus
             ], 200);
         } else {
             return response()->json('gagal', 400);
