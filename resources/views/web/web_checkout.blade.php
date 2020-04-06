@@ -286,21 +286,20 @@
         $(`#kurirDipilih${i}`).html(`<h6>Kurir : ${kurir} - ${service} - ${numberFormat(ongkir)} - ${etd}</h6>`);
         hitungOngkir();
     }
-        }
 
-        function hitungOngkir() {
-            let ko = 0;
-            for (let index = 1; index <= "{{ $m }}"; index++) {
-                if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
-                    ko += 0;
-                } else {
-                    ko += $(`#dataPelapak${index}`).data('ongkir');
-                }
+    function hitungOngkir() {
+        let ko = 0;
+        for (let index = 1; index <= "{{ $m }}"; index++) {
+            if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
+                ko += 0;
+            } else {
+                ko += $(`#dataPelapak${index}`).data('ongkir');
             }
-            $('#totalOngkir').html("Rp. " + numberFormat(ko));
-            $("#totalBayar").html('Rp. ' + numberFormat(parseInt("{{ $total }}") + ko));
-            $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
         }
+        $('#totalOngkir').html("Rp. " + numberFormat(ko));
+        $("#totalBayar").html('Rp. ' + numberFormat(parseInt("{{ $total }}") + ko));
+        $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
+    }
 
         function bayarSekarang() {
             let dataTrxDetail = [];
