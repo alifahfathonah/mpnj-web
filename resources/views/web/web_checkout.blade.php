@@ -4,40 +4,32 @@
 
 
 @section('content')
-    <section class="section-content padding-y">
-        <div class="container">
+<section class="section-content padding-y">
+    <div class="container">
 
-            <div class="row">
-                <aside class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
-                            <hr>
-                            <p class="text-center mb-3">
+        <div class="row">
+            <aside class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
+                        <hr>
+                        <p class="text-center mb-3">
                             @if($pembeli->alamat_fix != null)
-                                <div class="information_module order_summary">
-                                    <div class="toggle_title" id="dataPembeli"
-                                         data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
-                                        <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}</h5>
-                                        <h4>{{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}</h4>
-                                    </div>
+                            <div class="information_module order_summary">
+                                <div class="toggle_title" id="dataPembeli" data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
+                                    <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}</h5>
+                                    <h4>{{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}</h4>
                                 </div>
+                            </div>
                             @else
-                                <div class="information_module order_summary">
-                                    <div class="toggle_title">
-                                        <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
-                                                    href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
-                                    </div>
+                            <div class="information_module order_summary">
+                                <div class="toggle_title">
+                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
                                 </div>
+                            </div>
                             @endif
-                            </p>
+                        </p>
 
-                        </div> <!-- card-body.// -->
-                    </div>  <!-- card .// -->
-                </aside> <!-- col.// -->
-            </div>
-            <br>
-            <div class="row">
                 <main class="col-md-9">
                     <div class="card table-responsive">
 
