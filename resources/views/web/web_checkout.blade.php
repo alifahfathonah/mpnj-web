@@ -137,9 +137,11 @@
                         </tbody>
                     </table>
 
-                    <div class="alert alert-success mt-3">
-                        <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                    <div class="card-body border-top">
+                        <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
                     </div>
+                </div> <!-- card.// -->
 
                 </main> <!-- col.// -->
                 <aside class="col-md-3">
