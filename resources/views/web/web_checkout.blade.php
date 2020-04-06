@@ -104,25 +104,25 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                            <div class="card-deck text-center">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih Opsi Pengiriman</h5>
+                                    <div class="card-deck text-center">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih Opsi Pengiriman</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="modal-body">
+                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
+                                                        <option>Pilih Kurir</option>
+                                                        <option value="jne">JNE</option>
+                                                        <option value="pos">POS</option>
+                                                        <option value="tiki">TIKI</option>
+                                                    </select>
+                                                    <br>
+                                                    <div id="kurir{{ $m }}" class="custom-radio"></div>
+                                                </div>
+                                                <button type="button" class="btn btn-primary btn-block" id="fixKurir" onclick="fixKurir({{ $m }})" data-dismiss="modal">Pilih</button>
+                                            </div>
                                         </div>
-                                    <div class="card-body">
-                                            <div class="modal-body">
-                                        <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
-                                            <option>Pilih Kurir</option>
-                                            <option value="jne">JNE</option>
-                                            <option value="pos">POS</option>
-                                            <option value="tiki">TIKI</option>
-                                        </select>
-                                        <br>
-                                        <div id="kurir{{ $m }}" class="custom-radio"></div>
-                                    </div>
-                                        <button type="button" class="btn btn-primary btn-block" id="fixKurir" onclick="fixKurir({{ $m }})" data-dismiss="modal">Pilih</button>
-                                    </div>
-                            </div>
 
                                 </td>
                             </tr>
@@ -131,16 +131,11 @@
                                 <td>
                                 </td>
                             </tr>
-                            <?php $o++; $m++; ?>
+                            <?php $o++;
+                            $m++; ?>
                             @endforeach
-                            </tbody>
-                        </table>
-
-                        <div class="card-body border-top">
-                            <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                            <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div> <!-- card.// -->
+                        </tbody>
+                    </table>
 
                     <div class="alert alert-success mt-3">
                         <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
