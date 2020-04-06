@@ -337,12 +337,40 @@
             }
         }
 
-        function batalCheckoutConfirm() {
-            $("#formBatalCheckout").attr('action', '{{ URL::to('checkout/batal')}}');
-        }
+        $.ajax({
+            async: true,
+            url: "{{ URL::to('checkout/simpanTransaksi') }}",
+            type: 'POST',
+            data: {
+                'trxDetail': dataTrxDetail,
+                'totalBayar': $("#totalBayar").data('totalbayar'),
+                'idKeranjang': keranjangId,
+                'idp': produkId,
+                'prosesData': proses
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                window.location.href = `/checkout/sukses/${response.kode_transaksi}`;
+                // console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
 
-        function submitBatalCheckout() {
-            $("#formBatalCheckout").submit();
-        }
-    </script>
+    function numberFormat(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function batalCheckoutConfirm() {
+        $("#formBatalCheckout").attr('action', '{{ URL::to('checkout/batal')}}');
+    }
+
+    function submitBatalCheckout() {
+        $("#formBatalCheckout").submit();
+    }
+</script>
 @endpush
