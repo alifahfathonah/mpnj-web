@@ -207,40 +207,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <?php $m = 1; ?>
-    @foreach($data_keranjang as $val)
-        <div class="modal fade" id="modalKurir{{ $m }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pilih Kurir Pengiriman
-                            Untuk {{ $val['nama_toko'] }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control"
-                                onchange="getKurir({{ $m }})">
-                            <option>Pilih Kurir</option>
-                            <option value="jne">JNE</option>
-                            <option value="pos">POS</option>
-                            <option value="tiki">TIKI</option>
-                        </select>
-                        <br>
-                        <div id="kurir{{ $m }}" class="custom-radio">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-primary" id="fixKurir" onclick="fixKurir({{ $m }})" data-dismiss="modal">Pilih</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <?php $m++; ?>
-    @endforeach
 
     <div class="modal fade rating_modal item_remove_modal"
          id="pilihAlamat"
