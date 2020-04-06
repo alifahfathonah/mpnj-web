@@ -262,29 +262,30 @@
                                 <br>
                             </div>
                         `);
-                    });
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            })
-        }
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        })
+    }
 
-        function fixKurir(i) {
-            let kurir = $("#pilih_kurir" + i).val();
-            let service = $(`input[name='ongkir${i}']:checked`).data('service');
-            let ongkir = $(`input[name='ongkir${i}']:checked`).data('ongkir');
-            let etd = $(`input[name='ongkir${i}']:checked`).data('etd');
+    function fixKurir(i) {
+        let kurir = $("#pilih_kurir" + i).val();
+        let service = $(`input[name='ongkir${i}']:checked`).data('service');
+        let ongkir = $(`input[name='ongkir${i}']:checked`).data('ongkir');
+        let etd = $(`input[name='ongkir${i}']:checked`).data('etd');
 
-            $(`#dataPelapak${i}`).data('kurir', kurir);
-            $(`#dataPelapak${i}`).data('service', service);
-            $(`#dataPelapak${i}`).data('ongkir', ongkir);
-            $(`#dataPelapak${i}`).data('etd', etd);
+        $(`#dataPelapak${i}`).data('kurir', kurir);
+        $(`#dataPelapak${i}`).data('service', service);
+        $(`#dataPelapak${i}`).data('ongkir', ongkir);
+        $(`#dataPelapak${i}`).data('etd', etd);
 
-            console.log(i);
+        console.log(i);
 
-            $(`#kurirDipilih${i}`).html(`<h6>Kurir : ${kurir} - ${service} - ${numberFormat(ongkir)} - ${etd}</h6>`);
-            hitungOngkir();
+        $(`#kurirDipilih${i}`).html(`<h6>Kurir : ${kurir} - ${service} - ${numberFormat(ongkir)} - ${etd}</h6>`);
+        hitungOngkir();
+    }
         }
 
         function hitungOngkir() {
