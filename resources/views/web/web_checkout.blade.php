@@ -49,9 +49,13 @@
                                 <th scope="col" width="120">Sub Harga</th>
                                 <th scope="col">Pilihan</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <?php $o = 0; $n = 1; $x = 1; $m = 1; $total = 0; ?>
+                        </thead>
+                        <tbody>
+                            <?php $o = 0;
+                            $n = 1;
+                            $x = 1;
+                            $m = 1;
+                            $total = 0; ?>
                             @foreach($data_keranjang as $val)
                                 <tr id="dataPelapak{{ $x }}"
                                     data-origin="{{ $val['alamat']['city_id'] }}"
