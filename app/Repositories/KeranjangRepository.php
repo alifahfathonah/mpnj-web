@@ -67,7 +67,23 @@ class KeranjangRepository
     public function goCheckOut($id_keranjang)
     {
         $keranjang = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
-        $keranjang = Keranjang::where('status', 'Y')->get();
+        $keranjang = Keranjang::with('pembeli', 'produk')
+            ->where('status', 'Y')
+            ->get()
+            ->map(
+                function ($keranjangs) {
+                    return [
+                        'id_keranjang' => $keranjangs->id_keranjang,
+                        'produk_id' => $keranjangs->produk->id_produk,
+                        'pembeli_id' => $keranjangs->pembeli->getKey(),
+                        'pembeli_type' => $keranjangs->pembeli_type,
+                        'status' => $keranjangs->status,
+                        'jumlah' => $keranjangs->jumlah,
+                        'diskon' => $keranjangs->produk->diskon,
+                        'harga_jual' => $keranjangs->harga_jual
+                    ];
+                }
+            );
         return $keranjang;
     }
 }
