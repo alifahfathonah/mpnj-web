@@ -57,63 +57,49 @@
                             $m = 1;
                             $total = 0; ?>
                             @foreach($data_keranjang as $val)
-                                <tr id="dataPelapak{{ $x }}"
-                                    data-origin="{{ $val['alamat']['city_id'] }}"
-                                    data-berat="{{ $val['total_berat'] }}"
-                                    data-jumlahbarang="{{ COUNT($val['item']) }}"
-                                    data-mulai="{{ $n }}"
-                                    data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
-                                    <td colspan="7">
-                                        <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
-                                    </td>
-                                </tr>
-                                <?php $x++; ?>
-                                @foreach ($val['item'] as $k)
-                                    <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}"
-                                        data-hargajual="{{ $k['harga_jual'] }}"
-                                        data-stok="{{ $k['stok'] }}"
-                                        data-diskon="{{ $k['diskon'] }}"
-                                        data-terjual="{{ $k['terjual'] }}"
-                                        data-jumlah="{{ $k['jumlah'] }}"
-                                        data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}"
-                                        data-idkeranjang="{{  $k['id_keranjang'] }}"
-                                        data-idpelapak="{{ $val['id_toko'] }}"
-                                        data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
-                                        <td>
-                                            <figure class="itemside">
-                                                <div class="aside"><img src="{{ $k['foto'] }}" class="img-sm"></div>
-                                                <figcaption class="info">
-                                                    <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
-                                                    <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>
-                                                </figcaption>
-                                            </figure>
-                                        </td>
-                                        <td>
-                                            {{ $k['berat'] }} gram
-                                        </td>
-                                        <td class="bold" id="harga{{ $n }}">
-                                            @if($k['diskon'] == 0)
-                                                @currency($k['harga_jual'])
-                                            @else
-                                                <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $k['jumlah'] }}
-                                        </td>
-                                        <td id="subHarga{{ $n }}">
-                                            @if($k['diskon'] == 0)
-                                                @currency($k['harga_jual'] * $k['jumlah'])
-                                            @else
-                                                @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <?php $n++; ?>
-                                @endforeach
-                                <tr>
+                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}" data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}" data-mulai="{{ $n }}" data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
+                                <td colspan="7">
+                                    <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
+                                </td>
+                            </tr>
+                            <?php $x++; ?>
+                            @foreach ($val['item'] as $k)
+                            <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}" data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}" data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}" data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}" data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}" data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
                                 <td>
-                                    
+                                    <figure class="itemside">
+                                        <div class="aside"><img src="{{ $k['foto'] }}" class="img-sm"></div>
+                                        <figcaption class="info">
+                                            <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
+                                            <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td>
+                                    {{ $k['berat'] }} gram
+                                </td>
+                                <td class="bold" id="harga{{ $n }}">
+                                    @if($k['diskon'] == 0)
+                                    @currency($k['harga_jual'])
+                                    @else
+                                    <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $k['jumlah'] }}
+                                </td>
+                                <td id="subHarga{{ $n }}">
+                                    @if($k['diskon'] == 0)
+                                    @currency($k['harga_jual'] * $k['jumlah'])
+                                    @else
+                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
+                                    @endif
+                                </td>
+                            </tr>
+                            <?php $n++; ?>
+                            @endforeach
+                            <tr>
+                                <td>
+
                                 </td>
                             </tr>
                             <tr>
