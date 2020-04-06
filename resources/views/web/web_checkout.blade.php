@@ -143,57 +143,61 @@
                     </div>
                 </div> <!-- card.// -->
 
-                </main> <!-- col.// -->
-                <aside class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <dl class="dlist-align">
-                                <dt>Sub Total:</dt>
-                                <dd class="text-right">@currency($total)</dd>
-                            </dl>
-                            <dl class="dlist-align">
-                                <dt>Ongkir:</dt>
-                                <dd class="text-right" id="totalOngkir">Rp. -</dd>
-                            </dl>
-                            <dl class="dlist-align">
-                                <dt>Total:</dt>
-                                <dd class="text-right  h5" id="totalBayar">@currency($total)</dd>
-                            </dl>
-                            <hr>
-                            <p class="text-center mb-3">
-                                <img src="{{ asset('assets/mpnj/images/misc/payments.png') }}" height="26">
-                            </p>
-
-                        </div> <!-- card-body.// -->
-                    </div>  <!-- card .// -->
-                </aside> <!-- col.// -->
-            </div>
-
-        </div> <!-- container .//  -->
-    </section>
-
-    <div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Anda Yakin Ingin Membatalkan Transaksi Ini</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
                 </div>
-                <!-- end /.modal-header -->
 
-                <div class="modal-body">
-                    <form method="POST" id="formBatalCheckout">
-                        @csrf
-                        <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
-                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
-                    </form>
-                </div>
-                <!-- end /.modal-body -->
+            </main> <!-- col.// -->
+            <aside class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Sub Total:</dt>
+                            <dd class="text-right">@currency($total)</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Ongkir:</dt>
+                            <dd class="text-right" id="totalOngkir">Rp. -</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right  h5" id="totalBayar">@currency($total)</dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="{{ asset('assets/mpnj/images/misc/payments.png') }}" height="26">
+                        </p>
+
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+
+<div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Anda Yakin Ingin Membatalkan Transaksi Ini</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="POST" id="formBatalCheckout">
+                    @csrf
+                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
         </div>
     </div>
+</div>
 
 
     <div class="modal fade rating_modal item_remove_modal"
