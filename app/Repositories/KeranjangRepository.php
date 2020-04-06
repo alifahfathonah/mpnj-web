@@ -63,4 +63,11 @@ class KeranjangRepository
         $keranjang = Keranjang::whereIn('id_keranjang', $id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
         return $keranjang;
     }
+
+    public function goCheckOut($id_keranjang)
+    {
+        $keranjang = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
+        $keranjang = Keranjang::where('status', 'Y')->get();
+        return $keranjang;
+    }
 }
