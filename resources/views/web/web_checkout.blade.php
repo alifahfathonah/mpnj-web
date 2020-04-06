@@ -234,27 +234,27 @@
 @endsection
 
 @push('scripts')
-    <script>
-        function getKurir(n) {
-            let kurir = $("#pilih_kurir" + n).val();
-            $.ajax({
-                url: '/api/ongkir',
-                type: 'POST',
-                data: {
-                    'asal': $(`#dataPelapak${n}`).data('origin'),
-                    'origin_type': 'city',
-                    'tujuan': $(`#dataPembeli`).data('destination'),
-                    'destinationType': 'subdistrict ',
-                    'berat': $(`#dataPelapak${n}`).data('berat'),
-                    'kurir': kurir
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    $(`.ok${n}`).remove();
-                    response.ongkir.rajaongkir.results[0].costs.map(e => {
-                        $("#kurir" + n).append(`
+<script>
+    function getKurir(n) {
+        let kurir = $("#pilih_kurir" + n).val();
+        $.ajax({
+            url: '/api/ongkir',
+            type: 'POST',
+            data: {
+                'asal': $(`#dataPelapak${n}`).data('origin'),
+                'origin_type': 'city',
+                'tujuan': $(`#dataPembeli`).data('destination'),
+                'destinationType': 'subdistrict ',
+                'berat': $(`#dataPelapak${n}`).data('berat'),
+                'kurir': kurir
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $(`.ok${n}`).remove();
+                response.ongkir.rajaongkir.results[0].costs.map(e => {
+                    $("#kurir" + n).append(`
                             <div class="ok${n}">
                                 <input type="radio" id="${n + e.service}" class="" name="ongkir${n}" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}">
                                 <label for="${n + e.service}">
