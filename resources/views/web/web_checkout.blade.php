@@ -30,11 +30,17 @@
                             @endif
                         </p>
 
-                <main class="col-md-9">
-                    <div class="card table-responsive">
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+        <br>
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card table-responsive">
 
-                        <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-dark">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-dark">
                             <tr class="small text-uppercase">
                                 <th scope="col">Produk</th>
                                 <th scope="col">Berat</th>
