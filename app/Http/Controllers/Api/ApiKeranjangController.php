@@ -21,7 +21,7 @@ class ApiKeranjangController extends Controller
     {
         $role = $request->query('role');
         $id = $request->query('id');
-//        $keranjangs = $this->keranjangRepository->all($role, $id);
+        //        $keranjangs = $this->keranjangRepository->all($role, $id);
         $keranjang = Keranjang::orderBy('id_keranjang')
             ->with('produk')
             ->where('pembeli_id', $id)
@@ -45,17 +45,16 @@ class ApiKeranjangController extends Controller
                     'diskon' => $val->produk->diskon,
                     'id_produk' => $val->produk->id_produk,
                     'nama_produk' => $val->produk->nama_produk,
-                    'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
+                    'foto' => asset('assets/foto_produk/' . $val->produk->foto_produk[0]->foto_produk)
                 ]);
             }
 
             $data['data_keranjang']->push([
-                    'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
-                    'nama_toko' => $key,
-                    'item' => $item
-                ]);
+                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'nama_toko' => $key,
+                'item' => $item
+            ]);
             $data['pembeli'] = $keranjang[$key][0]->pembeli;
-
         }
         return response()->json($data, 200);
     }
@@ -63,9 +62,9 @@ class ApiKeranjangController extends Controller
     public function simpan(Request $request)
     {
         $cekExistData = Keranjang::where('produk_id', $request->produk_id)
-                        ->where('pembeli_id', $request->pembeli_id)
-                        ->where('pembeli_type', $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-                        ->first();
+            ->where('pembeli_id', $request->pembeli_id)
+            ->where('pembeli_type', $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->first();
 
         if ($cekExistData != '') {
             $cekExistData->jumlah += $request->jumlah;
@@ -95,7 +94,6 @@ class ApiKeranjangController extends Controller
 
     public function hapus($id)
     {
-
         $hapus = $this->keranjangRepository->delete($id);
         if ($hapus) {
             return response()->json('sukses', 200);
@@ -124,6 +122,19 @@ class ApiKeranjangController extends Controller
         if ($cekHarga) {
             return response()->json([
                 'total' => $cek
+            ], 200);
+        } else {
+            return response()->json('gagal', 400);
+        }
+    }
+
+    public function keCheckOut(Request $request)
+    {
+        $idGanti = $request->id_keranjang;
+        $gantiStatus = $this->keranjangRepository->goCheckOut($idGanti, 'id_keranjang');
+        if ($gantiStatus) {
+            return response()->json([
+                'status' => $gantiStatus
             ], 200);
         } else {
             return response()->json('gagal', 400);
