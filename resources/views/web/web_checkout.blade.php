@@ -53,7 +53,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $o = 0; $n = 1; $x = 1; $total = 0;?>
+                            <?php $o = 0; $n = 1; $x = 1; $m = 1; $total = 0; ?>
                             @foreach($data_keranjang as $val)
                                 <tr id="dataPelapak{{ $x }}"
                                     data-origin="{{ $val['alamat']['city_id'] }}"
@@ -120,6 +120,7 @@
                                     </td>
                                 </tr>
                                 <?php $o++; ?>
+                            <?php $o++; $m++; ?>
                             @endforeach
                             </tbody>
                         </table>
