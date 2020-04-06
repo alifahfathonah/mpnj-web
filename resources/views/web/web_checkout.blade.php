@@ -110,16 +110,36 @@
                                     <?php $n++; ?>
                                 @endforeach
                                 <tr>
-                                    <td colspan="2">
-                                        Pilih Kurir :
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalKurir{{ $o+1 }}">
-                                            Pilih
-                                        </button>
+                                <td>
+                                    Pilih Kurir :
+                                    <span>
+                                        <h5 id="kurirDipilih{{ $o+1 }}" class="alert alert-success">Kurir belum dipilih</h5>
+                                    </span>
+
+                                    <div class="modal-body">
+                                        <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
+                                            <option>Pilih Kurir</option>
+                                            <option value="jne">JNE</option>
+                                            <option value="pos">POS</option>
+                                            <option value="tiki">TIKI</option>
+                                        </select>
                                         <br>
-                                        <span><h5 id="kurirDipilih{{ $o+1 }}">Kurir : </h5></span>
-                                    </td>
-                                </tr>
-                                <?php $o++; ?>
+                                        <div id="kurir{{ $m }}" class="custom-radio"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-primary" id="fixKurir" onclick="fixKurir({{ $m }})" data-dismiss="modal">Pilih</button>
+                                </td>
+                            </tr>
                             <?php $o++; $m++; ?>
                             @endforeach
                             </tbody>
