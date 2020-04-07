@@ -71,7 +71,10 @@ class ApiKeranjangController extends Controller
             $cekExistData->jumlah += $request->jumlah;
             $update = $cekExistData->save();
             if ($update) {
-                return response()->json('sukses', 200);
+                return response()->json([
+                    'pesan' => 'sukses',
+                    'data' => $cekExistData
+                ], 200);
             } else {
                 return response()->json('gagal', 400);
             }
@@ -87,7 +90,10 @@ class ApiKeranjangController extends Controller
         );
         $keranjangs = $this->keranjangRepository->create($data);
         if ($keranjangs) {
-            return response()->json('sukses', 200);
+            return response()->json([
+                'pesan' => 'sukses',
+                'data' => $data
+            ], 200);
         } else {
             return response()->json('gagal', 400);
         }
@@ -98,9 +104,14 @@ class ApiKeranjangController extends Controller
 
         $hapus = $this->keranjangRepository->delete($id);
         if ($hapus) {
-            return response()->json('sukses', 200);
+            return response()->json([
+                'pesan' => 'sukses',
+                'data' => $hapus
+            ], 200);
         } else {
-            return response()->json('gagal', 400);
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 400);
         }
     }
 
