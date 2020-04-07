@@ -120,10 +120,9 @@
                                                     <br>
                                                     <div id="kurir{{ $m }}" class="custom-radio"></div>
                                                 </div>
-                                                <button type="button" class="btn btn-primary btn-block" id="fixKurir" onclick="fixKurir({{ $m }})" data-dismiss="modal">Pilih</button>
                                             </div>
                                         </div>
-
+                                    </div>
                                 </td>
                             </tr>
 
