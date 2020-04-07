@@ -39,7 +39,7 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
-                            'foto_pelapak' => $produks->pelapak->foto_profil,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->pelapak->foto_profil),
                             'alamat' => $produks->pelapak->alamat
                         ]
                     ];
@@ -80,7 +80,7 @@ class ProdukRepository
                         'pelapak' => [
                             'id_pelapak' => $produks->pelapak->id_pelapak,
                             'nama_toko' => $produks->pelapak->nama_toko,
-                            'foto_pelapak' => $produks->pelapak->foto_profil,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->pelapak->foto_profil),
                             'alamat' => $produks->pelapak->alamat,
                             'bergabung' => $produks->pelapak->created_at
                         ]
