@@ -128,14 +128,12 @@ class ApiKeranjangController extends Controller
         }
     }
 
-    public function keCheckOut(Request $request)
+    public function keCheckOut(Request $request, $role, $id)
     {
         $idGanti = $request->id_keranjang;
-        $gantiStatus = $this->keranjangRepository->goCheckOut($idGanti, 'id_keranjang');
+        $gantiStatus = $this->keranjangRepository->goCheckOut($idGanti, $role, $id);
         if ($gantiStatus) {
-            return response()->json([
-                'status_updated' => $gantiStatus
-            ], 200);
+            return response()->json($gantiStatus, 200);
         } else {
             return response()->json('gagal', 400);
         }
