@@ -96,8 +96,8 @@ class ReviewWebController extends Controller
 
         if ($foto_review != null) {
             File::delete('assets/foto_review/' . $find->foto_review);
-            $find->update($review);
         }
+        $find->update($review);
         return redirect()->back()->with('message', 'Review Diupdate');
     }
 }
