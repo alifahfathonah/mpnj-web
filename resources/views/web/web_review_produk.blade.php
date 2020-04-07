@@ -23,103 +23,44 @@
                 <div class="col-md-6">
                     <div class="info-main">
                         <a href="#" class="h5 title"> {{ $produk->nama_produk}} </a>
-                        @if($review != null)
-                        <form method="post" action="{{ URL::to('review/produk/update/'.$review->produk->id_produk) }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id_produk" value="{{ $review->produk->id_produk }}">
-                            <label>Bintang</label><br>
-
-                            <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review->bintang == 1) checked="true"
-                                checked="false" @else @endif class="custom-control-input" value="1">
-                                <div class="custom-control-label text-warning">
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </label>
-
-                            <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review->bintang == 2) checked="true"
-                                checked="false" @else @endif class="custom-control-input" value="2">
-                                <div class="custom-control-label text-warning">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                </div>
-                            </label>
-
-                            <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review->bintang == 3) checked="true"
-                                checked="false" @else @endif class="custom-control-input" value="3">
-                                <div class="custom-control-label text-warning">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                </div>
-                            </label>
-
-                            <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review->bintang == 4) checked="true"
-                                checked="false" @else @endif class="custom-control-input" value="4">
-                                <div class="custom-control-label text-warning">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </label>
-
-                            <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review->bintang == 5) checked="true"
-                                checked="false" @else @endif class="custom-control-input" value="5">
-                                <div class="custom-control-label text-warning">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                </div>
-                            </label>
-
-                            <div class="form-group">
-                                <textarea name="review" class="form-control" rows="3"
-                                    placeholder="Beri komentar Barang yang Sesuai.">{{ $review->review }}
-                                </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Foto Produk</label><br>
-                                <input type="file" name="foto_review" id="foto_review" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-danger btn-block">Update</button>
-                        </form>
-                        @else
-                        <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ $review != null ? URL::to('review/produk/update/'.$produk->id_produk) : URL::to('review/produk') }}"
+                              enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id_produk" value="{{ $produk->id_produk }}">
+
                             <label>Bintang</label><br>
-
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" class="custom-control-input" value="1">
+                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 1) checked="true"
+                                       checked="false" @else @endif class="custom-control-input" value="1">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i>
                                 </div>
                             </label>
-
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" class="custom-control-input" value="2">
+                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 2) checked="true"
+                                       checked="false" @else @endif class="custom-control-input" value="2">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 </div>
                             </label>
-
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" class="custom-control-input" value="3">
+                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 3) checked="true"
+                                       checked="false" @else @endif class="custom-control-input" value="3">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 </div>
                             </label>
-
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" class="custom-control-input" value="4">
+                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 4) checked="true"
+                                       checked="false" @else @endif class="custom-control-input" value="4">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
                             </label>
-
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" class="custom-control-input" value="5">
+                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 5) checked="true"
+                                       checked="false" @else @endif class="custom-control-input" value="5">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -127,16 +68,17 @@
                             </label>
 
                             <div class="form-group">
-                                <textarea name="review" class="form-control" rows="3"
-                                    placeholder="Beri komentar Barang yang Sesuai."></textarea>
+                                    <textarea name="review" class="form-control" rows="3"
+                                              placeholder="Beri komentar Barang yang Sesuai.">{{ $review != null ? $review->review : '' }}
+                                    </textarea>
                             </div>
                             <div class="form-group">
-                                <label>Foto Produk</label><br>
+                                <label>{{ $review != null && $review->foto_review != null ? 'Ganti Foto Produk' : 'Foto Produk' }}</label><br>
                                 <input type="file" name="foto_review" id="foto_review" class="form-control">
+                                @if($review != null && $review->foto_review != null)<small>foto review <a href="{{ asset('assets/foto_review/'.$review->foto_review) }}" target="_blank">disini</a></small>@endif
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Send</button>
+                            <button type="submit" class="btn btn-danger btn-block">{{ $review != null ? 'Update' : 'Simpan' }}</button>
                         </form>
-                        @endif
                     </div> <!-- info-main.// -->
                 </div> <!-- col.// -->
                 <aside class="col-sm-3">
