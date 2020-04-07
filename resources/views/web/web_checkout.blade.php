@@ -255,7 +255,7 @@
                 response.ongkir.rajaongkir.results[0].costs.map(e => {
                     $("#kurir" + n).append(`
                             <div class="ok${n}">
-                                <input type="radio" id="${n + e.service}" class="" name="ongkir${n}" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}">
+                                <input type="radio" id="${n + e.service}" class="" name="ongkir${n}" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}" onclick="fixKurir(${n})">
                                 <label for="${n + e.service}">
                                 <span class="circle"></span>${e.service} - Rp. ${numberFormat(e.cost[0].value)} - ${e.cost[0].etd}  hari</label>
                                 <br>
