@@ -64,26 +64,44 @@ class KeranjangRepository
         return $keranjang;
     }
 
-    public function goCheckOut($id_keranjang)
+    public function goCheckOut($id_keranjang, $role, $id)
     {
-        $keranjang = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
-        $keranjang = Keranjang::with('pembeli', 'produk')
-            ->where('status', 'Y')
-            ->get()
-            ->map(
-                function ($keranjangs) {
-                    return [
-                        'id_keranjang' => $keranjangs->id_keranjang,
-                        'produk_id' => $keranjangs->produk->id_produk,
-                        'pembeli_id' => $keranjangs->pembeli->getKey(),
-                        'pembeli_type' => $keranjangs->pembeli_type,
-                        'status' => $keranjangs->status,
-                        'jumlah' => $keranjangs->jumlah,
-                        'diskon' => $keranjangs->produk->diskon,
-                        'harga_jual' => $keranjangs->harga_jual
-                    ];
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
+        if ($update) {
+            $keranjang = Keranjang::with('pembeli', 'produk')
+                ->where('pembeli_id', $id)
+                ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                ->where('status', 'Y')
+                ->get()
+                ->groupBy('produk.pelapak.nama_toko');
+
+            $data['data_keranjang'] = collect();
+            $data['pembeli'] = [];
+            $data['total'] = 0;
+
+            foreach ($keranjang as $key => $value) {
+                $item = collect();
+                foreach ($value as $val) {
+                    $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+                    $item->push([
+                        'id_keranjang' => $val->id_keranjang,
+                        'jumlah' => $val->jumlah,
+                        'harga_jual' => $val->harga_jual,
+                        'diskon' => $val->produk->diskon,
+                        'id_produk' => $val->produk->id_produk,
+                        'nama_produk' => $val->produk->nama_produk,
+                        'foto' => asset('assets/foto_produk/' . $val->produk->foto_produk[0]->foto_produk)
+                    ]);
                 }
-            );
-        return $keranjang;
+
+                $data['data_keranjang']->push([
+                    'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                    'nama_toko' => $key,
+                    'item' => $item
+                ]);
+                $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            }
+            return $data;
+        }
     }
 }
