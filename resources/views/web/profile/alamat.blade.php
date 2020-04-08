@@ -37,7 +37,11 @@
                             </tr>
                             <tr>
                                 <th>Nomor Hp</th>
+                                @if( $a->nomor_telepon == '081234567899' )
+                                <td>{{ $a->nomor_telepon }} <div class="badge badge-success"><i class="fa fa-phone"></i> Nomor Pos Pondok Pesantren Nurul jadid</div></td>
+                                @else
                                 <td>{{ $a->nomor_telepon }}</td>
+                                @endif
                             </tr>
                             <tr>
                                 <th>Alamat</th>
