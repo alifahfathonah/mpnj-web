@@ -50,7 +50,7 @@ class KeranjangWebController extends Controller
                 'alamat' => $keranjang[$key][0]->produk->user->alamat_fix,
                 'item' => $item
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
         }
         return view('web/web_keranjang', $data);
     }
