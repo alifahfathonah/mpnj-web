@@ -22,11 +22,7 @@ class ApiKategoriController extends Controller
             if ($produk->produk->count() > 0) {
                 return response()->json($produk, 200);
             } else {
-                return response()->json([
-                    'id_kategori_produk' => $produk->id_kategori_produk,
-                    'nama_kategori' => $produk->nama_kategori,
-                    'produk' => null
-                ]);
+                return response()->json($produk->produk, 200);
             }
         } else {
             return response()->json([
