@@ -1,6 +1,6 @@
 @extends('mpnj.layout.main')
 
-@section('title','Profil Pengguna')
+@section('title','User')
     
 
 @section('content')
