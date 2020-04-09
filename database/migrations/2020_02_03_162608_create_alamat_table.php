@@ -29,8 +29,8 @@ class CreateAlamatTable extends Migration
             $table->string('wilayah')->nullable();
             $table->string('kamar')->nullable();
             $table->text('alamat_santri')->nullable();
-            $table->integer('user_id');
-            $table->string('user_type');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
         });
     }
 

@@ -28,8 +28,8 @@ class CreateTransaksiDetailTable extends Migration
             $table->string('etd')->nullable();
             $table->integer('sub_total')->default(0);
             $table->enum('status_order', ['Menunggu Konfirmasi','Telah Dikonfirmasi','Dikemas','Dikirim','Telah Sampai', 'Dibatalkan'])->default('Menunggu Konfirmasi');
-            $table->integer('pelapak_id')->unsigned();
-            $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
             $table->timestamps();
         });
     }
