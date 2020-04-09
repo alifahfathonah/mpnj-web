@@ -20,7 +20,7 @@ class KeranjangWebController extends Controller
 //            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
             ->where('status', 'N')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
+            ->groupBy('produk.user.nama_toko');
 
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
