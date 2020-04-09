@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    public $guard = 'user';
+    protected $primaryKey = 'id_user';
 
     /**
      * The attributes that are mass assignable.
