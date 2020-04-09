@@ -58,7 +58,7 @@ class CheckoutWebController extends Controller
             }
 
             $data['data_keranjang']->push([
-                'id_toko' => $keranjang[$key][0]->produk->user->id_pelapak,
+                'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
                 'alamat' => $keranjang[$key][0]->produk->user->alamat_fix,
                 'total_berat' => $total_berat,
