@@ -12,6 +12,7 @@ use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -20,15 +21,16 @@ class CheckoutWebController extends Controller
 {
     public function index(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-        $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix', 'pembeli.daftar_alamat'])
-            ->where('pembeli_id', $konsumen_id)
-            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
+//        $role = Session::get('role');
+//        $id = Session::get('id');
+//        $konsumen_id = $request->user($role)->$id;
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.daftar_alamat'])
+            ->where('user_id', Auth::id())
+//            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
             ->where('status', 'Y')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
+            ->groupBy('produk.user.nama_toko');
+
         $data['data_keranjang'] = collect();
         $total_berat = 0;
         $data['pembeli'] = [];
@@ -56,13 +58,13 @@ class CheckoutWebController extends Controller
             }
 
             $data['data_keranjang']->push([
-                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'id_toko' => $keranjang[$key][0]->produk->user->id_pelapak,
                 'nama_toko' => $key,
-                'alamat' => $keranjang[$key][0]->produk->pelapak->alamat_fix,
+                'alamat' => $keranjang[$key][0]->produk->user->alamat_fix,
                 'total_berat' => $total_berat,
                 'item' => $item,
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
             $total_berat = 0;
         }
 
@@ -110,11 +112,7 @@ class CheckoutWebController extends Controller
 
     public function batal(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
-        $batal = keranjang::where('pembeli_id', $konsumen_id)->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')->update(['status' => 'N']);
+        $batal = keranjang::where('user_id', Auth::id())->update(['status' => 'N']);
         if ($batal) {
             return redirect(URL::to('keranjang'));
         }
