@@ -12,12 +12,12 @@
 
                 </ul>
                 <ul class="navbar-nav">
-                    @if (Auth::guard(Session::get('role'))->check())
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                    @if (Auth::guard('user')->check())
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
                     @else
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
-                    <!-- <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li> -->
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></span></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li>
                     @endif
                 </ul>
             </div> <!-- navbar-collapse .// -->
@@ -52,9 +52,9 @@
                                         <i class="icon-sm rounded-circle border fa fa-user"></i>
                                     </div>
                                     <div class="text">
-                                        @if (Auth::guard(Session::get('role'))->check())
-                                        <div> Halo @if (Auth::guard(Session::get('role'))->check())
-                                            {{ Auth::guard(Session::get('role'))->user()->username }}
+                                        @if (\Auth::check())
+                                        <div> Halo @if (\Auth::check())
+                                            {{ Auth::guard('web')->user() }}
                                             @endif
                                         </div>
                                         @else

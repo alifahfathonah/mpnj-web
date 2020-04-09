@@ -124,13 +124,13 @@
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
                             <div class="aside"><img
-                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->pelapak->foto_profil) }}"
+                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
                                     class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
-                                <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}"
-                                    class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
+                                <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
+                                    class="title text-dark">{{ $produk->user->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak :
-                                    {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
+                                    {{ $produk->user->created_at->format("d, M Y") }}</p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
