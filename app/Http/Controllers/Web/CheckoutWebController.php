@@ -21,12 +21,8 @@ class CheckoutWebController extends Controller
 {
     public function index(Request $request)
     {
-//        $role = Session::get('role');
-//        $id = Session::get('id');
-//        $konsumen_id = $request->user($role)->$id;
         $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.daftar_alamat'])
             ->where('user_id', Auth::id())
-//            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
             ->where('status', 'Y')
             ->get()
             ->groupBy('produk.user.nama_toko');
