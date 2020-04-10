@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->enum('status_official', ['santri','official'])->default('santri');
             $table->enum('role', ['konsumen','pelapak'])->default('konsumen');
-            $table->string('nama_toko')->unique();
+            $table->string('nama_toko')->nullable()->unique();
             $table->string('foto_toko')->nullable();
             $table->string('rating')->nullable();
             $table->integer('saldo')->default(0);
