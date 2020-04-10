@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Alamat;
 use App\Models\Konsumen;
 use App\Models\Pelapak;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,13 +81,8 @@ class ProfileWebController extends Controller
 
     public function alamat()
     {
-        $role = Session::get('role');
-        $sessionId = Session::get('id');
-        $user_id = Auth::guard($role)->user()->$sessionId;
-
         $data['alamat'] = Alamat::with('user')
-            ->where('user_id', $user_id)
-            ->where('user_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->where('user_id', Auth::id())
             ->get();
 
         $response = $this->client->get('http://guzzlephp.org');
@@ -197,20 +193,16 @@ class ProfileWebController extends Controller
 
     public function gantipassword(Request $request, $id)
     {
-        $role = Session::get('role');
-        $sessionId = Session::get('id');
-        $user_id = Auth::guard($role)->user()->$sessionId;
-
         $passwordlama = $request->passwordlama;
         $passwordbaru = $request->passwordbaru;
-        $hashlama = Auth::guard($role)->user()->password;
+        $hashlama = Auth::user()->password;
         $hashbaru = Hash::make($passwordbaru);
 
 
-        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
+//        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
 
         if (Hash::check($passwordlama, $hashlama)) {
-            $ubah = $fix_role::where($sessionId, $user_id)->update(['password' => $hashbaru]);
+            $ubah = User::where('id_user', $id)->update(['password' => $hashbaru]);
             if ($ubah) {
                 return redirect()->back()->with('suksesGantiPassword', 'Password berhasil diganti.');
             }
