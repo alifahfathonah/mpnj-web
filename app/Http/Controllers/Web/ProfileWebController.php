@@ -33,8 +33,6 @@ class ProfileWebController extends Controller
 
     public function ubah(Request $request, $role, $id)
     {
-        $sessionId = Session::get('id');
-
         $foto = $request->file('foto_profil');
 
         if ($foto == null) {
@@ -55,8 +53,8 @@ class ProfileWebController extends Controller
         }
 
 
-        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
-        $init = $fix_role::where($sessionId, $id);
+        $fix_role = $role == 'konsumen' ? 'App\User' : 'App\Models\Pelapak';
+        $init = $fix_role::where('id_user', $id);
         $d = $init->first();
         $ubah = $init->update($data);
 
