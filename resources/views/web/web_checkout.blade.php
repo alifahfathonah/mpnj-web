@@ -348,7 +348,7 @@
 
                     dataTrxDetail.push({
                         'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
-                        'pelapak_id' : $(`#data_keranjang${j}`).data('idpelapak'),
+                        'user_id' : $(`#data_keranjang${j}`).data('idpelapak'),
                         'diskon' : $(`#data_keranjang${j}`).data('diskon'),
                         'kurir': $(`#dataPelapak${index}`).data('kurir'),
                         'service': $(`#dataPelapak${index}`).data('service'),
