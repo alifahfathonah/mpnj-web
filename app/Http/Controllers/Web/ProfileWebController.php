@@ -101,10 +101,6 @@ class ProfileWebController extends Controller
 
         $data['kota'] = json_decode($request, false);
 
-//        $rajaongkirGateway = new RajaOngkirGateway();
-//        $data['provinsi'] = $rajaongkirGateway->provinsi();
-//        $data['kota'] = $rajaongkirGateway->semuaKota();
-
         return view('web/web_profile', $data);
     }
 
@@ -137,10 +133,6 @@ class ProfileWebController extends Controller
 
     public function ubah_alamat(Request $request, $id)
     {
-        $role = Session::get('role');
-        $sessionId = Session::get('id');
-        $user_id = Auth::guard($role)->user()->$sessionId;
-
         $data = [
             'nama' => $request->nama,
             'nomor_telepon' => $request->nomor_telepon,
@@ -151,11 +143,8 @@ class ProfileWebController extends Controller
             'kode_pos' => $request->kode_pos,
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
-            ($request->exists('wilayah') ? ['wilayah' => $request->wilayah ] : ''),
-            ($request->exists('kamar') ? ['kamar' => $request->kamar] : ''),
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => $user_id,
-            'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
+            'user_id' => Auth::id()
         ];
 
         $ubah = Alamat::where('id_alamat', $id)->update($data);
