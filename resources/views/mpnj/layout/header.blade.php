@@ -69,11 +69,11 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-2">
-                                @if(Session::has('id'))
-                                <a class="dropdown-item" href="{{ URL::to('/profile') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
-                                <hr class="dropdown-divider">
-                                <a class="dropdown-item" href="{{ route('keluar') }}">Sign Out</a>
+                                @if(Auth::check())
+                                    <a class="dropdown-item" href="{{ URL::to('/profile') }}">Profil</a>
+                                    <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="{{ route('keluar') }}">Sign Out</a>
                                 @endif
                             </div> <!--  dropdown-menu .// -->
                         </div>
