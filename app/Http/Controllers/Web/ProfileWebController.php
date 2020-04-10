@@ -110,10 +110,6 @@ class ProfileWebController extends Controller
 
     public function simpan_alamat(Request $request)
     {
-        $role = Session::get('role');
-        $sessionId = Session::get('id');
-        $user_id = Auth::guard($role)->user()->$sessionId;
-
         $data = [
             'nama' => $request->nama,
             'nomor_telepon' => $request->nomor_telepon,
@@ -125,8 +121,7 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => $user_id,
-            'user_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak'
+            'user_id' => Auth::id()
         ];
 
         if ($request->has('wilayah') AND $request->has('kamar')) {
@@ -179,13 +174,7 @@ class ProfileWebController extends Controller
 
     public function ubah_alamat_utama($id)
     {
-        $role = Session::get('role');
-        $sessionId = Session::get('id');
-        $user_id = Auth::guard($role)->user()->$sessionId;
-
-        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
-
-        $ubah = $fix_role::where($sessionId, $user_id)->update(['alamat_utama' => $id]);
+        $ubah = User::where('id_user', Auth::id())->update(['alamat_utama' => $id]);
         if ($ubah) {
             return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
