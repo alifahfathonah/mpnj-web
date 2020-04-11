@@ -26,7 +26,7 @@ class ApiKeranjangController extends Controller
             ->where('user_id', $id)
             ->where('status', 'N')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
+            ->groupBy('produk.user.nama_toko');
 
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
