@@ -55,28 +55,39 @@ class ApiRegisterKonsumenController extends Controller
             return response()->json($res2);
         }
     }
-       public function upload(Request $request)
-        {
-            $user = Konsumen::where('id_konsumen', $request->id_konsumen)->first();
-            if ($user) {
-                    File::delete('assets/foto_profil_konsumen/' .$user->foto_profil);
-                    $simpan = Konsumen::find($user->id_konsumen);
-                    $file = $request->file('file');
-                    $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
-                    $file->move('assets/foto_profil_konsumen', $name);
-                    $simpan->foto_profil = $name;
-                    $simpan->save();
-                    $res['pesan'] = "Sukses!";
-                    $res['data'] = [$simpan];
-                    return response()->json($res);
-            } else {
-                  $res2['pesan'] = "Gagal!";
-            $res2['data'] = [];
 
-            return response()->json($res2);
+    public function upload(Request $request)
+    {
+        $user = User::where('id_user', $request->id_konsumen)->first();
+        $file = $request->file('file');
+        $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
+        
+        if (is_null($user->foto_profil)) {
+            $file->move('assets/foto_profil_konsumen', $name);
+            $user->foto_profil = $name;
+            $update = $user->save();
+        } else {
+            $hapusFoto = File::delete('assets/foto_profil_konsumen/' .$user->foto_profil);
+            if ($hapusFoto) {
+                $file->move('assets/foto_profil_konsumen', $name);
+                $user->foto_profil = $name;
+                $update = $user->save();
             }
         }
-          public static function acakhuruf($length)
+
+        if ($update) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = $user;
+            return response()->json($res);
+        } else {
+            $res['pesan'] = "Gagal!";
+            $res['data'] = [];
+        }
+
+        return response()->json($res);
+    }
+
+    public function acakhuruf($length)
     {
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
