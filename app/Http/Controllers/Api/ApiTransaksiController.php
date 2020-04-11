@@ -98,13 +98,12 @@ class ApiTransaksiController extends Controller
 
     public function simpan(Request $request)
     {
-        $role = Session::get('role');
+        $id = Session::get('id_user');
         //$id = Session::get('id');
         //$konsumen_id = $request->user($role)->$id;
 
         $data = array(
-            'pembeli_id' => $request->pembeli_id,
-            'pembeli_type' => $request->$role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'user_id' => $request->id_user,
             'kode_transaksi' => time(),
             'waktu_transaksi' => date('Y-m-d H:i:s'),
             'total_bayar' => $request->total_bayar
