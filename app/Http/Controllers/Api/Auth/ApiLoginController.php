@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Konsumen;
-use Auth;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Providers\RouteServiceProvider;
@@ -22,32 +23,30 @@ class ApiLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('keluar');
-        $this->middleware('guest:konsumen')->except('keluar');
     }
 
 
-        public function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
 
-        if (Auth::guard('konsumen')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             $code_token = Str::random(64);
-            $konsumen = Konsumen::where('username',$request->username)->first();
             $token = ['remember_token' => $code_token];
-            $token = Konsumen::where('username',$request->username)->update($token);
+            $update_token = User::where('username',$request->username)->update($token);
 
             return response()->json([
                 'pesan' => 'Login Sukses!',
                 'token' => $code_token,
-                'username' => $konsumen->username,
-                'nama_lengkap' => $konsumen->nama_lengkap,
-                'nomor_hp' => $konsumen->nomor_hp,
-                'email' => $konsumen->email,
-                'foto' => $konsumen->foto_profil,
-                'id_konsumen' => $konsumen->id_konsumen
+                'id_user' => Auth::user()->id_user,
+                'username' => Auth::user()->username,
+                'nama_lengkap' => Auth::user()->nama_lengkap,
+                'nomor_hp' => Auth::user()->nomor_hp,
+                'email' => Auth::user()->email,
+                'foto' => Auth::user()->foto_profil
                 ], 200);
         }
 
