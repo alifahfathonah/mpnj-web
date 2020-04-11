@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use File;
@@ -12,17 +13,18 @@ class ApiRegisterKonsumenController extends Controller
 {
     public function create(request $request)
     {
-        $konsumen = new Konsumen;
-        $konsumen->nama_lengkap = $request->nama_lengkap;
-        $konsumen->username = $request->username;
-        $konsumen->password = Hash::make($request->password);
-        $konsumen->nomor_hp = $request->nomor_hp;
-        $konsumen->email = $request->email;
-        $konsumen->status = $request->status;
+        $register = User::create([
+           'nama_lengkap' =>  $request->nama_lengkap,
+           'username' => $request->username,
+           'password' => Hash::make($request->password),
+           'nomor_hp' => $request->nomor_hp,
+           'email' => $request->email,
+           'status' => $request->status
+        ]);
 
-        if ($konsumen->save()) {
+        if ($register) {
             $res['pesan'] = "Sukses!";
-            $res['data'] = [$konsumen];
+            $res['data'] = User::orderby('created_at', 'desc')->first();
 
             return response()->json($res);
         } else {
