@@ -86,11 +86,11 @@ class ApiTransaksiController extends Controller
             }
 
             $data['data_keranjang']->push([
-                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
                 'item' => $item
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
 
         }
         return response()->json($data, 200);
