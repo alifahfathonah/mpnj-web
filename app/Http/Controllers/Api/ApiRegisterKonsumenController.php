@@ -37,15 +37,16 @@ class ApiRegisterKonsumenController extends Controller
 
     public function update(Request $request, $kosumenId)
     {
-        $konsumen = Konsumen::find($kosumenId);
-        $konsumen->nama_lengkap = $request->nama_lengkap;
-        $konsumen->nomor_hp = $request->nomor_hp;
-        $konsumen->email = $request->email;
-        $konsumen->status = $request->status;
+        $data = [
+          'nama_lengkap' => $request->nama_lengkap,
+          'nomor_hp' => $request->nomor_hp,
+          'email' => $request->email
+        ];
 
-        if ($konsumen->save()) {
+        $update = User::where('id_user', $kosumenId)->update($data);
+        if ($update) {
             $res['pesan'] = "Sukses!";
-            $res['data'] = [$konsumen];
+            $res['data'] = $data;
             return response()->json($res);
         } else {
             $res2['pesan'] = "Gagal!";
