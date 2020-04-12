@@ -104,16 +104,16 @@ class ApiKonsumenController extends Controller
 
     public function update_alamat_utama(Request $request, $alamat_id)
     {
-        $alamat = new Alamat;
-        $alamat->user_id = $request->user_id;
-        $konsumen = Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
-        if ($konsumen) {
-            $res['pesan'] = "Sukses Update Alamat Utama!";
-            // Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat_id]);
-            return response()->json($res);
+        $user = User::where('id_user', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+        if ($user) {
+            return response()->json([
+                'status' => 200,
+                'pesan' => 'Sukses Update Alamat Utama!',
+            ]);
         } else {
-            $res2['pesan'] = "Gagal Update Alamat Utama!";
-            return response()->json($res2);
+            return response()->json([
+                'pesan' => 'Gagal Update Alamat Utama!'
+            ]);
         }
     }
 
