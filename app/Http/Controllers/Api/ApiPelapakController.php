@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\PelapakResource;
 use App\Models\Pelapak;
@@ -28,7 +29,7 @@ class ApiPelapakController extends Controller
         ], 200);
     }
 
-    public function getDetail(Pelapak $id_pelapak)
+    public function getDetail(User $id_pelapak)
     {
         return new PelapakResource($id_pelapak);
     }
