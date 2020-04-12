@@ -2,13 +2,21 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['kode_transaksi', 'pembeli_id', 'pembeli_type', 'waktu_transaksi', 'batas_transaksi', 'total_bayar'];
+    protected $fillable = [
+        'kode_transaksi',
+        'user_id',
+        'waktu_transaksi',
+        'batas_transaksi',
+        'total_bayar',
+        'proses_pembayaran'
+    ];
     public $timestamps = false;
 
     public function transaksi_detail()
@@ -26,8 +34,8 @@ class Transaksi extends Model
         return $this->hasOne(Konfirmasi::class, 'kode_transaksi', 'kode_transaksi');
     }
 
-    public function pembeli()
+    public function user()
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
 }

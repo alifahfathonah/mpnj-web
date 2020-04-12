@@ -2,22 +2,29 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Keranjang extends Model
 {
     protected $table = 'keranjang';
     protected $primaryKey = 'id_keranjang';
-    protected $fillable = ['produk_id', 'pembeli_id', 'pembeli_type', 'jumlah', 'harga_jual'];
+    protected $fillable = [
+        'produk_id',
+        'user_id',
+        'jumlah',
+        'harga_jual',
+        'status'
+    ];
 
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id', 'id_produk');
     }
 
-    public function pembeli()
+    public function user()
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
 
     // public function konsumen()

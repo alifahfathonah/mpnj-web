@@ -15,12 +15,12 @@
             <div class="row">
                 <div class="col-md-8">
                     <h6 class="text-dark">Oleh</h6>
-                    <p>{{ $detail->pembeli->alamat_fix->nama }}<br>
-                        Telepon {{ $detail->pembeli->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->pembeli->alamat_fix->alamat_lengkap}},
-                        {{ $detail->pembeli->alamat_fix->nama_kota }}, {{ $detail->pembeli->alamat_fix->nama_provinsi }}
+                    <p>{{ $detail->user->alamat_fix->nama }}<br>
+                        Telepon {{ $detail->user->alamat_fix->nomor_telepon }}<br>
+                        Alamat:{{ $detail->user->alamat_fix->alamat_lengkap}},
+                        {{ $detail->user->alamat_fix->nama_kota }}, {{ $detail->user->alamat_fix->nama_provinsi }}
                         <br>
-                        Kode Pos: {{ $detail->pembeli->alamat_fix->kode_pos }}
+                        Kode Pos: {{ $detail->user->alamat_fix->kode_pos }}
                     </p>
                 </div>
                 <div class="col-md-4">

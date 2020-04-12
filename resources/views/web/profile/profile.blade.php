@@ -26,30 +26,30 @@
         @php
         $id = Session::get('id');
         @endphp
-        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::guard(Session::get('role'))->user()->$id) }}"
+        <form action="{{ URL::to('profile/ubah/'.Session::get('role').'/'.Auth::id()) }}"
             method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::guard(Session::get('role'))->user()->foto_profil) }}"
+                <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
                     class="img-sm rounded-circle border">
             </div>
             <div class="form-row">
                 <div class="col form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" placeholder="nama"
-                        value="{{ Auth::guard(Session::get('role'))->user()->nama_lengkap }}">
+                        value="{{ Auth::user()->nama_lengkap }}">
                 </div>
                 <div class="col form-group">
                     <label>Email</label>
                     <input type="email" id="email" name="email" class="form-control form-control-alternative"
-                        placeholder="email" value="{{ Auth::guard(Session::get('role'))->user()->email }}">
+                        placeholder="email" value="{{ Auth::user()->email }}">
                 </div> <!-- form-group end.// -->
             </div> <!-- form-row.// -->
             <div class="form-row">
                 <div class="col form-group">
                     <label for="no_hp">Nomor HP</label>
                     <input type="text" id="no_hp" name="no_hp" class="form-control form-control-alternative"
-                        placeholder="Nomor HP" value="{{ Auth::guard(Session::get('role'))->user()->nomor_hp }}">
+                        placeholder="Nomor HP" value="{{ Auth::user()->nomor_hp }}">
                 </div>
                 <div class="col form-group">
                     <label for="foto">Foto</label>
