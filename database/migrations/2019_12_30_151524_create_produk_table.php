@@ -26,8 +26,8 @@ class CreateProdukTable extends Migration
             $table->longText('keterangan')->nullable();
             $table->string('foto')->nullable();
             $table->enum('tipe_produk', ['single', 'varian'])->default('single');
-            $table->integer('pelapak_id')->unsigned();
-            $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
             $table->integer('wishlist')->default(0);
             $table->integer('terjual')->default(0);
             $table->timestamps();

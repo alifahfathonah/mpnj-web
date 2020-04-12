@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Mail\RegistrasiConfirm;
 use App\Models\Konsumen;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,10 @@ class KonsumenWebController extends Controller
     {
         $validator = Validator::make($request->except('token'), [
             'nama_lengkap' => 'required',
-            'username' => 'required|unique:konsumen',
+            'username' => 'required|unique:users',
             'password' => 'required',
-            'nomor_hp' => 'required|min:12|numeric|unique:konsumen',
-            'email' => 'required|email|unique:konsumen',
+            'nomor_hp' => 'required|min:12|numeric|unique:users',
+            'email' => 'required|email|unique:users',
         ]);
 
         if ($validator->fails()) {
@@ -36,20 +37,20 @@ class KonsumenWebController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         } else {
-            $simpan = Konsumen::create([
+            $simpan = User::create([
                 'nama_lengkap' => $request->nama_lengkap,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
                 'nomor_hp' => $request->nomor_hp,
-                'email' => $request->email
+                'email' => $request->email,
+                'role' => 'konsumen'
             ]);
 
             if ($simpan) {
                 $credential = $request->only('username','password');
-                if (Auth::guard('konsumen')->attempt($credential)) {
-                    Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_konsumen));
-                    $request->session()->put('role', 'konsumen');
-                    $request->session()->put('id', 'id_konsumen');
+                if (Auth::attempt($credential)) {
+//                    Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_konsumen));
+                    $request->session()->put('role', Auth::user()->role);
                 }
                 return redirect('/');
             }

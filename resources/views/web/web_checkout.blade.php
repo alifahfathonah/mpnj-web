@@ -306,35 +306,35 @@
         let proses = [];
         let produkId = [];
 
-        //ulasan
-        //1. saya harus tau jumlah pelapak nya
-        //2. saya harus tau jumlah barang yang dibeli dari setiap pelapak
-        //3. for pertama berdasarkan jumlah pelapak
-        //4. for kedua bedasarkan jumlah barang dari setiap pelapak
+            //ulasan
+            //1. saya harus tau jumlah pelapak nya
+            //2. saya harus tau jumlah barang yang dibeli dari setiap pelapak
+            //3. for pertama berdasarkan jumlah pelapak
+            //4. for kedua bedasarkan jumlah barang dari setiap pelapak
 
-        for (let index = 1; index <= "{{ $m }}"; index++) {
-            for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
-                keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
-                produkId.push($(`#data_keranjang${j}`).data('idproduk'));
-                proses.push({
-                    'stok': $(`#data_keranjang${j}`).data('stok') - $(`#data_keranjang${j}`).data('jumlah'),
-                    'terjual': $(`#data_keranjang${j}`).data('terjual') + $(`#data_keranjang${j}`).data('jumlah')
-                });
+            for (let index = 1; index <= "{{ $m }}"; index++) {
+                for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
+                    keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
+                    produkId.push($(`#data_keranjang${j}`).data('idproduk'));
+                    proses.push({
+                        'stok': $(`#data_keranjang${j}`).data('stok') - $(`#data_keranjang${j}`).data('jumlah'),
+                        'terjual' : $(`#data_keranjang${j}`).data('terjual') + $(`#data_keranjang${j}`).data('jumlah')
+                    });
 
-                dataTrxDetail.push({
-                    'produk_id': $(`#data_keranjang${j}`).data('idproduk'),
-                    'pelapak_id': $(`#data_keranjang${j}`).data('idpelapak'),
-                    'diskon': $(`#data_keranjang${j}`).data('diskon'),
-                    'kurir': $(`#dataPelapak${index}`).data('kurir'),
-                    'service': $(`#dataPelapak${index}`).data('service'),
-                    'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
-                    'etd': $(`#dataPelapak${index}`).data('etd'),
-                    'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
-                    'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
-                    'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
-                });
+                    dataTrxDetail.push({
+                        'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
+                        'user_id' : $(`#data_keranjang${j}`).data('idpelapak'),
+                        'diskon' : $(`#data_keranjang${j}`).data('diskon'),
+                        'kurir': $(`#dataPelapak${index}`).data('kurir'),
+                        'service': $(`#dataPelapak${index}`).data('service'),
+                        'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
+                        'etd': $(`#dataPelapak${index}`).data('etd'),
+                        'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
+                        'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
+                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
+                    });
+                }
             }
-        }
 
         $.ajax({
             async: true,

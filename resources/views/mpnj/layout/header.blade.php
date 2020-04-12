@@ -11,13 +11,14 @@
                     </li>
 
                 </ul>
+{{--                {{ dd(Auth::check()) }}--}}
                 <ul class="navbar-nav">
-                    @if (Auth::guard(Session::get('role'))->check())
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                    @if (Auth::check())
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
                     @else
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
-                    <!-- <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li> -->
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></span></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li>
                     @endif
                 </ul>
             </div> <!-- navbar-collapse .// -->
@@ -52,9 +53,9 @@
                                         <i class="icon-sm rounded-circle border fa fa-user"></i>
                                     </div>
                                     <div class="text">
-                                        @if (Auth::guard(Session::get('role'))->check())
-                                        <div> Halo @if (Auth::guard(Session::get('role'))->check())
-                                            {{ Auth::guard(Session::get('role'))->user()->username }}
+                                        @if (Auth::check())
+                                        <div> Halo @if (Auth::check())
+                                                {{ Auth::user()->username }}
                                             @endif
                                         </div>
                                         @else
@@ -68,21 +69,21 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-2">
-                                @if(Session::has('id'))
-                                <a class="dropdown-item" href="{{ URL::to('/profile') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
-                                <hr class="dropdown-divider">
-                                <a class="dropdown-item" href="{{ route('keluar') }}">Sign Out</a>
+                                @if(Auth::check())
+                                    <a class="dropdown-item" href="{{ URL::to('/profile') }}">Profil</a>
+                                    <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="{{ route('keluar') }}">Sign Out</a>
                                 @endif
                             </div> <!--  dropdown-menu .// -->
                         </div>
                         <div class="widget-header dropdown">
                             <a href="#" class="widget-header ml-4" data-toggle="dropdown">
                                 <div class="icon icon-sm border rounded-circle"><i class="fa fa-shopping-cart"></i></div>
-                                <span class="badge badge-pill badge-danger notify">@if(Session::has('id')) {{ COUNT($cart) }} @else 0 @endif</span>
+                                <span class="badge badge-pill badge-danger notify">@if(Auth::check()) {{ COUNT($cart) }} @else 0 @endif</span>
                             </a>
                             <div class="dropdown-menu p-3 dropdown-menu-right" style="min-width:280px;">
-                                @if(Session::has('id'))
+                                @if(Auth::check())
                                 @foreach($cart as $c)
                                 <figure class="itemside mb-3">
                                     <div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>

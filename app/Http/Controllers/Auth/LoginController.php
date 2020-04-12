@@ -42,7 +42,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('keluar');
-        $this->middleware('guest:konsumen')->except('keluar');
     }
     public function showLoginForm()
     {
@@ -53,55 +52,18 @@ class LoginController extends Controller
     {
         $credential = $request->only('username','password');
 
-        if (Auth::guard('konsumen')->attempt($credential)) {
-            $request->session()->put('role', 'konsumen');
-            $request->session()->put('id', 'id_konsumen');
-            return redirect('produk');
-        }
-
-        if (Auth::guard('pelapak')->attempt($credential)) {
-            $request->session()->put('role', 'pelapak');
-            $request->session()->put('id', 'id_pelapak');
+        if (Auth::attempt($credential)) {
+            $request->session()->put('role', Auth::user()->role);
             return redirect('produk');
         }
         
         return redirect()->back()->with('loginError', 'Login error, periksa kembali data login anda');
     }
 
-//    public function login(Request $request)
-//    {
-//        $cek = Konsumen::where([
-//            'username' => $request->username,
-//            'password' => $request->password
-//        ])->get();
-//
-//        if (count($cek) > 0) {
-//            // session(['username' => $request->username]);
-//            $request->session()->put('id', $cek[0]->id_konsumen);
-//            $request->session()->put('role', 'konsumen');
-//            $request->session()->put('username', $request->username);
-//            return redirect('produk');,
-
-//        } else {
-//            $cekPelapak = Pelapak::where([
-//	            'username' => $request->username,
-//	            'password' => $request->password
-//            ])->get();
-//            if (count($cekPelapak) > 0) {
-//	            $request->session()->put('id', $cekPelapak[0]->id_pelapak);
-//	            $request->session()->put('role', 'pelapak');
-//	            $request->session()->put('username', $request->username);
-//	            return redirect('produk');
-//            }
-//        }
-//    }
 
     public function keluar(Request $request)
     {
-        $role = Session::get('role');
-        Session::forget('role');
-        Session::forget('id');
-        Auth::guard($role)->logout();
+        Auth::logout();
         return redirect('/produk');
     }
 }
