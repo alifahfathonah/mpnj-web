@@ -121,11 +121,14 @@ class ApiKonsumenController extends Controller
     {
         $hapus_alamat = Alamat::find($alamat_id)->delete();
         if ($hapus_alamat) {
-            $res['pesan'] = "Sukses!";
-            return response()->json($res);
+            return response()->json([
+                'status' => 200,
+                'pesan' => 'Sukses!'
+            ]);
         } else {
-            $res2['pesan'] = "Gagal!";
-            return response()->json($res2);
+            return response()->json([
+                'pesan' => 'Gagal!'
+            ]);
         }
     }
 
