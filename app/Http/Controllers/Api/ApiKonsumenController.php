@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
+use App\User;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-// use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
 use App\Models\Konsumen;
 use App\Models\Alamat;
 
@@ -28,28 +28,30 @@ class ApiKonsumenController extends Controller
 
     public function simpan_alamat(request $request)
     {
-        $alamat = new Alamat;
-        $alamat->nama = $request->nama;
-        $alamat->nomor_telepon = $request->nomor_telepon;
-        $alamat->provinsi_id = $request->provinsi_id;
-        $alamat->nama_provinsi = $request->nama_provinsi;
-        $alamat->city_id = $request->city_id;
-        $alamat->nama_kota = $request->nama_kota;
-        $alamat->kode_pos = $request->kode_pos;
-        $alamat->kecamatan_id = 0;
-        $alamat->alamat_lengkap = $request->alamat_lengkap;
-        $alamat->user_id = $request->user_id;
-        $alamat->user_type = $request->user_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
-        if ($alamat->save()) {
+        $alamat = Alamat::create([
+            'nama' => $request->nama,
+            'nomor_telepon' => $request->nomor_telepon,
+            'provinsi_id' => $request->provinsi_id,
+            'nama_provinsi' => $request->nama_provinsi,
+            'city_id' => $request->city_id,
+            'nama_kota' => $request->nama_kota,
+            'kecamatan_id' => $request->kecamatan_id,
+            'nama_kecamatan' => $request->nama_kecamatan,
+            'kode_pos' => $request->kode_pos,
+            'alamat_lengkap' => $request->alamat_lengkap,
+            'user_id' => $request->user_id
+        ]);
+        if ($alamat) {
             $res['pesan'] = "Sukses!";
             $res['data'] = [$alamat];
-            $alamat_utama = Konsumen::where('alamat_utama', null)->first();
-            if ($alamat_utama) {
-                Konsumen::where('id_konsumen', $request->user_id)->update(['alamat_utama' => $alamat->id_alamat]);
-                return response()->json($res);
+            $user = User::find($request->user_id);
+            if ($user->alamat_utama == null) {
+                $updateAlamatUtama = User::where('id_user', $request->user_id)->update(['alamat_utama' => $alamat->id_alamat]);
+                if ($updateAlamatUtama) {
+                    return response()->json($res);
+                }
             } else {
-                return response()->json($res);
-            }
+                return response()->json($res);}
         } else {
             $res2['pesan'] = "Gagal!";
             $res2['data'] = [];
