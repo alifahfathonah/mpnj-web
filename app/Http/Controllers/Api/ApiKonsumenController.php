@@ -171,23 +171,26 @@ class ApiKonsumenController extends Controller
 
     public function ganti_password(Request $request, $id_konsumen)
     {
-
-        $request = Validator::make(Request::all(), [
+        $validator = Validator::make($request->all(), [
             'password' => 'required',
             'cekpassword' => 'required',
         ]);
-        $konsumen = Konsumen::find($id_konsumen);
-        $cekpassword = Request::get('cekpassword');
-        $newpassword = Request::get('password');
-        $hash = $konsumen->password;
+        $user = User::find($id_konsumen);
+        $cekpassword = $request->cekpassword;
+        $newpassword = $request->password;
+        $hash = $user->password;
 
         if (Hash::check($cekpassword, $hash)) {
-            $konsumen = Konsumen::where('id_konsumen', $id_konsumen)->update(['password' => Hash::make($newpassword)]);
-            $res['pesan'] = "Berhasil Diganti";
-            return response()->json($res);
+            $user->password = Hash::make($newpassword);
+            $updatePassword = $user->save();
+            if ($updatePassword) {
+                return response()->json([
+                    'status' => 200,
+                    'pesan' => 'Berhasil Diganti'
+                ]);
+            }
         } else {
             $res2['pesan'] = "Gagal";
-            $res['response'] = $request->messages();
             return response()->json($res2);
 
         }
