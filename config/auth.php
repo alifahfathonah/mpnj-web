@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+
 return [
 
     /*
@@ -45,15 +47,7 @@ return [
             'driver' => 'session',
             'provider' => 'konsumen',
             
-        ],
-	    'konsumen' => [
-		    'driver' => 'session',
-		    'provider' => 'konsumen',
-	    ],
-	    'pelapak' => [
-		    'driver' => 'session',
-		    'provider' => 'pelapak',
-	    ]
+        ]
     ],
 
     /*
@@ -78,14 +72,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-	    'konsumen' => [
-	    	'driver' => 'eloquent',
-		    'model' => App\Models\Konsumen::class
-	    ],
-	    'pelapak' => [
-	    	'driver' => 'eloquent',
-		    'model' => App\Models\Pelapak::class
-	    ]
 
         // 'users' => [
         //     'driver' => 'database',

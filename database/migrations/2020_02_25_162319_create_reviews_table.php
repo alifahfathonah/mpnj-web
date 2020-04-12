@@ -17,8 +17,8 @@ class CreateReviewsTable extends Migration
             $table->Increments('id_review');
             $table->integer('produk_id')->unsigned();
             $table->foreign('produk_id')->references('id_produk')->on('produk');
-            $table->integer('konsumen_id')->unsigned();
-            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
             $table->text('review')->nullable();
             $table->enum('bintang', [1, 2, 3, 4, 5])->default(1);
             $table->string('foto_review')->nullable();;
