@@ -9,7 +9,7 @@ class ProdukRepository
     public function all()
     {
         return Produk::orderBy('id_produk')
-            ->with('foto_produk', 'pelapak', 'kategori')
+            ->with('foto_produk', 'user', 'kategori')
             ->get()
             ->map(
                 function ($produks) {
@@ -37,10 +37,10 @@ class ProdukRepository
                             ];
                         }),
                         'pelapak' => [
-                            'id_pelapak' => $produks->pelapak->id_pelapak,
-                            'nama_toko' => $produks->pelapak->nama_toko,
-                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->pelapak->foto_profil),
-                            'alamat' => $produks->pelapak->alamat
+                            'id_pelapak' => $produks->user->id_user,
+                            'nama_toko' => $produks->user->nama_toko,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
+                            'alamat' => $produks->user->alamat
                         ]
                     ];
                 }
@@ -78,11 +78,11 @@ class ProdukRepository
                             ];
                         }),
                         'pelapak' => [
-                            'id_pelapak' => $produks->pelapak->id_pelapak,
-                            'nama_toko' => $produks->pelapak->nama_toko,
-                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->pelapak->foto_profil),
-                            'alamat' => $produks->pelapak->alamat,
-                            'bergabung' => $produks->pelapak->created_at
+                            'id_pelapak' => $produks->user->id_user,
+                            'nama_toko' => $produks->user->nama_toko,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
+                            'alamat' => $produks->user->alamat,
+                            'bergabung' => $produks->user->created_at
                         ]
                     ];
                 }

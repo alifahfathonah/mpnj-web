@@ -9,19 +9,15 @@ use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PesananWebController extends Controller
 {
     public function index(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-        //
-        $order = Transaksi::with(['transaksi_detail', 'pembeli', 'transaksi_detail.produk.foto_produk'])
-                            ->where('pembeli_id', $konsumen_id)
-                            ->where('pembeli_type', $role == 'konsumen' ? Konsumen::class : Pelapak::class)
+        $order = Transaksi::with(['transaksi_detail', 'user', 'transaksi_detail.produk.foto_produk'])
+                            ->where('user_id', Auth::check())
                             ->groupBy('kode_transaksi')
                             ->get();
         // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
@@ -38,24 +34,14 @@ class PesananWebController extends Controller
             ]);
         }
         return view('web/web_profile', $data);
-        // return $data['order'];
     }
 
     public function detail(Request $request, $id_trx)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
-        // $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($id_trx) {
-        //     $query->where('id_transaksi_detail', $id_trx);
-        // }])
-        //     ->first();
         $data['detail'] = Transaksi::with('transaksi_detail','transaksi_detail.produk.foto_produk', 'konfirmasi')->where('kode_transaksi', $id_trx)->first();
 //        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
 
         return view('web/web_profile', $data);
-//                return $data['detail'];
     }
 
     public function diterima(Request $request, $id_trx)

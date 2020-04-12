@@ -1,6 +1,6 @@
 @extends('mpnj.layout.main')
 
-@section('title','Profil Pengguna')
+@section('title','User')
 
 
 @section('content')
@@ -89,39 +89,35 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    @php
-                        $id = Session::get('id');
-                        $role = Session::get('role');
-                    @endphp
-                    <form action="{{ URL::to('profile/gantipassword/'.$role.'/'.Auth::guard($role)->user()->$id) }}"
-                          method="post">
-                        @csrf
-                        <div class="form-group mb-0">
-                            <input type="text" name="passwordlama" class="form-control" id="passwordlama"
-                                   placeholder="Password Lama" required>
-                            <br>
-                            <input type="text" name="passwordbaru" class="form-control" id="passwordbaru"
-                                   placeholder="Password Baru" required>
-                            <!-- <br>
-                            <input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Ganti Password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+			@php
+			$id = Session::get('id');
+			$role = Session::get('role');
+			@endphp
+				<form action="{{ URL::to('profile/gantipassword/'.Auth::id()) }}" method="post">
+					@csrf
+					<div class="form-group mb-0">
+						<input type="text" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama" required>
+						<br>
+						<input type="text" name="passwordbaru" class="form-control" id="passwordbaru" placeholder="Password Baru" required>
+						<!-- <br>
+						<input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
+					</div>
+					<br>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 @endsection

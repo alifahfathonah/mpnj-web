@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use File;
@@ -12,17 +13,18 @@ class ApiRegisterKonsumenController extends Controller
 {
     public function create(request $request)
     {
-        $konsumen = new Konsumen;
-        $konsumen->nama_lengkap = $request->nama_lengkap;
-        $konsumen->username = $request->username;
-        $konsumen->password = Hash::make($request->password);
-        $konsumen->nomor_hp = $request->nomor_hp;
-        $konsumen->email = $request->email;
-        $konsumen->status = $request->status;
+        $register = User::create([
+           'nama_lengkap' =>  $request->nama_lengkap,
+           'username' => $request->username,
+           'password' => Hash::make($request->password),
+           'nomor_hp' => $request->nomor_hp,
+           'email' => $request->email,
+           'status' => $request->status
+        ]);
 
-        if ($konsumen->save()) {
+        if ($register) {
             $res['pesan'] = "Sukses!";
-            $res['data'] = [$konsumen];
+            $res['data'] = User::orderby('created_at', 'desc')->first();
 
             return response()->json($res);
         } else {
@@ -35,15 +37,16 @@ class ApiRegisterKonsumenController extends Controller
 
     public function update(Request $request, $kosumenId)
     {
-        $konsumen = Konsumen::find($kosumenId);
-        $konsumen->nama_lengkap = $request->nama_lengkap;
-        $konsumen->nomor_hp = $request->nomor_hp;
-        $konsumen->email = $request->email;
-        $konsumen->status = $request->status;
+        $data = [
+          'nama_lengkap' => $request->nama_lengkap,
+          'nomor_hp' => $request->nomor_hp,
+          'email' => $request->email
+        ];
 
-        if ($konsumen->save()) {
+        $update = User::where('id_user', $kosumenId)->update($data);
+        if ($update) {
             $res['pesan'] = "Sukses!";
-            $res['data'] = [$konsumen];
+            $res['data'] = $data;
             return response()->json($res);
         } else {
             $res2['pesan'] = "Gagal!";
@@ -52,28 +55,39 @@ class ApiRegisterKonsumenController extends Controller
             return response()->json($res2);
         }
     }
-       public function upload(Request $request)
-        {
-            $user = Konsumen::where('id_konsumen', $request->id_konsumen)->first();
-            if ($user) {
-                    File::delete('assets/foto_profil_konsumen/' .$user->foto_profil);
-                    $simpan = Konsumen::find($user->id_konsumen);
-                    $file = $request->file('file');
-                    $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
-                    $file->move('assets/foto_profil_konsumen', $name);
-                    $simpan->foto_profil = $name;
-                    $simpan->save();
-                    $res['pesan'] = "Sukses!";
-                    $res['data'] = [$simpan];
-                    return response()->json($res);
-            } else {
-                  $res2['pesan'] = "Gagal!";
-            $res2['data'] = [];
 
-            return response()->json($res2);
+    public function upload(Request $request)
+    {
+        $user = User::where('id_user', $request->id_konsumen)->first();
+        $file = $request->file('file');
+        $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
+        
+        if (is_null($user->foto_profil)) {
+            $file->move('assets/foto_profil_konsumen', $name);
+            $user->foto_profil = $name;
+            $update = $user->save();
+        } else {
+            $hapusFoto = File::delete('assets/foto_profil_konsumen/' .$user->foto_profil);
+            if ($hapusFoto) {
+                $file->move('assets/foto_profil_konsumen', $name);
+                $user->foto_profil = $name;
+                $update = $user->save();
             }
         }
-          public static function acakhuruf($length)
+
+        if ($update) {
+            $res['pesan'] = "Sukses!";
+            $res['data'] = $user;
+            return response()->json($res);
+        } else {
+            $res['pesan'] = "Gagal!";
+            $res['data'] = [];
+        }
+
+        return response()->json($res);
+    }
+
+    public function acakhuruf($length)
     {
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 

@@ -36,25 +36,24 @@ class ApiKonfirmasiController extends Controller
 
     public function simpan(Request $request)
     {
-        // return $request->kode_transaksi;
-        $konfirm = new Konfirmasi;
-        $konfirm->kode_transaksi = $request->kode_transaksi;
-        $konfirm->total_transfer = $request->total_transfer;
-        $konfirm->rekening_admin_id = $request->rekening_admin_id;
-        $konfirm->nama_pengirim = $request->nama_pengirim;
-        $konfirm->tanggal_transfer = date('Y-m-d');
-        
         $file = $request->file('bukti_transfer');
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
-        $file->move('assets/foto_bukti_tf', $name);
-        // // $file = $konfirm['base64_image'];
-        $konfirm->bukti_transfer = $name;
-        $simpan = $konfirm->save();
 
-        if ($simpan) {
-            // $file->move($file);
+        $dataKonfirmasi = [
+          'kode_transaksi' => $request->kode_transaksi,
+          'total_transfer' => $request->total_transfer,
+          'rekening_admin_id' => $request->rekening_admin_id,
+          'nama_pengirim' => $request->nama_pengirim,
+          'tanggal_transfer' => date('Y-m-d'),
+          'bukti_transfer' => $name
+        ];
+
+        $simpanKonfirmasi = Konfirmasi::create($dataKonfirmasi);
+
+        if ($simpanKonfirmasi) {
+            $file->move('assets/foto_bukti_tf', $name);
             $res['pesan'] = "Tambah Data Produk Sukses!";
-            $res['data'] = [$konfirm];
+            $res['data'] = $dataKonfirmasi;
 
             return response()->json($res, 201);
         } else {

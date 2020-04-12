@@ -19,16 +19,14 @@ class ApiKeranjangController extends Controller
 
     public function index(Request $request)
     {
-        $role = $request->query('role');
         $id = $request->query('id');
 //        $keranjangs = $this->keranjangRepository->all($role, $id);
         $keranjang = Keranjang::orderBy('id_keranjang')
             ->with('produk')
-            ->where('pembeli_id', $id)
-            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            ->where('user_id', $id)
             ->where('status', 'N')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
+            ->groupBy('produk.user.nama_toko');
 
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
@@ -50,11 +48,11 @@ class ApiKeranjangController extends Controller
             }
 
             $data['data_keranjang']->push([
-                    'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                    'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                     'nama_toko' => $key,
                     'item' => $item
                 ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
 
         }
         return response()->json($data, 200);
@@ -63,8 +61,7 @@ class ApiKeranjangController extends Controller
     public function simpan(Request $request)
     {
         $cekExistData = Keranjang::where('produk_id', $request->produk_id)
-                        ->where('pembeli_id', $request->pembeli_id)
-                        ->where('pembeli_type', $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                        ->where('user_id', $request->pembeli_id)
                         ->first();
 
         if ($cekExistData != '') {
@@ -82,8 +79,7 @@ class ApiKeranjangController extends Controller
 
         $data = array(
             'produk_id' => $request->produk_id,
-            'pembeli_id' => $request->pembeli_id,
-            'pembeli_type' => $request->pembeli_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'user_id' => $request->pembeli_id,
             'status' => 'N',
             'jumlah' => $request->jumlah,
             'harga_jual' => $request->harga_jual

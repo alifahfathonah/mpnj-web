@@ -21,16 +21,14 @@ class ApiTransaksiController extends Controller
 
     public function index(Request $request)
     {
-        $role = $request->query('role');
         $id = $request->query('id');
 //        $keranjangs = $this->keranjangRepository->all($role, $id);
         $keranjang = Keranjang::orderBy('id_keranjang')
             ->with('produk')
-            ->where('pembeli_id', $id)
-            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-//            ->where('status', 'Y')
+            ->where('user_id', $id)
+            ->where('status', 'Y')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
+            ->groupBy('produk.user.nama_toko');
 
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
@@ -88,11 +86,11 @@ class ApiTransaksiController extends Controller
             }
 
             $data['data_keranjang']->push([
-                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
                 'item' => $item
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
 
         }
         return response()->json($data, 200);
@@ -100,13 +98,12 @@ class ApiTransaksiController extends Controller
 
     public function simpan(Request $request)
     {
-        $role = Session::get('role');
+        $id = Session::get('id_user');
         //$id = Session::get('id');
         //$konsumen_id = $request->user($role)->$id;
 
         $data = array(
-            'pembeli_id' => $request->pembeli_id,
-            'pembeli_type' => $request->$role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'user_id' => $request->id_user,
             'kode_transaksi' => time(),
             'waktu_transaksi' => date('Y-m-d H:i:s'),
             'total_bayar' => $request->total_bayar

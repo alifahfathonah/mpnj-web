@@ -13,9 +13,11 @@ class AddAlamatUtamaToKonsumen extends Migration
      */
     public function up()
     {
-        Schema::table('konsumen', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->integer('alamat_utama')->after('status')->unsigned();
             $table->foreign('alamat_utama')->references('id_alamat')->on('alamat');
+            $table->integer('alamat_toko')->unsigned();
+            $table->foreign('alamat_toko')->references('id_alamat')->on('alamat');
         });
     }
 
@@ -26,7 +28,7 @@ class AddAlamatUtamaToKonsumen extends Migration
      */
     public function down()
     {
-        Schema::table('konsumen', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }
