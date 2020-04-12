@@ -62,21 +62,23 @@ class ApiKonsumenController extends Controller
 
     public function update_alamat(Request $request, $alamat_id)
     {
-        $alamat = Alamat::find($alamat_id);
-        $alamat->nama = $request->nama;
-        $alamat->nomor_telepon = $request->nomor_telepon;
-        $alamat->provinsi_id = $request->provinsi_id;
-        $alamat->nama_provinsi = $request->nama_provinsi;
-        $alamat->city_id = $request->city_id;
-        $alamat->nama_kota = $request->nama_kota;
-        $alamat->kode_pos = $request->kode_pos;
-        $alamat->kecamatan_id = 0;
-        $alamat->alamat_lengkap = $request->alamat_lengkap;
-        $alamat->user_id = $request->user_id;
-        $alamat->user_type = $request->user_type == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
-        if ($alamat->save()) {
+        $data = [
+            'nama' => $request->nama,
+            'nomor_telepon' => $request->nomor_telepon,
+            'provinsi_id' => $request->provinsi_id,
+            'nama_provinsi' => $request->nama_provinsi,
+            'city_id' => $request->city_id,
+            'nama_kota' => $request->nama_kota,
+            'kecamatan_id' => $request->kecamatan_id,
+            'nama_kecamatan' => $request->nama_kecamatan,
+            'kode_pos' => $request->kode_pos,
+            'alamat_lengkap' => $request->alamat_lengkap,
+            'user_id' => $request->user_id
+        ];
+        $update = Alamat::where('id_alamat', $alamat_id)->update($data);
+        if ($update) {
             $res['pesan'] = "Sukses!";
-            $res['data'] = [$alamat];
+            $res['data'] = [$data];
             return response()->json($res);
         } else {
             $res2['pesan'] = "Gagal!";
