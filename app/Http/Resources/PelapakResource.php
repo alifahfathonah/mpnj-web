@@ -15,7 +15,7 @@ class PelapakResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_pelapak' => $this->id_pelapak,
+            'id_pelapak' => $this->id_user,
             'username' => $this->username,
             'status_official' => $this->status_official,
             'nama_toko' => $this->nama_toko,
