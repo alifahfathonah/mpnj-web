@@ -83,10 +83,10 @@
                 </div> <!-- col.// -->
                 <aside class="col-sm-3">
                     <div class="info-aside" style="text-align:center">
-                        <p class="h5 title">{{ Auth::guard(Session::get('role'))->user()->nama_lengkap }}</p>
+                        <p class="h5 title">{{ Auth::user()->nama_lengkap }}</p>
                         <br />
                         <div class="form-group">
-                            <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::guard(Session::get('role'))->user()->foto_profil) }}"
+                            <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
                                 class="img-sm rounded-circle border">
                         </div>
                         {{-- @if($review != null )
