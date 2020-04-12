@@ -11,6 +11,7 @@ use App\Models\Konsumen;
 use App\Models\Pelapak;
 use App\Models\Kategori_Produk;
 use File;
+use Illuminate\Support\Facades\Auth;
 use ImageResize;
 use Illuminate\Support\Facades\Session;
 
@@ -19,21 +20,13 @@ class ReviewWebController extends Controller
 
     public function index(Request $request, $slug)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->where('slug', $slug)->first();
-        $data['review'] = Review::with(['konsumen', 'produk'])->where('produk_id', $data['produk']->id_produk)->where('konsumen_id', $konsumen_id)->first();
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('slug', $slug)->first();
+        $data['review'] = Review::with(['user', 'produk'])->where('produk_id', $data['produk']->id_produk)->where('user_id', Auth::id())->first();
         return view('web/web_review_produk', $data);
     }
 
     public function postReview(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
         if ($request->hasFile('foto_review')) {
 
             $foto_review = $request->file('foto_review');
@@ -42,7 +35,7 @@ class ReviewWebController extends Controller
             $img->resize(100, 100)->save('assets/foto_review/' . $name);
 
             $review = [
-                'konsumen_id' => $konsumen_id,
+                'user_id' => Auth::id(),
                 'produk_id' => $request->id_produk,
                 'review' => $request->review,
                 'bintang' => $request->bintang,
@@ -50,14 +43,14 @@ class ReviewWebController extends Controller
             ];
         } else {
             $review = [
-                'konsumen_id' => $konsumen_id,
+                'user_id' => Auth::id(),
                 'produk_id' => $request->id_produk,
                 'review' => $request->review,
                 'bintang' => $request->bintang
             ];
         }
 
-        $cekReviewer = Review::with(['konsumen', 'produk'])->where('produk_id', $request->id_produk)->where('konsumen_id', $konsumen_id)->get()->count(1);
+        $cekReviewer = Review::with(['user', 'produk'])->where('produk_id', $request->id_produk)->where('user_id', Auth::id())->get()->count(1);
         if ($cekReviewer) {
             return redirect()->back()->with('message', 'Anda Sudah Mereview Produk Ini');
         } else {
@@ -68,9 +61,6 @@ class ReviewWebController extends Controller
 
     public function updateReview(Request $request, $id)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
         $foto_review = $request->file('foto_review');
         if ($request->hasFile('foto_review')) {
 
@@ -92,7 +82,7 @@ class ReviewWebController extends Controller
             ];
         }
 
-        $find = Review::where('produk_id', $request->id_produk)->where('konsumen_id', $konsumen_id)->first();
+        $find = Review::where('produk_id', $request->id_produk)->where('user_id', Auth::id())->first();
 
         if ($foto_review != null) {
             File::delete('assets/foto_review/' . $find->foto_review);
