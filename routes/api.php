@@ -48,7 +48,7 @@ Route::get('/keranjang', 'Api\ApiKeranjangController@index'); //http://localhost
 Route::post('/keranjang', 'Api\ApiKeranjangController@simpan');
 Route::delete('/keranjang/{id_keranjang}', 'Api\ApiKeranjangController@hapus');
 Route::put('/keranjang/ganti_jumlah/{id_keranjang}', 'Api\ApiKeranjangController@gantiJumlah');
-Route::put('/keranjang/{role}/{id}/go_checkout', 'Api\ApiKeranjangController@keCheckOut');
+Route::put('/keranjang/{id}/go_checkout', 'Api\ApiKeranjangController@keCheckOut');
 Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
 
 //transaksi
