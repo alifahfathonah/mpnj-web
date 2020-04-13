@@ -64,16 +64,15 @@ class KeranjangRepository
         return $keranjang;
     }
 
-    public function goCheckOut($id_keranjang, $role, $id)
+    public function goCheckOut($id_keranjang, $id)
     {
         $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
         if ($update) {
-            $keranjang = Keranjang::with('pembeli', 'produk')
-                ->where('pembeli_id', $id)
-                ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+            $keranjang = Keranjang::with('user', 'produk')
+                ->where('user_id', $id)
                 ->where('status', 'Y')
                 ->get()
-                ->groupBy('produk.pelapak.nama_toko');
+                ->groupBy('produk.user.nama_toko');
 
             $data['data_keranjang'] = collect();
             $data['pembeli'] = [];
@@ -95,11 +94,11 @@ class KeranjangRepository
                 }
 
                 $data['data_keranjang']->push([
-                    'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                    'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                     'nama_toko' => $key,
                     'item' => $item
                 ]);
-                $data['pembeli'] = $keranjang[$key][0]->pembeli;
+                $data['pembeli'] = $keranjang[$key][0]->user;
             }
             return $data;
         }
