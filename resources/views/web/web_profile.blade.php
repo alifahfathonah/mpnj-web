@@ -1,6 +1,6 @@
 @extends('mpnj.layout.main')
 
-@section('title','Profil Pengguna')
+@section('title','User')
 
 
 @section('content')
@@ -101,7 +101,7 @@
 			$id = Session::get('id');
 			$role = Session::get('role');
 			@endphp
-				<form action="{{ URL::to('profile/gantipassword/'.$role.'/'.Auth::guard($role)->user()->$id) }}" method="post">
+				<form action="{{ URL::to('profile/gantipassword/'.Auth::id()) }}" method="post">
 					@csrf
 					<div class="form-group mb-0">
 						<input type="text" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama" required>
