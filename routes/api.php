@@ -9,9 +9,6 @@ use App\Models\Kategori_Produk;
 
 
 // PRODUK
-Route::get('/kategori', function () {
-    return KategoriResource::collection(kategori_Produk::all());
-});
 Route::get('/produk', 'Api\ApiProdukController@index');
 Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
 Route::post('/produk', 'Api\ApiProdukController@create');
@@ -55,6 +52,9 @@ Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
 Route::get('/transaksi', 'Api\ApiTransaksiController@index');
 Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 
+//kategori
+Route::get('/kategori', 'Api\ApiKategoriController@index');
+Route::get('/kategori/{id}', 'Api\ApiKategoriController@produk');
 
 //konfirmasi
 Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
