@@ -21,6 +21,8 @@ class CreateTransaksiTable extends Migration
 //            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
             $table->dateTime('waktu_transaksi')->useCurrent();
             $table->integer('total_bayar');
+            $table->enum('status_transaksi', ['proses', 'sukses', 'batal']);
+            $table->dateTime('batas_transaksi')->useCurrent();
             $table->enum('proses_pembayaran', ['belum', 'sudah', 'terima', 'tolak'])->default('belum');
             $table->timestamps();
         });
