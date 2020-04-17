@@ -16,8 +16,8 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->increments('id_transaksi');
             $table->string('kode_transaksi')->unique();
-            $table->integer('pembeli_id');
-            $table->string('pembeli_type');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
 //            $table->foreign('konsumen_id')->references('id_konsumen')->on('konsumen');
             $table->dateTime('waktu_transaksi')->useCurrent();
             $table->integer('total_bayar');

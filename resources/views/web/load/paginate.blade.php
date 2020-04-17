@@ -19,7 +19,7 @@
             </ul>
         </div>
         <p class="mb-">{{ $r->review}}</p>
-    </article>
+</article>
 
 @endforeach
 

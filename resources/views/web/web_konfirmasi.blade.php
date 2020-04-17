@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="nama_pengirim">Nama Pengirim</label>
                                 <input id="nama_pengirim" type="text" class="form-control" name="nama_pengirim"
-                                    value="{{  $transaksi->pembeli->nama_lengkap }}" readonly>
+                                    value="{{  $transaksi->user->nama_lengkap }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="total_bayar">Total Bayar</label>

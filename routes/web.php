@@ -79,7 +79,7 @@ Route::group(['namespace' => 'Web'], function () {
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', 'ProfileWebController@index')->name('profile')->middleware('checkUserLogin');
         Route::post('ubah/{role}/{id}', 'ProfileWebController@ubah');
-        Route::post('gantipassword/{role}/{id}', 'ProfileWebController@gantipassword');
+        Route::post('gantipassword/{id}', 'ProfileWebController@gantipassword');
         Route::get('rekening', 'ProfileWebController@rekening')->name('rekening');
         Route::get('alamat', 'ProfileWebController@alamat')->name('alamat')->middleware('checkUserLogin');
         Route::post('alamat/simpan', 'ProfileWebController@simpan_alamat');
@@ -93,6 +93,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('detail/{id_trx}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
         Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
+        Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {
@@ -118,4 +119,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('jual', 'Pelapak\PelapakController@index');
 
 //review
+Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
 Route::post('review/produk', 'Web\ReviewWebController@postReview');
+Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');

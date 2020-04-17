@@ -83,17 +83,11 @@
                     </div> <!-- price-detail-wrap .// -->
 
                     <p class="text-justify">{!! substr($produk->keterangan,0,450) !!}...</p>
-                    <div class="alert alert-warning d-none" role="alert" id="alertMax">
+                    <div class="alert alert-warning d-none text-center" role="alert" id="alertMax">
                         <strong>TIDAK BISA MELEBIHIN STOK BARANG</strong>
-                        <button type="button" class="close" id="closeAlertMax">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
-                    <div class="alert alert-warning d-none" role="alert" id="alertMin">
+                    <div class="alert alert-warning d-none text-center" role="alert" id="alertMin">
                         <strong>MINIMAL 1 PESANAN BARANG</strong>
-                        <button type="button" class="close" id="closeAlertMin">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="form-row  mt-4">
                         <div class="form-group col-md flex-grow-0">
@@ -130,13 +124,13 @@
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
                             <div class="aside"><img
-                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->pelapak->foto_profil) }}"
+                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
                                     class="icon icon-md rounded-circle"></div>
                             <figcaption class="info">
-                                <a href="{{ URL::to('pelapak/'.$produk->pelapak->username )}}"
-                                    class="title text-dark">{{ $produk->pelapak->nama_toko }}</a>
+                                <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
+                                    class="title text-dark">{{ $produk->user->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak :
-                                    {{ $produk->pelapak->created_at->format("d, M Y") }}</p>
+                                    {{ $produk->user->created_at->format("d, M Y") }}</p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
@@ -259,6 +253,7 @@
             $("#jumlah").val($("#jml").val());
             if (parseInt(jml) >= parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
+                setTimeout(function(){ $('#alertMax').addClass('d-none');}, 1000);
                 $("#jml").val(parseInt(jml) - 1 + 1);
                 $("#jumlah").val($("#jml").val());
             }
@@ -271,6 +266,7 @@
             $("#jumlah").val($("#jml").val());
             if (parseInt(jml) <= 1) {
                 $('#alertMin').removeClass('d-none');
+                setTimeout(function(){ $('#alertMin').addClass('d-none');}, 1000);
                 $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
@@ -283,11 +279,13 @@
             $("#jumlah").val($("#jml").val());
             if (parseInt(jml) > parseInt(stok)) {
                 $('#alertMax').removeClass('d-none');
+                setTimeout(function(){ $('#alertMax').addClass('d-none');}, 1000);
                 $("#jml").val($("#stok").val());
                 $("#jumlah").val($("#jml").val());
             }
             if (parseInt(jml) < 1) {
                 $('#alertMin').removeClass('d-none');
+                setTimeout(function(){ $('#alertMin').addClass('d-none');}, 1000);
                 $("#jml").val(1);
                 $("#jumlah").val($("#jml").val());
             }
@@ -310,13 +308,6 @@
             $("#jumlah").val($("#jml").val());
             $("#btnKeranjang").attr("disabled", true);
         }
-
-        $("#closeAlertMax").click(function() {
-            $('#alertMax').addClass('d-none');
-        });
-        $("#closeAlertMin").click(function() {
-            $('#alertMin').addClass('d-none');
-        });
     });
 
     function gantiFoto(id) {

@@ -34,12 +34,12 @@
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Contact Pengirim</h6>
-                            <p> {{ $order_sukses->pembeli->nama_lengkap }} <br> {{ $order_sukses->pembeli->nomor_hp }}
-                                <br> {{ $order_sukses->pembeli->email }}</p>
+                            <p> {{ $order_sukses->user->nama_lengkap }} <br> {{ $order_sukses->user->nomor_hp }}
+                                <br> {{ $order_sukses->user->email }}</p>
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Alamat Pengiriman</h6>
-                            <p> {{ $order_sukses->pembeli->alamat_fix->alamat_lengkap }} </p>
+                            <p> {{ $order_sukses->user->alamat_fix->alamat_lengkap }} </p>
                         </div>
                     </div>
                     <hr>
