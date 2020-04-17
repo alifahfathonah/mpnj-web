@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     public function produk()
     {
-        return $this->hasMany(Produk::class, 'user_id', 'id_user')->where('role', '=', 'pelapak');
+        return $this->hasMany(Produk::class, 'user_id', 'id_user');
     }
 
     /**
