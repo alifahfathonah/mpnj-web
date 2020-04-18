@@ -117,7 +117,8 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'santri' => $request->santri
         ];
 
         if ($request->has('wilayah') AND $request->has('kamar')) {
