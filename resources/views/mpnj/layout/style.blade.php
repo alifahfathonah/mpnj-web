@@ -1,6 +1,6 @@
 <!-- Bootstrap 4.3.1 -->
 <link href="{{ url('assets/mpnj/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
-//akan digunakan jika disetujui oleh pembimbing
+{{-- akan digunakan jika disetujui oleh pembimbing --}}
 {{-- <link href="{{ url('assets/mpnj/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 
 <!-- Font awesome 5 -->
