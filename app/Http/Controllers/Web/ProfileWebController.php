@@ -154,6 +154,21 @@ class ProfileWebController extends Controller
         }
     }
 
+    public function ubah_alamat_santri(Request $request, $id)
+    {
+        $data = [
+            'nama' => $request->nama,
+            'wilayah' => $request->wilayah,
+            'kamar' => $request->kamar,
+            'user_id' => Auth::id()
+        ];
+
+        $ubah = Alamat::where('id_alamat', $id)->update($data);
+        if ($ubah) {
+            return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
+        }
+    }
+
     public function hapus_alamat($id)
     {
         $hapus = Alamat::where('id_alamat', $id)->delete();
