@@ -326,6 +326,98 @@
     @php $m++; @endphp
 @endforeach
 
+@php $s = 1; @endphp
+@foreach($alamat as $a)
+    <div class="modal fade rating_modal item_remove_modal" id="modalSantriEdit{{ $s }}" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Data Alamat Santri</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- end /.modal-header -->
+
+                <div class="modal-body">
+                    <form method="post" action="{{ URL::to('profile/alamat/ubahs/'.$a->id_alamat) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Wilayah</label>
+                            <select name="wilayah" class="form-control">
+                                <option value="Sunan Gunung Jati (A)" {{ ($a->wilayah == 'Sunan Gunung Jati (A)' ? 'selected' : '') }}>Sunan Gunung Jati (A)</option>
+                                <option value="Sunan Ampel (B)" {{ ($a->wilayah == 'Sunan Ampel (B)' ? 'selected' : '') }}>Sunan Ampel (B)</option>
+                                <option value="Sunan Drajat (C)" {{ ($a->wilayah == 'Sunan Drajat (C)' ? 'selected' : '') }}>Sunan Drajat (C)</option>
+                                <option value="Sunan Kalijaga (D)" {{ ($a->wilayah == 'Sunan Kalijaga (D)' ? 'selected' : '') }}>Sunan Kalijaga (D)</option>
+                                <option value="Sunan Kudus (E)" {{ ($a->wilayah == 'Sunan Kudus (E)' ? 'selected' : '') }}>Sunan Kudus (E)</option>
+                                <option value="Sunan Muria (F)" {{ ($a->wilayah == 'Sunan Muria (F)' ? 'selected' : '') }}>Sunan Muria (F)</option>
+                                <option value="Jalaluddin Rumi (G)" {{ ($a->wilayah == 'Jalaluddin Rumi (G)' ? 'selected' : '') }}>Jalaluddin Rumi (G)</option>
+                                <option value="Nurus Shoba (H)" {{ ($a->wilayah == 'Nurus Shoba (H)' ? 'selected' : '') }}>Nurus Shoba (H)</option>
+                                <option value="Fatimatuz zahroh (I)" {{ ($a->wilayah == 'Fatimatuz zahroh (I)' ? 'selected' : '') }}>Fatimatuz zahroh (I)</option>
+                                <option value="Al-Amiri (J)" {{ ($a->wilayah == 'Al-Amiri (J)' ? 'selected' : '') }}>Al-Amiri (J)</option>
+                                <option value="Zaid bin Tsabit (K)" {{ ($a->wilayah == 'Zaid bin Tsabit (K)' ? 'selected' : '') }}>Zaid bin Tsabit (K)</option>
+                                <option value="Maulana Malik Ibrahim (M)" {{ ($a->wilayah == 'Maulana Malik Ibrahim (M)' ? 'selected' : '') }}>Maulana Malik Ibrahim (M)</option>
+                                <option value="Sunan Bonang (N)" {{ ($a->wilayah == 'Sunan Bonang (N)' ? 'selected' : '') }}>Sunan Bonang (N)</option>
+                                <option value="Wilayah Az Zainiyah (Dalbar)" {{ ($a->wilayah == 'Wilayah Az Zainiyah (Dalbar)' ? 'selected' : '') }}>Wilayah Az Zainiyah (Dalbar)</option>
+                                <option value="Wilayah Al Hasyimiyah (Daltim)" {{ ($a->wilayah == 'Wilayah Al Hasyimiyah (Daltim)' ? 'selected' : '') }}>Wilayah Al Hasyimiyah (Daltim)</option>
+                                <option value="Wilayah Al Mawaddah" {{ ($a->wilayah == 'Wilayah Al Mawaddah' ? 'selected' : '') }}>Wilayah Al Mawaddah</option>
+                                <option value="Wilayah Al Latifiyah" {{ ($a->wilayah == 'Wilayah Al Latifiyah' ? 'selected' : '') }}>Wilayah Al Latifiyah</option>
+                                <option value="Wilayah Fatimatus Zahro " {{ ($a->wilayah == 'Wilayah Fatimatus Zahro ' ? 'selected' : '') }}>Wilayah Fatimatus Zahro </option>
+                                <option value="Wilayah An-Nafi’iyah (Asrama Stikes)" {{ ($a->wilayah == 'Wilayah An-Nafi’iyah (Asrama Stikes)' ? 'selected' : '') }}>Wilayah An-Nafi’iyah (Asrama Stikes)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        <label>Kamar</label>
+                        <select name="kamar" class="form-control" readonly>
+                            <option value="1" {{ ($a->kamar == '1' ? 'selected' : '') }}>1</option>
+                            <option value="2" {{ ($a->kamar == '2' ? 'selected' : '') }}>2</option>
+                            <option value="3" {{ ($a->kamar == '3' ? 'selected' : '') }}>3</option>
+                            <option value="4" {{ ($a->kamar == '4' ? 'selected' : '') }}>4</option>
+                            <option value="5" {{ ($a->kamar == '5' ? 'selected' : '') }}>5</option>
+                            <option value="6" {{ ($a->kamar == '6' ? 'selected' : '') }}>6</option>
+                            <option value="7" {{ ($a->kamar == '7' ? 'selected' : '') }}>7</option>
+                            <option value="8" {{ ($a->kamar == '8' ? 'selected' : '') }}>8</option>
+                            <option value="9" {{ ($a->kamar == '9' ? 'selected' : '') }}>9</option>
+                            <option value="10" {{ ($a->kamar == '10' ? 'selected' : '') }}>10</option>
+                            <option value="11" {{ ($a->kamar == '11' ? 'selected' : '') }}>11</option>
+                            <option value="12" {{ ($a->kamar == '12' ? 'selected' : '') }}>12</option>
+                            <option value="13" {{ ($a->kamar == '13' ? 'selected' : '') }}>13</option>
+                            <option value="14" {{ ($a->kamar == '14' ? 'selected' : '') }}>14</option>
+                            <option value="15" {{ ($a->kamar == '15' ? 'selected' : '') }}>15</option>
+                            <option value="16" {{ ($a->kamar == '16' ? 'selected' : '') }}>16</option>
+                            <option value="17" {{ ($a->kamar == '17' ? 'selected' : '') }}>17</option>
+                            <option value="18" {{ ($a->kamar == '18' ? 'selected' : '') }}>18</option>
+                            <option value="19" {{ ($a->kamar == '19' ? 'selected' : '') }}>19</option>
+                            <option value="20" {{ ($a->kamar == '20' ? 'selected' : '') }}>20</option>
+                            <option value="21" {{ ($a->kamar == '21' ? 'selected' : '') }}>21</option>
+                            <option value="22" {{ ($a->kamar == '22' ? 'selected' : '') }}>22</option>
+                            <option value="23" {{ ($a->kamar == '23' ? 'selected' : '') }}>23</option>
+                            <option value="24" {{ ($a->kamar == '24' ? 'selected' : '') }}>24</option>
+                            <option value="25" {{ ($a->kamar == '25' ? 'selected' : '') }}>25</option>
+                            <option value="26" {{ ($a->kamar == '26' ? 'selected' : '') }}>26</option>
+                            <option value="27" {{ ($a->kamar == '27' ? 'selected' : '') }}>27</option>
+                            <option value="28" {{ ($a->kamar == '28' ? 'selected' : '') }}>28</option>
+                            <option value="29" {{ ($a->kamar == '29' ? 'selected' : '') }}>29</option>
+                            <option value="30" {{ ($a->kamar == '30' ? 'selected' : '') }}>30</option>
+                            </select>
+                        </div>
+                        
+                       
+                        <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
+                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                    </form>
+                </div>
+                <!-- end /.modal-body -->
+            </div>
+        </div>
+    </div>
+    @php $s++; @endphp
+@endforeach
+
 <div class="modal fade rating_modal item_remove_modal" id="hapusAlamatConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
