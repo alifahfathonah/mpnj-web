@@ -54,8 +54,14 @@
                                             <i class="fa fa-podcast" aria-hidden="true"></i>
                                         </a>
                                     @endif
+
+                                    @if ($a->santri == 'Y')
+                                    <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalSantriEdit{{ $n }}" data-toggle="modal">Edit S
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    @else
                                     <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalEdit{{ $n }}" data-toggle="modal">Edit
                                         <i class="fa fa-edit" aria-hidden="true"></i>
+                                    @endif
                                     </button>
                                     <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal" data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}" onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
                                     <i class="fa fa-trash" aria-hidden="true"></i>
