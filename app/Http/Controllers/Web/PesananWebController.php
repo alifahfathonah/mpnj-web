@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -35,6 +36,10 @@ class PesananWebController extends Controller
                 'item' => $value->transaksi_detail
             ]);
         }
+
+        $page = $request->query('page');
+
+        $data['order'] = new LengthAwarePaginator(array_slice($orderCollect->toArray(), ($page - 1) * 1, 1), count($orderCollect), 1, $page, ["path" => "pesanan"]);
         return view('web/web_profile', $data);
     }
 
