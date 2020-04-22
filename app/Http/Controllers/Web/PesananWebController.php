@@ -17,14 +17,16 @@ class PesananWebController extends Controller
     public function index(Request $request)
     {
         $order = Transaksi::with(['transaksi_detail', 'user', 'transaksi_detail.produk.foto_produk'])
-                            ->where('user_id', Auth::check())
+                            ->where('user_id', Auth::id())
+//                            ->where('status_order')
                             ->groupBy('kode_transaksi')
+//                            ->take(3)
                             ->get();
         // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
         //     ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
-        $data['order'] = collect();
+        $orderCollect = collect();
         foreach ($order as $key => $value) {
-            $data['order']->push([
+            $orderCollect->push([
                 'kode_transaksi' => $value->kode_transaksi,
                 'waktu_transaksi' => $value->waktu_transaksi,
                 'status_transaksi' => $value->status_transaksi,
