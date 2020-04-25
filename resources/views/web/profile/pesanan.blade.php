@@ -10,34 +10,33 @@
         @endif
         <nav style="width: 100%">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'semua' || app('request')->input('tab') == '') active @endif"
-                    id="nav-semua-tab" data-toggle="tab" href="#semua" role="tab" aria-controls="nav-home"
+                <a href="{{ URL::to('pesanan') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'semua' || app('request')->input('tab') == '') active @endif"
+                    id="semua" role="tab" aria-controls="nav-home"
                     aria-selected="true">Semua</a>
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'pending') active @endif"
-                    id="nav-pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="nav-home"
+                <a href="{{ URL::to('pesanan?tab=pending') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'pending') active @endif"
+                    id="pending" href="#pending" role="tab" aria-controls="nav-home"
                     aria-selected="true">Menunggu Konfirmasi</a>
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'verifikasi') active @endif"
-                    id="nav-verifikasi-tab" data-toggle="tab" href="#verifikasi" role="tab" aria-controls="nav-profile"
+                <a href="{{ URL::to('pesanan?tab=verifikasi') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'verifikasi') active @endif"
+                    id="verifikasi" role="tab" aria-controls="nav-profile"
                     aria-selected="false">Telah Dikonfirmasi</a>
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'packing') active @endif"
-                    id="nav-packing-tab" data-toggle="tab" href="#packing" role="tab" aria-controls="nav-contact"
+                <a href="{{ URL::to('pesanan?tab=packing') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'packing') active @endif"
+                    id="packing" role="tab" aria-controls="nav-contact"
                     aria-selected="false">Dikemas</a>
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'dikirim') active @endif"
-                    id="nav-dikirim-tab" data-toggle="tab" href="#dikirim" role="tab" aria-controls="nav-contact"
+                <a href="{{ URL::to('pesanan?tab=dikirim') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'dikirim') active @endif"
+                    id="dikirim" role="tab" aria-controls="nav-contact"
                     aria-selected="false">Dikirim</a>
-                <a class="nav-item nav-link @if(app('request')->input('tab') == 'sukses') active @endif"
-                    id="nav-sukses-tab" data-toggle="tab" href="#sukses" role="tab" aria-controls="nav-contact"
+                <a href="{{ URL::to('pesanan?tab=sukses') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'sukses') active @endif"
+                    id="sukses" role="tab" aria-controls="nav-contact"
                     aria-selected="false">Telah Sampai</a>
-                <a class="nav-item nav-link"
-                    id="nav-batal-tab @if(app('request')->input('tab') == 'batal') active @endif" data-toggle="tab"
-                    href="#batal" role="tab" aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
+                <a href="{{ URL::to('pesanan?tab=batal') }}" class="nav-item nav-link @if(app('request')->input('tab') == 'batal') active @endif"
+                    id="batal" role="tab" aria-controls="nav-contact" aria-selected="false">Dibatalkan</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'semua' || app('request')->input('tab') == '') show active @endif"
-                id="semua" role="tabpanel" aria-labelledby="nav-semua-tab">
+            <div class="tab-pane fade {{ app('request')->input('tab') }} show active "
+                id="tab-result" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="table-pesanan">
                         <thead>
                             <tr>
                                 <th>Produk</th>
