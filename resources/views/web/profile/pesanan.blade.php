@@ -131,597 +131,102 @@
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'pending') show active @endif" id="pending"
-                role="tabpanel" aria-labelledby="nav-pending-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Menunggu Konfirmasi'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Menunggu Konfirmasi')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Dibayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-
-                                    @else
-                                    {{ $val->transaksi->proses_pembayaran}}
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'verifikasi') show active @endif"
-                id="verifikasi" role="tabpanel" aria-labelledby="nav-verifikasi-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Telah Dikonfirmasi'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Telah Dikonfirmasi')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Dibayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'packing') show active @endif" id="packing"
-                role="tabpanel" aria-labelledby="nav-packing-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Dikemas'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Dikemas')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Bayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'dikirim') show active @endif" id="dikirim"
-                role="tabpanel" aria-labelledby="nav-dikirim-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Dikirim'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Dikirim')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Dibayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'sukses') show active @endif" id="sukses"
-                role="tabpanel" aria-labelledby="nav-sukses-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Telah Sampai'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Telah Sampai')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Dibayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-
-                                    @else
-                                    {{ $val->transaksi->proses_pembayaran}}
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade @if(app('request')->input('tab') == 'batal') show active @endif" id="batal"
-                role="tabpanel" aria-labelledby="nav-batal-tab">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th></th>
-                                <th>Informasi Tambahan</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($order as $v)
-                            @if($v['item']->contains('status_order', 'Dibatalkan'))
-                            <tr id="dataCart" style="background-color: #ccffcc;">
-                                <td colspan="4"><strong>{{ $v['kode_transaksi'] }}</strong></td>
-                                <td><strong>{{ $v['waktu_transaksi'] }}</strong></td>
-                            </tr>
-                            @foreach($v['item'] as $val)
-                            @if($val->status_order == 'Dibatalkan')
-                            <tr>
-                                <td width="95">
-                                    <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
-                                        class="img-xs border">
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('produk/'.$val->produk->slug) }}">
-                                        <p class="title mb-0">{{ $val->produk->nama_produk }}</p>
-                                    </a>
-                                    <var class="price text-muted">
-                                        @if($val['diskon'] == 0)
-                                        <span style="color: black">@currency($val->harga_jual)</span>
-                                        @else
-                                        <strike style="color: red">@currency($val->harga_jual)</strike>
-                                        <span style="color: black">| @currency($val->harga_jual - ($val->diskon / 100 *
-                                            $val->harga_jual))</span>
-                                        @endif
-                                    </var>
-                                </td>
-                                <td>
-                                    Jumlah : {{ $val->jumlah }} <br>
-                                    Kurir : {{ $val->kurir }} <br>
-                                    Service : {{ $val->service }} <br>
-                                    Ongkir : @currency($val->ongkir)
-                                </td>
-                                <td>
-                                    @currency((($val->harga_jual - ($val->diskon / 100 * $val->harga_jual))
-                                    *
-                                    $val->jumlah) + $val->ongkir)
-                                </td>
-                                <td width="250">
-                                    @if($val->transaksi->proses_pembayaran == 'sudah' ||
-                                    $val->transaksi->proses_pembayaran == 'terima')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-check" style="color: #00e600;"></i>
-                                            Sudah Dibayar
-                                        </li>
-                                    </ul>
-
-                                    @elseif($val->transaksi->proses_pembayaran == 'belum')
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-times" style="color: red;"></i>
-                                            {{ $val->transaksi->proses_pembayaran}} bayar
-                                        </li>
-                                    </ul>
-
-                                    @else
-                                    {{ $val->transaksi->proses_pembayaran}}
-                                    @endif
-                                    <br>
-                                    <ul style="list-style-type:none;">
-                                        <li>
-                                            <i class="fa fa-box" style="color: #3377ff;"></i>
-                                            {{ $val->status_order}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            <tr>
-                                <td colspan="4">
-                                    <h6> Total : @currency($v['total_bayar'])</h6>
-                                </td>
-                                <td>
-                                    <a href="{{ URL::to('pesanan/detail/'.$v['kode_transaksi']) }}"
-                                        class="btn btn-success"> Lihat Pesanan </a>
-                                </td>
-                            </tr>
-                            @endif
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        $(function () {--}}
+{{--            $(".nav-link").click(function () {--}}
+{{--               // alert(this.id);--}}
+{{--                window.history.pushState({"html": "a","pageTitle":"yolo"},"", `/pesanan?tab=${this.id}`);--}}
+{{--                $.ajax({--}}
+{{--                    async: true,--}}
+{{--                    url: `/pesanan?tab=${this.id}`,--}}
+{{--                    type: 'GET',--}}
+{{--                    success: function(response) {--}}
+{{--                        console.log(response);--}}
+{{--                        if (response.data.length > 0) {--}}
+{{--                            let urlPesananDetail = '{{ URL::to('pesanan/detail/') }}';--}}
+{{--                            response.data.forEach((v, i) => {--}}
+{{--                                $("#tab-body").append(`--}}
+{{--                                    <tr id="dataCart${i}" style="background-color: #ccffcc;">--}}
+{{--                                       <td colspan="4"><strong>${v.kode_transaksi}</strong></td>--}}
+{{--                                       <td><strong>${v.waktu_transaksi}</strong></td>--}}
+{{--                                    </tr>--}}
+{{--                                `);--}}
+{{--                                v.item.forEach((item, j) => {--}}
+{{--                                    let imgAsset = '{{ asset("assets/foto_produk/") }}';--}}
+{{--                                    let urlProduk = '{{ URL::to("produk/") }}';--}}
+
+{{--                                    $(`#dataCart${i}`).after(`--}}
+{{--                                        <tr id="dataTrx${j}">--}}
+{{--                                            <td width="95">--}}
+{{--                                                <img src="${imgAsset}/${item.produk.foto_produk[0].foto_produk}" class="img-xs border">--}}
+{{--                                            </td>--}}
+{{--                                            <td>--}}
+{{--                                                <a href="${urlProduk}/${item.produk.slug}">--}}
+{{--                                                    <p class="title mb-0">${item.produk.nama_produk}</p>--}}
+{{--                                                </a>--}}
+{{--                                                <var class="price text-muted" >--}}
+{{--                                                    ${item.diskon == 0--}}
+{{--                                        ? `<span style="color: black">${item.harga_jual}</span>`--}}
+{{--                                        : `<span style="color: black">${item.harga_jual - (item.diskon / 100 * item.harga_jual)}</span>`--}}
+{{--                                        }--}}
+{{--                                                </var>--}}
+{{--                                            </td>--}}
+{{--                                            <td>--}}
+{{--                                                Jumlah : ${item.jumlah} <br>--}}
+{{--                                                Kurir :  ${item.kurir} <br>--}}
+{{--                                                Service : ${item.service} <br>--}}
+{{--                                                Ongkir : ${item.ongkir}--}}
+{{--                                            </td>--}}
+{{--                                            <td>--}}
+{{--                                                ${(item.harga_jual - (item.diskon / 100 * item.harga_jual)) * item.jumlah + item.ongkir}--}}
+{{--                                            </td>--}}
+{{--                                            <td width="250">--}}
+{{--                                                ${v.proses_pembayaran == 'sudah' || v.proses_pembayaran == 'terima'--}}
+{{--                                        ? `<ul style="list-style-type:none;">--}}
+{{--                                                            <li><i class="fa fa-check" style="color: #00e600;"></i> Sudah Dibayar </li>--}}
+{{--                                                       </ul>`--}}
+{{--                                        : (v.proses_pembayaran == 'belum') ?--}}
+{{--                                            `<ul style="list-style-type:none;">--}}
+{{--                                                            <li><i class="fa fa-times" style="color: #00e600;"></i> ${v.proses_pembayaran} Bayar </li>--}}
+{{--                                                        </ul>`--}}
+{{--                                            : ''--}}
+{{--                                        }--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    `);--}}
+{{--                                });--}}
+{{--                                $(`#dataTrx${i}`).after(`--}}
+{{--                                    <tr>--}}
+{{--                                        <td colspan="4">--}}
+{{--                                            <h6> Total : ${v.total_bayar}</h6>--}}
+{{--                                        </td>--}}
+{{--                                        <td>--}}
+{{--                                            <a href="${urlPesananDetail}/${v.kode_transaksi}"--}}
+{{--                                                class="btn btn-success">--}}
+{{--                                                Lihat Pesanan </a>--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
+{{--                                `);--}}
+{{--                            });--}}
+{{--                        } else {--}}
+{{--                            $("#tab-body").html(`--}}
+{{--                                <tr>--}}
+{{--                                    <td colspan="5" style="text-align: center"> Tidak Ada Data</td>--}}
+{{--                                </tr>--}}
+{{--                            `);--}}
+{{--                        }--}}
+{{--                        console.log($("#tab-body tr"));--}}
+{{--                    },--}}
+{{--                    error: function(error) {--}}
+{{--                        console.log(error);--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endpush--}}
