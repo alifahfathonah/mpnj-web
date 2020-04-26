@@ -388,8 +388,8 @@
                    url: '{{ URL::to('api/gateway/kota?provinsi=') }}'+ `${$(this).val()}`,
                    type: 'GET',
                    success: function(response) {
-                       // console.log(response.kota);
                        $("#kota option").remove();
+                       $("#kota").prop('disabled', false);
                        response.kota.rajaongkir.results.map(e => {
                            $("#kota").append(`
                                 <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
