@@ -94,23 +94,23 @@
                     <div class="form-group">
                         <label>Provinsi</label>
                         <select name="provinsi" id="provinsi" class="form-control">
-                            <option>-- PILIH PROVINSI --</option>
-                            @foreach ($provinsi->rajaongkir->results as $p)
-                                <option value="{{ $p->province_id }}">{{ $p->province }}</option>
-                            @endforeach
+                            <option id="provinsi_option">-- PILIH PROVINSI --</option>
+{{--                            @foreach ($provinsi->rajaongkir->results as $p)--}}
+{{--                                <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
+{{--                            @endforeach--}}
                         </select>
                         <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Kota</label>
-                        <select name="kota" id="kota" class="form-control">
+                        <select name="kota" id="kota" class="form-control" disabled>
                             <option>-- PILIH KOTA --</option>
                         </select>
                         <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Kecamatan</label>
-                        <select name="kecamatan" id="kecamatan" class="form-control">
+                        <select name="kecamatan" id="kecamatan" class="form-control" disabled>
                             <option>-- PILIH Kecamatan --</option>
                         </select>
                         <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
@@ -264,13 +264,13 @@
                             <label>Provinsi</label>
                             <select name="provinsi" id="editProvinsi{{ $m }}" class="form-control" onchange="editProvinsi({{ $m }})">
                                 <option>-- PILIH PROVINSI --</option>
-                                @foreach ($provinsi->rajaongkir->results as $p)
-                                    @if($p->province_id == $a->provinsi_id)
-                                        <option value="{{ $p->province_id }}" selected>{{ $p->province }}</option>
-                                    @else
-                                        <option value="{{ $p->province_id }}">{{ $p->province }}</option>
-                                    @endif
-                                @endforeach
+{{--                                @foreach ($provinsi->rajaongkir->results as $p)--}}
+{{--                                    @if($p->province_id == $a->provinsi_id)--}}
+{{--                                        <option value="{{ $p->province_id }}" selected>{{ $p->province }}</option>--}}
+{{--                                    @else--}}
+{{--                                        <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
                             </select>
                             <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi{{ $m }}" class="form-control">
                         </div>
@@ -278,15 +278,15 @@
                             <label>Kota</label>
                             <select name="kota" id="editKota{{ $m }}" class="form-control" onchange="editKota({{ $m }})">
                                 <option>-- PILIH KOTA --</option>
-                                @foreach ($kota->rajaongkir->results as $k)
-                                    @if($k->city_id == $a->city_id && $k->province_id == $a->provinsi_id)
-                                        <option value="{{ $k->city_id }}" selected>{{ $k->type }} {{ $k->city_name }}</option>
-                                     @else
-                                        @if($k->province_id == $a->provinsi_id)
-                                            <option value="{{ $k->city_id }}">{{ $k->type }} {{ $k->city_name }}</option>
-                                        @endif
-                                    @endif
-                                @endforeach
+{{--                                @foreach ($kota->rajaongkir->results as $k)--}}
+{{--                                    @if($k->city_id == $a->city_id && $k->province_id == $a->provinsi_id)--}}
+{{--                                        <option value="{{ $k->city_id }}" selected>{{ $k->type }} {{ $k->city_name }}</option>--}}
+{{--                                     @else--}}
+{{--                                        @if($k->province_id == $a->provinsi_id)--}}
+{{--                                            <option value="{{ $k->city_id }}">{{ $k->type }} {{ $k->city_name }}</option>--}}
+{{--                                        @endif--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
                             </select>
                             <input type="hidden" name="nama_kota" id="edit_nama_kota{{ $m }}" class="form-control">
                         </div>
