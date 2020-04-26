@@ -56,7 +56,7 @@
                                     @endif
 
                                     @if ($a->santri == 'Y')
-                                    <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalSantriEdit{{ $n }}" data-toggle="modal">Edit S
+                                    <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalSantriEdit{{ $n }}" data-toggle="modal">Edit
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     @else
                                     <button class="btn btn--icon btn-sm btn--round btn-secondary" data-target="#modalEdit{{ $n }}" data-toggle="modal">Edit
