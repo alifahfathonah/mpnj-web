@@ -363,6 +363,24 @@
 @push('scripts')
     <script>
         $(function () {
+            $("#provinsi").one('click', function () {
+                $.ajax({
+                    async: true,
+                    url: '{{ URL::to('api/gateway/provinsi') }}',
+                    type: 'GET',
+                    success: function(response) {
+                        response.provinsi.rajaongkir.results.map(e => {
+                            $("#provinsi").append(`
+                                <option value='${e.province_id}'>${e.province}</option>
+                            `);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+
            $("#provinsi").on('change', function () {
                $("#nama_provinsi").val($("#provinsi option:selected").html());
                $.ajax({
