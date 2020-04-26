@@ -383,18 +383,19 @@
 
            $("#provinsi").on('change', function () {
                $("#nama_provinsi").val($("#provinsi option:selected").html());
+               $("#kota").prop('disabled', true);
                $.ajax({
                    async: true,
                    url: '{{ URL::to('api/gateway/kota?provinsi=') }}'+ `${$(this).val()}`,
                    type: 'GET',
                    success: function(response) {
                        $("#kota option").remove();
-                       $("#kota").prop('disabled', false);
                        response.kota.rajaongkir.results.map(e => {
                            $("#kota").append(`
                                 <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
                             `);
                        });
+                       $("#kota").prop('disabled', false);
                    },
                    error: function(error) {
                        console.log(error);
