@@ -85,21 +85,21 @@ class ProfileWebController extends Controller
             ->where('user_id', Auth::id())
             ->get();
 
-        $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-        $data['provinsi'] = json_decode($request, false);
-
-        $request = $this->client->get('https://pro.rajaongkir.com/api/city', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-
-        $data['kota'] = json_decode($request, false);
+//        $response = $this->client->get('http://guzzlephp.org');
+//        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
+//            'headers' => [
+//                'key' => $this->token
+//            ]
+//        ])->getBody()->getContents();
+//        $data['provinsi'] = json_decode($request, false);
+//
+//        $request = $this->client->get('https://pro.rajaongkir.com/api/city', [
+//            'headers' => [
+//                'key' => $this->token
+//            ]
+//        ])->getBody()->getContents();
+//
+//        $data['kota'] = json_decode($request, false);
 
         return view('web/web_profile', $data);
     }
