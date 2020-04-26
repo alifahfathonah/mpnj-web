@@ -409,8 +409,8 @@
                    url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
                    type: 'GET',
                    success: function(response) {
-                       // console.log(response);
                        $("#kecamatan option").remove();
+                       $("#kecamatan").prop('disabled', false);
                        response.kecamatan.rajaongkir.results.map(e => {
                            $("#kecamatan").append(`
                                 <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
