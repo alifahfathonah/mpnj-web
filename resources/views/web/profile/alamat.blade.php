@@ -384,6 +384,15 @@
            $("#provinsi").on('change', function () {
                $("#nama_provinsi").val($("#provinsi option:selected").html());
                $("#kota").prop('disabled', true);
+               $("#kota option").remove();
+               $("#kota").append(`
+                    <option>-- PILIH KOTA --</option>
+               `);
+               $("#kecamatan option").remove();
+               $("#kecamatan").prop('disabled', true);
+               $("#kecamatan").append(`
+                    <option>-- PILIH Kecamatan --</option>
+               `);
                $.ajax({
                    async: true,
                    url: '{{ URL::to('api/gateway/kota?provinsi=') }}'+ `${$(this).val()}`,
