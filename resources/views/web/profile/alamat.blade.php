@@ -405,18 +405,19 @@
 
            $("#kota").on('change', function () {
                $("#nama_kota").val($("#kota option:selected").html());
+               $("#kecamatan").prop('disabled', true);
                $.ajax({
                    async: true,
                    url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
                    type: 'GET',
                    success: function(response) {
                        $("#kecamatan option").remove();
-                       $("#kecamatan").prop('disabled', false);
                        response.kecamatan.rajaongkir.results.map(e => {
                            $("#kecamatan").append(`
                                 <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
                            `);
                        });
+                       $("#kecamatan").prop('disabled', false);
                    },
                    error: function(error) {
                        console.log(error);
