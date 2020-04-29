@@ -235,85 +235,66 @@
     </div>
 @endforeach
 
-@php $m = 1; @endphp
-@foreach($alamat as $a)
-    <div class="modal fade rating_modal item_remove_modal" id="modalEdit{{ $m }}" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Edit Data Alamat</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- end /.modal-header -->
-
-                <div class="modal-body">
-                    <form method="post" action="{{ URL::to('profile/alamat/ubah/'.$a->id_alamat) }}">
-                        @csrf
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
-                        </div>
-                        <div class="form-group">
-                            <label>Nomor Telepon</label>
-                            <input type="text" name="nomor_telepon" class="form-control" value="{{ $a->nomor_telepon }}">
-                        </div>
-                        <div class="form-group">
-                            <label>Provinsi</label>
-                            <select name="provinsi" id="editProvinsi{{ $m }}" class="form-control" onchange="editProvinsi({{ $m }})">
-                                <option>-- PILIH PROVINSI --</option>
-{{--                                @foreach ($provinsi->rajaongkir->results as $p)--}}
-{{--                                    @if($p->province_id == $a->provinsi_id)--}}
-{{--                                        <option value="{{ $p->province_id }}" selected>{{ $p->province }}</option>--}}
-{{--                                    @else--}}
-{{--                                        <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
-                            </select>
-                            <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi{{ $m }}" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Kota</label>
-                            <select name="kota" id="editKota{{ $m }}" class="form-control" onchange="editKota({{ $m }})">
-                                <option>-- PILIH KOTA --</option>
-{{--                                @foreach ($kota->rajaongkir->results as $k)--}}
-{{--                                    @if($k->city_id == $a->city_id && $k->province_id == $a->provinsi_id)--}}
-{{--                                        <option value="{{ $k->city_id }}" selected>{{ $k->type }} {{ $k->city_name }}</option>--}}
-{{--                                     @else--}}
-{{--                                        @if($k->province_id == $a->provinsi_id)--}}
-{{--                                            <option value="{{ $k->city_id }}">{{ $k->type }} {{ $k->city_name }}</option>--}}
-{{--                                        @endif--}}
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
-                            </select>
-                            <input type="hidden" name="nama_kota" id="edit_nama_kota{{ $m }}" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Kecamatan</label>
-                            <select name="kecamatan" id="editKecamatan" class="form-control" onchange="editKecamatan({{ $m }})">
-                                <option>-- PILIH Kecamatan --</option>
-                            </select>
-                            <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Kode Pos</label>
-                            <input type="text" name="kode_pos" id="kode_pos{{ $m }}" class="form-control" value="{{ $a->kode_pos }}">
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat</label>
-                            <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10">{{ $a->alamat_lengkap }}</textarea>
-                        </div>
-                        <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
-                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
-                    </form>
-                </div>
-                <!-- end /.modal-body -->
+<div class="modal fade rating_modal item_remove_modal" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Data Alamat</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="post" action="{{ URL::to('profile/alamat/ubah/') }}">
+                    @csrf
+                    <input type="hidden" name="edit_id_alamat" id="edit_id_alamat">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" name="nama" id="editNama" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon</label>
+                        <input type="text" name="nomor_telepon" id="editNomorTelepon" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <select name="provinsi" id="editProvinsi" class="form-control">
+                            <option>-- Loading --</option>
+                        </select>
+                        <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Kota</label>
+                        <select name="kota" id="editKota" class="form-control">
+                            <option>-- Loading --</option>
+                        </select>
+                        <input type="hidden" name="nama_kota" id="edit_nama_kota" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Kecamatan</label>
+                        <select name="kecamatan" id="editKecamatan" class="form-control">
+                            <option>-- Loading --</option>
+                        </select>
+                        <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <input type="text" name="kode_pos" id="editKodePos" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10" id="editAlamatLengkap"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
         </div>
     </div>
-    @php $m++; @endphp
-@endforeach
+</div>
 
 <div class="modal fade rating_modal item_remove_modal" id="hapusAlamatConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
