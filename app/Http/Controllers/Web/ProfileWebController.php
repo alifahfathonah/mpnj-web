@@ -120,7 +120,7 @@ class ProfileWebController extends Controller
         }
     }
 
-    public function ubah_alamat(Request $request, $id)
+    public function ubah_alamat(Request $request)
     {
         $data = [
             'nama' => $request->nama,
@@ -136,7 +136,7 @@ class ProfileWebController extends Controller
             'user_id' => Auth::id()
         ];
 
-        $ubah = Alamat::where('id_alamat', $id)->update($data);
+        $ubah = Alamat::where('id_alamat', $request->edit_id_alamat)->update($data);
         if ($ubah) {
             return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
