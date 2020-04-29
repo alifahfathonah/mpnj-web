@@ -79,29 +79,18 @@ class ProfileWebController extends Controller
         return view('web/web_profile');
     }
 
-    public function alamat()
+    public function alamat(Request $request)
     {
-        $data['alamat'] = Alamat::with('user')
-            ->where('user_id', Auth::id())
-            ->get();
-
-//        $response = $this->client->get('http://guzzlephp.org');
-//        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
-//            'headers' => [
-//                'key' => $this->token
-//            ]
-//        ])->getBody()->getContents();
-//        $data['provinsi'] = json_decode($request, false);
-//
-//        $request = $this->client->get('https://pro.rajaongkir.com/api/city', [
-//            'headers' => [
-//                'key' => $this->token
-//            ]
-//        ])->getBody()->getContents();
-//
-//        $data['kota'] = json_decode($request, false);
-
-        return view('web/web_profile', $data);
+        if ($request->ajax()) {
+            $id_alamat = $request->id_alamat;
+            $alamat = Alamat::where('id_alamat', $id_alamat)->first();
+            return response()->json($alamat, 200);
+        } else {
+            $data['alamat'] = Alamat::with('user')
+                ->where('user_id', Auth::id())
+                ->get();
+            return view('web/web_profile', $data);
+        }
     }
 
     public function simpan_alamat(Request $request)
