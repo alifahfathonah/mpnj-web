@@ -19,7 +19,7 @@
                     <table class="ui celled table" style="width:100%;">
                         <tr>
                             <td colspan="2">
-                                <button class="btn btn--md btn--round btn-primary" data-target="#modalAlamat" data-toggle="modal">Tambah
+                                <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn--md btn--round btn-primary" data-target="#modalAlamatSantri" data-toggle="modal">Tambah Alamat Santri
