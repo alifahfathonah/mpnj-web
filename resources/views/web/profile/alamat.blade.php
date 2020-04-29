@@ -343,6 +343,7 @@
 @push('scripts')
     <script>
         $(function () {
+            
             $("#provinsi").one('click', function () {
                 $.ajax({
                     async: true,
@@ -361,7 +362,7 @@
                 });
             });
 
-           $("#provinsi").on('change', function () {
+            $("#provinsi").on('change', function () {
                $("#nama_provinsi").val($("#provinsi option:selected").html());
                $("#kota").prop('disabled', true);
                $("#kota option").remove();
@@ -392,7 +393,7 @@
                });
            });
 
-           $("#kota").on('change', function () {
+            $("#kota").on('change', function () {
                $("#nama_kota").val($("#kota option:selected").html());
                $("#kecamatan").prop('disabled', true);
                $.ajax({
@@ -418,47 +419,146 @@
                 $("#nama_kecamatan").val($("#kecamatan option:selected").html());
             });
 
-        });
+            $(".btnEditALamat").on('click', async function (e) {
+                resetFormEdit();
+                $("#modalEdit").modal('show');
 
-        function editProvinsi(i) {
-            $(`#edit_nama_provinsi${i}`).val($(`#editProvinsi${i} option:selected`).html());
-            $.ajax({
-                async: true,
-                url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + $(`#editProvinsi${i}`).val(),
-                type: 'GET',
-                success: function(response) {
-                    // console.log(response.kota);
-                    $(`#editKota${i} option`).remove();
-                    response.kota.rajaongkir.results.map(e => {
-                        $(`#editKota${i}`).append(`
+                $.ajax({
+                    url: window.location.href,
+                    type: 'GET',
+                    data: {
+                      id_alamat: $(this).data('id_alamat')
+                    },
+                    success: function (response) {
+                        $("#edit_id_alamat").val(response.id_alamat);
+                        $("#edit_nama_provinsi").val(response.nama_provinsi);
+                        $("edit_nama_kota").val(response.nama_kota);
+                        $("edit_nama_kecamatan").val(response.nama_kecamatan);
+                        $("#editNama").val(response.nama);
+                        $("#editNomorTelepon").val(response.nomor_telepon);
+                        $("#editKodePos").val(response.kode_pos);
+                        $("#editAlamatLengkap").val(response.alamat_lengkap);
+
+                        let provinsi = $.ajax({
+                            url: '{{ URL::to('api/gateway/provinsi') }}',
+                            type: 'GET'
+                        });
+
+                        let kota = $.ajax({
+                            url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + response.provinsi_id,
+                            type: 'GET'
+                        });
+
+                        let kecamatan = $.ajax({
+                            url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + response.city_id,
+                            type: 'GET'
+                        });
+
+                        $.when(provinsi, kota, kecamatan)
+                            .done(function (p, k, kec) {
+                                p[0].provinsi.rajaongkir.results.map(e => {
+                                    if (e.province_id == response.provinsi_id) {
+                                        $("#editProvinsi").append(`
+                                    <option value='${e.province_id}' selected='true'>${e.province}</option>
+                                `);
+                                    } else {
+                                        $("#editProvinsi").append(`
+                                    <option value='${e.province_id}'>${e.province}</option>
+                                `);
+                                    }
+                                });
+
+                                k[0].kota.rajaongkir.results.map(e => {
+                                    if (e.city_id == response.city_id) {
+                                        $("#editKota").append(`
+                                    <option value='${e.city_id}' selected='true'>${e.type} ${e.city_name}</option>
+                                `);
+                                    } else {
+                                        $("#editKota").append(`
+                                    <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
+                                `);
+                                    }
+                                });
+
+                                kec[0].kecamatan.rajaongkir.results.map(e => {
+                                    if (e.subdistrict_id == response.kecamatan_id) {
+                                        $("#editKecamatan").append(`
+                                    <option value='${e.subdistrict_id}' selected='true'>${e.subdistrict_name}</option>
+                                `);
+                                    } else {
+                                        $("#editKecamatan").append(`
+                                    <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
+                                `);
+                                    }
+                                });
+                            })
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+                // $("#editProvinsi").prop('disabled', true);
+                // let prov = await getProvinsi();
+                // await console.log(prov);
+            });
+
+            $("#editProvinsi").on('change', function () {
+                $(`#edit_nama_provinsi`).val($(`#editProvinsi option:selected`).html());
+                $.ajax({
+                    async: true,
+                    url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + $(`#editProvinsi`).val(),
+                    type: 'GET',
+                    success: function(response) {
+                        // console.log(response.kota);
+                        $(`#editKota option`).remove();
+                        response.kota.rajaongkir.results.map(e => {
+                            $(`#editKota`).append(`
                             <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
                         `);
-                    });
-                },
-                error: function(error) {
-                    console.log(error);
-                }
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
-        }
 
-        function editKota(i) {
-            $(`#edit_nama_kota${i}`).val($(`#editKota${i} option:selected`).html());
-            $.ajax({
-                async: true,
-                url: '{{ URL::to('api/gateway/kotaId?id=') }}' + $(`#editKota${i}`).val(),
-                type: 'GET',
-                success: function(response) {
-                    // console.log(response.kota);
-                    $(`#kode_pos${i}`).val(response.kota.rajaongkir.results.postal_code);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
+            $("#editKota").on('change', function () {
+                $(`#edit_nama_kota`).val($(`#editKota option:selected`).html());
+                $.ajax({
+                    async: true,
+                    url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $(`#editKota`).val(),
+                    type: 'GET',
+                    success: function(response) {
+                        // console.log(response.kota);
+                        $(`#editKecamatan option`).remove();
+                        response.kecamatan.rajaongkir.results.map(e => {
+                            $(`#editKecamatan`).append(`
+                            <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
+                        `);
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
-        }
 
-        function editKecamatan(i) {
-            $(`#edit_nama_kecamatan${i}`).val($(`#editKecamatan${i} option:selected`).html());
+            $("#editKecamatan").on('change', function () {
+                $(`#edit_nama_kecamatan`).val($(`#editKecamatan option:selected`).html());
+            })
+
+        });
+
+        function resetFormEdit() {
+            $("#edit_id_alamat").val('');
+            $("#editNama").val('');
+            $("#editNomorTelepon").val('');
+            $("#editKodePos").val('');
+            $("#editAlamatLengkap").val('');
+            $("#edit_nama_provinsi").val('');
+            $("edit_nama_kota").val('');
+            $("edit_nama_kecamatan").val('');
         }
 
         function hapusAlamat(id) {
