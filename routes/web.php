@@ -83,7 +83,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('rekening', 'ProfileWebController@rekening')->name('rekening');
         Route::get('alamat', 'ProfileWebController@alamat')->name('alamat')->middleware('checkUserLogin');
         Route::post('alamat/simpan', 'ProfileWebController@simpan_alamat');
-        Route::post('alamat/ubah/{id}', 'ProfileWebController@ubah_alamat');
+        Route::post('alamat/ubah', 'ProfileWebController@ubah_alamat');
         Route::get('alamat/hapus/{id}', 'ProfileWebController@hapus_alamat');
         Route::get('alamat/ubah/utama/{id}', 'ProfileWebController@ubah_alamat_utama');
     });
