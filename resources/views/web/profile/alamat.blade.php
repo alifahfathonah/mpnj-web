@@ -491,6 +491,10 @@
                                 `);
                                     }
                                 });
+
+                                $("#editProvinsi").prop('disabled', false);
+                                $("#editKota").prop('disabled', false);
+                                $("#editKecamatan").prop('disabled', false);
                             })
                     },
                     error: function (error) {
@@ -521,6 +525,7 @@
                     success: function(response) {
                         // console.log(response.kota);
                         $(`#editKota option`).remove();
+                        $("#editKota").prop('disabled', false);
                         response.kota.rajaongkir.results.map(e => {
                             $(`#editKota`).append(`
                             <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
@@ -542,6 +547,7 @@
                     success: function(response) {
                         // console.log(response.kota);
                         $(`#editKecamatan option`).remove();
+                        $(`#editKecamatan`).prop('disabled', false);
                         response.kecamatan.rajaongkir.results.map(e => {
                             $(`#editKecamatan`).append(`
                             <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
@@ -569,6 +575,22 @@
             $("#edit_nama_provinsi").val('');
             $("edit_nama_kota").val('');
             $("edit_nama_kecamatan").val('');
+            $("#editProvinsi").prop('disabled', true);
+            $("#editKota").prop('disabled', true);
+            $("#editKecamatan").prop('disabled', true);
+            $("#editProvinsi option").remove();
+            $("#editKota option").remove();
+            $("#editKecamatan option").remove();
+
+            $("#editProvinsi").append(`
+               <option>-- PILIH Provinsi --</option>
+            `);
+            $("#editKota").append(`
+               <option>-- PILIH KOTA --</option>
+            `);
+            $("#editKecamatan").append(`
+               <option>-- PILIH Kecamatan --</option>
+            `);
         }
 
         function hapusAlamat(id) {
