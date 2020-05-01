@@ -436,6 +436,55 @@
                             $("#wilayah").append(`
                                 <option value="Sunan Gunung Jati (A)" ${response.wilayah == 'Sunan Ampel (A)' ? 'selected' : ''}>Sunan Gunung Jati (A)</option>
                                 <option value="Sunan Ampel (B)" ${response.wilayah == 'Sunan Ampel (B)' ? 'selected' : ''}>Sunan Ampel (B)</option>
+                                <option value="Sunan Drajat (C)" ${response.wilayah == 'Sunan Drajat (C)' ? 'selected' : ''}>Sunan Drajat (C)</option>
+                                <option value="Sunan Kalijaga (D)" ${response.wilayah == 'Sunan Kalijaga (D)' ? 'selected' : ''}>Sunan Kalijaga (D)</option>
+                                <option value="Sunan Kudus (E)" ${response.wilayah == 'Sunan Kudus (E)' ? 'selected' : ''}>Sunan Kudus (E)</option>
+                                <option value="Sunan Muria (F)" ${response.wilayah == 'Sunan Muria (F)' ? 'selected' : ''}>Sunan Muria (F)</option>
+                                <option value="Jalaluddin Rumi (G)" ${response.wilayah == 'Jalaluddin Rumi (G)' ? 'selected' : ''}>Jalaluddin Rumi (G)</option>
+                                <option value="Nurus Shoba (H)" ${response.wilayah == 'Nurus Shoba (H)' ? 'selected' : ''}>Nurus Shoba (H)</option>
+                                <option value="Fatimatuz zahroh (I)" ${response.wilayah == 'Fatimatuz zahroh (I)' ? 'selected' : ''}>Fatimatuz zahroh (I)</option>
+                                <option value="Al-Amiri (J)" ${response.wilayah == 'Al-Amiri (J)' ? 'selected' : ''}>Al-Amiri (J)</option>
+                                <option value="Zaid bin Tsabit (K)" ${response.wilayah == 'Zaid bin Tsabit (K)' ? 'selected' : ''}>Zaid bin Tsabit (K)</option>
+                                <option value="Maulana Malik Ibrahim (M)" ${response.wilayah == 'Maulana Malik Ibrahim (M)' ? 'selected' : ''}>Maulana Malik Ibrahim (M)</option>
+                                <option value="Sunan Bonang (N)" ${response.wilayah == 'Sunan Bonang (N)' ? 'selected' : ''}>Sunan Bonang (N)</option>
+                                <option value="Wilayah Az Zainiyah (Dalbar)" ${response.wilayah == 'Wilayah Az Zainiyah (Dalbar)' ? 'selected' : ''}>Wilayah Az Zainiyah (Dalbar)</option>
+                                <option value="Wilayah Al Hasyimiyah (Daltim)" ${response.wilayah == 'Wilayah Al Hasyimiyah (Daltim)' ? 'selected' : ''}>Wilayah Al Hasyimiyah (Daltim)</option>
+                                <option value="Wilayah Al Mawaddah" ${response.wilayah == 'Wilayah Al Mawaddah' ? 'selected' : ''}>Wilayah Al Mawaddah</option>
+                                <option value="Wilayah Al Latifiyah" ${response.wilayah == 'Wilayah Al Latifiyah' ? 'selected' : ''}>Wilayah Al Latifiyah</option>
+                                <option value="Wilayah Fatimatus Zahro " ${response.wilayah == 'Wilayah Fatimatus Zahro ' ? 'selected' : ''}>Wilayah Fatimatus Zahro </option>
+                                <option value="Wilayah An-Nafi’iyah (Asrama Stikes)" ${response.wilayah == 'Wilayah An-Nafi’iyah (Asrama Stikes)' ? 'selected' : ''}>Wilayah An-Nafi’iyah (Asrama Stikes)</option>
+                            `);
+                            $("#kamar").append(`
+                                <option value="1" ${response.kamar == '1' ? 'selected' : ''}>1</option>
+                                <option value="2" ${response.kamar == '2' ? 'selected' : ''}>2</option>
+                                <option value="3" ${response.kamar == '3' ? 'selected' : ''}>3</option>
+                                <option value="4" ${response.kamar == '4' ? 'selected' : ''}>4</option>
+                                <option value="5" ${response.kamar == '5' ? 'selected' : ''}>5</option>
+                                <option value="6" ${response.kamar == '6' ? 'selected' : ''}>6</option>
+                                <option value="7" ${response.kamar == '7' ? 'selected' : ''}>7</option>
+                                <option value="8" ${response.kamar == '8' ? 'selected' : ''}>8</option>
+                                <option value="9" ${response.kamar == '9' ? 'selected' : ''}>9</option>
+                                <option value="10" ${response.kamar == '10' ? 'selected' : ''}>10</option>
+                                <option value="11" ${response.kamar == '11' ? 'selected' : ''}>11</option>
+                                <option value="12" ${response.kamar == '12' ? 'selected' : ''}>12</option>
+                                <option value="13" ${response.kamar == '13' ? 'selected' : ''}>13</option>
+                                <option value="14" ${response.kamar == '14' ? 'selected' : ''}>14</option>
+                                <option value="15" ${response.kamar == '15' ? 'selected' : ''}>15</option>
+                                <option value="16" {{ ($a->kamar == '16' ? 'selected' : '') }}>16</option>
+                                <option value="17" {{ ($a->kamar == '17' ? 'selected' : '') }}>17</option>
+                                <option value="18" {{ ($a->kamar == '18' ? 'selected' : '') }}>18</option>
+                                <option value="19" {{ ($a->kamar == '19' ? 'selected' : '') }}>19</option>
+                                <option value="20" {{ ($a->kamar == '20' ? 'selected' : '') }}>20</option>
+                                <option value="21" {{ ($a->kamar == '21' ? 'selected' : '') }}>21</option>
+                                <option value="22" {{ ($a->kamar == '22' ? 'selected' : '') }}>22</option>
+                                <option value="23" {{ ($a->kamar == '23' ? 'selected' : '') }}>23</option>
+                                <option value="24" {{ ($a->kamar == '24' ? 'selected' : '') }}>24</option>
+                                <option value="25" {{ ($a->kamar == '25' ? 'selected' : '') }}>25</option>
+                                <option value="26" {{ ($a->kamar == '26' ? 'selected' : '') }}>26</option>
+                                <option value="27" {{ ($a->kamar == '27' ? 'selected' : '') }}>27</option>
+                                <option value="28" {{ ($a->kamar == '28' ? 'selected' : '') }}>28</option>
+                                <option value="29" {{ ($a->kamar == '29' ? 'selected' : '') }}>29</option>
+                                <option value="30" {{ ($a->kamar == '30' ? 'selected' : '') }}>30</option>
                             `);
                         }
                     })
