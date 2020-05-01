@@ -131,65 +131,64 @@
     </div>
 </div>
 
-@foreach($alamat as $a)
-    <div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Tambah Data Alamat Santri</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- end /.modal-header -->
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Data Alamat Santri</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
 
-                <div class="modal-body">
-                    <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label>Alamat</label>
-                            <h3>Pondok Pesantren Nurul Jadid</h3>
-                            <h4>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</h4>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Santri</label>
-                            <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
-                        </div>
-                        <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
-                        <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
-                        <input type="hidden" name="nama_kecamatan" class="form-control" value="Paiton">
-                        <input type="hidden" name="kode_pos" class="form-control" value="67291">
-                        <input type="hidden" name="alamat_lengkap" class="form-control" value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
-                        <input type="hidden" name="provinsi" class="form-control" value="11">
-                        <input type="hidden" name="kota" class="form-control" value="369">
-                        <input type="hidden" name="kecamatan" class="form-control" value="5155">
-                        <input type="hidden" name="santri" class="form-control" value="Y">
+            <div class="modal-body">
+                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <h3>Pondok Pesantren Nurul Jadid</h3>
+                        <h4>Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton</h4>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Santri</label>
+                        <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
+                    </div>
+                    <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
+                    <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
+                    <input type="hidden" name="nama_kecamatan" class="form-control" value="Paiton">
+                    <input type="hidden" name="kode_pos" class="form-control" value="67291">
+                    <input type="hidden" name="alamat_lengkap" class="form-control" value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
+                    <input type="hidden" name="provinsi" class="form-control" value="11">
+                    <input type="hidden" name="kota" class="form-control" value="369">
+                    <input type="hidden" name="kecamatan" class="form-control" value="5155">
+                    <input type="hidden" name="santri" class="form-control" value="Y">
 
-                        <div class="form-group">
-                            <label>Wilayah</label>
-                            <select name="wilayah" class="form-control">
-                                <option value="Sunan Gunung Jati (A)" {{ ($a->wilayah == 'Sunan Gunung Jati (A)' ? 'selected' : '') }}>Sunan Gunung Jati (A)</option>
-                                <option value="Sunan Ampel (B)" {{ ($a->wilayah == 'Sunan Ampel (B)' ? 'selected' : '') }}>Sunan Ampel (B)</option>
-                                <option value="Sunan Drajat (C)" {{ ($a->wilayah == 'Sunan Drajat (C)' ? 'selected' : '') }}>Sunan Drajat (C)</option>
-                                <option value="Sunan Kalijaga (D)" {{ ($a->wilayah == 'Sunan Kalijaga (D)' ? 'selected' : '') }}>Sunan Kalijaga (D)</option>
-                                <option value="Sunan Kudus (E)" {{ ($a->wilayah == 'Sunan Kudus (E)' ? 'selected' : '') }}>Sunan Kudus (E)</option>
-                                <option value="Sunan Muria (F)" {{ ($a->wilayah == 'Sunan Muria (F)' ? 'selected' : '') }}>Sunan Muria (F)</option>
-                                <option value="Jalaluddin Rumi (G)" {{ ($a->wilayah == 'Jalaluddin Rumi (G)' ? 'selected' : '') }}>Jalaluddin Rumi (G)</option>
-                                <option value="Nurus Shoba (H)" {{ ($a->wilayah == 'Nurus Shoba (H)' ? 'selected' : '') }}>Nurus Shoba (H)</option>
-                                <option value="Fatimatuz zahroh (I)" {{ ($a->wilayah == 'Fatimatuz zahroh (I)' ? 'selected' : '') }}>Fatimatuz zahroh (I)</option>
-                                <option value="Al-Amiri (J)" {{ ($a->wilayah == 'Al-Amiri (J)' ? 'selected' : '') }}>Al-Amiri (J)</option>
-                                <option value="Zaid bin Tsabit (K)" {{ ($a->wilayah == 'Zaid bin Tsabit (K)' ? 'selected' : '') }}>Zaid bin Tsabit (K)</option>
-                                <option value="Maulana Malik Ibrahim (M)" {{ ($a->wilayah == 'Maulana Malik Ibrahim (M)' ? 'selected' : '') }}>Maulana Malik Ibrahim (M)</option>
-                                <option value="Sunan Bonang (N)" {{ ($a->wilayah == 'Sunan Bonang (N)' ? 'selected' : '') }}>Sunan Bonang (N)</option>
-                                <option value="Wilayah Az Zainiyah (Dalbar)" {{ ($a->wilayah == 'Wilayah Az Zainiyah (Dalbar)' ? 'selected' : '') }}>Wilayah Az Zainiyah (Dalbar)</option>
-                                <option value="Wilayah Al Hasyimiyah (Daltim)" {{ ($a->wilayah == 'Wilayah Al Hasyimiyah (Daltim)' ? 'selected' : '') }}>Wilayah Al Hasyimiyah (Daltim)</option>
-                                <option value="Wilayah Al Mawaddah" {{ ($a->wilayah == 'Wilayah Al Mawaddah' ? 'selected' : '') }}>Wilayah Al Mawaddah</option>
-                                <option value="Wilayah Al Latifiyah" {{ ($a->wilayah == 'Wilayah Al Latifiyah' ? 'selected' : '') }}>Wilayah Al Latifiyah</option>
-                                <option value="Wilayah Fatimatus Zahro " {{ ($a->wilayah == 'Wilayah Fatimatus Zahro ' ? 'selected' : '') }}>Wilayah Fatimatus Zahro </option>
-                                <option value="Wilayah An-Nafi’iyah (Asrama Stikes)" {{ ($a->wilayah == 'Wilayah An-Nafi’iyah (Asrama Stikes)' ? 'selected' : '') }}>Wilayah An-Nafi’iyah (Asrama Stikes)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
+                    <div class="form-group">
+                        <label>Wilayah</label>
+                        <select name="wilayah" class="form-control">
+                            <option value="Sunan Gunung Jati (A)" {{ ($a->wilayah == 'Sunan Gunung Jati (A)' ? 'selected' : '') }}>Sunan Gunung Jati (A)</option>
+                            <option value="Sunan Ampel (B)" {{ ($a->wilayah == 'Sunan Ampel (B)' ? 'selected' : '') }}>Sunan Ampel (B)</option>
+                            <option value="Sunan Drajat (C)" {{ ($a->wilayah == 'Sunan Drajat (C)' ? 'selected' : '') }}>Sunan Drajat (C)</option>
+                            <option value="Sunan Kalijaga (D)" {{ ($a->wilayah == 'Sunan Kalijaga (D)' ? 'selected' : '') }}>Sunan Kalijaga (D)</option>
+                            <option value="Sunan Kudus (E)" {{ ($a->wilayah == 'Sunan Kudus (E)' ? 'selected' : '') }}>Sunan Kudus (E)</option>
+                            <option value="Sunan Muria (F)" {{ ($a->wilayah == 'Sunan Muria (F)' ? 'selected' : '') }}>Sunan Muria (F)</option>
+                            <option value="Jalaluddin Rumi (G)" {{ ($a->wilayah == 'Jalaluddin Rumi (G)' ? 'selected' : '') }}>Jalaluddin Rumi (G)</option>
+                            <option value="Nurus Shoba (H)" {{ ($a->wilayah == 'Nurus Shoba (H)' ? 'selected' : '') }}>Nurus Shoba (H)</option>
+                            <option value="Fatimatuz zahroh (I)" {{ ($a->wilayah == 'Fatimatuz zahroh (I)' ? 'selected' : '') }}>Fatimatuz zahroh (I)</option>
+                            <option value="Al-Amiri (J)" {{ ($a->wilayah == 'Al-Amiri (J)' ? 'selected' : '') }}>Al-Amiri (J)</option>
+                            <option value="Zaid bin Tsabit (K)" {{ ($a->wilayah == 'Zaid bin Tsabit (K)' ? 'selected' : '') }}>Zaid bin Tsabit (K)</option>
+                            <option value="Maulana Malik Ibrahim (M)" {{ ($a->wilayah == 'Maulana Malik Ibrahim (M)' ? 'selected' : '') }}>Maulana Malik Ibrahim (M)</option>
+                            <option value="Sunan Bonang (N)" {{ ($a->wilayah == 'Sunan Bonang (N)' ? 'selected' : '') }}>Sunan Bonang (N)</option>
+                            <option value="Wilayah Az Zainiyah (Dalbar)" {{ ($a->wilayah == 'Wilayah Az Zainiyah (Dalbar)' ? 'selected' : '') }}>Wilayah Az Zainiyah (Dalbar)</option>
+                            <option value="Wilayah Al Hasyimiyah (Daltim)" {{ ($a->wilayah == 'Wilayah Al Hasyimiyah (Daltim)' ? 'selected' : '') }}>Wilayah Al Hasyimiyah (Daltim)</option>
+                            <option value="Wilayah Al Mawaddah" {{ ($a->wilayah == 'Wilayah Al Mawaddah' ? 'selected' : '') }}>Wilayah Al Mawaddah</option>
+                            <option value="Wilayah Al Latifiyah" {{ ($a->wilayah == 'Wilayah Al Latifiyah' ? 'selected' : '') }}>Wilayah Al Latifiyah</option>
+                            <option value="Wilayah Fatimatus Zahro " {{ ($a->wilayah == 'Wilayah Fatimatus Zahro ' ? 'selected' : '') }}>Wilayah Fatimatus Zahro </option>
+                            <option value="Wilayah An-Nafi’iyah (Asrama Stikes)" {{ ($a->wilayah == 'Wilayah An-Nafi’iyah (Asrama Stikes)' ? 'selected' : '') }}>Wilayah An-Nafi’iyah (Asrama Stikes)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Kamar</label>
                         <select name="kamar" class="form-control" readonly>
                             <option value="1" {{ ($a->kamar == '1' ? 'selected' : '') }}>1</option>
