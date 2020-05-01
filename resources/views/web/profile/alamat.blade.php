@@ -593,6 +593,12 @@
             `);
         }
 
+        function resetFormSantri() {
+            $("#nama_santri").val('');
+            $("#wilayah option").remove();
+            $("#kamar option").remove();
+        }
+
         function hapusAlamat(id) {
             $("#formHapusAlamat").attr('action', '{{ URL::to('profile/alamat/hapus/') }}/' + id);
         }
