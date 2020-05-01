@@ -524,9 +524,10 @@
             $(".btnEditALamat").on('click', async function (e) {
                 if ($(this).data('santri') == 'Y') {
                     resetFormSantri();
-                    $("#wilayah option").remove();
-                    $("#kamar option").remove();
+                    $("#edit_wilayah option").remove();
+                    $("#edit_kamar option").remove();
                     $("#modalEditAlamatSantri").modal('show');
+                    $("#formEditAlamatSantri").attr('action', '{{ URL::to('profile/alamat/santri/ubah/') }}/' + $(this).data('id_alamat'));
                     $.ajax({
                         url: window.location.href,
                         type: 'GET',
