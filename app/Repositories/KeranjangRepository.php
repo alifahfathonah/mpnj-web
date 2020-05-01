@@ -63,4 +63,44 @@ class KeranjangRepository
         $keranjang = Keranjang::whereIn('id_keranjang', $id_keranjang)->sum(DB::raw('jumlah * harga_jual'));
         return $keranjang;
     }
+
+    public function goCheckOut($id_keranjang, $id)
+    {
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
+        if ($update) {
+            $keranjang = Keranjang::with('user', 'produk')
+                ->where('user_id', $id)
+                ->where('status', 'Y')
+                ->get()
+                ->groupBy('produk.user.nama_toko');
+
+            $data['data_keranjang'] = collect();
+            $data['pembeli'] = [];
+            $data['total'] = 0;
+
+            foreach ($keranjang as $key => $value) {
+                $item = collect();
+                foreach ($value as $val) {
+                    $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+                    $item->push([
+                        'id_keranjang' => $val->id_keranjang,
+                        'jumlah' => $val->jumlah,
+                        'harga_jual' => $val->harga_jual,
+                        'diskon' => $val->produk->diskon,
+                        'id_produk' => $val->produk->id_produk,
+                        'nama_produk' => $val->produk->nama_produk,
+                        'foto' => asset('assets/foto_produk/' . $val->produk->foto_produk[0]->foto_produk)
+                    ]);
+                }
+
+                $data['data_keranjang']->push([
+                    'id_toko' => $keranjang[$key][0]->produk->user->id_user,
+                    'nama_toko' => $key,
+                    'item' => $item
+                ]);
+                $data['pembeli'] = $keranjang[$key][0]->user;
+            }
+            return $data;
+        }
+    }
 }

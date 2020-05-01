@@ -21,7 +21,8 @@ class Transaksi_Detail extends Model
         'ongkir',
         'etd',
         'sub_total',
-        'status_order'
+        'status_order',
+        'resi'
     ];
 	public $timestamps = false;
 

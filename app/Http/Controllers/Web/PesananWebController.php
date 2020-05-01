@@ -66,4 +66,10 @@ class PesananWebController extends Controller
            }
        }
     }
+
+    public function tracking($id)
+    {
+        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id)->first();
+        return view('web/web_profile', $data);
+    }
 }
