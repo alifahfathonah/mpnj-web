@@ -420,90 +420,111 @@
             });
 
             $(".btnEditALamat").on('click', async function (e) {
-                resetFormEdit();
-                $("#modalEdit").modal('show');
+                if ($(this).data('santri') == 'Y') {
+                    resetFormSantri();
+                    $("#wilayah option").remove();
+                    $("#kamar option").remove();
+                    $("#modalAlamatSantri").modal('show');
+                    $.ajax({
+                        url: window.location.href,
+                        type: 'GET',
+                        data: {
+                            id_alamat: $(this).data('id_alamat')
+                        },
+                        success: function (response) {
+                            $("#nama_santri").val(response.nama);
+                            $("#wilayah").append(`
+                                <option value="Sunan Gunung Jati (A)" ${response.wilayah == 'Sunan Ampel (A)' ? 'selected' : ''}>Sunan Gunung Jati (A)</option>
+                                <option value="Sunan Ampel (B)" ${response.wilayah == 'Sunan Ampel (B)' ? 'selected' : ''}>Sunan Ampel (B)</option>
+                            `);
+                        }
+                    })
+                } else {
+                    resetFormEdit();
+                    $("#modalEdit").modal('show');
 
-                $.ajax({
-                    url: window.location.href,
-                    type: 'GET',
-                    data: {
-                      id_alamat: $(this).data('id_alamat')
-                    },
-                    success: function (response) {
-                        $("#edit_id_alamat").val(response.id_alamat);
-                        $("#edit_nama_provinsi").val(response.nama_provinsi);
-                        $("edit_nama_kota").val(response.nama_kota);
-                        $("edit_nama_kecamatan").val(response.nama_kecamatan);
-                        $("#editNama").val(response.nama);
-                        $("#editNomorTelepon").val(response.nomor_telepon);
-                        $("#editKodePos").val(response.kode_pos);
-                        $("#editAlamatLengkap").val(response.alamat_lengkap);
+                    $.ajax({
+                        url: window.location.href,
+                        type: 'GET',
+                        data: {
+                            id_alamat: $(this).data('id_alamat')
+                        },
+                        success: function (response) {
+                            $("#edit_id_alamat").val(response.id_alamat);
+                            $("#edit_nama_provinsi").val(response.nama_provinsi);
+                            $("edit_nama_kota").val(response.nama_kota);
+                            $("edit_nama_kecamatan").val(response.nama_kecamatan);
+                            $("#editNama").val(response.nama);
+                            $("#editNomorTelepon").val(response.nomor_telepon);
+                            $("#editKodePos").val(response.kode_pos);
+                            $("#editAlamatLengkap").val(response.alamat_lengkap);
 
-                        let provinsi = $.ajax({
-                            url: '{{ URL::to('api/gateway/provinsi') }}',
-                            type: 'GET'
-                        });
+                            let provinsi = $.ajax({
+                                url: '{{ URL::to('api/gateway/provinsi') }}',
+                                type: 'GET'
+                            });
 
-                        let kota = $.ajax({
-                            url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + response.provinsi_id,
-                            type: 'GET'
-                        });
+                            let kota = $.ajax({
+                                url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + response.provinsi_id,
+                                type: 'GET'
+                            });
 
-                        let kecamatan = $.ajax({
-                            url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + response.city_id,
-                            type: 'GET'
-                        });
+                            let kecamatan = $.ajax({
+                                url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + response.city_id,
+                                type: 'GET'
+                            });
 
-                        $.when(provinsi, kota, kecamatan)
-                            .done(function (p, k, kec) {
-                                p[0].provinsi.rajaongkir.results.map(e => {
-                                    if (e.province_id == response.provinsi_id) {
-                                        $("#editProvinsi").append(`
+                            $.when(provinsi, kota, kecamatan)
+                                .done(function (p, k, kec) {
+                                    p[0].provinsi.rajaongkir.results.map(e => {
+                                        if (e.province_id == response.provinsi_id) {
+                                            $("#editProvinsi").append(`
                                     <option value='${e.province_id}' selected='true'>${e.province}</option>
                                 `);
-                                    } else {
-                                        $("#editProvinsi").append(`
+                                        } else {
+                                            $("#editProvinsi").append(`
                                     <option value='${e.province_id}'>${e.province}</option>
                                 `);
-                                    }
-                                });
+                                        }
+                                    });
 
-                                k[0].kota.rajaongkir.results.map(e => {
-                                    if (e.city_id == response.city_id) {
-                                        $("#editKota").append(`
+                                    k[0].kota.rajaongkir.results.map(e => {
+                                        if (e.city_id == response.city_id) {
+                                            $("#editKota").append(`
                                     <option value='${e.city_id}' selected='true'>${e.type} ${e.city_name}</option>
                                 `);
-                                    } else {
-                                        $("#editKota").append(`
+                                        } else {
+                                            $("#editKota").append(`
                                     <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
                                 `);
-                                    }
-                                });
+                                        }
+                                    });
 
-                                kec[0].kecamatan.rajaongkir.results.map(e => {
-                                    if (e.subdistrict_id == response.kecamatan_id) {
-                                        $("#editKecamatan").append(`
+                                    kec[0].kecamatan.rajaongkir.results.map(e => {
+                                        if (e.subdistrict_id == response.kecamatan_id) {
+                                            $("#editKecamatan").append(`
                                     <option value='${e.subdistrict_id}' selected='true'>${e.subdistrict_name}</option>
                                 `);
-                                    } else {
-                                        $("#editKecamatan").append(`
+                                        } else {
+                                            $("#editKecamatan").append(`
                                     <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
                                 `);
-                                    }
-                                });
+                                        }
+                                    });
 
-                                $("#editProvinsi").prop('disabled', false);
-                                $("#editKota").prop('disabled', false);
-                                $("#editKecamatan").prop('disabled', false);
-                            })
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                })
-                // $("#editProvinsi").prop('disabled', true);
-                // let prov = await getProvinsi();
-                // await console.log(prov);
+                                    $("#editProvinsi").prop('disabled', false);
+                                    $("#editKota").prop('disabled', false);
+                                    $("#editKecamatan").prop('disabled', false);
+                                })
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                    // $("#editProvinsi").prop('disabled', true);
+                    // let prov = await getProvinsi();
+                    // await console.log(prov);
+                }
             });
 
             $("#editProvinsi").on('change', function () {
