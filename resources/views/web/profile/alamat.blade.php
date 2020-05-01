@@ -245,7 +245,7 @@
             <!-- end /.modal-header -->
 
             <div class="modal-body">
-                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                <form method="post" id="formEditAlamatSantri">
                     @csrf
                     <div class="form-group">
                         <label>Alamat</label>
