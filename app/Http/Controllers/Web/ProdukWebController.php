@@ -22,6 +22,9 @@ class ProdukWebController extends Controller
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->get();
         }
 
+        $data['latestProduk']  =  Kategori_Produk::with(['latestProduk' => function ($query) {
+            $query->with(['foto_produk'])->latest('id_produk')->get();
+        }])->latest('id_kategori_produk')->get();
         $data['kategori'] = Kategori_Produk::select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_home', $data);
     }
