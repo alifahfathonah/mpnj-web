@@ -152,7 +152,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nama Santri</label>
-                        <input type="text" name="nama" class="form-control" value="{{ $a->nama }}">
+                        <input type="text" name="nama" class="form-control" id="nama_santri">
                     </div>
                     <input type="hidden" name="nama_provinsi" class="form-control" value="Jawa Timur">
                     <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
@@ -166,7 +166,7 @@
 
                     <div class="form-group">
                         <label>Wilayah</label>
-                        <select name="wilayah" class="form-control">
+                        <select name="wilayah" class="form-control" id="wilayah">
                             <option value="Sunan Gunung Jati (A)" {{ ($a->wilayah == 'Sunan Gunung Jati (A)' ? 'selected' : '') }}>Sunan Gunung Jati (A)</option>
                             <option value="Sunan Ampel (B)" {{ ($a->wilayah == 'Sunan Ampel (B)' ? 'selected' : '') }}>Sunan Ampel (B)</option>
                             <option value="Sunan Drajat (C)" {{ ($a->wilayah == 'Sunan Drajat (C)' ? 'selected' : '') }}>Sunan Drajat (C)</option>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="form-group">
                         <label>Kamar</label>
-                        <select name="kamar" class="form-control" readonly>
+                        <select name="kamar" class="form-control" id="kamar">
                             <option value="1" {{ ($a->kamar == '1' ? 'selected' : '') }}>1</option>
                             <option value="2" {{ ($a->kamar == '2' ? 'selected' : '') }}>2</option>
                             <option value="3" {{ ($a->kamar == '3' ? 'selected' : '') }}>3</option>
