@@ -106,7 +106,8 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'santri' => $request->santri
         ];
 
         if ($request->has('wilayah') AND $request->has('kamar')) {
@@ -137,6 +138,21 @@ class ProfileWebController extends Controller
         ];
 
         $ubah = Alamat::where('id_alamat', $request->edit_id_alamat)->update($data);
+        if ($ubah) {
+            return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
+        }
+    }
+
+    public function ubah_alamat_santri(Request $request, $id)
+    {
+        $data = [
+            'nama' => $request->nama,
+            'wilayah' => $request->wilayah,
+            'kamar' => $request->kamar,
+            'user_id' => Auth::id()
+        ];
+
+        $ubah = Alamat::where('id_alamat', $id)->update($data);
         if ($ubah) {
             return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
         }
