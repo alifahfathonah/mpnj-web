@@ -50,7 +50,7 @@
                                             <i class="fa fa-podcast" aria-hidden="true"></i>
                                         </a>
                                     @endif
-                                    <button class="btn btn--icon btn-sm btn--round btn-secondary btnEditALamat" data-id_alamat="{{ $a->id_alamat }}">Edit
+                                    <button class="btn btn--icon btn-sm btn--round btn-secondary btnEditALamat" @if($a->santri == 'Y') data-santri="Y" @endif data-id_alamat="{{ $a->id_alamat }}">Edit
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </button>
                                     <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal" data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}" onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
@@ -221,18 +221,17 @@
                             <option value="28" {{ ($a->kamar == '28' ? 'selected' : '') }}>28</option>
                             <option value="29" {{ ($a->kamar == '29' ? 'selected' : '') }}>29</option>
                             <option value="30" {{ ($a->kamar == '30' ? 'selected' : '') }}>30</option>
-                            </select>
-                        </div>
+                        </select>
+                    </div>
 
-                        <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
-                        <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
-                    </form>
-                </div>
-                <!-- end /.modal-body -->
+                    <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
             </div>
+            <!-- end /.modal-body -->
         </div>
     </div>
-@endforeach
+</div>
 
 <div class="modal fade rating_modal item_remove_modal" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
