@@ -57,13 +57,10 @@ class PesananWebController extends Controller
 
     public function diterima(Request $request, $id_trx)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
-
-        return redirect()->back();
+        if ($terima) {
+            return redirect()->back();
+        }
     }
 
     public function dibatalkan(Request $request, $id)
