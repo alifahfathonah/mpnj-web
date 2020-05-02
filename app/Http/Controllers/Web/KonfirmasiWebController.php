@@ -41,10 +41,16 @@ class KonfirmasiWebController extends Controller
 		$kodeTransaksi = $request->query('kodeTransaksi');
 		$cek['transaksi'] = Transaksi::with('user')->where('kode_transaksi', $kodeTransaksi)->first();
 		$cek['rekening_admin'] = Rekening_Admin::with('bank')->get();
-		if ($cek['transaksi']->proses_pembayaran == 'belum') {
-			return view('web/web_konfirmasi', $cek);
+		if ($cek['transaksi']->status_transaksi != 'batal') {
+		    if ($cek['transaksi']->proses_pembayaran == 'belum') {
+                return view('web/web_konfirmasi', $cek);
+            } else if ($cek['transaksi']->proses_pembayaran == 'sudah' || $cek['transaksi']->proses_pembayaran == 'terima'){
+                return redirect()->away('/pesanan')->with('message', 'Transaksi Sudah Dibayar');
+            } else {
+                return redirect()->away('/pesanan')->with('message', 'Pembayaran Anda Ditolak');
+            }
 		} else {
-			return redirect()->away('/pesanan')->with('message', 'Transaksi Sudah Dibayar');
+			return redirect()->away('/pesanan')->with('message', 'Transaksi Sudah Dibatalkan');
 		}
 	}
 
