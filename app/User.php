@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function daftar_alamat()
     {
-        return $this->hasMany(Alamat::class, 'id_alamat', 'alamat_utama');
+        return $this->hasMany(Alamat::class, 'user_id', 'id_user');
     }
 
     public function produk()
