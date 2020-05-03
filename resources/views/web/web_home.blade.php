@@ -58,34 +58,25 @@
 
                     </div> <!-- col.// -->
                     <div class="col-md d-none d-lg-block flex-grow-1">
-                        <aside class="special-home-right">
-                            <h6 class="bg-green text-center text-white mb-0 p-2">Popular category</h6>
-
-                            <div class="card-banner border-bottom">
-                                <div class="py-3" style="width:80%">
-                                    <h6 class="card-title">Men clothing</h6>
-                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
+                        <h6 class="bg-green text-center text-white mb-0 p-2">Ketegori Produk Baru</h6>
+                        <div class="overflow-auto" style="height:370px">
+                            <aside class="special-home-right">
+                                @foreach($latestProduk as $lp)
+                                <div class="card-banner border-bottom">
+                                    <div class="py-3" style="width:80%">
+                                        <div class="namaProduk-rapi">
+                                            <a href="{{ URL::to('produk/'.$lp->latestProduk->slug) }}" class="title">
+                                                {{ $lp->latestProduk->nama_produk }}</a>
+                                        </div>
+                                        <a href="#" class="btn btn-primary btn-sm">{{$lp->nama_kategori}}</a>
+                                    </div>
+                                    <img src="{{ asset('assets/foto_produk/'.$lp->latestProduk->foto_produk[0]->foto_produk) }}"
+                                        height="80" class="icon icon-md rounded-circle my-auto">
                                 </div>
-                                <img src="{{ url('assets/mpnj/images/items/1.jpg') }}" height="80" class="img-bg">
-                            </div>
+                                @endforeach
+                            </aside>
+                        </div>
 
-                            <div class="card-banner border-bottom">
-                                <div class="py-3" style="width:80%">
-                                    <h6 class="card-title">Winter clothing </h6>
-                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
-                                </div>
-                                <img src="{{ url('assets/mpnj/images/items/2.jpg') }}" height="80" class="img-bg">
-                            </div>
-
-                            <div class="card-banner border-bottom">
-                                <div class="py-3" style="width:80%">
-                                    <h6 class="card-title">Home inventory</h6>
-                                    <a href="#" class="btn btn-primary btn-sm"> Source now </a>
-                                </div>
-                                <img src="{{ url('assets/mpnj/images/items/6.jpg') }}" height="80" class="img-bg">
-                            </div>
-
-                        </aside>
                     </div> <!-- col.// -->
                 </div> <!-- row.// -->
 
