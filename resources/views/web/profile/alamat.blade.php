@@ -22,53 +22,72 @@
                                 <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
-                                <button class="btn btn--md btn--round btn-primary" data-target="#modalAlamatSantri" data-toggle="modal">Tambah Alamat Santri
+                                <button class="btn btn--md btn--round btn-primary" data-target="#modalAlamatSantri"
+                                        data-toggle="modal">Tambah Alamat Santri
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
                             </td>
                         </tr>
                     </table>
                     @php $n = 1; @endphp
-                    @foreach($alamat as $a)
-                        <table class="ui celled table" style="width:100%;">
-                            <tr>
-                                <th>Nama</th>
-                                <td>{{ $a->nama }} @if ($a->id_alamat == $a->user->alamat_utama) <button class="type pcolorbg">Utama</button> @endif</td>
-                            </tr>
-                            <tr>
-                                <th>Nomor Hp</th>
-                                <td>{{ $a->nomor_telepon }} @if($a->santri == 'Y') <div class="badge badge-success"><i class="fa fa-phone"></i> Nomor Pos Pondok Pesantren Nurul jadid</div>  @endif</td>
-                            </tr>
-                            <tr>
-                                <th>Alamat</th>
-                                <td>{{ $a->alamat_lengkap }}, {{ $a->nama_kota }}, {{ $a->nama_provinsi }}, {{ $a->kode_pos }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    @if ($a->id_alamat != $a->user->alamat_utama)
-                                        <a href="#" class="btn btn--icon btn-sm btn--round btn-primary" data-toggle="modal" data-target="#alamatUtamaConfirm" onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
-                                            <i class="fa fa-podcast" aria-hidden="true"></i>
+                    <table class="ui celled table" style="width:100%;">
+                        @if($alamat->count() > 0)
+                            @foreach($alamat as $a)
+                                <tr>
+                                    <th>Nama</th>
+                                    <td>{{ $a->nama }} @if ($a->id_alamat == $a->user->alamat_utama)
+                                            <button class="type pcolorbg">Utama</button> @endif</td>
+                                </tr>
+                                <tr>
+                                    <th>Nomor Hp</th>
+                                    <td>{{ $a->nomor_telepon }} @if($a->santri == 'Y')
+                                            <div class="badge badge-success"><i class="fa fa-phone"></i> Nomor Pos Pondok
+                                                Pesantren Nurul jadid
+                                            </div>  @endif</td>
+                                </tr>
+                                <tr>
+                                    <th>Alamat</th>
+                                    <td>{{ $a->alamat_lengkap }}, {{ $a->nama_kota }}, {{ $a->nama_provinsi }}
+                                        , {{ $a->kode_pos }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        @if ($a->id_alamat != $a->user->alamat_utama)
+                                            <a href="#" class="btn btn--icon btn-sm btn--round btn-primary"
+                                               data-toggle="modal" data-target="#alamatUtamaConfirm"
+                                               onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
+                                                <i class="fa fa-podcast" aria-hidden="true"></i>
+                                            </a>
+                                        @endif
+                                        <button class="btn btn--icon btn-sm btn--round btn-secondary btnEditALamat"
+                                                @if($a->santri == 'Y') data-santri="Y"
+                                                @endif data-id_alamat="{{ $a->id_alamat }}">Edit
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </button>
+                                        <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal"
+                                           data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}"
+                                           onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
-                                    @endif
-                                    <button class="btn btn--icon btn-sm btn--round btn-secondary btnEditALamat" @if($a->santri == 'Y') data-santri="Y" @endif data-id_alamat="{{ $a->id_alamat }}">Edit
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </button>
-                                    <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal" data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}" onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
+                                    </td>
+                                </tr>
+                                <hr>
+                                @php $n++; @endphp
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="2" style="text-align: center">Anda Tidak Memiliki Alamat, Cobalah Untuk Menambahkan Minimal 1 Alamat.</td>
                             </tr>
-                        </table>
-                        <hr>
-                        @php $n++; @endphp
-                    @endforeach
+                        @endif
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="modalAlamat" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamat" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
