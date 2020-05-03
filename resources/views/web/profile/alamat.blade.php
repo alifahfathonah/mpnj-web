@@ -1,14 +1,12 @@
-
-
 <div class="row">
     <div class="col-md-12">
         @if (session('alert'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session('alert') }}</strong>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('alert') }}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-        </div>
+            </div>
         @endif
         <div class="information_module">
             <a class="toggle_title">
@@ -113,9 +111,9 @@
                         <label>Provinsi</label>
                         <select name="provinsi" id="provinsi" class="form-control">
                             <option id="provinsi_option">-- PILIH PROVINSI --</option>
-{{--                            @foreach ($provinsi->rajaongkir->results as $p)--}}
-{{--                                <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
-{{--                            @endforeach--}}
+                            {{--                            @foreach ($provinsi->rajaongkir->results as $p)--}}
+                            {{--                                <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
+                            {{--                            @endforeach--}}
                         </select>
                         <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
                     </div>
@@ -150,7 +148,8 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamatSantri" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -351,7 +350,8 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="modalEditAlamatSantri" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="modalEditAlamatSantri" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -378,7 +378,8 @@
                     <input type="hidden" name="nama_kota" class="form-control" value="Kabupaten Probolinggo">
                     <input type="hidden" name="nama_kecamatan" class="form-control" value="Paiton">
                     <input type="hidden" name="kode_pos" class="form-control" value="67291">
-                    <input type="hidden" name="alamat_lengkap" class="form-control" value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
+                    <input type="hidden" name="alamat_lengkap" class="form-control"
+                           value="Jl. Kyai Haji. Jl. KH. Zaini Mun'im, Dusun Tj. Lor, Karanganyar, Kec. Paiton">
                     <input type="hidden" name="provinsi" class="form-control" value="11">
                     <input type="hidden" name="kota" class="form-control" value="369">
                     <input type="hidden" name="kecamatan" class="form-control" value="5155">
@@ -551,7 +552,8 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="modalEdit" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -601,7 +603,8 @@
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10" id="editAlamatLengkap"></textarea>
+                        <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10"
+                                  id="editAlamatLengkap"></textarea>
                     </div>
                     <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
@@ -612,7 +615,8 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="hapusAlamatConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="hapusAlamatConfirm" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -625,7 +629,9 @@
 
             <div class="modal-body">
                 <form method="GET" id="formHapusAlamat">
-                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitHapusAlamat()">Hapus</button>
+                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitHapusAlamat()">
+                        Hapus
+                    </button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
             </div>
@@ -634,7 +640,8 @@
     </div>
 </div>
 
-<div class="modal fade rating_modal item_remove_modal" id="alamatUtamaConfirm" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="alamatUtamaConfirm" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -647,7 +654,9 @@
 
             <div class="modal-body">
                 <form method="GET" id="formAlamatUtama">
-                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitAlamatUtama()">Ya, Lanjutkan</button>
+                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitAlamatUtama()">
+                        Ya, Lanjutkan
+                    </button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
             </div>
@@ -665,7 +674,7 @@
                     async: true,
                     url: '{{ URL::to('api/gateway/provinsi') }}',
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         $("#provinsi option").remove();
                         $("#modalAlamat").modal('show');
                         response.provinsi.rajaongkir.results.map(e => {
@@ -674,64 +683,64 @@
                             `);
                         });
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                     }
                 });
             });
 
             $("#provinsi").on('change', function () {
-               $("#nama_provinsi").val($("#provinsi option:selected").html());
-               $("#kota").prop('disabled', true);
-               $("#kota option").remove();
-               $("#kota").append(`
+                $("#nama_provinsi").val($("#provinsi option:selected").html());
+                $("#kota").prop('disabled', true);
+                $("#kota option").remove();
+                $("#kota").append(`
                     <option>-- PILIH KOTA --</option>
                `);
-               $("#kecamatan option").remove();
-               $("#kecamatan").prop('disabled', true);
-               $("#kecamatan").append(`
+                $("#kecamatan option").remove();
+                $("#kecamatan").prop('disabled', true);
+                $("#kecamatan").append(`
                     <option>-- PILIH Kecamatan --</option>
                `);
-               $.ajax({
-                   async: true,
-                   url: '{{ URL::to('api/gateway/kota?provinsi=') }}'+ `${$(this).val()}`,
-                   type: 'GET',
-                   success: function(response) {
-                       $("#kota option").remove();
-                       response.kota.rajaongkir.results.map(e => {
-                           $("#kota").append(`
+                $.ajax({
+                    async: true,
+                    url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + `${$(this).val()}`,
+                    type: 'GET',
+                    success: function (response) {
+                        $("#kota option").remove();
+                        response.kota.rajaongkir.results.map(e => {
+                            $("#kota").append(`
                                 <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
                             `);
-                       });
-                       $("#kota").prop('disabled', false);
-                   },
-                   error: function(error) {
-                       console.log(error);
-                   }
-               });
-           });
+                        });
+                        $("#kota").prop('disabled', false);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
 
             $("#kota").on('change', function () {
-               $("#nama_kota").val($("#kota option:selected").html());
-               $("#kecamatan").prop('disabled', true);
-               $.ajax({
-                   async: true,
-                   url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
-                   type: 'GET',
-                   success: function(response) {
-                       $("#kecamatan option").remove();
-                       response.kecamatan.rajaongkir.results.map(e => {
-                           $("#kecamatan").append(`
+                $("#nama_kota").val($("#kota option:selected").html());
+                $("#kecamatan").prop('disabled', true);
+                $.ajax({
+                    async: true,
+                    url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
+                    type: 'GET',
+                    success: function (response) {
+                        $("#kecamatan option").remove();
+                        response.kecamatan.rajaongkir.results.map(e => {
+                            $("#kecamatan").append(`
                                 <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
                            `);
-                       });
-                       $("#kecamatan").prop('disabled', false);
-                   },
-                   error: function(error) {
-                       console.log(error);
-                   }
-               });
-           });
+                        });
+                        $("#kecamatan").prop('disabled', false);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
 
             $("#kecamatan").on('change', function () {
                 $("#nama_kecamatan").val($("#kecamatan option:selected").html());
@@ -911,7 +920,7 @@
                     async: true,
                     url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + $(`#editProvinsi`).val(),
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         // console.log(response.kota);
                         $(`#editKota option`).remove();
                         $("#editKota").prop('disabled', false);
@@ -921,7 +930,7 @@
                         `);
                         });
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                     }
                 });
@@ -933,7 +942,7 @@
                     async: true,
                     url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $(`#editKota`).val(),
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         // console.log(response.kota);
                         $(`#editKecamatan option`).remove();
                         $(`#editKecamatan`).prop('disabled', false);
@@ -943,7 +952,7 @@
                         `);
                         });
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                     }
                 });
