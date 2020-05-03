@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,9 +54,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nama_lengkap' => ['required'],
+            'username' => ['required','unique:users'],
+            'password' => ['required'],
+            'nomor_hp' => ['required','min:12','numeric','unique:users'],
+            'email' => ['required','email','unique:users']
         ]);
     }
 
