@@ -8,10 +8,21 @@ use App\Models\Produk;
 use App\Models\Kategori_Produk;
 
 
+//Refactor routing api
+Route::group(['namespace' => 'Api'], function () {
+
+    //produk
+    Route::group(['prefix' => 'produk'], function () {
+        Route::get('/', 'ApiProdukController@index');
+        Route::get('/{id_produk}', 'ApiProdukController@getDetail');
+        Route::post('/', 'ApiProdukController@create');
+    });
+});
+
 // PRODUK
-Route::get('/produk', 'Api\ApiProdukController@index');
-Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
-Route::post('/produk', 'Api\ApiProdukController@create');
+// Route::get('/produk', 'Api\ApiProdukController@index');
+// Route::get('/produk/{id_produk}', 'Api\ApiProdukController@getDetail');
+// Route::post('/produk', 'Api\ApiProdukController@create');
 
 // KONSUMEN
 Route::post('/konsumen', 'Api\ApiRegisterKonsumenController@create');
