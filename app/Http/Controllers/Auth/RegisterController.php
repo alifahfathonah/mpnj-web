@@ -32,7 +32,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected $client, $token;
 
     /**
      * Create a new controller instance.
@@ -42,8 +41,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->client = new Client();
-        $this->token = env('API_RAJAONGKIR');
     }
 
     /**
