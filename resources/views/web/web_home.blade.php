@@ -86,14 +86,12 @@
     </section>
     <!-- ========================= SECTION MAIN END// ========================= -->
 
-
-
     <!-- =============== SECTION DEAL =============== -->
     <section class="padding-bottom">
         <div class="card card-deal">
             <div class="col-heading content-body">
                 <header class="section-heading">
-                    <h3 class="section-title">Deals and offers</h3>
+                    <h3 class="section-title">Diskon Tertinggi</h3>
                     <p>Hygiene equipments</p>
                 </header><!-- sect-heading -->
                 <div class="timer">
