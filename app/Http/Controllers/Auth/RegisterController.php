@@ -84,4 +84,32 @@ class RegisterController extends Controller
     {
         return view('auth/register');
     }
+
+    public function register(Request $request)
+    {
+        $data = [
+            'nama_lengkap' => $request->nama_lengkap,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'nomor_hp' => $request->nomor_hp,
+            'email' => $request->email,
+            'role' => 'konsumen'
+        ];
+
+        if ($this->validator($data)->fails()) {
+            return redirect()
+                ->back()
+                ->with('registerError', 'Register Error. Pastikan data anda sudah benar')
+                ->withInput();
+        }
+
+        $simpan = $this->create($data);
+        if ($simpan) {
+            $credential = $request->only('username','password');
+            if (Auth::attempt($credential)) {
+                $request->session()->put('role', Auth::user()->role);
+            }
+            return redirect('/');
+        }
+    }
 }
