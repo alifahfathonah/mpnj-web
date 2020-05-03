@@ -1,15 +1,15 @@
 @foreach ($review as $r)
 <article class="media mb-3">
-    <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->konsumen->foto_profil) }}">
+    <img class="img-sm mr-3" src="{{ asset('assets/foto_profil_konsumen/'.$r->user->foto_profil) }}">
     <div class="media-body">
-        <h6 class="mt-0">{{ $r->konsumen->nama_lengkap }}</h6>
+        <h6 class="mt-0">{{ $r->user->nama_lengkap }}</h6>
         <div class="small">{{ $r->updated_at->format('d M Y') }}</div>
         <div class="rating-wrap my-3">
             <ul class="rating-stars">
                 <li style="width:80%" class="stars-active">
                     @for($i = 1; $i <= $r->bintang; $i++)
                         <i class="fa fa-star"></i>
-                        @endfor
+                    @endfor
                 </li>
                 <li>
                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>

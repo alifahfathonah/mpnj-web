@@ -71,12 +71,12 @@ class User extends Authenticatable
 
     public function daftar_alamat()
     {
-        return $this->hasMany(Alamat::class, 'id_alamat', 'alamat_utama');
+        return $this->hasMany(Alamat::class, 'user_id', 'id_user');
     }
 
     public function produk()
     {
-        return $this->hasMany(Produk::class, 'user_id', 'id_user')->where('role', '=', 'pelapak');
+        return $this->hasMany(Produk::class, 'user_id', 'id_user');
     }
 
     /**

@@ -39,7 +39,7 @@ class KonfirmasiWebController extends Controller
 	public function cek(Request $request)
 	{
 		$kodeTransaksi = $request->query('kodeTransaksi');
-		$cek['transaksi'] = Transaksi::with('pembeli')->where('kode_transaksi', $kodeTransaksi)->first();
+		$cek['transaksi'] = Transaksi::with('user')->where('kode_transaksi', $kodeTransaksi)->first();
 		$cek['rekening_admin'] = Rekening_Admin::with('bank')->get();
 		if ($cek['transaksi']->proses_pembayaran == 'belum') {
 			return view('web/web_konfirmasi', $cek);

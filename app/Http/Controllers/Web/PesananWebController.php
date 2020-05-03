@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -16,15 +17,21 @@ class PesananWebController extends Controller
 {
     public function index(Request $request)
     {
+        $tab = $request->query('tab');
         $order = Transaksi::with(['transaksi_detail', 'user', 'transaksi_detail.produk.foto_produk'])
-                            ->where('user_id', Auth::check())
-                            ->groupBy('kode_transaksi')
-                            ->get();
+            ->when($tab != '', function ($query) use ($tab) {
+                $query->whereHas('transaksi_detail', function ($query) use ($tab) {
+                    $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
+                });
+            })
+            ->where('user_id', Auth::id())
+            ->groupBy('kode_transaksi')
+            ->get();
         // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
         //     ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
-        $data['order'] = collect();
+        $orderCollect = collect();
         foreach ($order as $key => $value) {
-            $data['order']->push([
+            $orderCollect->push([
                 'kode_transaksi' => $value->kode_transaksi,
                 'waktu_transaksi' => $value->waktu_transaksi,
                 'status_transaksi' => $value->status_transaksi,
@@ -33,6 +40,10 @@ class PesananWebController extends Controller
                 'item' => $value->transaksi_detail
             ]);
         }
+
+        $page = $request->query('page');
+
+        $data['order'] = new LengthAwarePaginator(array_slice($orderCollect->toArray(), ($page - 3) * 3, 3), count($orderCollect), 3, $page, ["path" => $tab == '' ? 'pesanan' : 'pesanan?tab='.$tab]);
         return view('web/web_profile', $data);
     }
 
@@ -46,13 +57,10 @@ class PesananWebController extends Controller
 
     public function diterima(Request $request, $id_trx)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
-
-        return redirect()->back();
+        if ($terima) {
+            return redirect()->back();
+        }
     }
 
     public function dibatalkan(Request $request, $id)

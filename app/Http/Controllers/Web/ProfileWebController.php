@@ -79,29 +79,18 @@ class ProfileWebController extends Controller
         return view('web/web_profile');
     }
 
-    public function alamat()
+    public function alamat(Request $request)
     {
-        $data['alamat'] = Alamat::with('user')
-            ->where('user_id', Auth::id())
-            ->get();
-
-        $response = $this->client->get('http://guzzlephp.org');
-        $request = $this->client->get('https://pro.rajaongkir.com/api/province', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-        $data['provinsi'] = json_decode($request, false);
-
-        $request = $this->client->get('https://pro.rajaongkir.com/api/city', [
-            'headers' => [
-                'key' => $this->token
-            ]
-        ])->getBody()->getContents();
-
-        $data['kota'] = json_decode($request, false);
-
-        return view('web/web_profile', $data);
+        if ($request->ajax()) {
+            $id_alamat = $request->id_alamat;
+            $alamat = Alamat::where('id_alamat', $id_alamat)->first();
+            return response()->json($alamat, 200);
+        } else {
+            $data['alamat'] = Alamat::with('user')
+                ->where('user_id', Auth::id())
+                ->get();
+            return view('web/web_profile', $data);
+        }
     }
 
     public function simpan_alamat(Request $request)
@@ -117,7 +106,8 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'santri' => $request->santri
         ];
 
         if ($request->has('wilayah') AND $request->has('kamar')) {
@@ -131,7 +121,7 @@ class ProfileWebController extends Controller
         }
     }
 
-    public function ubah_alamat(Request $request, $id)
+    public function ubah_alamat(Request $request)
     {
         $data = [
             'nama' => $request->nama,
@@ -144,6 +134,21 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
+            'user_id' => Auth::id()
+        ];
+
+        $ubah = Alamat::where('id_alamat', $request->edit_id_alamat)->update($data);
+        if ($ubah) {
+            return redirect()->back()->with('alert', 'Alamat berhasil diperbaharui.');
+        }
+    }
+
+    public function ubah_alamat_santri(Request $request, $id)
+    {
+        $data = [
+            'nama' => $request->nama,
+            'wilayah' => $request->wilayah,
+            'kamar' => $request->kamar,
             'user_id' => Auth::id()
         ];
 
