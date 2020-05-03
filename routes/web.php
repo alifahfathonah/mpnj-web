@@ -108,7 +108,7 @@ Route::group(['namespace' => 'Web'], function () {
 Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSimpan');
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 //reset password
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
 Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
