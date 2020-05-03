@@ -789,21 +789,21 @@
                                 <option value="13" ${response.kamar == '13' ? 'selected' : ''}>13</option>
                                 <option value="14" ${response.kamar == '14' ? 'selected' : ''}>14</option>
                                 <option value="15" ${response.kamar == '15' ? 'selected' : ''}>15</option>
-                                <option value="16" {{ ($a->kamar == '16' ? 'selected' : '') }}>16</option>
-                                <option value="17" {{ ($a->kamar == '17' ? 'selected' : '') }}>17</option>
-                                <option value="18" {{ ($a->kamar == '18' ? 'selected' : '') }}>18</option>
-                                <option value="19" {{ ($a->kamar == '19' ? 'selected' : '') }}>19</option>
-                                <option value="20" {{ ($a->kamar == '20' ? 'selected' : '') }}>20</option>
-                                <option value="21" {{ ($a->kamar == '21' ? 'selected' : '') }}>21</option>
-                                <option value="22" {{ ($a->kamar == '22' ? 'selected' : '') }}>22</option>
-                                <option value="23" {{ ($a->kamar == '23' ? 'selected' : '') }}>23</option>
-                                <option value="24" {{ ($a->kamar == '24' ? 'selected' : '') }}>24</option>
-                                <option value="25" {{ ($a->kamar == '25' ? 'selected' : '') }}>25</option>
-                                <option value="26" {{ ($a->kamar == '26' ? 'selected' : '') }}>26</option>
-                                <option value="27" {{ ($a->kamar == '27' ? 'selected' : '') }}>27</option>
-                                <option value="28" {{ ($a->kamar == '28' ? 'selected' : '') }}>28</option>
-                                <option value="29" {{ ($a->kamar == '29' ? 'selected' : '') }}>29</option>
-                                <option value="30" {{ ($a->kamar == '30' ? 'selected' : '') }}>30</option>
+                                <option value="16" ${response.kamar == '16' ? 'selected' : ''}>16</option>
+                                <option value="17" ${response.kamar == '17' ? 'selected' : ''}>17</option>
+                                <option value="18" ${response.kamar == '18' ? 'selected' : ''}>18</option>
+                                <option value="19" ${response.kamar == '19' ? 'selected' : ''}>19</option>
+                                <option value="20" ${response.kamar == '20' ? 'selected' : ''}>20</option>
+                                <option value="21" ${response.kamar == '21' ? 'selected' : ''}>21</option>
+                                <option value="22" ${response.kamar == '22' ? 'selected' : ''}>22</option>
+                                <option value="23" ${response.kamar == '23' ? 'selected' : ''}>23</option>
+                                <option value="24" ${response.kamar == '24' ? 'selected' : ''}>24</option>
+                                <option value="25" ${response.kamar == '25' ? 'selected' : ''}>25</option>
+                                <option value="26" ${response.kamar == '26' ? 'selected' : ''}>26</option>
+                                <option value="27" ${response.kamar == '27' ? 'selected' : ''}>27</option>
+                                <option value="28" ${response.kamar == '28' ? 'selected' : ''}>28</option>
+                                <option value="29" ${response.kamar == '29' ? 'selected' : ''}>29</option>
+                                <option value="30" ${response.kamar == '30' ? 'selected' : ''}>30</option>
                             `);
                         }
                     })
