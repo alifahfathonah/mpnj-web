@@ -76,7 +76,7 @@
                     <form action="{{ route('cek') }}">
                         <div class="form-group mb-0">
                             <input type="input" name="kodeTransaksi" class="form-control" id="kodeTransaksi"
-                                   placeholder="Kode Transaksi">
+                                   placeholder="Kode Transaksi" required>
                             <label for="exampleInputEmail1" class="mb-0">Salin Kode Transaksi Anda Disini</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Kirim</button>
