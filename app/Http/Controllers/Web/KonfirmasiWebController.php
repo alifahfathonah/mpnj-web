@@ -20,10 +20,10 @@ class KonfirmasiWebController extends Controller
 		$this->kode = null;
 	}
 
-	public function index(Request $request)
-	{
-		return view('web/web_konfirmasi');
-	}
+//	public function index(Request $request)
+//	{
+//		return view('web/web_konfirmasi');
+//	}
 
 	public function data(Request $request, $id_trx)
 	{

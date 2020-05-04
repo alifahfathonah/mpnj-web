@@ -67,7 +67,7 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
-        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
+//        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
         Route::get('data', 'KonfirmasiWebController@data')->middleware('checkUserLogin');
         Route::get('data/{id}', 'KonfirmasiWebController@data');
         Route::post('simpan', 'KonfirmasiWebController@simpan');
