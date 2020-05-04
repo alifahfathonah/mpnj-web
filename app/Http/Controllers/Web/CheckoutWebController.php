@@ -27,6 +27,10 @@ class CheckoutWebController extends Controller
             ->get()
             ->groupBy('produk.user.nama_toko');
 
+        if ($keranjang->count() == 0) {
+            return redirect('keranjang');
+        }
+
         $data['data_keranjang'] = collect();
         $total_berat = 0;
         $data['pembeli'] = [];
@@ -100,7 +104,6 @@ class CheckoutWebController extends Controller
         $data['rekening_admin'] = Rekening_Admin::with('bank')->get();
         return view('web/web_checkout_sukses', $data);
     }
-
 
     public function batal(Request $request)
     {
