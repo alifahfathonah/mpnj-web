@@ -65,17 +65,21 @@
                         <div class="overflow-auto" style="height:370px">
                             <aside class="special-home-right">
                                 @foreach($latestProduk as $lp)
+                                @if($lp->latestProduk != null)
                                 <div class="card-banner border-bottom">
                                     <div class="py-3" style="width:80%">
                                         <div class="namaProduk-rapi">
                                             <a href="{{ URL::to('produk/'.$lp->latestProduk->slug) }}" class="title">
                                                 {{ $lp->latestProduk->nama_produk }}</a>
                                         </div>
-                                        <a href="#" class="btn btn-primary btn-sm">{{$lp->nama_kategori}}</a>
+                                        <a href="{{ URL::to('produk?kategori='.strtolower($lp->nama_kategori)) }}"
+                                            class="btn btn-primary btn-sm">{{$lp->nama_kategori}}</a>
                                     </div>
                                     <img src="{{ asset('assets/foto_produk/'.$lp->latestProduk->foto_produk[0]->foto_produk) }}"
                                         height="80" class="icon icon-md rounded-circle my-auto">
                                 </div>
+                                @else
+                                @endif
                                 @endforeach
                             </aside>
                         </div>
