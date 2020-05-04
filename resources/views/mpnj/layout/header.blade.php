@@ -1,23 +1,26 @@
 <header class="section-header sticky-top">
     <nav class="navbar p-md-0 navbar-expand-sm navbar-dark shadow-sm">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop3" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop3"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTop3" style="font-size:12px;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-mobile-alt"></i> Download Aplikasi Android belaNJ disini </a>
+                        <a class="nav-link" href="#"><i class="fas fa-mobile-alt"></i> Download Aplikasi Android belaNJ
+                            disini </a>
                     </li>
 
                 </ul>
-{{--                {{ dd(Auth::check()) }}--}}
+                {{--                {{ dd(Auth::check()) }}--}}
                 <ul class="navbar-nav">
                     @if (Auth::check())
                         <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Bantuan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span class="dark-transp"></span></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ URL::to('login') }}">Login</a> <span
+                                    class="dark-transp"></span></li>
                         <li class="nav-item"><a class="nav-link" href="{{ URL::to('register') }}"> Daftar</a></li>
                     @endif
                 </ul>
@@ -35,7 +38,8 @@
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
                     <form action="{{ URL::to('/produk') }}" class="search-wrap">
                         <div class="input-group w-100">
-                            <input type="text" name="cari" class="form-control" style="width:60%;" placeholder="Cari produk disini...">
+                            <input type="text" name="cari" class="form-control" style="width:60%;"
+                                   placeholder="Cari produk disini...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
@@ -54,16 +58,16 @@
                                     </div>
                                     <div class="text">
                                         @if (Auth::check())
-                                        <div> Halo @if (Auth::check())
-                                                {{ Auth::user()->username }}
-                                            @endif
-                                        </div>
+                                            <div> Halo @if (Auth::check())
+                                                    {{ Auth::user()->username }}
+                                                @endif
+                                            </div>
                                         @else
-                                        <small>
-                                            <a href="{{ URL::to('login') }}">Sign In</a>
-                                            <hr class="dropdown-divider mb-0 mt-0">
-                                            <a href="{{ URL::to('register') }}"> Register</a>
-                                        </small>
+                                            <small>
+                                                <a href="{{ URL::to('login') }}">Sign In</a>
+                                                <hr class="dropdown-divider mb-0 mt-0">
+                                                <a href="{{ URL::to('register') }}"> Register</a>
+                                            </small>
                                         @endif
                                     </div>
                                 </div>
@@ -79,30 +83,45 @@
                         </div>
                         <div class="widget-header dropdown">
                             <a href="#" class="widget-header ml-4" data-toggle="dropdown">
-                                <div class="icon icon-sm border rounded-circle"><i class="fa fa-shopping-cart"></i></div>
-                                <span class="badge badge-pill badge-danger notify">@if(Auth::check()) {{ COUNT($cart) }} @else 0 @endif</span>
+                                <div class="icon icon-sm border rounded-circle"><i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <span class="badge badge-pill badge-danger notify">@if(Auth::check()) {{ COUNT($cart) }} @else
+                                        0 @endif</span>
                             </a>
                             <div class="dropdown-menu p-3 dropdown-menu-right" style="min-width:280px;">
                                 @if(Auth::check())
-                                @foreach($cart as $c)
-                                <figure class="itemside mb-3">
-                                    <div class="aside"><img src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
-                                    <figcaption class="info align-self-center">
-                                        <p class="title"><a href="{{ URL::to('produk/'.$c->produk->slug) }}">{{ $c->produk->nama_produk }}</a></p>
-                                        <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
-                                        <div class="price">
-                                            @if($c->produk->diskon == 0)
-                                            @currency($c->produk->harga_jual)
-                                            @else
-                                            @currency($c->produk->harga_jual - ($c->produk->diskon / 100 * $c->produk->harga_jual))
-                                            <p class="text-dark small"> <strike style="color: red">@currency($c->produk->harga_jual)</strike></p>
-                                            @endif
-                                        </div> <!-- price-wrap.// -->
-                                    </figcaption>
-                                </figure>
-                                @endforeach
+                                    @if($cart->count() > 0)
+                                        @foreach($cart as $c)
+                                            <figure class="itemside mb-3">
+                                                <div class="aside"><img
+                                                            src="{{ asset('assets/foto_produk/'.$c->produk->foto_produk[0]->foto_produk) }}"
+                                                            class="img-sm border"></div>
+                                                <figcaption class="info align-self-center">
+                                                    <p class="title"><a
+                                                                href="{{ URL::to('produk/'.$c->produk->slug) }}">{{ $c->produk->nama_produk }}</a>
+                                                    </p>
+                                                    <p class="text-dark small">{{ $c->produk->kategori->nama_kategori }}</p>
+                                                    <div class="price">
+                                                        @if($c->produk->diskon == 0)
+                                                            @currency($c->produk->harga_jual)
+                                                        @else
+                                                            @currency($c->produk->harga_jual - ($c->produk->diskon / 100
+                                                            * $c->produk->harga_jual))
+                                                            <p class="text-dark small"><strike style="color: red">@currency($c->produk->harga_jual)</strike>
+                                                            </p>
+                                                        @endif
+                                                    </div> <!-- price-wrap.// -->
+                                                </figcaption>
+                                            </figure>
+                                        @endforeach
+                                        <a href="{{ URL::to('/keranjang') }}" class="btn btn-primary btn-block"> Lihat
+                                            Keranjang </a>
+                                    @else
+                                        <figure class="itemside mb-3" style="text-align: center">
+                                            Tidak ada keranjang
+                                        </figure>
+                                    @endif
                                 @endif
-                                <a href="{{ URL::to('/keranjang') }}" class="btn btn-primary btn-block"> Lihat Keranjang </a>
                             </div>
                         </div>
                     </div> <!-- widgets-wrap.// -->
