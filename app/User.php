@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     protected $primaryKey = 'id_user';
@@ -38,6 +38,7 @@ class User extends Authenticatable
         'alamat_utama',
         'remember_token',
         'alamat_toko',
+        'email_verified_at'
     ];
 
     /**
@@ -84,7 +85,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-//    protected $casts = [
-//        'email_verified_at' => 'datetime',
-//    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
