@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->char('nomor_hp', 12)->nullable();
             $table->string('foto_profil', 20)->nullable();
             $table->string('email')->unique();
+            $table->dateTime('email_verified_at')->nullable();
             $table->enum('status_official', ['santri','official'])->default('santri');
             $table->enum('role', ['konsumen','pelapak'])->default('konsumen');
             $table->string('nama_toko')->nullable()->unique();

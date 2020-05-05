@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\sendRegistrationEmail;
 use App\Mail\RegistrasiConfirm;
 use App\Models\Konsumen;
 use App\User;
@@ -49,7 +50,7 @@ class KonsumenWebController extends Controller
             if ($simpan) {
                 $credential = $request->only('username','password');
                 if (Auth::attempt($credential)) {
-//                    Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_konsumen));
+                    $this->dispatch(new sendRegistrationEmail($request->email, $simpan->id_user));
                     $request->session()->put('role', Auth::user()->role);
                 }
                 return redirect('/');

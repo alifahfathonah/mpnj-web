@@ -67,10 +67,9 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
-        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
+//        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
         Route::get('data', 'KonfirmasiWebController@data')->middleware('checkUserLogin');
         Route::get('data/{id}', 'KonfirmasiWebController@data');
-        Route::get('cek', 'KonfirmasiWebController@cek')->name('cek');
         Route::post('simpan', 'KonfirmasiWebController@simpan');
         Route::get('akun/{id}', 'KonfirmasiWebController@akun');
         Route::get('verified', 'KonfirmasiWebController@verified');
@@ -108,7 +107,7 @@ Route::group(['namespace' => 'Web'], function () {
 Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSimpan');
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 //reset password
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
 Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
