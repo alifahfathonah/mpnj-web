@@ -67,7 +67,7 @@
                             <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}" data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}" data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}" data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}" data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}" data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
                                 <td>
                                     <figure class="itemside">
-                                        <div class="aside"><img src="{{ $k['foto'] }}" class="img-sm"></div>
+                                        <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}" class="img-sm"></div>
                                         <figcaption class="info">
                                             <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
                                             <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>

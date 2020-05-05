@@ -45,7 +45,7 @@
                                             </td>
                                             <td>
                                                 <figure class="itemside">
-                                                    <div class="aside"><img src="{{ asset($k['foto']) }}" class="img-sm">
+                                                    <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}" class="img-sm">
                                                     </div>
                                                     <figcaption class="info">
                                                         <a href="{{ URL::to('produk/'.$k['slug']) }}"
