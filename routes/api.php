@@ -31,6 +31,14 @@ Route::group(['namespace' => 'Api'], function () {
         Route::put('/aktif/{id_konsumen}', 'ApiKonsumenController@aktif_kembali');
         Route::post('/upload', 'ApiRegisterKonsumenController@upload');
     });
+    //pelapak
+    Route::group(['prefix' => 'pelapak'], function () {
+        Route::get('/', 'ApiPelapakController@index');
+        Route::post('/', 'ApiPelapakController@create');
+        Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');
+        Route::get('/{id_pelapak}', 'ApiPelapakController@getDetail');
+        Route::post('/upload', 'ApiPelapakController@upload');
+    });
 });
 
 // PRODUK
