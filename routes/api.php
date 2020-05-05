@@ -39,6 +39,15 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/{id_pelapak}', 'ApiPelapakController@getDetail');
         Route::post('/upload', 'ApiPelapakController@upload');
     });
+    //keranjang
+    Route::group(['prefix' => 'keranjang'], function () {
+        Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1
+        Route::post('/', 'ApiKeranjangController@simpan');
+        Route::delete('/{id_keranjang}', 'ApiKeranjangController@hapus');
+        Route::put('/ganti_jumlah/{id_keranjang}', 'ApiKeranjangController@gantiJumlah');
+        Route::put('/{id}/go_checkout', 'ApiKeranjangController@keCheckOut');
+        Route::post('/cek_harga', 'ApiKeranjangController@cekHarga');
+    });
 });
 
 // PRODUK
