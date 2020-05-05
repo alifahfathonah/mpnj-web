@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,7 +34,6 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected $client, $token;
 
     /**
      * Create a new controller instance.
@@ -42,8 +43,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->client = new Client();
-        $this->token = env('API_RAJAONGKIR');
     }
 
     /**
@@ -55,9 +54,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nama_lengkap' => ['required'],
+            'username' => ['required','unique:users'],
+            'password' => ['required'],
+            'nomor_hp' => ['required','min:12','numeric','unique:users'],
+            'email' => ['required','email','unique:users']
         ]);
     }
 
@@ -67,17 +68,48 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $request)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'nama_lengkap' => $request['nama_lengkap'],
+            'username' => $request['username'],
+            'password' => $request['password'],
+            'nomor_hp' => $request['nomor_hp'],
+            'email' => $request['email'],
+            'role' => 'konsumen'
         ]);
     }
 
     public function showRegistrationForm()
     {
         return view('auth/register');
+    }
+
+    public function register(Request $request)
+    {
+        $data = [
+            'nama_lengkap' => $request->nama_lengkap,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'nomor_hp' => $request->nomor_hp,
+            'email' => $request->email,
+            'role' => 'konsumen'
+        ];
+
+        if ($this->validator($data)->fails()) {
+            return redirect()
+                ->back()
+                ->with('registerError', 'Register Error. Pastikan data anda sudah benar')
+                ->withInput();
+        }
+
+        $simpan = $this->create($data);
+        if ($simpan) {
+            $credential = $request->only('username','password');
+            if (Auth::attempt($credential)) {
+                $request->session()->put('role', Auth::user()->role);
+            }
+            return redirect('/');
+        }
     }
 }

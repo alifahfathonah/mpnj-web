@@ -27,6 +27,10 @@ class CheckoutWebController extends Controller
             ->get()
             ->groupBy('produk.user.nama_toko');
 
+        if ($keranjang->count() == 0) {
+            return redirect('keranjang');
+        }
+
         $data['data_keranjang'] = collect();
         $total_berat = 0;
         $data['pembeli'] = [];
@@ -94,13 +98,15 @@ class CheckoutWebController extends Controller
     public function sukses($kodeTrx)
     {
         $data['order_sukses'] = Transaksi::where('kode_transaksi', $kodeTrx)->first();
+        if ($data['order_sukses'] == null) {
+            return redirect('pesanan')->with('trxNull', 'Kode transaksi tidak ditemukan');
+        }
         $data['order_detail'] = Transaksi_Detail::where('transaksi_id', $data['order_sukses']->id_transaksi)->get();
         $data['order_total'] =  $data['order_detail']->sum("sub_total");
         $data['order_ongkir'] =  $data['order_detail']->sum("ongkir");
         $data['rekening_admin'] = Rekening_Admin::with('bank')->get();
         return view('web/web_checkout_sukses', $data);
     }
-
 
     public function batal(Request $request)
     {
