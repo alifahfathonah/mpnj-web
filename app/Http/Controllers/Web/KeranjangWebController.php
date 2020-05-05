@@ -40,7 +40,7 @@ class KeranjangWebController extends Controller
                     'stok' => $val->produk->stok,
                     'slug' => $val->produk->slug,
                     'kategori' => $val->produk->kategori->nama_kategori,
-                    'foto' => asset('assets/foto_produk/' . $val->produk->foto_produk[0]->foto_produk)
+                    'foto' => $val->produk->foto_produk[0]->foto_produk
                 ]);
             }
 
