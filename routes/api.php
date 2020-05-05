@@ -17,6 +17,20 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/{id_produk}', 'ApiProdukController@getDetail');
         Route::post('/', 'ApiProdukController@create');
     });
+    //konsumen
+    Route::group(['prefix' => 'konsumen'], function () {
+        Route::post('/', 'ApiRegisterKonsumenController@create');
+        Route::put('/{id_konsumen}', 'ApiRegisterKonsumenController@update');
+        Route::get('/profil/{id_konsumen}', 'ApiKonsumenController@profile');
+        Route::post('/alamat', 'ApiKonsumenController@simpan_alamat');
+        Route::get('/tampil/alamat/{id_alamat}', 'ApiKonsumenController@show_alamat');
+        Route::put('/edit/alamat/{id_alamat}', 'ApiKonsumenController@update_alamat');
+        Route::post('/edit/alamat/utama/{id_alamat}', 'ApiKonsumenController@update_alamat_utama');
+        Route::delete('/hapus/alamat/{id_alamat}', 'ApiKonsumenController@hapus_alamat');
+        Route::put('/hapus/{id_konsumen}', 'ApiKonsumenController@hapus_akun');
+        Route::put('/aktif/{id_konsumen}', 'ApiKonsumenController@aktif_kembali');
+        Route::post('/upload', 'ApiRegisterKonsumenController@upload');
+    });
 });
 
 // PRODUK
