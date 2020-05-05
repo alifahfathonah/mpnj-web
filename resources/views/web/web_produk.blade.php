@@ -58,7 +58,7 @@
             @forelse($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                 <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
-                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}"> </a>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>

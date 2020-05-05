@@ -69,7 +69,7 @@
                                 @foreach($v['item'] as $val)
                                     <tr>
                                         <td width="95">
-                                            <img src="{{ asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk) }}"
+                                            <img src="{{ env('FILES_ASSETS').$val->produk->foto_produk[0]->foto_produk }}"
                                                  class="img-xs border">
                                         </td>
                                         <td>
