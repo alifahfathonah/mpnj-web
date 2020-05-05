@@ -17,27 +17,27 @@
                           <small>Tolong isi data dibawah ini dengan benar.</small>
                         </center>
                     </header>
-                    <form action="{{ route('daftarSimpan') }}" method="POST">
+                    <form action="{{ route('register') }}" method="POST">
                     @csrf
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input type="text" class="form-control" placeholder="" name="nama_lengkap">
+                            <input type="text" class="form-control" placeholder="" name="nama_lengkap" required>
                         </div>
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" placeholder="" name="username">
+                            <input type="text" class="form-control" placeholder="" name="username" required>
                         </div>
                         <div class="form-group">
                             <label>Nomor Hp</label>
-                            <input type="text" class="form-control" placeholder="" name="nomor_hp">
+                            <input type="text" class="form-control" placeholder="" name="nomor_hp" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="" name="email">
+                            <input type="email" class="form-control" placeholder="" name="email" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input class="form-control" type="password" name="password">
+                            <input class="form-control" type="password" name="password" required>
                         </div> 
                             <button type="submit" class="btn btn-primary btn-block"> Daftar Sekarang  </button>
                             <div class="login_assist">

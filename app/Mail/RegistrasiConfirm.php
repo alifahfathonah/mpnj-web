@@ -29,10 +29,10 @@ class RegistrasiConfirm extends Mailable
      */
     public function build()
     {
-        return $this->from('blogsayailham@gmail.com')
+        return $this->from(env('MAIL_USERNAME'))
                     ->view('email/registrasi_confirm')
                     ->with([
-                        'id' => $this->id,
+                        'id' => $this->id
                     ]);
     }
 }

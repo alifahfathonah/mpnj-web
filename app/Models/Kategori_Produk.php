@@ -15,6 +15,8 @@ class Kategori_Produk extends Model
         return $this->hasMany('App\Models\Produk', 'kategori_produk_id', 'id_kategori_produk');
     }
 
-
+    public function latestProduk()
+    {
+        return $this->hasOne('App\Models\Produk', 'kategori_produk_id', 'id_kategori_produk');
+    }
 }
-
