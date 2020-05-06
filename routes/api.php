@@ -51,6 +51,11 @@ Route::group(['namespace' => 'Api'], function () {
         Route::put('/{id}/go_checkout', 'ApiKeranjangController@keCheckOut');
         Route::post('/cek_harga', 'ApiKeranjangController@cekHarga');
     });
+    //transaksi
+    Route::group(['prefix' => 'transaksi'], function () {
+        Route::get('/', 'ApiTransaksiController@index');
+        Route::post('/simpan', 'ApiTransaksiController@simpan');
+    });
 });
 
 // PRODUK
