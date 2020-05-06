@@ -62,6 +62,12 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/', 'ApiKategoriController@index');
         Route::get('/{id}', 'ApiKategoriController@produk');
     });
+
+    //konfimasi
+    Route::group(['prefix' => 'konfirmasi'], function () {
+        Route::get('/{kode_transaksi}', 'ApiKonfirmasiController@tampilData');
+        Route::post('/simpan', 'ApiKonfirmasiController@simpan');
+    });
 });
 
 // PRODUK
