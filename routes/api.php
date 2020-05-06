@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::put('/{id}/go_checkout', 'ApiKeranjangController@keCheckOut');
         Route::post('/cek_harga', 'ApiKeranjangController@cekHarga');
     });
+
     //transaksi
     Route::group(['prefix' => 'transaksi'], function () {
         Route::get('/', 'ApiTransaksiController@index');
@@ -111,16 +112,16 @@ Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password'
 // Route::post('/keranjang/cek_harga', 'Api\ApiKeranjangController@cekHarga');
 
 //transaksi
-Route::get('/transaksi', 'Api\ApiTransaksiController@index');
-Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
+// Route::get('/transaksi', 'Api\ApiTransaksiController@index');
+// Route::post('/transaksi/simpan', 'Api\ApiTransaksiController@simpan');
 
 //kategori
-Route::get('/kategori', 'Api\ApiKategoriController@index');
-Route::get('/kategori/{id}', 'Api\ApiKategoriController@produk');
+// Route::get('/kategori', 'Api\ApiKategoriController@index');
+// Route::get('/kategori/{id}', 'Api\ApiKategoriController@produk');
 
 //konfirmasi
-Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
-Route::post('/konfirmasi/simpan', 'Api\ApiKonfirmasiController@simpan');
+// Route::get('/konfirmasi/{kode_transaksi}', 'Api\ApiKonfirmasiController@tampilData');
+// Route::post('/konfirmasi/simpan', 'Api\ApiKonfirmasiController@simpan');
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
