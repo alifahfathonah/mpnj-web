@@ -106,13 +106,13 @@ class ProfileWebController extends Controller
             'kecamatan_id' => $request->kecamatan,
             'nama_kecamatan' => $request->nama_kecamatan,
             'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => Auth::id(),
-            'santri' => $request->santri
+            'user_id' => Auth::id()
         ];
 
         if ($request->has('wilayah') AND $request->has('kamar')) {
             $data['wilayah'] = $request->wilayah;
             $data['kamar'] = $request->kamar;
+            $data['santri'] = $request->santri;
         }
 
         $simpan = Alamat::create($data);

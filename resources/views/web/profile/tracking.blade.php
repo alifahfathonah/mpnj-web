@@ -37,7 +37,7 @@
                 <ul class="row">
                     <li class="col-md-12">
                         <figure class="itemside  mb-3">
-                            <div class="aside"><img src="{{ asset('assets/foto_produk/'.$detail->produk->foto_produk[0]->foto_produk) }}" class="img-sm border"></div>
+                            <div class="aside"><img src="{{ env('FILES_ASSETS').$detail->produk->foto_produk[0]->foto_produk }}" class="img-sm border"></div>
                             <figcaption class="info align-self-center">
                                 <p class="title">{{ $detail->produk->nama_produk }} <br></p>
                                 @if($detail->diskon == 0)

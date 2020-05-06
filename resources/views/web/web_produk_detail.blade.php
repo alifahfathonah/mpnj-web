@@ -27,13 +27,13 @@
                     <article class="gallery-wrap">
                         <div class="img-big-wrap">
                             <div> <a href="#"><img
-                                        src="{{ asset('assets/foto_produk/'.$produk->foto_produk[0]->foto_produk) }}"
+                                        src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}"
                                         id="thumbFoto" alt="{{ $produk->nama_produk }}"></a></div>
                         </div> <!-- slider-product.// -->
                         <div class="thumbs-wrap">
                             @foreach($produk->foto_produk as $img)
                             <a href="#" class="item-thumb"> <img
-                                    src="{{ asset('assets/foto_produk/'.$img->foto_produk) }}"
+                                    src="{{ env('FILES_ASSETS').$img->foto_produk }}"
                                     alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}"
                                     onclick="gantiFoto({{ $img->id_foto_produk }})"></a>
                             @endforeach
@@ -181,7 +181,7 @@
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                 <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top"
-                            src="{{ asset('assets/foto_produk/'.$pl->foto_produk[0]->foto_produk) }}"> </a>
+                            src="{{ env('FILES_ASSETS').$pl->foto_produk[0]->foto_produk }}"> </a>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>

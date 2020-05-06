@@ -52,7 +52,7 @@ class CheckoutWebController extends Controller
                     'slug' => $val->produk->slug,
                     'terjual' => $val->produk->terjual,
                     'kategori' => $val->produk->kategori->nama_kategori,
-                    'foto' => asset('assets/foto_produk/' . $val->produk->foto_produk[0]->foto_produk)
+                    'foto' => $val->produk->foto_produk[0]->foto_produk
                 ]);
                 $total_berat += $val->produk->berat;
             }

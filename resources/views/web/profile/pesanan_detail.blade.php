@@ -40,7 +40,7 @@
                     @foreach( $detail->transaksi_detail as $d)
                     <tr>
                         <td width="65">
-                            <img src="{{ asset('assets/foto_produk/'.$d->produk->foto_produk[0]->foto_produk) }}"
+                            <img src="{{ env('FILES_ASSETS').$d->produk->foto_produk[0]->foto_produk }}"
                                 class="img-xs border">
                         </td>
                         <td>

@@ -76,7 +76,7 @@
                                                     <a href="{{ URL::to('produk?kategori='.strtolower($lp->nama_kategori)) }}"
                                                        class="btn btn-primary btn-sm">{{$lp->nama_kategori}}</a>
                                                 </div>
-                                                <img src="{{ asset('assets/foto_produk/'.$lp->latestProduk->foto_produk[0]->foto_produk) }}"
+                                                <img src="{{ env('FILES_ASSETS').$lp->latestProduk->foto_produk[0]->foto_produk }}"
                                                      height="80" class="icon icon-md rounded-circle my-auto">
                                             </div>
                                         @else
@@ -122,7 +122,7 @@
                         <div class="col-md col-6">
                             <figure class="card-product-grid card-sm">
                                 <a href="#" class="img-wrap">
-                                    <img src="{{asset('assets/foto_produk/'.$pD->foto_produk[0]->foto_produk) }}">
+                                    <img src="{{ env('FILES_ASSETS').$pD->foto_produk[0]->foto_produk  }}">
                                 </a>
                                 <div class="namaProduk-rapi">
                                     <a href="{{ URL::to('produk/'.$pD->slug) }}"
@@ -149,8 +149,7 @@
                 @foreach($produk as $p)
                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                         <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
-                            <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top"
-                                                                                       src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}">
+                            <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}">
                             </a>
                             <figcaption class="info-wrap">
                                 <div class="namaProduk-rapi">
@@ -233,8 +232,7 @@
                             z-index: 1;padding:5px;font-size:small">Star Teller
                         </div>
                         <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
-                            <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top"
-                                                                                       src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}">
+                            <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}">
                             </a>
                             <figcaption class="info-wrap">
                                 <div class="namaProduk-rapi">
