@@ -100,6 +100,13 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('{username}', 'PelapakWebController@index')->name('halaman_pelapak');
         Route::get('{username}/produk', 'PelapakWebController@produk')->name('halaman_produk_pelapak');
     });
+
+    //review
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('produk/{id}', 'ReviewWebController@index');
+        Route::post('produk', 'ReviewWebController@postReview');
+        Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
+    });
 });
 
 //daftar
