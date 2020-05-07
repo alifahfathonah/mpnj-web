@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\sendRegistrationEmail;
 use App\Models\Produk;
 use GuzzleHttp\Client;
 use App\Providers\RouteServiceProvider;
@@ -107,6 +108,7 @@ class RegisterController extends Controller
         if ($simpan) {
             $credential = $request->only('username','password');
             if (Auth::attempt($credential)) {
+                $this->dispatch(new sendRegistrationEmail($request->email, $simpan->id_user));
                 $request->session()->put('role', Auth::user()->role);
             }
             return redirect('/');
