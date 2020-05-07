@@ -60,7 +60,7 @@ class ApiPelapakController extends Controller
                     'id_pelapak' => $produks->user->id_user,
                     'nama_toko' => $produks->user->nama_toko,
                     'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
-                    'alamat' => $produks->user->alamat_fix
+                    'alamat' => $produks->user->alamat[0]->alamat_lengkap
                 ]
             ];
         });
