@@ -67,7 +67,7 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
-//        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
+        //        Route::get('/', 'KonfirmasiWebController@index')->middleware('checkUserLogin');
         Route::get('data', 'KonfirmasiWebController@data')->middleware('checkUserLogin');
         Route::get('data/{id}', 'KonfirmasiWebController@data');
         Route::post('simpan', 'KonfirmasiWebController@simpan');
@@ -100,6 +100,13 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('{username}', 'PelapakWebController@index')->name('halaman_pelapak');
         Route::get('{username}/produk', 'PelapakWebController@produk')->name('halaman_produk_pelapak');
     });
+
+    //review
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('produk/{id}', 'ReviewWebController@index');
+        Route::post('produk', 'ReviewWebController@postReview');
+        Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
+    });
 });
 
 //daftar
@@ -119,6 +126,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('jual', 'Pelapak\PelapakController@index');
 
 //review
-Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
-Route::post('review/produk', 'Web\ReviewWebController@postReview');
-Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');
+// Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
+// Route::post('review/produk', 'Web\ReviewWebController@postReview');
+// Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');
