@@ -70,7 +70,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/simpan', 'ApiKonfirmasiController@simpan');
     });
 
-    Route::gruoup(['prefix' => 'gateway'], function () {
+    Route::group(['prefix' => 'gateway'], function () {
         Route::get('/provinsi', 'Api\RajaOngkirGateway@provinsi');
         Route::get('/kota', 'Api\RajaOngkirGateway@kota');
         Route::get('/kotaId', 'Api\RajaOngkirGateway@kotaId');
