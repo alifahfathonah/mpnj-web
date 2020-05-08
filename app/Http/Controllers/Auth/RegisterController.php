@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\sendRegistrationEmail;
+use App\Mail\RegistrasiConfirm;
 use App\Models\Produk;
 use GuzzleHttp\Client;
 use App\Providers\RouteServiceProvider;
@@ -12,6 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -108,8 +110,10 @@ class RegisterController extends Controller
         if ($simpan) {
             $credential = $request->only('username','password');
             if (Auth::attempt($credential)) {
-                $this->dispatch(new sendRegistrationEmail($request->email, $simpan->id_user));
-                $request->session()->put('role', Auth::user()->role);
+                $kirimEmailRegistrasi = Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_user));
+                if ($kirimEmailRegistrasi) {
+                    $request->session()->put('role', Auth::user()->role);
+                }
             }
             return redirect('/');
         }
