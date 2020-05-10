@@ -18,6 +18,8 @@ class CreateWithdrawTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id_user')->on('users');
             $table->integer('nominal');
+            $table->integer('rekening_pelapak_id')->unsigned();
+            $table->foreign('rekening_pelapak_id')->references('id_rekening')->on('rekening_pelapak');
             $table->enum('status', ['pending', 'diterima', 'sukses'])->default('pending');
             $table->timestamps();
         });
