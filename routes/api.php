@@ -12,7 +12,7 @@ use App\Models\Kategori_Produk;
 Route::group(['namespace' => 'Api'], function () {
 
     //produk
-    Route::group(['prefix' => 'produk'], function () {
+    Route::group(['prefix' => 'produk', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiProdukController@index');
         Route::get('/{id_produk}', 'ApiProdukController@getDetail');
         Route::post('/', 'ApiProdukController@create');
