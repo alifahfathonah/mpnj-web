@@ -14,12 +14,14 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use JWTAuth;
 
 class ApiLoginController extends Controller
 {
 
     use AuthenticatesUsers;
-    
+
     public function __construct()
     {
         $this->middleware('guest')->except('keluar');
@@ -28,39 +30,34 @@ class ApiLoginController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+        $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
-            $code_token = Str::random(64);
-            $token = ['remember_token' => $code_token];
-            $update_token = User::where('username',$request->username)->update($token);
-
-            return response()->json([
-                'pesan' => 'Login Sukses!',
-                'token' => $code_token,
-                'id_user' => Auth::user()->id_user,
-                'username' => Auth::user()->username,
-                'nama_lengkap' => Auth::user()->nama_lengkap,
-                'nomor_hp' => Auth::user()->nomor_hp,
-                'email' => Auth::user()->email,
-                'foto' => Auth::user()->foto_profil
-                ], 200);
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 400);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(['pesan' => 'Login Salah Bro, Santuyy'], 401);
+        return response()->json([
+            'pesan' => 'Login Sukses!',
+            'id_user' => Auth::user()->id_user,
+            'username' => Auth::user()->username,
+            'nama_lengkap' => Auth::user()->nama_lengkap,
+            'nomor_hp' => Auth::user()->nomor_hp,
+            'email' => Auth::user()->email,
+            'foto' => Auth::user()->foto_profil,
+            'token' => $token
+        ]);
     }
 
     public function keluar(Request $request)
     {
-
-            $token = ['remember_token' => null ];
-            $update_token = User::where('id_user',$request->id_konsumen)->update($token);
-            if ($update_token) {
-                return response()->json(['pesan' => 'Berhasil Keluar!'], 200);
-            }
+        $keluar = JWTAuth::invalidate(JWTAuth::getToken());
+        if ($keluar) {
+            return response()->json(['pesan' => 'Berhasil Keluar!'], 200);
+        }
     }
 
 }
