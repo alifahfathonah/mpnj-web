@@ -71,12 +71,12 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     Route::group(['prefix' => 'gateway'], function () {
-        Route::get('/provinsi', 'Api\RajaOngkirGateway@provinsi');
-        Route::get('/kota', 'Api\RajaOngkirGateway@kota');
-        Route::get('/kotaId', 'Api\RajaOngkirGateway@kotaId');
-        Route::get('/kecamatan', 'Api\RajaOngkirGateway@kecamatan');
-        Route::get('/kecamatanId', 'Api\RajaOngkirGateway@kecamatanId');
-        Route::post('/tracking', 'Api\RajaOngkirGateway@tracking_check');
+        Route::get('/provinsi', 'RajaOngkirGateway@provinsi');
+        Route::get('/kota', 'RajaOngkirGateway@kota');
+        Route::get('/kotaId', 'RajaOngkirGateway@kotaId');
+        Route::get('/kecamatan', 'RajaOngkirGateway@kecamatan');
+        Route::get('/kecamatanId', 'RajaOngkirGateway@kecamatanId');
+        Route::post('/tracking', 'RajaOngkirGateway@tracking_check');
     });
 });
 
