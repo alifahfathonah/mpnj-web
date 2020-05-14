@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     //konsumen
-    Route::group(['prefix' => 'konsumen'], function () {
+    Route::group(['prefix' => 'konsumen', 'middleware' => 'jwt.verify'], function () {
         Route::post('/', 'ApiRegisterKonsumenController@create');
         Route::put('/{id_konsumen}', 'ApiRegisterKonsumenController@update');
         Route::get('/profil/{id_konsumen}', 'ApiKonsumenController@profile');
