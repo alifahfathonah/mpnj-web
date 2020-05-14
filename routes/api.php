@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     //pelapak
-    Route::group(['prefix' => 'pelapak'], function () {
+    Route::group(['prefix' => 'pelapak', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiPelapakController@index');
         Route::post('/', 'ApiPelapakController@create');
         Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');
