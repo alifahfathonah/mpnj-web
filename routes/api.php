@@ -43,7 +43,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     //keranjang
-    Route::group(['prefix' => 'keranjang'], function () {
+    Route::group(['prefix' => 'keranjang', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1
         Route::post('/', 'ApiKeranjangController@simpan');
         Route::delete('/{id_keranjang}', 'ApiKeranjangController@hapus');
