@@ -15,13 +15,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h6 class="text-dark">Oleh</h6>
-                    <p>{{ $detail->user->alamat_fix->nama }}<br>
-                        Telepon {{ $detail->user->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->user->alamat_fix->alamat_lengkap}},
-                        {{ $detail->user->alamat_fix->nama_kota }}, {{ $detail->user->alamat_fix->nama_provinsi }}
-                        <br>
-                        Kode Pos: {{ $detail->user->alamat_fix->kode_pos }}
-                    </p>
+                    <p>{!! $detail->to !!}</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="text-dark">Overview</h6>
