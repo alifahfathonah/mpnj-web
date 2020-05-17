@@ -26,6 +26,7 @@
                             <li class="list-inline-item mr-3 dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="filterByKategori">Kategori</a>
                                 <div class="dropdown-menu">
+                                    <a href="{{ URL::to('produk') }}" class="dropdown-item">Semua</a>
                                     @foreach($kategori as $k)
                                     <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}" class="dropdown-item">{{ $k->nama_kategori }}</a>
                                     @endforeach
