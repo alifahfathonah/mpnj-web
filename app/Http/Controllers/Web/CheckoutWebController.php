@@ -21,7 +21,7 @@ class CheckoutWebController extends Controller
 {
     public function index(Request $request)
     {
-        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.daftar_alamat'])
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.alamat'])
             ->where('user_id', Auth::id())
             ->where('status', 'Y')
             ->get()
@@ -60,7 +60,7 @@ class CheckoutWebController extends Controller
             $data['data_keranjang']->push([
                 'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
-                'alamat' => $keranjang[$key][0]->produk->user->alamat_fix,
+                'alamat' => $keranjang[$key][0]->produk->user->alamatToko,
                 'total_berat' => $total_berat,
                 'item' => $item,
             ]);
