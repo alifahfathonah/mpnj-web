@@ -331,11 +331,13 @@
                         'etd': $(`#dataPelapak${index}`).data('etd'),
                         'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
                         'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
-                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
+                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual')),
+                        'from_city_id': $(`#dataPelapak${index}`).data('origin'),
+                        'from': $(`#dataPelapak${index}`).data('from')
                     });
                 }
             }
-
+        
         $.ajax({
             async: true,
             url: "{{ URL::to('checkout/simpanTransaksi') }}",
