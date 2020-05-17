@@ -75,6 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Alamat::class, 'user_id', 'id_user');
     }
 
+    public function alamatToko()
+    {
+        return $this->hasOne(Alamat::class, 'id_alamat', 'alamat_toko');
+    }
+
     public function produk()
     {
         return $this->hasMany(Produk::class, 'user_id', 'id_user');
