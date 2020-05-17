@@ -13,8 +13,7 @@ class AddAlamatOrderFiledToTransaksi extends Migration
      */
     public function up()
     {
-        Schema::table('transaksi', function (Blueprint $table) {            
-            $table->integer('to_kecamatan_id')->nullable();
+        Schema::table('transaksi', function (Blueprint $table) {       
             $table->text('to')->nullable();
         });
     }
@@ -26,8 +25,7 @@ class AddAlamatOrderFiledToTransaksi extends Migration
      */
     public function down()
     {
-        Schema::table('transaksi', function (Blueprint $table) {            
-            $table->dropColumn('to_kecamatan_id');
+        Schema::table('transaksi', function (Blueprint $table) {   
             $table->dropColumn('to');
         });
     }
