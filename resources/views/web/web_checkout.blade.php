@@ -57,7 +57,7 @@
                             $m = 1;
                             $total = 0; ?>
                             @foreach($data_keranjang as $val)
-                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}" data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}" data-mulai="{{ $n }}" data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
+                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}" data-from="{{ $val['alamat']['nama'] }} <br> {{ $val['alamat']['alamat_lengkap'] }}, {{ $val['alamat']['nama_kecamatan'] }}, {{ $val['alamat']['nama_kota'] }}, {{ $val['alamat']['nama_provinsi'] }}, {{ $val['alamat']['kode_pos'] }} <br> {{ $val['alamat']['nomor_telepon'] }}" data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}" data-mulai="{{ $n }}" data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
                                 <td colspan="7">
                                     <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
                                 </td>
