@@ -24,36 +24,28 @@
                     <div class="col-md-10">
                         <ul class="list-inline">
                             <li class="list-inline-item mr-3 dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kategori</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="filterByKategori">Kategori</a>
                                 <div class="dropdown-menu">
                                     @foreach($kategori as $k)
                                     <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}" class="dropdown-item">{{ $k->nama_kategori }}</a>
                                     @endforeach
                                 </div>
                             </li>
+                            @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '') 
+                                <label>Filter:</label>
+                                <select class="list-inline-item mr-3 dropdown" id="price">
+                                    <option selected>--Harga Produk--</option>
+                                    <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
+                                    <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
+                                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
+                                </select>                                
+                            @endif                            
                         </ul>
                     </div> <!-- col.// -->
                 </div> <!-- row.// -->
             </div> <!-- card-body .// -->
         </div> <!-- card.// -->
         <!-- ============================ FILTER TOP END.// ================================= -->
-
-        <header class="mb-3">
-            <div class="form-inline filter__option filter--select" style="
-                                    @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '')
-                                        display: inline-block;
-                                    @else
-                                        display: none;
-                                    @endif
-                                ">
-                <select class="mr-2 form-control" id="price">
-                    <option selected>--Harga Produk--</option>
-                    <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
-                    <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
-                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
-                </select>
-            </div>
-        </header><!-- sect-heading -->
         <div class="row">
             @forelse($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
@@ -139,9 +131,13 @@
 @push('scripts')
 <script>
     $(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var kategoriParams = urlParams.get('kategori');
+        $("#filterByKategori").html(camelCase(kategoriParams));
+
         $('#price').on('change', function() {
-            let urlParams = new URLSearchParams(window.location.search);
-            let kategoriParams = urlParams.has('kategori');
+            // let urlParams = new URLSearchParams(window.location.search);
+            // let kategoriParams = urlParams.has('kategori');
             let cariParams = urlParams.has('cari');
             let filter = $(this).val();
 
@@ -160,5 +156,11 @@
             }
         });
     });
+
+    function camelCase(str) {
+        return str.replace(/(?:^|\s)\w/g, function(match) {
+            return match.toUpperCase();
+        });
+    }
 </script>
 @endpush
