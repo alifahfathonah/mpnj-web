@@ -22,7 +22,9 @@ class Transaksi_Detail extends Model
         'etd',
         'sub_total',
         'status_order',
-        'resi'
+        'resi',
+        'from_city_id',
+        'from'
     ];
 	public $timestamps = false;
 
