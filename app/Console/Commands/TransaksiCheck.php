@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Transaksi;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use App\Jobs\sendOutdateTransaction;
 
 class TransaksiCheck extends Command
 {
@@ -12,14 +14,14 @@ class TransaksiCheck extends Command
      *
      * @var string
      */
-    protected $signature = 'command:check';
+    protected $signature = 'transaction:check';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Transaksi Akan Dicek Perhari Pada Jam 00.00';
+    protected $description = 'Transaksi Akan Dicek Setiap Jam';
 
     /**
      * Create a new command instance.
@@ -40,10 +42,20 @@ class TransaksiCheck extends Command
     {
         //Database logic
         $dateTime = date('Y-m-d H:i:s');
-        $cek['transaksi'] = Transaksi::with('pembeli')->where('batas_transaksi', $dateTime)->get();
-        if ($cek) {
-            Transaksi::where('proses_pembayaran', 'belum')->update(['proses_pembayaran' => 'tolak']);
-            echo "Data Updated";
+        $outdateTrx = Transaksi::with('user', 'transaksi_detail')->where('proses_pembayaran', 'belum')->get();
+        foreach ($outdateTrx as $t) {
+            if ($dateTime > $t->batas_transaksi) {
+                DB::beginTransaction();
+                try {
+                    $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal']);
+                    $kirimEmail = dispatch(new sendOutdateTransaction());
+                    DB::commit();
+                    return redirect()->back();
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    return response($e->getMessage(), 500);
+                }
+            }
         }
     }
 }
