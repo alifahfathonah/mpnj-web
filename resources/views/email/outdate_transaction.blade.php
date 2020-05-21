@@ -22,7 +22,7 @@
 							</div>
 
 							<div class="col-md-6 text-right">
-								<p class="font-weight-bold mb-1">Kode Transakai #{{ $data->kode_transaksi }}</p>
+								<p class="font-weight-bold mb-1">Kode Transaksi: {{ $data->kode_transaksi }}</p>
 								<p class="text-muted">Waktu Transaksi: {{ $data->waktu_transaksi }}</p>
 								<p class="text-muted">Batas Pembayaran: {{ $data->batas_transaksi }}</p>
 							</div>
