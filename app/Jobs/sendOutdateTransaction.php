@@ -13,15 +13,16 @@ use Illuminate\Support\Facades\Mail;
 class sendOutdateTransaction implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    protected $transaksi;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($transaksi)
     {
-        //
+        $this->transaksi = $transaksi;
     }
 
     /**
@@ -31,7 +32,7 @@ class sendOutdateTransaction implements ShouldQueue
      */
     public function handle()
     {
-        $email = new OutdateTransaction();
-        Mail::to('xxxxxxxxxxxxxxx')->send($email);
+        $email = new OutdateTransaction($this->transaksi);
+        Mail::to($this->transaksi->user->email)->send($email);
     }
 }
