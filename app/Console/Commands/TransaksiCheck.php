@@ -47,8 +47,8 @@ class TransaksiCheck extends Command
             if ($dateTime > $t->batas_transaksi) {
                 DB::beginTransaction();
                 try {
-                    $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal']);
-                    $kirimEmail = dispatch(new sendOutdateTransaction());
+                    $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal', 'proses_pembayaran' => 'tolak']);
+                    $kirimEmail = dispatch(new sendOutdateTransaction($t));
                     DB::commit();
                     return redirect()->back();
                 } catch (Exception $e) {
