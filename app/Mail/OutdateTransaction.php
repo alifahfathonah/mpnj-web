@@ -17,9 +17,9 @@ class OutdateTransaction extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($trx)
     {
-        // $this->trx = $trx;
+        $this->trx = $trx;
     }
 
     /**
@@ -30,9 +30,10 @@ class OutdateTransaction extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_USERNAME'))
-                    ->view('email/outdate_transaction');
-                    // ->with([
-                    //     'data' => $this->trx
-                    // ]);
+                    ->subject('Your Outdate Transaction')
+                    ->view('email/outdate_transaction')
+                    ->with([
+                        'data' => $this->trx
+                    ]);
     }
 }
