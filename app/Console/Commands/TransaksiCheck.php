@@ -50,10 +50,8 @@ class TransaksiCheck extends Command
                     $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal', 'proses_pembayaran' => 'tolak']);
                     $kirimEmail = dispatch(new sendOutdateTransaction($t));
                     DB::commit();
-                    return redirect()->back();
                 } catch (Exception $e) {
                     DB::rollBack();
-                    return response($e->getMessage(), 500);
                 }
             }
         }
