@@ -17,7 +17,7 @@ class CreateRekeningAdminTable extends Migration
             $table->increments('id_rekening_admin');
             $table->string('nomor_rekening');
             $table->integer('bank_id')->unsigned();
-            $table->foreign('bank_id')->references('id_bank')->on('bank');
+            $table->foreign('bank_id')->references('id_bank')->on('bank')->onDelete('cascade');
             $table->string('atas_nama_rekening');
 //            $table->timestamps();
         });
