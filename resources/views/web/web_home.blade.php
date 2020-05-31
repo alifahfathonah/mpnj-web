@@ -26,38 +26,34 @@
                         </aside> <!-- col.// -->
                         <div class="col-md-9 col-xl-7 col-lg-7">
 
-                            <!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
-                            <div id="carousel1_indicator" class="slider-home-banner carousel slide"
-                                 data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel1_indicator" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carousel1_indicator" data-slide-to="1"></li>
-                                    <li data-target="#carousel1_indicator" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="{{ url('assets/mpnj/images/banners/ppnj.jpg') }}" alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="{{ url('assets/mpnj/images/banners/Unilever.png') }}"
-                                             alt="Second slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="{{ url('assets/mpnj/images/banners/nippon.jpg') }}" alt="Third slide">
-                                    </div>
+                        <!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
+                        <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                @foreach($banner as $key => $bnn)
+                                <li data-target="#carousel1_indicator" data-slide-to="{{ $bnn->id }}"
+                                    class="{{$key == 0 ? 'active' : '' }}"></li>
+                                @endforeach
+                            </ol>
+                            <div class="carousel-inner">
+                                @foreach($banner as $key => $bn)
+                                <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
+                                    <img src="{{ url('assets/banner/'.$bn->foto_banner) }}"
+                                        alt="Slide {{$bn->nama_banner}}">
                                 </div>
-                                <a class="carousel-control-prev" href="#carousel1_indicator" role="button"
-                                   data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carousel1_indicator" role="button"
-                                   data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                                @endforeach
                             </div>
-                            <!-- ==================  COMPONENT SLIDER BOOTSTRAP end.// ==================  .// -->
+                            <a class="carousel-control-prev" href="#carousel1_indicator" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel1_indicator" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- ==================  COMPONENT SLIDER BOOTSTRAP end.// ==================  .// -->
 
                         </div> <!-- col.// -->
                         <div class="col-md d-none d-lg-block flex-grow-1">
