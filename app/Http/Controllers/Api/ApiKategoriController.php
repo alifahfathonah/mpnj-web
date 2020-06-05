@@ -48,7 +48,7 @@ class ApiKategoriController extends Controller
                             'id_pelapak' => $produks->user->id_user,
                             'nama_toko' => $produks->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
-                            'alamat' => $produks->user->alamat_utama
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap
                         ]
                     ];
                 });
