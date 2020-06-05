@@ -344,7 +344,7 @@
             data: {
                 'trxDetail': dataTrxDetail,
                 'totalBayar': $("#totalBayar").data('totalbayar'),
-                'to': '{{ $pembeli->alamat_fix->nama }} <br> {{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}',
+                'to': '{{ $pembeli->alamat_fix->nama }} <br> {{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}',
                 'idKeranjang': keranjangId,
                 'idp': produkId,
                 'prosesData': proses
