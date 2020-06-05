@@ -40,7 +40,7 @@ class ProdukRepository
                             'id_pelapak' => $produks->user->id_user,
                             'nama_toko' => $produks->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
-                            'alamat' => $produks->user->alamat[0]->alamat_lengkap
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap
                         ]
                     ];
                 }
@@ -81,7 +81,7 @@ class ProdukRepository
                             'id_pelapak' => $produks->user->id_user,
                             'nama_toko' => $produks->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
-                            'alamat' => $produks->user->alamat[0]->alamat_lengkap,
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap,
                             'bergabung' => $produks->user->created_at
                         ]
                     ];
