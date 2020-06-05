@@ -19,7 +19,7 @@ class Transaksi extends Model
         'to_kecamatan_id',
         'to'
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function transaksi_detail()
     {

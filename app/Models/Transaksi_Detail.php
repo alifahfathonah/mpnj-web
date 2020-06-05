@@ -26,7 +26,7 @@ class Transaksi_Detail extends Model
         'from_city_id',
         'from'
     ];
-	public $timestamps = false;
+	public $timestamps = true;
 
 	public function produk()
     {
