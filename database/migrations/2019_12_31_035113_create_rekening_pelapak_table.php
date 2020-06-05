@@ -15,7 +15,6 @@ class CreateRekeningPelapakTable extends Migration
     {
         Schema::create('rekening_pelapak', function (Blueprint $table) {
             $table->increments('id_rekening');
-            $table->string('nama_bank', 50)->nullable();
             $table->char('nomor_rekening', 25)->nullable();
             $table->string('atas_nama', 100)->nullable();
             $table->integer('user_id')->unsigned();
