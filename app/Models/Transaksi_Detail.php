@@ -23,8 +23,6 @@ class Transaksi_Detail extends Model
         'sub_total',
         'status_order',
         'resi',
-        'from_city_id',
-        'from'
     ];
     public $timestamps = true;
 
