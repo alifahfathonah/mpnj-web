@@ -16,7 +16,6 @@ class Transaksi extends Model
         'batas_transaksi',
         'total_bayar',
         'proses_pembayaran',
-        'to_kecamatan_id',
         'to'
     ];
     public $timestamps = true;
