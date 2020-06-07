@@ -93,6 +93,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('detail/{id_trx}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
         Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
+        Route::get('export_invoice/{id}', 'PesananWebController@exportInvoice');
         Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
     });
 
