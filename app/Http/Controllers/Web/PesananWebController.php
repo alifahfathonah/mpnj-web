@@ -19,32 +19,14 @@ class PesananWebController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab');
-        $order = Transaksi::with(['transaksi_detail', 'user', 'transaksi_detail.produk.foto_produk'])
-            ->when($tab != '', function ($query) use ($tab) {
-                $query->whereHas('transaksi_detail', function ($query) use ($tab) {
-                    $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
-                });
-            })
-            ->where('user_id', Auth::id())
-            ->groupBy('kode_transaksi')
-            ->get();
-        // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-        //     ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
-        $orderCollect = collect();
-        foreach ($order as $key => $value) {
-            $orderCollect->push([
-                'kode_transaksi' => $value->kode_transaksi,
-                'waktu_transaksi' => $value->waktu_transaksi,
-                'status_transaksi' => $value->status_transaksi,
-                'total_bayar' => $value->total_bayar,
-                'proses_pembayaran' => $value->proses_pembayaran,
-                'item' => $value->transaksi_detail
-            ]);
-        }
+        $data['order'] = Transaksi_Detail::with(['transaksi' => function($query) use ($tab) {
+            $query->where('user_id', Auth::id());
+        }])
+        ->when($tab != '', function ($query) use ($tab) {
+            $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
+        })
+        ->paginate(5);
 
-        $page = $request->query('page');
-
-        $data['order'] = new LengthAwarePaginator(array_slice($orderCollect->toArray(), ($page - 3) * 3, 3), count($orderCollect), 3, $page, ["path" => $tab == '' ? 'pesanan' : 'pesanan?tab=' . $tab]);
         return view('web/web_profile', $data);
     }
 
