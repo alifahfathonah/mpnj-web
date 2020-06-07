@@ -669,7 +669,7 @@
     <script>
         $(function () {
 
-            $("#tambahAlamat").one('click', function () {
+            $("#tambahAlamat").on('click', function () {
                 $.ajax({
                     async: true,
                     url: '{{ URL::to('api/gateway/provinsi') }}',
