@@ -78,8 +78,11 @@
                         </td>
                         @elseif($d->status_order == 'Telah Sampai')
                         <td colspan="2">
-                            <a href="{{ URL::to('review/produk/'.$d->produk->slug) }}" class="btn btn-success btn-sm">
+                            <a href="{{ URL::to('review/produk/'.$d->produk->slug) }}"
+                                class="btn btn-success btn-sm mb-1">
                                 Beri Nilai</a>
+                            <a href="{{ URL::to('pesanan/export_invoice/'.$d->id_transaksi_detail) }}"
+                                class="btn btn-primary btn-sm mb-1" style="margin-right: 5px;">Generate PDF</a>
                         </td>
                         @endif
                         @endif
