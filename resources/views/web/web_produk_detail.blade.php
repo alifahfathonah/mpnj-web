@@ -26,14 +26,12 @@
                 <div class="card">
                     <article class="gallery-wrap">
                         <div class="img-big-wrap">
-                            <div> <a href="#"><img
-                                        src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}"
+                            <div> <a href="#"><img src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}"
                                         id="thumbFoto" alt="{{ $produk->nama_produk }}"></a></div>
                         </div> <!-- slider-product.// -->
                         <div class="thumbs-wrap">
                             @foreach($produk->foto_produk as $img)
-                            <a href="#" class="item-thumb"> <img
-                                    src="{{ env('FILES_ASSETS').$img->foto_produk }}"
+                            <a href="#" class="item-thumb"> <img src="{{ env('FILES_ASSETS').$img->foto_produk }}"
                                     alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}"
                                     onclick="gantiFoto({{ $img->id_foto_produk }})"></a>
                             @endforeach
@@ -130,7 +128,7 @@
                                 <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
                                     class="title text-dark">{{ $produk->user->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak :
-                                    {{ $produk->user->created_at->format("d, M Y") }}</p>
+                                    {{ \Carbon\Carbon::parse($produk->user->created_at)->format('d M, Y') }}</p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
