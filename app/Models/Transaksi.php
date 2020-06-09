@@ -15,9 +15,10 @@ class Transaksi extends Model
         'waktu_transaksi',
         'batas_transaksi',
         'total_bayar',
-        'proses_pembayaran'
+        'proses_pembayaran',
+        'to'
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function transaksi_detail()
     {

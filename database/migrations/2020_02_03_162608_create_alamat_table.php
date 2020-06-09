@@ -17,7 +17,7 @@ class CreateAlamatTable extends Migration
             $table->increments('id_alamat');
             $table->string('nama');
             $table->char('nomor_telepon');
-            $table->integer('priovinsi_id');
+            $table->integer('provinsi_id');
             $table->string('nama_provinsi');
             $table->integer('city_id');
             $table->string('nama_kota');

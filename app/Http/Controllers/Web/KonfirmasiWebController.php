@@ -20,30 +20,30 @@ class KonfirmasiWebController extends Controller
 		$this->kode = null;
 	}
 
-//	public function index(Request $request)
-//	{
-//		return view('web/web_konfirmasi');
-//	}
+	//	public function index(Request $request)
+	//	{
+	//		return view('web/web_konfirmasi');
+	//	}
 
 	public function data(Request $request, $id_trx)
 	{
 		$cek['transaksi'] = Transaksi::with('user')->where('kode_transaksi', $id_trx)->first();
 		if ($cek['transaksi'] == null) {
-            return redirect('/pesanan')->with('trxNull', 'Kode transaksi tidak ditemukan.');
-        }
+			return redirect('/pesanan')->with('trxNull', 'Kode transaksi tidak ditemukan.');
+		}
 
 		$cek['rekening_admin'] = Rekening_Admin::with('bank')->get();
-        if ($cek['transaksi']->status_transaksi != 'batal') {
-            if ($cek['transaksi']->proses_pembayaran == 'belum') {
-                return view('web/web_konfirmasi', $cek);
-            } else if ($cek['transaksi']->proses_pembayaran == 'sudah' || $cek['transaksi']->proses_pembayaran == 'terima'){
-                return redirect()->away('/pesanan')->with('message', 'Transaksi Sudah Dibayar');
-            } else {
-                return redirect()->away('/pesanan')->with('message', 'Pembayaran Anda Ditolak');
-            }
-        } else {
-            return redirect()->away('/pesanan')->with('message', 'Transaksi Sudah Dibatalkan');
-        }
+		if ($cek['transaksi']->status_transaksi != 'batal') {
+			if ($cek['transaksi']->proses_pembayaran == 'belum') {
+				return view('web/web_konfirmasi', $cek);
+			} else if ($cek['transaksi']->proses_pembayaran == 'sudah' || $cek['transaksi']->proses_pembayaran == 'terima') {
+				return redirect()->to('/pesanan')->with('message', 'Transaksi Sudah Dibayar');
+			} else {
+				return redirect()->to('/pesanan')->with('message', 'Pembayaran Anda Ditolak');
+			}
+		} else {
+			return redirect()->to('/pesanan')->with('message', 'Transaksi Sudah Dibatalkan');
+		}
 	}
 
 	public function simpan(Request $request)
@@ -75,7 +75,7 @@ class KonfirmasiWebController extends Controller
 			Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
 			$folder = 'assets/konfirmasi';
 			$foto->move($folder, $filename);
-			return redirect()->away('/pesanan');
+			return redirect()->to('/pesanan');
 		}
 	}
 

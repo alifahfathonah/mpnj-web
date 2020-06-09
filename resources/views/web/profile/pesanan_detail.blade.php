@@ -1,114 +1,88 @@
 <main class="col-md-12">
     <article class="card">
         <header class="card-header">
-            <strong class="d-inline-block">Kode Transaksi: {{ $detail->kode_transaksi }}</strong>
-            <hr>
-            <div class="col-md-8">
-                <h6 class="text-dark">Keterangan</h6>
-                <p>
-                    Waktu Pesanan: {{ $detail->waktu_transaksi }}<br>
-                    Dibayar Pada : {{ $detail->konfirmasi == null ? '-' : $detail->konfirmasi->tanggal_transfer }}
-                </p>
-            </div>
+            <strong class="d-inline-block mr-3">ID Transaksi: {{ $detail->id_transaksi_detail }} - <span>Waktu Pemesanan: {{ \Carbon\Carbon::parse($detail->transaksi->created_at)->format('d M, Y') }}</span></strong>
         </header>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
                     <h6 class="text-dark">Oleh</h6>
-                    <p>{{ $detail->user->alamat_fix->nama }}<br>
-                        Telepon {{ $detail->user->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->user->alamat_fix->alamat_lengkap}},
-                        {{ $detail->user->alamat_fix->nama_kota }}, {{ $detail->user->alamat_fix->nama_provinsi }}
-                        <br>
-                        Kode Pos: {{ $detail->user->alamat_fix->kode_pos }}
-                    </p>
+                    <p>{!! $detail->transaksi->to !!}</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="text-dark">Overview</h6>
-                    <span class="text-success">
-                        {{--                        <i class="fab fa-lg fa-cc-visa"></i>--}}
-                        {{--                        {{ $detail->proses_pembayaran }}--}}
+                    <span style="text-s">
+                        Status: <div class="btn btn-primary btn-sm">{{ $detail->status_order }}</div>
                     </span>
-                    <p>Total Bayar: @currency($detail->total_bayar)
-                    </p>
+{{--                    <p>Total Bayar: @currency($detail->transaksi->total_bayar)--}}
+{{--                    </p>--}}
                 </div>
             </div> <!-- row.// -->
         </div> <!-- card-body .// -->
         <div class="table-responsive">
             <table class="table table-hover">
+                <thead>
+                    <th colspan="2">Produk</th>
+                    <th>Total</th>
+                    <th>Kurir</th>
+                    <th>Aksi</th>
+                </thead>
                 <tbody>
-                    @foreach( $detail->transaksi_detail as $d)
-                    <tr>
-                        <td width="65">
-                            <img src="{{ env('FILES_ASSETS').$d->produk->foto_produk[0]->foto_produk }}"
-                                class="img-xs border">
-                        </td>
-                        <td>
-                            <a href="{{ URL::to('produk/'.$d->produk->slug) }}">
-                                <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
-                            </a>
-                            <p class="title mb-0 text-success">Barang {{ $d->status_order }}</p>
-                            <var class="price text">
-                                @if($d->diskon == 0)
-                                @currency($d->harga_jual)
-                                @else
-                                <strike style="color: red">@currency($d->harga_jual)</strike> <span
-                                    style="color: black;">| @currency($d->harga_jual - ($d->diskon / 100 *
-                                    $d->harga_jual))</span>
-                                @endif
-                            </var>
-                        </td>
-                        <td>Jumlah : {{ $d->jumlah }} <br> Ongkir : {{ $d->ongkir }}</td>
-                        <td> Total :
-                            @if($d->diskon == 0)
-                            @currency($d->jumlah * $d->harga_jual + $d->ongkir)
+                <tr>
+                    <td width="65">
+                        <img src="{{ env('FILES_ASSETS').$detail->produk->foto_produk[0]->foto_produk }}" class="img-xs border">
+                    </td>
+                    <td>
+                        <p class="title mb-0">{{ $detail->produk->nama_produk }}</p>
+                        <var class="price text-muted">
+                            @if($detail->diskon == 0)
+                                <span style="color: black">@currency($detail->harga_jual) x {{ $detail->jumlah }} @<a href="{{ URL::to('pelapak/'.$detail->user->username) }}">{{ $detail->user->nama_toko }}</a></span>
                             @else
-                            @currency(($d->harga_jual - ($d->diskon / 100 * $d->harga_jual)) * $d->jumlah + $d->ongkir)
-                            @endif </td>
-                        @if($detail->status_transaksi != 'batal')
-                        @if($d->status_order == 'Dikirim')
-                        <td>
-                            @if($d->resi != '')
-                            <a href="{{ URL::to('pesanan/tracking/'.$d->id_transaksi_detail) }}"
-                                class="btn btn-warning btn-sm"> Lacak Barang </a>
-                            @else
-                            <a href="#" class="btn btn-warning btn-sm" data-target="#modalLacak" data-toggle="modal">
-                                Lacak Barang </a>
+                                <span style="color: black">@currency($detail->harga_jual - ($detail->diskon / 100 *
+                                                            $detail->harga_jual)) x {{ $detail->jumlah }} @<a href="{{ URL::to('pelapak/'.$detail->user->username) }}">{{ $detail->user->nama_toko }}</a></span>
                             @endif
-                            <a href="{{ URL::to('pesanan/diterima/'.$d->id_transaksi_detail) }}"
-                                class="btn btn-success btn-sm"> Pesanan Diterima </a>
-                        </td>
-                        @elseif($d->status_order == 'Telah Dikonfirmasi' || $d->status_order == 'Dikemas')
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm">Menunggu Pengiriman</button>
-                        </td>
-                        @elseif($d->status_order == 'Telah Sampai')
-                        <td colspan="2">
-                            <a href="{{ URL::to('review/produk/'.$d->produk->slug) }}" class="btn btn-success btn-sm">
-                                Beri Nilai</a>
-                        </td>
+                        </var>
+                    </td>
+                    <td>
+                        @if($detail->diskon == 0)
+                            <span style="color: black">@currency($detail->harga_jual)</span>
+                        @else
+                            <span style="color: black">@currency($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual))</span>
                         @endif
+                    </td>
+                    <td>
+                        Kurir: {{ $detail->kurir }} <br>
+                        Service: {{ $detail->service }} <br>
+                        Ongkir: @currency($detail->ongkir)
+                    </td>
+                    <td>
+                        @if($detail->resi != '')
+                            <a href="{{ URL::to('pesanan/tracking/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Track order</a>
+                        @else
+                            <a href="#" class="btn btn-outline-success" data-target="#modalLacak" data-toggle="modal">
+                                Track order </a>
                         @endif
-                    </tr>
-                    @endforeach
-                    @if($detail->status_transaksi != 'batal')
-                    @if($detail->proses_pembayaran == 'belum')
-                    <tr>
-                        <td colspan="4">
-                            <a href="{{ URL::to('checkout/sukses/'.$detail->kode_transaksi) }}"
-                                class="btn btn-danger btn-sm">Bayar Sekarang</a>
-                            <a href="#" class="btn btn-danger btn-sm" data-target="#modalBatalTransaksi"
-                                data-toggle="modal"
-                                onclick="batalTransaksiConfirm({{ $detail->kode_transaksi }}, {{ $detail->id_transaksi }})">Batalkan
-                                Pesanan</a>
-                        </td>
-                    </tr>
-                    @endif
-                    @endif
+                        @if($detail->status_order == 'Telah Sampai')
+                            <a href="{{ URL::to('review/produk/'.$detail->produk->slug) }}" class="btn btn-outline-success">Beri Ulasan</a>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" rowspan="6"></td>
+                    <td>Subtotal : @currency($detail->sub_total - $detail->ongkir)</td>
+                </tr>
+                <td>Ongkir : @currency($detail->ongkir)</td>
+                <tr>
+                    <td>Total : @currency($detail->sub_total)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ URL::to('pesanan/export_invoice/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Cetak Invoice</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        @php $edited = false; @endphp
     </article> <!-- order-group.// -->
 </main>
 

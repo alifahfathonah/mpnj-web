@@ -76,6 +76,7 @@ class CheckoutWebController extends Controller
         $simpanTrx = Transaksi::create([
             'user_id' => Auth::id(),
             'kode_transaksi' => time(),
+            'to' => $request->to,
             'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
             'total_bayar' => $request->totalBayar
         ]);

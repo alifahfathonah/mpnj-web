@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Kategori_Produk;
 use App\Models\Produk;
 use DB;
@@ -29,8 +30,9 @@ class ProdukWebController extends Controller
         $data['kategori'] = Kategori_Produk::select('id_kategori_produk', 'nama_kategori')->get();
 
         $data['produkDiskon'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('diskon', '!=', 0)->orderBy('diskon', 'desc')->take(5)->get();
+        $data['banner'] = Banner::select('id_banner', 'nama_banner', 'status', 'foto_banner')->where('status', 'Y')->get();
         return view('web/web_home', $data);
-//         return $data['produkDiskon'];
+        //         return $data['produkDiskon'];
     }
 
     public function produk(Request $request)

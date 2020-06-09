@@ -11,20 +11,27 @@
             <aside class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
+                        <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round"
+                                data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
                         <hr>
                         <p class="text-center mb-3">
                             @if($pembeli->alamat_fix != null)
                             <div class="information_module order_summary">
-                                <div class="toggle_title" id="dataPembeli" data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
-                                    <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}</h5>
-                                    <h4>{{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}</h4>
+                                <div class="toggle_title" id="dataPembeli"
+                                    data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
+                                    <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}
+                                    </h5>
+                                    <h4>{{ $pembeli->alamat_fix->alamat_lengkap }},
+                                        {{ $pembeli->alamat_fix->nama_kota }},
+                                        {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}
+                                    </h4>
                                 </div>
                             </div>
                             @else
                             <div class="information_module order_summary">
                                 <div class="toggle_title">
-                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
+                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
+                                            href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
                                 </div>
                             </div>
                             @endif
@@ -57,19 +64,30 @@
                             $m = 1;
                             $total = 0; ?>
                             @foreach($data_keranjang as $val)
-                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}" data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}" data-mulai="{{ $n }}" data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
+                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}"
+                                data-from="{{ $val['alamat']['nama'] }} <br> {{ $val['alamat']['alamat_lengkap'] }}, {{ $val['alamat']['nama_kecamatan'] }}, {{ $val['alamat']['nama_kota'] }}, {{ $val['alamat']['nama_provinsi'] }}, {{ $val['alamat']['kode_pos'] }} <br> {{ $val['alamat']['nomor_telepon'] }}"
+                                data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}"
+                                data-mulai="{{ $n }}"
+                                data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
                                 <td colspan="7">
                                     <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
                                 </td>
                             </tr>
                             <?php $x++; ?>
                             @foreach ($val['item'] as $k)
-                            <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}" data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}" data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}" data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}" data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}" data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
+                            <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}"
+                                data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}"
+                                data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}"
+                                data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}"
+                                data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}"
+                                data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
                                 <td>
                                     <figure class="itemside">
-                                        <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}" class="img-sm"></div>
+                                        <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}"
+                                                class="img-sm"></div>
                                         <figcaption class="info">
-                                            <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
+                                            <a href="{{ URL::to('produk/'.$k['slug']) }}"
+                                                class="title text-dark">{{ $k['nama_produk'] }}</a>
                                             <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>
                                         </figcaption>
                                     </figure>
@@ -81,7 +99,8 @@
                                     @if($k['diskon'] == 0)
                                     @currency($k['harga_jual'])
                                     @else
-                                    <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
+                                    <strike style="color: red">@currency($k['harga_jual'])</strike> |
+                                    @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
                                     @endif
                                 </td>
                                 <td>
@@ -91,7 +110,8 @@
                                     @if($k['diskon'] == 0)
                                     @currency($k['harga_jual'] * $k['jumlah'])
                                     @else
-                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
+                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
+                                    $k['jumlah'])
                                     @endif
                                 </td>
                             </tr>
@@ -111,7 +131,8 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="modal-body">
-                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
+                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}"
+                                                        class="form-control" onchange="getKurir({{ $m }})">
                                                         <option>Pilih Kurir</option>
                                                         <option value="jne">JNE</option>
                                                         <option value="pos">POS</option>
@@ -137,8 +158,10 @@
                     </table>
 
                     <div class="card-body border-top">
-                        <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
+                        <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
+                            onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar
+                            Sekarang <i class="fa fa-chevron-right"></i></button>
                     </div>
                 </div> <!-- card.// -->
 
@@ -175,7 +198,8 @@
     </div> <!-- container .//  -->
 </section>
 
-<div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,7 +213,8 @@
             <div class="modal-body">
                 <form method="POST" id="formBatalCheckout">
                     @csrf
-                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
+                    <button type="submit" class="btn btn--round btn-danger btn--default"
+                        onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
             </div>
@@ -199,7 +224,8 @@
 </div>
 
 
-<div class="modal fade rating_modal item_remove_modal" id="pilihAlamat" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="pilihAlamat" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -216,7 +242,8 @@
                 <div class="information_module order_summary">
                     <div class="toggle_title" data-destination="{{ $v->kecamatan_id }}">
                         <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
-                        <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
+                        <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
+                        </h4>
                         <br>
                         <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
                             <button type="submit" class="btn btn--round modal_close">Pilih
@@ -237,7 +264,7 @@
     function getKurir(n) {
         let kurir = $("#pilih_kurir" + n).val();
         $.ajax({
-            url: '/api/ongkir',
+            url: '{{URL::to('api/ongkir')}}',
             type: 'POST',
             data: {
                 'asal': $(`#dataPelapak${n}`).data('origin'),
@@ -331,11 +358,12 @@
                         'etd': $(`#dataPelapak${index}`).data('etd'),
                         'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
                         'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
-                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
+                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual')),
+                        'from': $(`#dataPelapak${index}`).data('from')
                     });
                 }
             }
-
+        
         $.ajax({
             async: true,
             url: "{{ URL::to('checkout/simpanTransaksi') }}",
@@ -343,6 +371,7 @@
             data: {
                 'trxDetail': dataTrxDetail,
                 'totalBayar': $("#totalBayar").data('totalbayar'),
+                'to': '{{ $pembeli->alamat_fix->nama }} <br> {{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}',
                 'idKeranjang': keranjangId,
                 'idp': produkId,
                 'prosesData': proses
@@ -351,7 +380,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                window.location.href = `/checkout/sukses/${response.kode_transaksi}`;
+                window.location.href = `{{URL::to('checkout/sukses')}}/${response.kode_transaksi}`;
                 // console.log(response);
             },
             error: function(error) {

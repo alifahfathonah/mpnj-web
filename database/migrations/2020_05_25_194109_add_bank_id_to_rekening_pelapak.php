@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBatasTransaksiToTransaksiTable extends Migration
+class AddBankIdToRekeningPelapak extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddBatasTransaksiToTransaksiTable extends Migration
      */
     public function up()
     {
-        Schema::table('transaksi', function (Blueprint $table) {
-            $table->dateTime('batas_transaksi')->useCurrent();
+        Schema::table('rekening_pelapak', function (Blueprint $table) {
+            $table->integer('bank_id')->unsigned();
+             $table->foreign('bank_id')->references('id_bank')->on('bank');
         });
     }
 
@@ -25,8 +26,6 @@ class AddBatasTransaksiToTransaksiTable extends Migration
      */
     public function down()
     {
-        Schema::table('transaksi', function (Blueprint $table) {
-            //
-        });
+        $table->dropForeign('bank_id');
     }
 }
