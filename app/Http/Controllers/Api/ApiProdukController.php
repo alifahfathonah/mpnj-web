@@ -31,6 +31,12 @@ class ApiProdukController extends Controller
         $produks = $this->produkRepository->produkDiskon();
         return $produks;
     }
+
+    public function larisProduk()
+    {
+        $produks = $this->produkRepository->produkLaris();
+        return $produks;
+    }
     public function getDetail($id_produk)
     {
         $data = Produk::where('id_produk',$id_produk)->get();
