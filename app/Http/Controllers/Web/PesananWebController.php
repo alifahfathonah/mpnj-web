@@ -41,7 +41,7 @@ class PesananWebController extends Controller
     {
         $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
         if ($terima) {
-            return redirect()->back();
+            return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
         }
     }
 
