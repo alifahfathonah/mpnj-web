@@ -11,6 +11,7 @@ use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDF;
 
@@ -40,9 +41,16 @@ class PesananWebController extends Controller
 
     public function diterima(Request $request, $id_trx)
     {
-        $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
-        if ($terima) {
-            return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+        DB::beginTransaction();
+        try {
+            $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->first();
+                if ($terima->update(['status_order' => 'Telah Sampai'])) {
+                    $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
+                    DB::commit();
+                return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
         }
     }
 
