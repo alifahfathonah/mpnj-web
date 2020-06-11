@@ -20,6 +20,19 @@
             </div> <!-- row.// -->
         </div> <!-- card-body .// -->
         <div class="table-responsive">
+            @if(session()->has('trxBatalSukses'))
+                <div class="alert alert-danger alert-dismissable">{{ session()->get('trxBatalSukses') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session()->has('trxSukses'))
+                <div class="alert alert-success alert-dismissable">{{ session()->get('trxSukses') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <table class="table table-hover">
                 <thead>
                     <th colspan="2">Produk</th>
