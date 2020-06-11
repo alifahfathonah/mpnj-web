@@ -25,6 +25,7 @@ class PesananWebController extends Controller
         ->when($tab != '', function ($query) use ($tab) {
             $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
         })
+        ->orderBy('created_at', 'DESC')
         ->paginate(5);
 
         return view('web/web_profile', $data);
