@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-4">
                     <h6 class="text-dark">Overview</h6>
-                    <span style="text-s">
+                    <span>
                         Status: <div class="btn btn-primary btn-sm">{{ $detail->status_order }}</div>
                     </span>
 {{--                    <p>Total Bayar: @currency($detail->transaksi->total_bayar)--}}
@@ -100,6 +100,31 @@
         </div>
     </article> <!-- order-group.// -->
 </main>
+
+<div class="modal fade" id="modalPesananDiterima" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Anda Yakin Pesanan Anda Sudah Sampai ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Pastikan pesanan anda telah sampai dan sesuai. Jika anda mengkonfirmasi pesanan anda telah sampai, maka dana akan kita kirimkan ke penjual dan transaksi dianggap telah selesai.
+                <br>
+                <br>
+                <form action="{{ URL::to('pesanan/diterima/'.$detail->id_transaksi_detail) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-success">Lanjutkan</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--round modal_close" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="modalLacak" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
