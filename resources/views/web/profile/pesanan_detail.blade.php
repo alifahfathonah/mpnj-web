@@ -56,14 +56,29 @@
                         Ongkir: @currency($detail->ongkir)
                     </td>
                     <td>
-                        @if($detail->resi != '')
-                            <a href="{{ URL::to('pesanan/tracking/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Track order</a>
+                        @if($detail->status_order != 'Dibatalkan')
+                            @if($detail->transaksi->proses_pembayaran != 'belum')
+                                @if($detail->transaksi->proses_pembayaran != 'sudah' && $detail->resi != '')
+                                    <a href="{{ URL::to('pesanan/tracking/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Track order</a>
+                                @elseif($detail->transaksi->proses_pembayaran != 'sudah' && $detail->resi == '')
+                                    <a href="#" class="btn btn-outline-success" data-target="#modalLacak" data-toggle="modal">
+                                        Track order </a>
+                                @else
+                                   Menunggu Konfirmasi
+                                @endif
+                                @if($detail->status_order == 'Dikirim')
+                                        <a href="#" class="btn btn-outline-success" data-target="#modalPesananDiterima" data-idtransaksidetail="{{ $detail->id_transaksi_detail }}" data-toggle="modal">Pesanan Diterima</a>
+{{--                                    <a href="{{ URL::to('pesanan/diterima/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Pesanan Diterima</a>--}}
+                                @endif
+                                @if($detail->status_order == 'Telah Sampai')
+                                    <a href="{{ URL::to('review/produk/'.$detail->produk->slug) }}" class="btn btn-outline-success">Beri Ulasan</a>
+                                @endif
+                            @else
+                                <a href="{{ URL::to('konfirmasi/data/'.$detail->transaksi->kode_transaksi) }}" class="btn btn-outline-danger">Bayar Sekarang</a>
+                                <a href="{{ URL::to('pesanan/dibatalkan/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-danger">Batalkan Pesanan</a>
+                            @endif
                         @else
-                            <a href="#" class="btn btn-outline-success" data-target="#modalLacak" data-toggle="modal">
-                                Track order </a>
-                        @endif
-                        @if($detail->status_order == 'Telah Sampai')
-                            <a href="{{ URL::to('review/produk/'.$detail->produk->slug) }}" class="btn btn-outline-success">Beri Ulasan</a>
+                            Transaksi Dibatalkan
                         @endif
                     </td>
                 </tr>
