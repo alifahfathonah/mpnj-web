@@ -20,9 +20,10 @@ class ApiProdukController extends Controller
         $this->produkRepository = $produkRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $produks = $this->produkRepository->all();
+        $nama = $request->query('cari');
+        $produks = $this->produkRepository->all($nama);
         return $produks;
     }
 
