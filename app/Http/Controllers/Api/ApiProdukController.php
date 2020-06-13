@@ -90,11 +90,4 @@ class ApiProdukController extends Controller
             return response()->json($res2);
         }
     }
-
-    public function cari(Request $request)
-    {
-        $nama = $request->query('cari');
-        $produks = $this->produkRepository->cari($nama);
-        return $produks;
-    }
 }
