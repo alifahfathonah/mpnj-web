@@ -171,7 +171,7 @@ class ProdukRepository
     public function cari($nama)
     {
         return Produk::orderBy('id_produk')
-            ->with('foto_produk', 'pelapak', 'kategori')
+            ->with('foto_produk', 'user', 'kategori')
             ->where('nama_produk', 'like', '%'.$nama.'%')
             ->get()
             ->map(
@@ -200,10 +200,10 @@ class ProdukRepository
                             ];
                         }),
                         'pelapak' => [
-                            'id_pelapak' => $produks->pelapak->id_pelapak,
-                            'nama_toko' => $produks->pelapak->nama_toko,
-                            'foto_pelapak' => $produks->pelapak->foto_profil,
-                            'alamat' => $produks->pelapak->alamat
+                            'id_pelapak' => $produks->user->id_user,
+                            'nama_toko' => $produks->user->nama_toko,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $produks->user->foto_profil),
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap
                         ]
                     ];
                 }
