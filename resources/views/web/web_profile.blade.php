@@ -4,13 +4,25 @@
 
 
 @section('content')
-
-
     <section class="mb-5" id="profile_konsumen">
         <br>
         <div class="container">
+            @if(session('emailVerified'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('emailVerified') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session('hasVerified'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('hasVerified') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="row">
-
                 <aside class="col-md-3">
                     <!--   SIDEBAR   -->
 
