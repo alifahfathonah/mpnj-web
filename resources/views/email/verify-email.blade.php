@@ -168,7 +168,7 @@
                                             <font face="Arial, Helvetica, sans-serif" size="4" color="#57697e"
                                                   style="font-size: 15px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
-						Terima kasih telah mendaftar aku Belanj. <br>
+						Terima kasih telah mendaftar akun Belanj. <br>
                         Silahkan klik link dibawah ini untuk mengaktifkan akun Belanj anda.
 					</span></font>
                                         </div>
