@@ -24,40 +24,34 @@
                     <div class="col-md-10">
                         <ul class="list-inline">
                             <li class="list-inline-item mr-3 dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kategori</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="filterByKategori">Kategori</a>
                                 <div class="dropdown-menu">
+                                    <a href="{{ URL::to('produk') }}" class="dropdown-item">Semua</a>
                                     @foreach($kategori as $k)
                                     <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}" class="dropdown-item">{{ $k->nama_kategori }}</a>
                                     @endforeach
                                 </div>
                             </li>
+                            @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '') 
+                                <label>Filter:</label>
+                                <select class="list-inline-item mr-3 dropdown" id="price">
+                                    <option selected>--Harga Produk--</option>
+                                    <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
+                                    <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
+                                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
+                                </select>                                
+                            @endif                            
                         </ul>
                     </div> <!-- col.// -->
                 </div> <!-- row.// -->
             </div> <!-- card-body .// -->
         </div> <!-- card.// -->
         <!-- ============================ FILTER TOP END.// ================================= -->
-
-        <header class="mb-3">
-            <div class="form-inline filter__option filter--select" style="
-                                    @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '')
-                                        display: inline-block;
-                                    @else
-                                        display: none;
-                                    @endif
-                                ">
-                <select class="mr-2 form-control" id="price">
-                    <option selected>--Harga Produk--</option>
-                    <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
-                    <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
-                </select>
-            </div>
-        </header><!-- sect-heading -->
         <div class="row">
             @forelse($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                 <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
-                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ asset('assets/foto_produk/'.$p->foto_produk[0]->foto_produk) }}"> </a>
+                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}"> </a>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
@@ -66,37 +60,37 @@
                             @if($p->diskon == 0)
                             <span>
                                 <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
-                            </span> 
+                            </span>
                             @else
-                            
+
                             <span style="color: green">
                                 <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
-                            </span> 
+                            </span>
                             <span style="color: gray">
                                 <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
                             </span>
                             @endif
                         </div> <!-- price-wrap.// -->
-                        <div class="row" >
+                        <div class="row">
                             <div class="col" style="">
-                                <ul class="rating-stars" >
+                                <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
-                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                     <li>
-                                    <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                 </ul>
                                 <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div> <!-- rating-wrap.// -->
-                            
+
                         </div>
                         <div class="row">
-                            <div class="col" style="font-size:small" >PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
+                            <div class="col" style="font-size:small">PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
                             <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
                         </div>
                     </figcaption>
@@ -138,36 +132,36 @@
 @push('scripts')
 <script>
     $(function() {
-        $('#price').on('change', function() {
-            let urlParams = new URLSearchParams(window.location.search);
-            let kategoriParams = urlParams.has('kategori');
-            let cariParams = urlParams.has('cari');
+        var urlParams = new URLSearchParams(window.location.search);
+        var kategoriParams = urlParams.get('kategori');
+        $("#filterByKategori").html(camelCase(kategoriParams));
 
-            if (kategoriParams) {
+        $('#price').on('change', function() {
+            // let urlParams = new URLSearchParams(window.location.search);
+            // let kategoriParams = urlParams.has('kategori');
+            let cariParams = urlParams.has('cari');
+            let filter = $(this).val();
+
+            if (kategoriParams || cariParams) {
                 if (urlParams.has('order')) {
                     let order = urlParams.get('order');
-                    var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
+                    var newUrl = location.href.replace(order, filter == 'low' ? ('low') : (filter == 'laris' ? ('laris') : ('high')));
                     // urlParams = newUrl;
                     // alert(newUrl);
                     window.location.href = newUrl;
                 } else {
-                    window.location.href += '&order=' + $(this).val();
-                }
-                // let newUrl = window.location.href += '&order='+$(this).val();
-            } else if (cariParams) {
-                if (urlParams.has('order')) {
-                    let order = urlParams.get('order');
-                    var newUrl = location.href.replace(order, order == 'low' ? 'high' : 'low');
-                    // urlParams = newUrl;
-                    // alert(newUrl);
-                    window.location.href = newUrl;
-                } else {
-                    window.location.href += '&order=' + $(this).val();
+                    window.location.href += '&order=' + filter;
                 }
             } else {
                 alert('Tidak Bisa Melakukan Sorting');
             }
         });
     });
+
+    function camelCase(str) {
+        return str.replace(/(?:^|\s)\w/g, function(match) {
+            return match.toUpperCase();
+        });
+    }
 </script>
 @endpush

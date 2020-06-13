@@ -36,16 +36,11 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view)
         {
-            if (Session::has('id')) {
-                $role = Session::get('role');
-                $id = Session::get('id');
-                if (Session::has('id')) {
-                    $konsumen_id = Auth::guard($role)->user()->$id;
-                }
+            if (Auth::check()) {
 
-                $keranjang = Keranjang::with(['produk', 'pembeli'])
-                    ->where('pembeli_id', $konsumen_id)
-                    ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+                $keranjang = Keranjang::with(['produk', 'user'])
+                    ->where('user_id', Auth::id())
+//                    ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
                     ->where('status', 'N')
                     ->limit(2)
                     ->get();

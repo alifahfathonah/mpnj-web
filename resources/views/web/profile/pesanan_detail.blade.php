@@ -1,208 +1,186 @@
 <main class="col-md-12">
     <article class="card">
         <header class="card-header">
-            <strong class="d-inline-block">Kode Transaksi: {{ $detail->transaksi->kode_transaksi }}</strong>
-            <hr>
-            <div class="col-md-8">
-                <h6 class="text-dark">Keterangan</h6>
-                <p>ID Pesanan: {{ $detail->id_transaksi_detail }}<br>
-                    <span class="text-danger">
-                        {{ $detail->transaksi->proses_pembayaran }} dibayar
-                    </span><br>
-                    Waktu Pesanan: {{ $detail->transaksi->waktu_transaksi }}<br>
-                </p>
-            </div>
-
+            <strong class="d-inline-block mr-3">ID Transaksi: {{ $detail->id_transaksi_detail }} - <span>Waktu Pemesanan: {{ \Carbon\Carbon::parse($detail->transaksi->created_at)->format('d M, Y') }}</span></strong>
         </header>
-
-        @if($detail->transaksi->proses_pembayaran == 'belum')
-        <a href="{{ URL::to('konfirmasi/data/'.$detail->transaksi->kode_transaksi) }}" class="btn btn-primary">Transaksi</a>
-        @endif
-
         <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
                     <h6 class="text-dark">Oleh</h6>
-                    <p>{{ $detail->transaksi->pembeli->alamat_fix->nama }}<br>
-                        Telepon {{ $detail->transaksi->pembeli->alamat_fix->nomor_telepon }}<br>
-                        Alamat:{{ $detail->transaksi->pembeli->alamat_fix->alamat_lengkap}}, {{ $detail->transaksi->pembeli->alamat_fix->nama_kota }}, {{ $detail->transaksi->pembeli->alamat_fix->nama_provinsi }} <br>
-                        Kode Pos: {{ $detail->transaksi->pembeli->alamat_fix->kode_pos }}
-                    </p>
+                    <p>{!! $detail->transaksi->to !!}</p>
                 </div>
                 <div class="col-md-4">
-                    <h6 class="text-dark">Status</h6>
-                    <span class="text-success">
-                        <i class="fab fa-lg fa-cc-visa"></i>
-                        {{ $detail->status_order }}
+                    <h6 class="text-dark">Overview</h6>
+                    <span>
+                        Status: <div class="btn btn-primary btn-sm">{{ $detail->status_order }}</div>
                     </span>
-                    <p>Subtotal:
-                        @if($detail->diskon == 0)
-                        @currency($detail->jumlah * $detail->harga_jual)
-                        @else
-                        @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah)
-                        @endif <br>
-                        Kurir: {{ $detail->kurir }} - {{ $detail->service }} <br>
-                        Ongkir: @currency($detail->ongkir) <br>
-                        <span class="b">Total: @if($detail->diskon == 0)
-                            @currency(($detail->jumlah * $detail->harga_jual) + $detail->ongkir)
-                            @else
-                            @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir)
-                            @endif
-                        </span>
-                    </p>
+{{--                    <p>Total Bayar: @currency($detail->transaksi->total_bayar)--}}
+{{--                    </p>--}}
                 </div>
             </div> <!-- row.// -->
         </div> <!-- card-body .// -->
         <div class="table-responsive">
+            @if(session()->has('trxBatalSukses'))
+                <div class="alert alert-danger alert-dismissable">{{ session()->get('trxBatalSukses') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session()->has('trxSukses'))
+                <div class="alert alert-success alert-dismissable">{{ session()->get('trxSukses') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <table class="table table-hover">
+                <thead>
+                    <th colspan="2">Produk</th>
+                    <th>Total</th>
+                    <th>Kurir</th>
+                    <th>Aksi</th>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td width="65">
-                            <img src="{{ asset('assets/foto_produk/'.$detail->produk->foto_produk[0]->foto_produk) }}" class="img-xs border">
-                        </td>
-                        <td>
-                            <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">
-                                <p class="title mb-0">{{ $detail->produk->nama_produk }}</p>
-                            </a>
-                            <var class="price text">
-                                @if($detail->diskon == 0)
-                                @currency($detail->harga_jual)
-                                @else
-                                <strike style="color: red">@currency($detail->harga_jual)</strike> <span style="color: black;">| @currency($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual))</span>
-                                @endif
-                            </var>
-                        </td>
-                        <td>Jumlah : {{ $detail->jumlah }}</td>
-                        <td> Total :
+                <tr>
+                    <td width="65">
+                        <img src="{{ env('FILES_ASSETS').$detail->produk->foto_produk[0]->foto_produk }}" class="img-xs border">
+                    </td>
+                    <td>
+                        <p class="title mb-0">{{ $detail->produk->nama_produk }}</p>
+                        <var class="price text-muted">
                             @if($detail->diskon == 0)
-                            @currency($detail->jumlah * $detail->harga_jual)
+                                <span style="color: black">@currency($detail->harga_jual) x {{ $detail->jumlah }} @<a href="{{ URL::to('pelapak/'.$detail->user->username) }}">{{ $detail->user->nama_toko }}</a></span>
                             @else
-                            @currency(($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah)
-                            @endif </td>
-
-                    </tr>
+                                <span style="color: black">@currency($detail->harga_jual - ($detail->diskon / 100 *
+                                                            $detail->harga_jual)) x {{ $detail->jumlah }} @<a href="{{ URL::to('pelapak/'.$detail->user->username) }}">{{ $detail->user->nama_toko }}</a></span>
+                            @endif
+                        </var>
+                    </td>
+                    <td>
+                        @if($detail->diskon == 0)
+                            <span style="color: black">@currency($detail->harga_jual)</span>
+                        @else
+                            <span style="color: black">@currency($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual))</span>
+                        @endif
+                    </td>
+                    <td>
+                        Kurir: {{ $detail->kurir }} <br>
+                        Service: {{ $detail->service }} <br>
+                        Ongkir: @currency($detail->ongkir)
+                    </td>
+                    <td>
+                        @if($detail->status_order != 'Dibatalkan')
+                            @if($detail->transaksi->proses_pembayaran != 'belum')
+                                @if($detail->transaksi->proses_pembayaran != 'sudah' && $detail->resi != '')
+                                    <a href="{{ URL::to('pesanan/tracking/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Track order</a>
+                                @elseif($detail->transaksi->proses_pembayaran != 'sudah' && $detail->resi == '')
+                                    <a href="#" class="btn btn-outline-success" data-target="#modalLacak" data-toggle="modal">
+                                        Track order </a>
+                                @else
+                                   Menunggu Konfirmasi
+                                @endif
+                                @if($detail->status_order == 'Dikirim')
+                                    <a href="#" class="btn btn-outline-success" data-target="#modalPesananDiterima" data-toggle="modal">Pesanan Diterima</a>
+                                @endif
+                                @if($detail->status_order == 'Telah Sampai')
+                                    <a href="{{ URL::to('review/produk/'.$detail->produk->slug) }}" class="btn btn-outline-success">Beri Ulasan</a>
+                                @endif
+                            @else
+                                <a href="{{ URL::to('konfirmasi/data/'.$detail->transaksi->kode_transaksi) }}" class="btn btn-outline-danger">Bayar Sekarang</a>
+                                <a href="#" class="btn btn-outline-danger" data-target="#modalBatalTransaksi" data-toggle="modal">Batalkan Pesanan</a>
+                            @endif
+                        @else
+                            Transaksi Dibatalkan
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" rowspan="6"></td>
+                    <td>Subtotal : @currency($detail->sub_total - $detail->ongkir)</td>
+                </tr>
+                <td>Ongkir : @currency($detail->ongkir)</td>
+                <tr>
+                    <td>Total : @currency($detail->sub_total)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ URL::to('pesanan/export_invoice/'.$detail->id_transaksi_detail) }}" class="btn btn-outline-success">Cetak Invoice</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        @php $edited = false; @endphp
-        <hr>
-        @if($detail->transaksi->proses_pembayaran == 'belum')
-        @if($detail->status_order == 'pending')
-
-        <form method="post" action="{{ URL::to('pesanan/dibatalkan/'.$detail->id_transaksi_detail) }}">
-        @csrf
-        <input type="hidden" name="id" value="{{$detail->transaksi_id}}">
-        
-        <input type="hidden" name="total1" value="@if($detail->diskon == 0)
-                            {{($detail->jumlah * $detail->harga_jual) + $detail->ongkir}}
-                            @else
-                            {{($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir}}
-                            @endif">
-
-        <input type="hidden" name="total2" value="{{ $detail->transaksi->total_bayar }}" >
-        <input type="hidden" name="total3" value="@if($detail->diskon == 0)
-                            {{$detail->transaksi->total_bayar - ($detail->jumlah * $detail->harga_jual) + $detail->ongkir}}
-                            @else
-                            {{ $detail->transaksi->total_bayar - ($detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual)) * $detail->jumlah + $detail->ongkir}}
-                            @endif
-                            ">
-        <button type="submit" class="btn btn-danger">Batalkan</button>
-        </form>
-
-        
-        @endif
-        @if($detail->status_order == 'batal')
-        <div class="alert alert-info">
-            Pesanan <a href="{{ URL::to('produk/'.$detail->produk->slug) }}">Produk ini</a> Telah Anda Batalkan !
-        </div>
-        @endif
-        @endif
-        @if($detail->status_order == 'sukses')
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-10">
-                    <h4 class="card-title mb-4">Review</h4>
-                    @if($review != '')
-                    <div class="small">{{ $review->updated_at->format('d M Y') }}</div>
-                    <div class="rating-wrap my-3">
-                        <ul class="rating-stars">
-                            <li style="width:80%" class="stars-active">
-                                @for($i = 1; $i <= $review->bintang; $i++)
-                                    <i class="fa fa-star"></i>
-                                    @endfor
-                            </li>
-                            <li>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <p class="mb-">{{ $review->review}}</p>
-                    <img src="{{ asset('assets/foto_review/'.$review->foto_review) }}" class="img-x border">
-                    @else
-
-
-                    <form method="post" action="{{ URL::to('review/produk') }}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="id_produk" value="{{ $detail->produk->id_produk }}">
-                        <h5 class="card-title">Bintang</h5>
-
-                        <label class="custom-control custom-radio">
-                            <input type="radio" name="bintang" checked="" class="custom-control-input" value="1">
-                            <div class="custom-control-label text-warning">
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </label>
-
-                        <label class="custom-control custom-radio">
-                            <input type="radio" name="bintang" checked="" class="custom-control-input" value="2">
-                            <div class="custom-control-label text-warning">
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </div>
-                        </label>
-
-                        <label class="custom-control custom-radio">
-                            <input type="radio" name="bintang" class="custom-control-input" value="3">
-                            <div class="custom-control-label text-warning">
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </div>
-                        </label>
-
-                        <label class="custom-control custom-radio">
-                            <input type="radio" name="bintang" class="custom-control-input" value="4">
-                            <div class="custom-control-label text-warning">
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </label>
-
-                        <label class="custom-control custom-radio">
-                            <input type="radio" name="bintang" class="custom-control-input" value="5">
-                            <div class="custom-control-label text-warning">
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </div>
-                        </label>
-
-                        <br>
-
-                        <div class="form-group">
-                            <label>Komentar Produk</label>
-                            <textarea name="review" class="form-control" rows="3" placeholder="Beri komentar Barang yang Sesuai."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Foto Produk</label><br>
-                            <label for="exampleFormControlFile1">
-                                <input type="file" name="foto_review" id="foto_review" class="form-control-file">
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Send</button>
-                    </form>
-                    @endif
-                </div>
-            </div> <!-- row.// -->
-        </div>
-        @endif
     </article> <!-- order-group.// -->
 </main>
+
+<div class="modal fade" id="modalPesananDiterima" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Anda Yakin Pesanan Anda Sudah Sampai ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Pastikan pesanan anda telah sampai dan sesuai. Jika anda mengkonfirmasi pesanan anda telah sampai, maka dana akan kita kirimkan ke penjual dan transaksi dianggap telah selesai.
+                <br>
+                <br>
+                <form action="{{ URL::to('pesanan/diterima/'.$detail->id_transaksi_detail) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-success">Lanjutkan</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--round modal_close" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLacak" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Tidak dapat melacak pesanan.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Untuk saat ini anda tidak dapat melacak pesanan anda. Tunggu hingga penjual mengirimkan nomor resi
+                pesanan, setelah itu anda dapat melacak pesanan anda.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--round modal_close" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalBatalTransaksi" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Apa anda yangkin ingin membatalkan transaksi ini ?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{{ URL::to('pesanan/dibatalkan/'.$detail->id_transaksi_detail) }}">
+                @csrf
+                <div class="modal-body text-center">
+                    <input type="hidden" class="form-control" id="kode_transaksi" name="kode_transaksi">
+                    Pembatalan transaksi akan membuat anda kehilangan transaksi ini yang artinya transaksi ini tidak
+                    akan lagi diproses. Yakinkan diri anda terlebih dahulu untuk terus membatalkan transaksi ini. Jika
+                    anda yakin, tekan tombol lanjutkan.
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn--round btn-danger btn--default">Ya, Lanjutkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -15,21 +15,12 @@ class KeranjangWebController extends Controller
 
     public function index(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
-
-        $keranjang = Keranjang::with(['produk', 'pembeli', 'pembeli.alamat_fix'])
-            ->where('pembeli_id', $konsumen_id)
-            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix'])
+            ->where('user_id', Auth::id())
+//            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
             ->where('status', 'N')
             ->get()
-            ->groupBy('produk.pelapak.nama_toko');
-        // $data['total'] = DB::table('keranjang')->join('produk', 'keranjang.produk_id', '=', 'produk.id_produk')->where('keranjang.konsumen_id', $konsumen_id)->sum('produk.harga_jual');
-        //        $data['total'] = Keranjang::where('pembeli_id', $konsumen_id)
-        //	                    ->where('status', 'N')
-        //	                    ->sum(DB::raw('jumlah * harga_jual'));
+            ->groupBy('produk.user.nama_toko');
 
         $data['data_keranjang'] = collect();
         $data['pembeli'] = [];
@@ -46,33 +37,30 @@ class KeranjangWebController extends Controller
                     'diskon' => $val->produk->diskon,
                     'id_produk' => $val->produk->id_produk,
                     'nama_produk' => $val->produk->nama_produk,
+                    'stok' => $val->produk->stok,
                     'slug' => $val->produk->slug,
                     'kategori' => $val->produk->kategori->nama_kategori,
-                    'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
+                    'foto' => $val->produk->foto_produk[0]->foto_produk
                 ]);
             }
 
             $data['data_keranjang']->push([
-                'id_toko' => $keranjang[$key][0]->produk->pelapak->id_pelapak,
+                'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
-                'alamat' => $keranjang[$key][0]->produk->pelapak->alamat_fix,
+                'alamat' => $keranjang[$key][0]->produk->user->alamat_fix,
                 'item' => $item
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->pembeli;
+            $data['pembeli'] = $keranjang[$key][0]->user;
         }
         return view('web/web_keranjang', $data);
     }
 
     public function simpan(Request $request)
     {
-        $role = Session::get('role');
-        $id = Session::get('id');
-        $konsumen_id = $request->user($role)->$id;
-
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
-            'pembeli_id' => $konsumen_id,
-            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            'user_id' => Auth::id(),
+//            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
             'jumlah' => $request->jumlah,
             'harga_jual' => $request->harga_jual
         ]);

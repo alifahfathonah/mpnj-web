@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
@@ -17,7 +18,7 @@ class CheckUserLogin
      */
     public function handle($request, Closure $next)
     {
-        if (Session::exists('id')) {
+        if (Auth::check()) {
             return $next($request);
         } else {
             return redirect(URL::to('login'));

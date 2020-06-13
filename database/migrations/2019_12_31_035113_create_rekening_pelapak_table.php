@@ -15,11 +15,10 @@ class CreateRekeningPelapakTable extends Migration
     {
         Schema::create('rekening_pelapak', function (Blueprint $table) {
             $table->increments('id_rekening');
-            $table->string('nama_bank', 50)->nullable();
             $table->char('nomor_rekening', 25)->nullable();
             $table->string('atas_nama', 100)->nullable();
-            $table->integer('pelapak_id')->unsigned();
-            $table->foreign('pelapak_id')->references('id_pelapak')->on('pelapak');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id_user')->on('users');
         });
     }
 
