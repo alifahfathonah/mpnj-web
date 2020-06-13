@@ -16,7 +16,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/laris/', 'ApiProdukController@larisProduk');
         Route::get('/{id_produk}', 'ApiProdukController@getDetail');
         Route::post('/', 'ApiProdukController@create');
-        Route::get('/cari/{nama}', 'Api\ApiProdukController@cari');
+        Route::get('/cari', 'Api\ApiProdukController@cari');
     });
 
     //konsumen
