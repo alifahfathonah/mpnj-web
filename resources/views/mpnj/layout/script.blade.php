@@ -5,5 +5,7 @@
 <!-- Bootstrap4 files-->
 <script src="{{ url('assets/mpnj/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
 
+<script src="{{ url('assets/mpnj/js/intlTelInput.js') }}" type="text/javascript"></script>
+
 <!-- custom javascript -->
 <script src="{{ url('assets/mpnj/js/script.js') }}" type="text/javascript"></script>

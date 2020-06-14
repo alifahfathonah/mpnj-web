@@ -27,7 +27,6 @@
                             </td>
                         </tr>
                     </table>
-                    @php $n = 1; @endphp
                     <table class="ui celled table" style="width:100%;">
                         @if($alamat->count() > 0)
                             @foreach($alamat as $a)
@@ -69,8 +68,6 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <hr>
-                                @php $n++; @endphp
                             @endforeach
                         @else
                             <tr>
@@ -99,47 +96,52 @@
             <div class="modal-body">
                 <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
                     @csrf
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" name="nama" class="form-control">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" name="nomor_telepon" id="phone" class="form-control phone" required>
+                            <small id="teleponError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
                     </div>
-                    <div class="form-group">
-                        <label>Nomor Telepon</label>
-                        <input type="text" name="nomor_telepon" class="form-control">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Provinsi</label>
+                            <select name="provinsi" id="provinsi" class="form-control" required>
+                                <option id="provinsi_option">-- PILIH PROVINSI --</option>
+                            </select>
+                            <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kota</label>
+                            <select name="kota" id="kota" class="form-control" disabled required>
+                                <option>-- PILIH KOTA --</option>
+                            </select>
+                            <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="kecamatan" class="form-control" disabled required>
+                                <option>-- PILIH Kecamatan --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Provinsi</label>
-                        <select name="provinsi" id="provinsi" class="form-control">
-                            <option id="provinsi_option">-- PILIH PROVINSI --</option>
-                            {{--                            @foreach ($provinsi->rajaongkir->results as $p)--}}
-                            {{--                                <option value="{{ $p->province_id }}">{{ $p->province }}</option>--}}
-                            {{--                            @endforeach--}}
-                        </select>
-                        <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" id="kode_pos" class="form-control" required>
+                            <small id="kodePosError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Alamat Lengkap</label>
+                            <textarea name="alamat_lengkap" rows="1" class="form-control" required></textarea>
+                        </div> <!-- form-group end.// -->
                     </div>
-                    <div class="form-group">
-                        <label>Kota</label>
-                        <select name="kota" id="kota" class="form-control" disabled>
-                            <option>-- PILIH KOTA --</option>
-                        </select>
-                        <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kecamatan</label>
-                        <select name="kecamatan" id="kecamatan" class="form-control" disabled>
-                            <option>-- PILIH Kecamatan --</option>
-                        </select>
-                        <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Pos</label>
-                        <input type="text" name="kode_pos" id="kode_pos" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea name="alamat_lengkap" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--round btn-danger btn--default">Simpan</button>
+                    <button type="submit" id="simpan" class="btn btn--round btn-danger btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
             </div>
@@ -568,43 +570,51 @@
                 <form method="post" action="{{ URL::to('profile/alamat/ubah/') }}">
                     @csrf
                     <input type="hidden" name="edit_id_alamat" id="edit_id_alamat">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" name="nama" id="editNama" class="form-control" value="">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" id="editNama" class="form-control" value="" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="text" name="nomor_telepon" id="editNomorTelepon" class="form-control phone" value="" required>
+                            <small id="teleponError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
                     </div>
-                    <div class="form-group">
-                        <label>Nomor Telepon</label>
-                        <input type="text" name="nomor_telepon" id="editNomorTelepon" class="form-control" value="">
+
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Provinsi</label>
+                            <select name="provinsi" id="editProvinsi" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi" class="form-control">
+                        </div>
+                        <div class="col form-group">
+                            <label>Kota</label>
+                            <select name="kota" id="editKota" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_kota" id="edit_nama_kota" class="form-control">
+                        </div>
+                        <div class="col form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="editKecamatan" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Provinsi</label>
-                        <select name="provinsi" id="editProvinsi" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kota</label>
-                        <select name="kota" id="editKota" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_kota" id="edit_nama_kota" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kecamatan</label>
-                        <select name="kecamatan" id="editKecamatan" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Pos</label>
-                        <input type="text" name="kode_pos" id="editKodePos" class="form-control" value="">
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10"
-                                  id="editAlamatLengkap"></textarea>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" id="editKodePos" class="form-control" value="">
+                        </div>
+                        <div class="col form-group">
+                            <label>Alamat</label>
+                            <textarea name="alamat_lengkap" class="form-control"rows="1"
+                                      id="editAlamatLengkap"></textarea>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
@@ -668,8 +678,25 @@
 @push('scripts')
     <script>
         $(function () {
+            let input = document.querySelectorAll('.phone');
+            var iti;
+
+            $("#phone").on('keyup', function () {
+                if (iti.isValidNumber()) {
+                    $("#simpan").prop('disabled', false)
+                    $("#teleponError").html('')
+                } else {
+                    $("#simpan").prop('disabled', true);
+                    $("#teleponError").html('Nomor telepon tidak valid')
+                }
+            })
 
             $("#tambahAlamat").on('click', function () {
+                iti = intlTelInput(input[0], {
+                    initialCountry: "id",
+                    allowDropdown: true,
+                    utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+                });
                 $.ajax({
                     async: true,
                     url: '{{ URL::to('api/gateway/provinsi') }}',
@@ -747,6 +774,11 @@
             });
 
             $(".btnEditALamat").on('click', async function (e) {
+                iti = intlTelInput(input[1], {
+                    initialCountry: "id",
+                    allowDropdown: true,
+                    utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+                });
                 if ($(this).data('santri') == 'Y') {
                     resetFormSantri();
                     $("#edit_wilayah option").remove();
@@ -961,6 +993,16 @@
             $("#editKecamatan").on('change', function () {
                 $(`#edit_nama_kecamatan`).val($(`#editKecamatan option:selected`).html());
             })
+
+            $("#kode_pos").on('keyup', function () {
+                if ($(this).val().length > 5 || !$.isNumeric($(this).val())) {
+                    $("#kodePosError").html('Kode pos tidak valid');
+                    $("#simpan").prop('disabled', true);
+                } else {
+                    $("#kodePosError").html('');
+                    $("#simpan").prop('disabled', false);
+                }
+            });
 
         });
 
