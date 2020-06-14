@@ -11,27 +11,26 @@
             <aside class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round"
-                                data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
+                        <p><strong>Pilih Alamat Pengiriman</strong> | <a href="#" class="btn btn-outline-success"
+                                data-target="#pilihAlamat" data-toggle="modal">Ubah</a></p>
                         <hr>
-                        <p class="text-center mb-3">
-                            @if($pembeli->alamat_fix != null)
+                        <p class="text-center">
+                            @if(is_null($pembeli->alamat_fix))
                             <div class="information_module order_summary">
-                                <div class="toggle_title" id="dataPembeli"
-                                    data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
-                                    <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}
-                                    </h5>
-                                    <h4>{{ $pembeli->alamat_fix->alamat_lengkap }},
-                                        {{ $pembeli->alamat_fix->nama_kota }},
-                                        {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}
-                                    </h4>
+                                <div class="toggle_title">
+                                    <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </p>
                                 </div>
                             </div>
                             @else
-                            <div class="information_module order_summary">
-                                <div class="toggle_title">
-                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a
-                                            href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
+                            <div class="order_summary">
+                                <div class="toggle_title" id="dataPembeli"
+                                     data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
+                                    <p>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}
+                                    </p>
+                                    <p>{{ $pembeli->alamat_fix->alamat_lengkap }},
+                                        {{ $pembeli->alamat_fix->nama_kota }},
+                                        {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}
+                                    </p>
                                 </div>
                             </div>
                             @endif
@@ -65,7 +64,6 @@
                             $total = 0; ?>
                             @foreach($data_keranjang as $val)
                             <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}"
-                                data-from="{{ $val['alamat']['nama'] }} <br> {{ $val['alamat']['alamat_lengkap'] }}, {{ $val['alamat']['nama_kecamatan'] }}, {{ $val['alamat']['nama_kota'] }}, {{ $val['alamat']['nama_provinsi'] }}, {{ $val['alamat']['kode_pos'] }} <br> {{ $val['alamat']['nomor_telepon'] }}"
                                 data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}"
                                 data-mulai="{{ $n }}"
                                 data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
@@ -131,8 +129,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="modal-body">
-                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}"
-                                                        class="form-control" onchange="getKurir({{ $m }})">
+                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
                                                         <option>Pilih Kurir</option>
                                                         <option value="jne">JNE</option>
                                                         <option value="pos">POS</option>
@@ -238,20 +235,27 @@
             <!-- end /.modal-header -->
 
             <div class="modal-body">
-                @foreach($pembeli->daftar_alamat as $v)
-                <div class="information_module order_summary">
-                    <div class="toggle_title" data-destination="{{ $v->kecamatan_id }}">
-                        <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
-                        <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
-                        </h4>
-                        <br>
-                        <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
-                            <button type="submit" class="btn btn--round modal_close">Pilih
-                            </button>
-                        </form>
+                @if(count($pembeli->daftar_alamat) > 0)
+                    @foreach($pembeli->daftar_alamat as $v)
+                        <div class="card border-success">
+                            <div class="card-body text-success" data-destination="{{ $v->kecamatan_id }}">
+                                <p class="card-text">
+                                    {{ $v->nama }} <br> {{ $v->nomor_telepon }}, {{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
+                                </p>
+                                <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                                    <button type="submit" class="btn btn-outline-success">Pilih
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="information_module order_summary">
+                        <div class="toggle_title">
+                            Anda tidak memiliki alamat
+                        </div>
                     </div>
-                </div>
-                @endforeach
+                @endif
             </div>
             <!-- end /.modal-body -->
         </div>
@@ -261,6 +265,9 @@
 
 @push('scripts')
 <script>
+    $(function () {
+       $("#dataPembeli").data('destination') == undefined ? $("#bayar").prop('disabled', true) : $("#bayar").prop('disabled', false);
+    });
     function getKurir(n) {
         let kurir = $("#pilih_kurir" + n).val();
         $.ajax({
@@ -359,7 +366,6 @@
                         'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
                         'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
                         'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual')),
-                        'from': $(`#dataPelapak${index}`).data('from')
                     });
                 }
             }
@@ -371,7 +377,7 @@
             data: {
                 'trxDetail': dataTrxDetail,
                 'totalBayar': $("#totalBayar").data('totalbayar'),
-                'to': '{{ $pembeli->alamat_fix->nama }} <br> {{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}',
+                'to': $("#dataPembeli").data('destination') == undefined ? '' : $("#dataPembeli").data('alamat'),
                 'idKeranjang': keranjangId,
                 'idp': produkId,
                 'prosesData': proses
