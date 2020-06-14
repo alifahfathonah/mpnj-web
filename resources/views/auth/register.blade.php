@@ -1,7 +1,6 @@
 @extends('mpnj.layout.main')
 
 @section('title','Daftar')
-    
 
 @section('content')
 <br><br>
@@ -17,23 +16,26 @@
                           <small>Tolong isi data dibawah ini dengan benar.</small>
                         </center>
                     </header>
-                    <form action="{{ route('register') }}" method="POST">
+                    <form action="{{ route('register') }}" method="POST" id="registerForm" class="form-horizontal">
                     @csrf
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input type="text" class="form-control" placeholder="" name="nama_lengkap" required>
+                            <input type="text" class="form-control" placeholder="" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
                         </div>
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" placeholder="" name="username" required>
+                            <input type="text" class="form-control" placeholder="" name="username" value="{{ old('username') }}" required>
+                            <small style="color: red">{{ $errors->first('username') }}</small>
                         </div>
                         <div class="form-group">
                             <label>Nomor Hp</label>
-                            <input type="text" class="form-control" placeholder="" name="nomor_hp" required>
+                            <input type="text" class="form-control" placeholder="" name="nomor_hp" value="{{ old('nomor_hp') }}" required>
+                            <small style="color: red">{{ $errors->first('nomor_hp') }}</small>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="" name="email" required>
+                            <input type="email" class="form-control" placeholder="" name="email" value="{{ old('email') }}" required>
+                            <small style="color: red">{{ $errors->first('email') }}</small>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
@@ -60,5 +62,81 @@
     <!-- end .container -->
 </section>
 <br>
-
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#registerForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    nama_lengkap: {
+                        validators: {
+                            notEmpty: {
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z ]+$/,
+                            }
+                        }
+                    },
+                    username: {
+                        validators: {
+                            notEmpty: {
+                            },
+                            stringLength: {
+                                min: 5,
+                                max: 30,
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: ' username hanya dapat terdiri dari abjad, angka, dan garis bawah'
+                            }
+                        }
+                    },
+                    nomor_hp: {
+                        validators: {
+                            notEmpty: {
+                            },
+                            stringLength: {
+                                min: 11,
+                                max: 13,
+                            },
+                            regexp: {
+                                regexp: /^[0-9+]+$/,
+                                message: " Silahkan isi dengan hanya angka"
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The email is required and cannot be empty'
+                            },
+                            emailAddress: {
+                                message: 'The input is not a valid email address'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 50,
+                            },
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+@endpush

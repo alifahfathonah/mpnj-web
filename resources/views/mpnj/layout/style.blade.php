@@ -18,3 +18,6 @@
         .iti__flag {background-image: url("{{ url('assets/mpnj/images/flags.png') }}");}
     }
 </style>
+
+<!-- bootstrapvalidator -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>

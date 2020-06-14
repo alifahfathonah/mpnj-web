@@ -107,6 +107,7 @@ class RegisterController extends Controller
             return redirect()
                 ->back()
                 ->with('registerError', 'Register Error. Pastikan data anda sudah benar')
+                ->withErrors($this->validator($data))
                 ->withInput();
         }
 
