@@ -9,24 +9,22 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            @if(session('loginError'))
-
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <span class="alert_icon lnr lnr-warning"></span>
-                {{ session('loginError') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span class="fas fa-times h6" aria-hidden="true"></span>
-                </button>
-            </div>
-            @endif
-
             <!-- ========================= SECTION CONTENT ========================= -->
             <section class="section-conten padding-y" style="min-height:84vh">
 
                 <!-- ============================ COMPONENT LOGIN   ================================= -->
                 <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Login</h4>
+                        <h4 class="card-title" style="text-align: center">Login</h4>
+                        @if(session('loginError'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="alert_icon lnr lnr-warning"></span>
+                            {{ session('loginError') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fas fa-times h6" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        @endif
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="form-group">
