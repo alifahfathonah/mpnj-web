@@ -30,8 +30,19 @@
             method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                @if( Auth::user()->foto_profil == null)
+                <div class="icontext mr-4" style="max-width: 300px;">
+                    <span class="icon icon-lg rounded-circle border border-primary">
+                        <i class="fa fa-user text-primary"></i>
+                    </span>
+                    <h6 class="text">
+                        Belum Ada Foto Profil
+                    </h6>
+                </div>
+                @else
                 <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
-                    class="img-sm rounded-circle border">
+                    class="img-md rounded-circle border">
+                @endif
             </div>
             <div class="form-row">
                 <div class="col form-group">
