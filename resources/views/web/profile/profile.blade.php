@@ -48,19 +48,19 @@
                 <div class="col form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" placeholder="nama"
-                        value="{{ Auth::user()->nama_lengkap }}">
+                        value="{{ Auth::user()->nama_lengkap }}" maxlength="225">
                 </div>
                 <div class="col form-group">
                     <label>Email</label>
                     <input type="email" id="email" name="email" class="form-control form-control-alternative"
-                        placeholder="email" value="{{ Auth::user()->email }}">
+                        placeholder="email" value="{{ Auth::user()->email }}" maxlength="225">
                 </div> <!-- form-group end.// -->
             </div> <!-- form-row.// -->
             <div class="form-row">
                 <div class="col form-group">
                     <label for="no_hp">Nomor HP</label>
                     <input type="text" id="no_hp" name="no_hp" class="form-control form-control-alternative"
-                        placeholder="Nomor HP" value="{{ Auth::user()->nomor_hp }}">
+                        placeholder="Nomor HP" value="{{ Auth::user()->nomor_hp }}" maxlength="12">
                 </div>
                 <div class="col form-group">
                     <label for="foto">Foto</label>
