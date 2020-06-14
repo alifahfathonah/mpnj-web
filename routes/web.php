@@ -116,6 +116,7 @@ Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSi
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
 Auth::routes(['verify' => true]);
+Route::get('/verify', 'Auth\VerificationController@verify')->name('verify');
 //reset password
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
 Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
@@ -125,8 +126,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //pelapak
 Route::get('jual', 'Pelapak\PelapakController@index');
-
-//review
-// Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
-// Route::post('review/produk', 'Web\ReviewWebController@postReview');
-// Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');
