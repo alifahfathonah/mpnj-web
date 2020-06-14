@@ -20,9 +20,9 @@ class PesananWebController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab');
-        $data['order'] = Transaksi_Detail::with(['transaksi' => function($query) use ($tab) {
+        $data['order'] = Transaksi_Detail::whereHas('transaksi', function ($query) use ($tab) {
             $query->where('user_id', Auth::id());
-        }])
+        })
         ->when($tab != '', function ($query) use ($tab) {
             $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
         })
@@ -47,8 +47,8 @@ class PesananWebController extends Controller
                 if ($terima->update(['status_order' => 'Telah Sampai'])) {
                     $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
                     DB::commit();
-                return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
-            }
+                    return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+                }
         } catch (\Exception $e) {
             DB::rollBack();
         }
