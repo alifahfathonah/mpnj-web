@@ -57,6 +57,13 @@ class KeranjangWebController extends Controller
 
     public function simpan(Request $request)
     {
+        $cekExistData = Keranjang::where('produk_id', $request->id_produk)->where('user_id', Auth::id())->first();
+
+        if ($cekExistData != '') {
+            $cekExistData->jumlah += $request->jumlah;
+            $cekExistData->save();
+            return redirect('/keranjang');
+        }
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
             'user_id' => Auth::id(),
