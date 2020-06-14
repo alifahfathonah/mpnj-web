@@ -7,3 +7,7 @@
 
 <!-- custom javascript -->
 <script src="{{ url('assets/mpnj/js/script.js') }}" type="text/javascript"></script>
+
+<!-- bootstrapValidator -->
+<script src="{{ url('assets/mpnj/js/bootstrapvalidator.js') }}" type="text/javascript"></script>
+<script src="{{ url('assets/mpnj/js/bootstrapvalidatorID.js') }}" type="text/javascript"></script>
