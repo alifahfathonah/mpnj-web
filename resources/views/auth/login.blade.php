@@ -29,21 +29,20 @@
                             @csrf
                             <div class="form-group">
                                 <input name="username" class="form-control" placeholder="Username" type="text" required>
-                            </div> <!-- form-group// -->
-                            <div class="form-group">
-                                <input name="password" class="form-control" placeholder="Password" type="password" required>
-                            </div> <!-- form-group// -->
-
-                            <!-- <div class="form-group">
-          	<a href="#" class="float-right">Forgot password?</a> 
-            <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
-          </div> form-group form-check .// -->
+                            </div>
+                            <div class="input-group mb-2">
+                                <input name="password" class="form-control" placeholder="Password" type="password"
+                                    id="password" required> <span class="input-group-append"> <a class="btn btn-primary"
+                                        id="btn-show" style="color: white"> <i class="fa fa-lock"
+                                            id="icon"></i></a></span>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block"> Login </button>
                             </div> <!-- form-group// -->
                             <div class="mt-2">
                                 <a href="{{ URL::to('register') }}" class="text-center">Belum punya akun,register</a>
-                                <a class="float-right float-right" href="{{ URL::to('password/reset') }}">Lupa Password</a>
+                                <a class="float-right float-right" href="{{ URL::to('password/reset') }}">Lupa
+                                    Password</a>
                             </div>
                         </form>
                     </div> <!-- card-body.// -->
