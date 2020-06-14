@@ -89,6 +89,10 @@
                             <tr>
                                 <td colspan="5">{{ $order->links() }}</td>
                             </tr>
+                        @else
+                            <tr>
+                                <td colspan="5" style="text-align: center">Tidak ada data</td>
+                            </tr>
                         @endif
                         </tbody>
                     </table>
