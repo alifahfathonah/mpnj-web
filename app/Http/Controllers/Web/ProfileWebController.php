@@ -54,10 +54,10 @@ class ProfileWebController extends Controller
         }
 
 
-        $fix_role = $role == 'konsumen' ? 'App\User' : 'App\Models\Pelapak';
-        $init = $fix_role::where('id_user', $id);
-        $d = $init->first();
-        $ubah = $init->update($data);
+        // $fix_role = $role == 'konsumen' ? 'App\User' : 'App\Models\Konsumen';
+        // $init = $fix_role::where('id_user', $id);
+        $d = User::where('id_user', $id)->first();
+        $ubah = $d->update($data);
 
         if ($ubah) {
             if ($foto != null) {
