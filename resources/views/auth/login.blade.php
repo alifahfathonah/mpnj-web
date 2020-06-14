@@ -67,3 +67,19 @@
             END LOGIN AREA
     =================================-->
 @endsection
+@push('scripts')
+<script>
+    $(function() {
+        $("#btn-show").click(function() {
+            if('password' == $('#password').attr('type')){
+                $('#password').prop('type', 'text');
+                $('#icon').attr('class', 'fa fa-unlock-alt');
+            }else{
+                $('#password').prop('type', 'password');
+                $('#icon').attr('class', 'fa fa-lock');
+            }
+        });
+
+    });
+</script>
+@endpush
