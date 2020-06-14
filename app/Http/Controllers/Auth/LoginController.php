@@ -50,14 +50,14 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credential = $request->only('username','password');
+        $credential = $request->only('username', 'password');
 
         if (Auth::attempt($credential)) {
             $request->session()->put('role', Auth::user()->role);
             return redirect('produk');
         }
-        
-        return redirect()->back()->with('loginError', 'Login error, periksa kembali data login anda');
+
+        return redirect()->back()->with('loginError', 'Login error, periksa kembali username dan password anda!');
     }
 
 

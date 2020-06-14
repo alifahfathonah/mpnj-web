@@ -32,7 +32,7 @@ class ProfileWebController extends Controller
         return view('web/web_profile');
     }
 
-    public function ubah(Request $request, $role, $id)
+    public function ubah(Request $request, $id)
     {
         $foto = $request->file('foto_profil');
 
@@ -50,21 +50,16 @@ class ProfileWebController extends Controller
                 'nomor_hp' => $request->no_hp,
                 'foto_profil' => $filename
             ];
-            $foto->move('assets/foto_profil_konsumen', $filename);
+            $foto->move('assets/foto_profil_konsumen/', $filename);
         }
 
+        $d = User::where('id_user', $id)->first();
 
-        $fix_role = $role == 'konsumen' ? 'App\User' : 'App\Models\Pelapak';
-        $init = $fix_role::where('id_user', $id);
-        $d = $init->first();
-        $ubah = $init->update($data);
-
-        if ($ubah) {
-            if ($foto != null) {
-                File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
-            }
-            return redirect(URL::to('profile'))->with('suksesUbahProfile', 'Data profil berhasil disimpan.');
+        if ($foto != null) {
+            File::delete('assets/foto_profil_konsumen/' . $d->foto_profil);
         }
+        $d->update($data);
+        return redirect(URL::to('profile'))->with('suksesUbahProfile', 'Data profil berhasil disimpan.');
     }
 
     public static function acakhuruf($length)

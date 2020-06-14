@@ -2,7 +2,6 @@
 
 @section('title','User')
 
-
 @section('content')
     <section class="mb-5" id="profile_konsumen">
         <br>
@@ -24,8 +23,6 @@
             @endif
             <div class="row">
                 <aside class="col-md-3">
-                    <!--   SIDEBAR   -->
-
                     <div class="list-group">
                         <a href="{{ URL::to('profile') }}"
                            class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }} list-group-item list-group-item-action">Profil</a>
@@ -46,11 +43,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{-- <h6 class="text-muted">Profile</h6>
-                                    <p>{{ Auth::guard(Session::get('role'))->user()->nama_lengkap }} <br>
-                                    No Telp : {{ Auth::guard(Session::get('role'))->user()->nomor_hp }}<br>
-                                    Alamat : {{ Auth::guard(Session::get('role'))->user()->alamat_utama }}
-                                     </p> --}}
+                                    <h6 class="text-muted">Profile</h6>
+{{--                                    <p>{{ Auth::guard(Session::get('role'))->user()->nama_lengkap }} <br>--}}
+{{--                                        No Telp : {{ Auth::guard(Session::get('role'))->user()->nomor_hp }}<br>--}}
+{{--                                        Alamat : {{ Auth::guard(Session::get('role'))->user()->alamat_utama }}--}}
+{{--                                    </p>--}}
                                     @if(Route::currentRouteName() == 'profile')
                                         @include('web.profile.profile')
                                     @elseif(Route::currentRouteName() == 'rekening')
@@ -73,7 +70,8 @@
         </div>
     </section>
 
-    <div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalPassword" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,18 +81,16 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                @php
-                $id = Session::get('id');
-                $role = Session::get('role');
-                @endphp
                     <form action="{{ URL::to('profile/gantipassword/'.Auth::id()) }}" method="post">
                         @csrf
                         <div class="form-group mb-0">
-                            <input type="text" name="passwordlama" class="form-control" id="passwordlama" placeholder="Password Lama" required>
+                            <input type="text" name="passwordlama" class="form-control" id="passwordlama"
+                                   placeholder="Password Lama" required>
                             <br>
-                            <input type="text" name="passwordbaru" class="form-control" id="passwordbaru" placeholder="Password Baru" required>
+                            <input type="text" name="passwordbaru" class="form-control" id="passwordbaru"
+                                   placeholder="Password Baru" required>
                             <!-- <br>
-                            <input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
+                                <input type="input" name="konfir" class="form-control" id="konfir" placeholder="Konfirmasi"> -->
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary">Simpan</button>
