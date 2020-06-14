@@ -5,6 +5,7 @@
 
 @section('content')
 
+            <aside class="col-md-3 mb-3">
 
     <section class="mb-5" id="profile_konsumen">
         <br>
