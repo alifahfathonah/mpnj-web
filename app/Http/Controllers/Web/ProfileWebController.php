@@ -95,29 +95,35 @@ class ProfileWebController extends Controller
 
     public function simpan_alamat(Request $request)
     {
-        $data = [
-            'nama' => $request->nama,
-            'nomor_telepon' => $request->nomor_telepon,
-            'provinsi_id' => $request->provinsi,
-            'nama_provinsi' => $request->nama_provinsi,
-            'city_id' => $request->kota,
-            'nama_kota' => $request->nama_kota,
-            'kode_pos' => $request->kode_pos,
-            'kecamatan_id' => $request->kecamatan,
-            'nama_kecamatan' => $request->nama_kecamatan,
-            'alamat_lengkap' => $request->alamat_lengkap,
-            'user_id' => Auth::id()
-        ];
-
-        if ($request->has('wilayah') AND $request->has('kamar')) {
-            $data['wilayah'] = $request->wilayah;
-            $data['kamar'] = $request->kamar;
-            $data['santri'] = $request->santri;
-        }
-
-        $simpan = Alamat::create($data);
-        if ($simpan) {
+        DB::beginTransaction();
+        try {
+            $data = [
+                'nama' => $request->nama,
+                'nomor_telepon' => $request->nomor_telepon,
+                'provinsi_id' => $request->provinsi,
+                'nama_provinsi' => $request->nama_provinsi,
+                'city_id' => $request->kota,
+                'nama_kota' => $request->nama_kota,
+                'kode_pos' => $request->kode_pos,
+                'kecamatan_id' => $request->kecamatan,
+                'nama_kecamatan' => $request->nama_kecamatan,
+                'alamat_lengkap' => $request->alamat_lengkap,
+                'user_id' => Auth::id()
+            ];
+            if ($request->has('wilayah') AND $request->has('kamar')) {
+                $data['wilayah'] = $request->wilayah;
+                $data['kamar'] = $request->kamar;
+                $data['santri'] = $request->santri;
+            }
+            $simpan = Alamat::create($data);
+            if (is_null(Auth::user()->alamat_utama)) {
+                $update = Auth::user()->update(['alamat_utama' => $simpan->id_alamat]);
+            }
+            DB::commit();
             return redirect()->back()->with('alert', 'Alamat berhasil disimpan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back();
         }
     }
 
