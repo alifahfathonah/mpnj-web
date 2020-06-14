@@ -68,7 +68,6 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <hr>
                             @endforeach
                         @else
                             <tr>
@@ -104,7 +103,8 @@
                         </div> <!-- form-group end.// -->
                         <div class="col form-group">
                             <label>Nomor Telepon</label>
-                            <input type="tel" name="nomor_telepon" id="phone" class="form-control" required>
+                            <input type="tel" name="nomor_telepon" id="phone" class="form-control phone" required>
+                            <small id="teleponError" style="color: red"></small>
                         </div> <!-- form-group end.// -->
                     </div>
                     <div class="form-row">
@@ -570,43 +570,51 @@
                 <form method="post" action="{{ URL::to('profile/alamat/ubah/') }}">
                     @csrf
                     <input type="hidden" name="edit_id_alamat" id="edit_id_alamat">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" name="nama" id="editNama" class="form-control" value="">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" id="editNama" class="form-control" value="" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="text" name="nomor_telepon" id="editNomorTelepon" class="form-control phone" value="" required>
+                            <small id="teleponError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
                     </div>
-                    <div class="form-group">
-                        <label>Nomor Telepon</label>
-                        <input type="text" name="nomor_telepon" id="editNomorTelepon" class="form-control" value="">
+
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Provinsi</label>
+                            <select name="provinsi" id="editProvinsi" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi" class="form-control">
+                        </div>
+                        <div class="col form-group">
+                            <label>Kota</label>
+                            <select name="kota" id="editKota" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_kota" id="edit_nama_kota" class="form-control">
+                        </div>
+                        <div class="col form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="editKecamatan" class="form-control">
+                                <option>-- Loading --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Provinsi</label>
-                        <select name="provinsi" id="editProvinsi" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_provinsi" id="edit_nama_provinsi" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kota</label>
-                        <select name="kota" id="editKota" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_kota" id="edit_nama_kota" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kecamatan</label>
-                        <select name="kecamatan" id="editKecamatan" class="form-control">
-                            <option>-- Loading --</option>
-                        </select>
-                        <input type="hidden" name="nama_kecamatan" id="edit_nama_kecamatan" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Pos</label>
-                        <input type="text" name="kode_pos" id="editKodePos" class="form-control" value="">
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea name="alamat_lengkap" class="form-control" cols="30" rows="10"
-                                  id="editAlamatLengkap"></textarea>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" id="editKodePos" class="form-control" value="">
+                        </div>
+                        <div class="col form-group">
+                            <label>Alamat</label>
+                            <textarea name="alamat_lengkap" class="form-control"rows="1"
+                                      id="editAlamatLengkap"></textarea>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn--round btn-success btn--default">Simpan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
@@ -670,18 +678,25 @@
 @push('scripts')
     <script>
         $(function () {
-            let input = document.querySelector("#phone");
-            var iti = intlTelInput(input, {
-                initialCountry: "id",
-                allowDropdown: true,
-                utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
-            });
+            let input = document.querySelectorAll('.phone');
+            var iti;
 
             $("#phone").on('keyup', function () {
-                console.log(iti.isValidNumber())
+                if (iti.isValidNumber()) {
+                    $("#simpan").prop('disabled', false)
+                    $("#teleponError").html('')
+                } else {
+                    $("#simpan").prop('disabled', true);
+                    $("#teleponError").html('Nomor telepon tidak valid')
+                }
             })
 
             $("#tambahAlamat").on('click', function () {
+                iti = intlTelInput(input[0], {
+                    initialCountry: "id",
+                    allowDropdown: true,
+                    utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+                });
                 $.ajax({
                     async: true,
                     url: '{{ URL::to('api/gateway/provinsi') }}',
@@ -759,6 +774,11 @@
             });
 
             $(".btnEditALamat").on('click', async function (e) {
+                iti = intlTelInput(input[1], {
+                    initialCountry: "id",
+                    allowDropdown: true,
+                    utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+                });
                 if ($(this).data('santri') == 'Y') {
                     resetFormSantri();
                     $("#edit_wilayah option").remove();
