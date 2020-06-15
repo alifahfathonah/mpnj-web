@@ -12,7 +12,7 @@
       <div class="card card-lg">
         <div class="card-header">
           <h5 class="card-title">Halo, Selamat Datang</h5>
-          <p>Masukkan email kamu untuk dapat mereset password akun kamu.</p>
+          <p>Masukkan email anda untuk dapat mereset password akun kamu. Pastikan email anda masukkan adalah email yang terdaftar pada Belanj.id</p>
         </div>
         <div class="card-body">
 
