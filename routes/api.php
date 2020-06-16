@@ -56,6 +56,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'transaksi'], function () {
         Route::get('/', 'ApiTransaksiController@index');
         Route::post('/simpan', 'ApiTransaksiController@simpan');
+        Route::put('/batal', 'ApiTransaksiController@batal');
     });
 
     //kategori
