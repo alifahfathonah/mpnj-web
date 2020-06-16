@@ -100,4 +100,22 @@ class ApiTransaksiController extends Controller
             return response()->json('gagal', 400);
         }
     }
+
+    public function batal(Request $request)
+    {
+        $id = $request->user_id;
+
+        $batal = Keranjang::where('user_id', $id)->update(['status' => 'N']);
+        if ($batal) {
+            return response()->json(
+                [
+                    'pesan' => 'berhasil dibatalkan'
+                ],
+                200
+            );
+        } else {
+            return response()->json('gagal', 400);
+        }
+
+    }
 }

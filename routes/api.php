@@ -44,7 +44,7 @@ Route::group(['namespace' => 'Api'], function () {
 
     //keranjang
     Route::group(['prefix' => 'keranjang'], function () {
-        Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1
+        Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?id=1
         Route::post('/', 'ApiKeranjangController@simpan');
         Route::delete('/{id_keranjang}', 'ApiKeranjangController@hapus');
         Route::put('/ganti_jumlah/{id_keranjang}', 'ApiKeranjangController@gantiJumlah');
@@ -56,6 +56,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'transaksi'], function () {
         Route::get('/', 'ApiTransaksiController@index');
         Route::post('/simpan', 'ApiTransaksiController@simpan');
+        Route::put('/batal', 'ApiTransaksiController@batal');
     });
 
     //kategori
@@ -85,6 +86,7 @@ Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password');
 Route::get('/banner', 'Api\ApiTampilBanner@index');
+Route::get('/bank', 'Api\ApiBankController@index');
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
