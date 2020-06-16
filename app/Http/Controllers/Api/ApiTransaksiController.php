@@ -34,64 +34,38 @@ class ApiTransaksiController extends Controller
         $data['pembeli'] = [];
         $data['total'] = 0;
 
+        $total_berat = 0;
 
         foreach ($keranjang as $key => $value) {
             $item = collect();
             foreach ($value as $val) {
                 $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
-                if(count($item)==0){
-                    $item->push([
-                        'id_keranjang' => $val->id_keranjang,
-                        'jumlah' => $val->jumlah,
-                        'harga_jual' => $val->harga_jual,
-                        'diskon' => $val->produk->diskon,
-                        'id_produk' => $val->produk->id_produk,
-                        'nama_produk' => $val->produk->nama_produk,
-                        'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
-                    ]);
-                }else{
-                    $item_sama=0;
-                    $i=0;
-                    foreach($item as $val_asli){
-                        if($val->produk->id_produk == $val_asli['id_produk']){
-                            $jum_sebelumnya = $item[$i]['jumlah'];
-                            $item->splice($i,1);
-                            $item->push([
-                                'id_keranjang' => $val->id_keranjang,
-                                'jumlah' => $jum_sebelumnya+1,
-                                'harga_jual' => $val->harga_jual,
-                                'diskon' => $val->produk->diskon,
-                                'id_produk' => $val->produk->id_produk,
-                                'nama_produk' => $val->produk->nama_produk,
-                                'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
-                            ]);
-                            $item_sama=1;
-                            break;
-                        }
-                        $i++;
-                    }
-                    if($item_sama==0){
-                        $item->push([
-                            'id_keranjang' => $val->id_keranjang,
-                            'jumlah' => $val->jumlah,
-                            'harga_jual' => $val->harga_jual,
-                            'diskon' => $val->produk->diskon,
-                            'id_produk' => $val->produk->id_produk,
-                            'nama_produk' => $val->produk->nama_produk,
-                            'foto' => asset('assets/foto_produk/'.$val->produk->foto_produk[0]->foto_produk)
-                        ]);
-                    }
-                }
-//                $data['pembeli'] = $val['pembeli'];
+                $item->push([
+                    'id_keranjang' => $val->id_keranjang,
+                    'jumlah' => $val->jumlah,
+                    'harga_jual' => $val->harga_jual,
+                    'diskon' => $val->produk->diskon,
+                    'id_produk' => $val->produk->id_produk,
+                    'nama_produk' => $val->produk->nama_produk,
+                    'stok' => $val->produk->stok,
+                    'foto' => $val->produk->foto_produk[0]->foto_produk
+                ]);
+                $total_berat += $val->produk->berat;
             }
 
             $data['data_keranjang']->push([
                 'id_toko' => $keranjang[$key][0]->produk->user->id_user,
                 'nama_toko' => $key,
+                'id_kabupaten' => $keranjang[$key][0]->produk->user->alamatToko->city_id,
+                'nama_kota' => $keranjang[$key][0]->produk->user->alamatToko->nama_kota,
+                'total_berat' => $total_berat,
                 'item' => $item
             ]);
-            $data['pembeli'] = $keranjang[$key][0]->user;
-
+            $data['pembeli'] = [
+                'id_user' => $keranjang[$key][0]->user->id_user,
+                'alamat_utama' => $keranjang[$key][0]->user->alamat_fix->getAlamatLengkapAttribute(),
+                'id_kecamatan' => $keranjang[$key][0]->user->alamat_fix->kecamatan_id,
+            ];
         }
         return response()->json($data, 200);
     }
