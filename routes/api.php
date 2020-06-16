@@ -85,6 +85,7 @@ Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password');
 Route::get('/banner', 'Api\ApiTampilBanner@index');
+Route::get('/bank', 'Api\ApiBankController@index');
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');
