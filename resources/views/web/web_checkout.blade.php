@@ -11,8 +11,15 @@
             <aside class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <p><strong>Pilih Alamat Pengiriman</strong> | <a href="#" class="btn btn-outline-success"
-                                data-target="#pilihAlamat" data-toggle="modal">Ubah</a></p>
+                        <p><strong>Pilih Alamat Pengiriman</strong> |
+                            @if(is_null($pembeli->alamat_fix))
+                                <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            @else
+                                <a href="#" class="btn btn-outline-success" data-target="#pilihAlamat" data-toggle="modal">Ubah</a>
+                            @endif
+                        </p>
                         <hr>
                         <p class="text-center">
                             @if(is_null($pembeli->alamat_fix))
@@ -106,10 +113,10 @@
                                 </td>
                                 <td id="subHarga{{ $n }}">
                                     @if($k['diskon'] == 0)
-                                    @currency($k['harga_jual'] * $k['jumlah'])
+                                        @currency($k['harga_jual'] * $k['jumlah'])
                                     @else
-                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
-                                    $k['jumlah'])
+                                        @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
+                                        $k['jumlah'])
                                     @endif
                                 </td>
                             </tr>
@@ -261,12 +268,186 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamat" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Data Alamat</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" name="nomor_telepon" id="phone" class="form-control phone" required>
+                            <small id="teleponError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Provinsi</label>
+                            <select name="provinsi" id="provinsi" class="form-control" required>
+                                <option id="provinsi_option">-- PILIH PROVINSI --</option>
+                            </select>
+                            <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kota</label>
+                            <select name="kota" id="kota" class="form-control" disabled required>
+                                <option>-- PILIH KOTA --</option>
+                            </select>
+                            <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="kecamatan" class="form-control" disabled required>
+                                <option>-- PILIH Kecamatan --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" id="kode_pos" class="form-control" required>
+                            <small id="kodePosError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Alamat Lengkap</label>
+                            <textarea name="alamat_lengkap" rows="1" class="form-control" required></textarea>
+                        </div> <!-- form-group end.// -->
+                    </div>
+                    <button type="submit" id="simpan" class="btn btn--round btn-danger btn--default">Simpan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
 <script>
     $(function () {
        $("#dataPembeli").data('destination') == undefined ? $("#bayar").prop('disabled', true) : $("#bayar").prop('disabled', false);
+
+        let input = document.querySelector('#phone');
+
+        var iti = intlTelInput(input, {
+            initialCountry: "id",
+            allowDropdown: true,
+            utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+        });
+
+        $("#phone").on('keyup', function () {
+            if (iti.isValidNumber()) {
+                $("#simpan").prop('disabled', false)
+                $("#teleponError").html('')
+            } else {
+                $("#simpan").prop('disabled', true);
+                $("#teleponError").html('Nomor telepon tidak valid')
+            }
+        });
+
+        $("#kode_pos").on('keyup', function () {
+            if ($(this).val().length > 5 || !$.isNumeric($(this).val())) {
+                $("#kodePosError").html('Kode pos tidak valid');
+                $("#simpan").prop('disabled', true);
+            } else {
+                $("#kodePosError").html('');
+                $("#simpan").prop('disabled', false);
+            }
+        });
+
+        $("#tambahAlamat").on('click', function () {
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/provinsi') }}',
+                type: 'GET',
+                success: function (response) {
+                    $("#provinsi option").remove();
+                    $("#modalAlamat").modal('show');
+                    response.provinsi.rajaongkir.results.map(e => {
+                        $("#provinsi").append(`
+                                <option value='${e.province_id}'>${e.province}</option>
+                            `);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#provinsi").on('change', function () {
+            $("#nama_provinsi").val($("#provinsi option:selected").html());
+            $("#kota").prop('disabled', true);
+            $("#kota option").remove();
+            $("#kota").append(`
+                    <option>-- PILIH KOTA --</option>
+               `);
+            $("#kecamatan option").remove();
+            $("#kecamatan").prop('disabled', true);
+            $("#kecamatan").append(`
+                    <option>-- PILIH Kecamatan --</option>
+               `);
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + `${$(this).val()}`,
+                type: 'GET',
+                success: function (response) {
+                    $("#kota option").remove();
+                    response.kota.rajaongkir.results.map(e => {
+                        $("#kota").append(`
+                                <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
+                            `);
+                    });
+                    $("#kota").prop('disabled', false);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#kota").on('change', function () {
+            $("#nama_kota").val($("#kota option:selected").html());
+            $("#kecamatan").prop('disabled', true);
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
+                type: 'GET',
+                success: function (response) {
+                    $("#kecamatan option").remove();
+                    response.kecamatan.rajaongkir.results.map(e => {
+                        $("#kecamatan").append(`
+                                <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
+                           `);
+                    });
+                    $("#kecamatan").prop('disabled', false);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#kecamatan").on('change', function () {
+            $("#nama_kecamatan").val($("#kecamatan option:selected").html());
+        });
     });
     function getKurir(n) {
         let kurir = $("#pilih_kurir" + n).val();
