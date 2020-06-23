@@ -79,27 +79,21 @@
 				<!-- ============================ COMPONENT BANNER 8  END .// ================================= -->
 			</div>
 		</div> <!-- row // -->
-	</div>
-
-	<section class="section-content padding-y bg-white">
-		<nav class="navbar navbar-main navbar-expand-lg border-bottom">
-			<!-- <div class="container"> -->
-			<div class="col-md-12">
+		<div class="card mb-3" style=" border-radius: 10px;">
+			<div class="card-body">
 				<h4>Pilih Produk</h4>
-				<nav style="width: 100%">
-					<div class="nav nav-tabs" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif"
-							id="nav-home-tab" data-toggle="tab" href="#hangat" role="tab" aria-controls="nav-home"
-							aria-selected="true">Produk Baru</a>
-						<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#diskon" role="tab"
-							aria-controls="nav-home" aria-selected="true">Produk Diskon</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#semua" role="tab"
-							aria-controls="nav-profile" aria-selected="false">Semua Produk</a>
-					</div>
-				</nav>
+				<div class="nav btn-group " id="nav-tab" role="tablist">
+					<a class="btn btn-outline-primary nav-link @if(app('request')->input('tab') == 'semua') active @else active @endif"
+						id="nav-home-tab" data-toggle="tab" href="#hangat" role="tab" aria-controls="nav-home"
+						aria-selected="true" type="button">Baru</a>
+					<a class="btn btn-outline-primary nav-link" id="nav-home-tab" data-toggle="tab" href="#diskon"
+						role="tab" aria-controls="nav-home" aria-selected="true" type="button">Diskon</a>
+					<a class="btn btn-outline-primary  nav-link" id="nav-profile-tab" data-toggle="tab" href="#semua"
+						role="tab" aria-controls="nav-profile" aria-selected="false" type="button">Semua</a>
+				</div>
 			</div>
-		</nav>
-	</section>
+		</div>
+	</div>
 
 	<div class="container">
 		<section class="padding-bottom-sm">
