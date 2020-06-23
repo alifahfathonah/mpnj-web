@@ -144,4 +144,22 @@ class CheckoutWebController extends Controller
             return redirect(URL::to('keranjang'));
         }
     }
+
+    public function simpanKurir(Request $request)
+    {
+        $data = [
+            'kurir' => $request->kurir,
+            'service' => $request->service,
+            'ongkir' => $request->ongkir,
+            'etd' => $request->etd
+        ];
+
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::where('user_id', Auth::id())
+            ->whereIn('id_keranjang', $id_keranjang)
+            ->update($data);
+
+        return $update;
+    }
 }
