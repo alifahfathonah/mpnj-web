@@ -59,6 +59,10 @@ class ApiTransaksiController extends Controller
                 'id_kabupaten' => $keranjang[$key][0]->produk->user->alamatToko->city_id,
                 'nama_kota' => $keranjang[$key][0]->produk->user->alamatToko->nama_kota,
                 'total_berat' => $total_berat,
+                'kurir' => $keranjang[$key][0]->kurir,
+                'service' => $keranjang[$key][0]->service,
+                'ongkir' => $keranjang[$key][0]->ongkir,
+                'etd' => $keranjang[$key][0]->etd,
                 'item' => $item
             ]);
             $data['pembeli'] = [
