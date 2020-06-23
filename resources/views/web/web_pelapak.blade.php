@@ -5,23 +5,30 @@
 @section('content')
 
 <section class="section-content padding-y">
-	<div class="container profile-page bg-white">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
-				<div class="card-banner overlay-gradient"
-					style="min-height:300px; background-image: url('../images/posts/2.jpg'); border-radius: 10px;">
+				<div class="card-banner overlay-gradient mb-3"
+					style="min-height:300px; background-image: url({{ asset('assets/foto_toko/'.$pelapak->foto_toko) }}); border-radius: 10px;">
 					<div class="card-img-overlay white d-flex align-items-center">
 						<div class="row px-md-5 px-5 d-flex align-items-center">
 							<div class="col-lg-4 col-md-4 col-12">
-								<div class="profile-image float-md-right"> <img
-										src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""
-										class="img-md rounded-circle border">
+								@if( $pelapak->foto_profil == null)
+								<div class="icontext mr-4" style="max-width: 300px;">
+									<span class="icon icon-lg rounded-circle border border-white">
+										<i class="fa fa-user text-white"></i>
+									</span>
 								</div>
+								@else
+								<div class="profile-image float-md-right"> <img
+										src="{{ asset('assets/foto_profil_konsumen/'.$pelapak->foto_profil) }}"
+										alt="foto_profil" class="img-md rounded-circle border">
+								</div>
+								@endif
 							</div>
 							<div class="col-lg-8 col-md-8 col-12">
-								<h4 class="m-t-0 m-b-0"><strong>{{ $pelapak->username }}</strong> Store</h4>
+								<h4 class="m-t-0 m-b-0"><strong>{{ $pelapak->nama_toko }}</strong> Store</h4>
 								<span class="job_post">Bergabung : {{ $pelapak->created_at->format("d, M Y") }}</span>
-
 								<div class="mt-2">
 									<button class="btn btn-outline-light btn-round"><span class="fa fa-plus"></span>
 										Ikuti</button>
