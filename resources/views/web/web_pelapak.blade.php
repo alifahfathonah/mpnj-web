@@ -43,8 +43,8 @@
 			</div> <!-- col // -->
 			<div class="col-md-4">
 				<!-- ============================ COMPONENT BANNER 8  ================================= -->
-				<div class="card-banner overlay-gradient"
-					style="min-height:300px; background-image: url('../images/posts/3.jpg');border-radius: 10px;">
+				<div class="card-banner overlay-gradient mb-3"
+					style="min-height:300px;background-image: url({{ asset('assets/foto_toko/'.$pelapak->foto_toko) }}); border-radius: 10px;">
 					<div class="card-img-overlay ">
 						<div class="table-responsive ">
 							<table class="table table-borderless text-white">
