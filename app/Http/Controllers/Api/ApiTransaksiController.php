@@ -22,11 +22,11 @@ class ApiTransaksiController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('id');
-//        $keranjangs = $this->keranjangRepository->all($role, $id);
-        $keranjang = Keranjang::orderBy('id_keranjang')
-            ->with('produk')
+        $id_keranjang = $request->id_keranjang;
+
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.alamat'])
             ->where('user_id', $id)
-            ->where('status', 'Y')
+            ->whereIn('id_keranjang', $id_keranjang)
             ->get()
             ->groupBy('produk.user.nama_toko');
 
