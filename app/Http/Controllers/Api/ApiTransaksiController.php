@@ -120,6 +120,22 @@ class ApiTransaksiController extends Controller
         } else {
             return response()->json('gagal', 400);
         }
+    }
 
+    public function simpanKurir(Request $request)
+    {
+        $data = [
+            'kurir' => $request->kurir,
+            'service' => $request->service,
+            'ongkir' => $request->ongkir,
+            'etd' => $request->etd
+        ];
+
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::whereI('id_keranjang', $id_keranjang)
+            ->update($data);
+
+        return $update;
     }
 }
