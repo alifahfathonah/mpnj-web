@@ -18,9 +18,11 @@ class ProdukWebController extends Controller
         $nama_produk = $request->query('cari');
 
         if ($nama_produk != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->get();
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])
+                ->where('nama_produk', 'like', '%' . $nama_produk . '%')->get();
         } else {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->get();
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])
+                ->get();
         }
 
         $data['latestProduk']  =  Kategori_Produk::with(['latestProduk' => function ($query) {
