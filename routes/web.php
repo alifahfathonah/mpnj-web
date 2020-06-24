@@ -109,6 +109,11 @@ Route::group(['namespace' => 'Web'], function () {
         Route::post('produk', 'ReviewWebController@postReview');
         Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
     });
+
+    //wishlist
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/', 'WishlistWebController@index')->middleware('checkUserLogin');
+    });
 });
 
 //daftar
