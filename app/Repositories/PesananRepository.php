@@ -25,6 +25,7 @@ class PesananRepository
                         'id_transaksi_detail' => $pesanan->id_transaksi_detail,
                         'nama_toko' => $pesanan->user->nama_toko,
                         'status_pembayaran' => $pesanan->transaksi->proses_pembayaran,
+                        'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
                         'nama_produk' => $pesanan->produk->nama_produk,
                         'jumlah' => $pesanan->jumlah,
                         'harga' => $pesanan->produk->harga_jual,
