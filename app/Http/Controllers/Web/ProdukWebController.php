@@ -34,7 +34,7 @@ class ProdukWebController extends Controller
         $data['produkDiskon'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('diskon', '!=', 0)->orderBy('diskon', 'desc')->take(5)->get();
         $data['banner'] = Banner::select('id_banner', 'nama_banner', 'status', 'foto_banner')->where('status', 'Y')->get();
         return view('web/web_home', $data);
-        //         return $data['produkDiskon'];
+        // return $data['produk'];
     }
 
     public function produk(Request $request)
