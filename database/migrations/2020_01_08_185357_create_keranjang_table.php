@@ -22,6 +22,10 @@ class CreateKeranjangTable extends Migration
             $table->enum('status', ['N', 'Y'])->default('N');
             $table->integer('jumlah');
             $table->integer('harga_jual');
+            $table->string('kurir')->nullable();
+            $table->string('service')->nullable();
+            $table->integer('ongkir')->default(0);
+            $table->string('etd')->nullable();
             $table->timestamps();
         });
     }
