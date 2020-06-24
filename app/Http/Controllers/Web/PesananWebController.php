@@ -23,13 +23,14 @@ class PesananWebController extends Controller
         $data['order'] = Transaksi_Detail::whereHas('transaksi', function ($query) use ($tab) {
             $query->where('user_id', Auth::id());
         })
-        ->when($tab != '', function ($query) use ($tab) {
-            $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
-        })
-        ->orderBy('created_at', 'DESC')
-        ->paginate(5);
+            ->when($tab != '', function ($query) use ($tab) {
+                $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
+            })
+            ->orderBy('created_at', 'DESC')
+            ->paginate(5);
 
         return view('web/web_profile', $data);
+        // return $data;
     }
 
     public function detail(Request $request, $id_trx_detail)
@@ -44,11 +45,11 @@ class PesananWebController extends Controller
         DB::beginTransaction();
         try {
             $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->first();
-                if ($terima->update(['status_order' => 'Telah Sampai'])) {
-                    $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
-                    DB::commit();
-                    return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
-                }
+            if ($terima->update(['status_order' => 'Telah Sampai'])) {
+                $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
+                DB::commit();
+                return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+            }
         } catch (\Exception $e) {
             DB::rollBack();
         }
