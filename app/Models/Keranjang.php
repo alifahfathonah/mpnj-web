@@ -14,6 +14,10 @@ class Keranjang extends Model
         'user_id',
         'jumlah',
         'harga_jual',
+        'kurir',
+        'service',
+        'ongkir',
+        'etd',
         'status'
     ];
 

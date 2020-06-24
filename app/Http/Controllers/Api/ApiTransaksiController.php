@@ -22,11 +22,11 @@ class ApiTransaksiController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('id');
-//        $keranjangs = $this->keranjangRepository->all($role, $id);
-        $keranjang = Keranjang::orderBy('id_keranjang')
-            ->with('produk')
+        $id_keranjang = $request->id_keranjang;
+
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.alamat'])
             ->where('user_id', $id)
-            ->where('status', 'Y')
+            ->whereIn('id_keranjang', $id_keranjang)
             ->get()
             ->groupBy('produk.user.nama_toko');
 
@@ -59,6 +59,10 @@ class ApiTransaksiController extends Controller
                 'id_kabupaten' => $keranjang[$key][0]->produk->user->alamatToko->city_id,
                 'nama_kota' => $keranjang[$key][0]->produk->user->alamatToko->nama_kota,
                 'total_berat' => $total_berat,
+                'kurir' => $keranjang[$key][0]->kurir,
+                'service' => $keranjang[$key][0]->service,
+                'ongkir' => $keranjang[$key][0]->ongkir,
+                'etd' => $keranjang[$key][0]->etd,
                 'item' => $item
             ]);
             $data['pembeli'] = [
@@ -116,6 +120,22 @@ class ApiTransaksiController extends Controller
         } else {
             return response()->json('gagal', 400);
         }
+    }
 
+    public function simpanKurir(Request $request)
+    {
+        $data = [
+            'kurir' => $request->kurir,
+            'service' => $request->service,
+            'ongkir' => $request->ongkir,
+            'etd' => $request->etd
+        ];
+
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)
+            ->update($data);
+
+        return response()->json('sukses', 200);
     }
 }
