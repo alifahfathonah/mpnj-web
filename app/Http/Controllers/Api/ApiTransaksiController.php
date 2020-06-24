@@ -90,7 +90,7 @@ class ApiTransaksiController extends Controller
                 'to' => $user->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
-            $keranjang = Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get();
+            $keranjang = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->get();
             foreach ($keranjang as $k) {
                 $trxDetail = [
                     'transaksi_id' => $simpanTrx->id_transaksi,
@@ -108,11 +108,16 @@ class ApiTransaksiController extends Controller
 
                 Transaksi_Detail::create($trxDetail);
             }
-            Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->delete();
+            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->delete();
             DB::commit();
-            return response()->json($simpanTrx, 200);
+            return response()->json([
+                'pesan' => 'sukses'
+            ], 200);
         } catch (\Exception $exception) {
             DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 404);
         }
     }
 
