@@ -23,4 +23,18 @@ class ApiPesananController extends Controller
         $pesanan = $this->pesananRepository->all($id, $tab);
         return $pesanan;
     }
+
+    public function getDetail($id_detail)
+    {
+        $data = Transaksi_Detail::where('id_transaksi_detail', $id_detail)->get();
+        if (count($data) > 0) {
+            $pesanan = $this->pesananRepository->detail($id_detail);
+            $res['data'] = $pesanan;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+            return response()->json($res2);
+        };
+    }
 }
