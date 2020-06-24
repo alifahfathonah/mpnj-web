@@ -61,7 +61,7 @@ class ProdukWebController extends Controller
 
     public function popular(Request $request)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->orderBy('terjual', 'DESC')->paginate(12);
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak', 'wishlists'])->orderBy('terjual', 'DESC')->paginate(12);
 
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_produk', $data);
