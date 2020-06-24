@@ -495,13 +495,11 @@
             for (let i = $(`#dataPelapak${$(this).data('row')}`).data('mulai'); i <= $(`#dataPelapak${$(this).data('row')}`).data('akhir'); i++) {
                 id_keranjang.push($(`#data_keranjang${i}`).data('idkeranjang'));
             }
-            // console.log($(`#dataPelapak${$(this).data('row')}`).data('jumlahbarang'));
             $("#title").html("Pilih Kurir untuk "+$(this).data('namatoko'));
             $("#modalPilihKurir").modal('show');
         });
 
         $("#pilih_kurir").on('change', function () {
-            console.log(id_keranjang)
             $.ajax({
                 url: '{{URL::to('api/ongkir')}}',
                 type: 'POST',
@@ -583,7 +581,7 @@
 
     function hitungOngkir() {
         let ko = 0;
-        for (let index = 1; index <= parseInt("{{ $m }}"); index++) {
+        for (let index = 1; index < parseInt("{{ $m }}"); index++) {
             if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
                 ko += 0;
             } else {

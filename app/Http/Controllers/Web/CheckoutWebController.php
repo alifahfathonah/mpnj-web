@@ -25,7 +25,7 @@ class CheckoutWebController extends Controller
 
         $reset = Keranjang::whereIn('id_keranjang', json_decode($id_keranjang[0], true))->update([
            'kurir' => null,
-           'ongkir' => null,
+           'ongkir' => 0,
            'etd' => null,
            'service' => null
         ]);
