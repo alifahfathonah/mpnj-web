@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaksi_Detail;
 use App\Repositories\PesananRepository;
 use Illuminate\Http\Request;
 
