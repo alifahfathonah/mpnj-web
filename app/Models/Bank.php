@@ -10,4 +10,9 @@ class Bank extends Model
     protected $primaryKey = 'id_bank';
     protected $fillable = ['nama_bank'];
     public $timestamps = false;
+
+    public function rekening_admin()
+    {
+        return $this->hasOne(Rekening_Admin::class, 'bank_id', 'id_bank');
+    }
 }
