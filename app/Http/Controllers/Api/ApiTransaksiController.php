@@ -136,6 +136,6 @@ class ApiTransaksiController extends Controller
         $update = Keranjang::whereI('id_keranjang', $id_keranjang)
             ->update($data);
 
-        return $update;
+        return response()->json('sukses', 200);
     }
 }
