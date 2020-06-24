@@ -136,6 +136,9 @@ class ApiTransaksiController extends Controller
         $update = Keranjang::whereIn('id_keranjang', $id_keranjang)
             ->update($data);
 
-        return response()->json('sukses', 200);
+        return response()->json([
+            'pesan' => 'sukses',
+            'status' => 200
+        ], 200);
     }
 }
