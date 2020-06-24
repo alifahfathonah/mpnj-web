@@ -34,4 +34,31 @@ class PesananRepository
                 }
             );
     }
+
+    public function detail($id_detail)
+    {
+        return Transaksi_Detail::where('id_transaksi_detail', $id_detail)
+            ->with('produk', 'user', 'transaksi', 'transaksi.konfirmasi')
+            ->get()
+            ->map(
+                function ($pesanan) {
+                    return [
+                        'id_transaksi_detail' => $pesanan->id_transaksi_detail,
+                        'status_pembayaran' => $pesanan->transaksi->proses_pembayaran,
+                        'total_bayar' => $pesanan->transaksi->total_bayar,
+                        'nama_toko' => $pesanan->user->nama_toko,
+                        'nama_produk' => $pesanan->produk->nama_produk,
+                        'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
+                        'jumlah' => $pesanan->jumlah,
+                        'harga' => $pesanan->produk->harga_jual,
+                        'kurir' => $pesanan->kurir,
+                        'ongkir' => $pesanan->ongkir,
+                        'tujuan' => $pesanan->transaksi->to,
+                        'no_pesanan' => $pesanan->transaksi->kode_transaksi,
+                        'waktu_pesan' => $pesanan->transaksi->waktu_transaksi,
+                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi
+                    ];
+                }
+            );
+    }
 }
