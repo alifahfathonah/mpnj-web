@@ -132,6 +132,12 @@
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
+                                @if($produk->wishlist == null)
+                                <a href="#" class="btn btn-light"> <i class="fas fa-heart"></i> </a>
+                                @else
+                                <a href="#" class="btn btn-light" aria-placeholder="d"> <i
+                                        class="fas fa-heart text-primary"></i> </a>
+                                @endif
                             </figcaption>
                         </figure>
                     </div>
@@ -180,6 +186,15 @@
                 <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top"
                             src="{{ env('FILES_ASSETS').$pl->foto_produk[0]->foto_produk }}"> </a>
+                    <span class="topbar">
+                        @if($pl->wishlist == null)
+                        <a href="#" class="float-right" title="Tambah Ke W"> <i class="fas fa-heart"></i> </a>
+                        @else
+                        <a href="#" class="float-right" title="Hapus Wishlist"> <i
+                                class="fas fa-heart text-primary"></i>
+                        </a>
+                        @endif
+                    </span>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
