@@ -583,7 +583,7 @@
 
     function hitungOngkir() {
         let ko = 0;
-        for (let index = 1; index <= "{{ $m }}"; index++) {
+        for (let index = 1; index <= parseInt("{{ $m }}"); index++) {
             if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
                 ko += 0;
             } else {
