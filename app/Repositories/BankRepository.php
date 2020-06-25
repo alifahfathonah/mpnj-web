@@ -4,6 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Bank;
 use App\Models\Rekening_Admin;
+use App\Models\Transaksi;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BankRepository
 {
