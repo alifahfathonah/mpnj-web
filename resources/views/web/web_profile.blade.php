@@ -41,11 +41,10 @@
                 <!--   SIDEBAR .//END   -->
             </aside>
             <main class="col-md-9">
-                <article class="card">
+                <article class="card" style="border-radius: 5px;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <h6 class="text-muted">Profile</h6>
                                 {{--                                    <p>{{ Auth::guard(Session::get('role'))->user()->nama_lengkap }}
                                 <br>--}}
                                 {{--                                        No Telp : {{ Auth::guard(Session::get('role'))->user()->nomor_hp }}<br>--}}
