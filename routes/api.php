@@ -72,6 +72,18 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/simpan', 'ApiKonfirmasiController@simpan');
     });
 
+    //bank
+    Route::group(['prefix' => 'bank'], function () {
+        Route::get('/', 'ApiBankController@index');
+        Route::get('/rekening/{id_bank}', 'ApiBankController@rekAdmin');
+    });
+
+    //pesanan
+    Route::group(['prefix' => 'pesanan'], function () {
+        Route::get('/', 'ApiPesananController@index');
+        Route::get('/{id_detail}', 'ApiPesananController@getDetail');
+    });
+
     Route::group(['prefix' => 'gateway'], function () {
         Route::get('/provinsi', 'RajaOngkirGateway@provinsi');
         Route::get('/kota', 'RajaOngkirGateway@kota');
