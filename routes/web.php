@@ -112,7 +112,10 @@ Route::group(['namespace' => 'Web'], function () {
 
     //wishlist
     Route::group(['prefix' => 'wishlist'], function () {
-        Route::get('/', 'WishlistWebController@index')->middleware('checkUserLogin');
+        Route::get('/', 'WishlistWebController@index')->name('wishlist')->middleware('checkUserLogin');
+        Route::get('/add/{id}', 'WishlistWebController@add')->middleware('checkUserLogin');
+        Route::get('/delete/{id}', 'WishlistWebController@delete');
+        Route::get('/clear/{id_user}', 'WishlistWebController@deleteAll');
     });
 });
 
