@@ -110,9 +110,13 @@ class ApiTransaksiController extends Controller
             }
             Keranjang::whereIn('id_keranjang', $request->id_keranjang)->delete();
             DB::commit();
-            return response()->json([
-                'pesan' => 'sukses'
-            ], 200);
+            return response()->json(
+                [
+                    'kode_transaksi' => $simpanTrx->kode_transaksi,
+                    'total_bayar' => $request->total_bayar
+                ],
+                200
+            );
         } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json([
