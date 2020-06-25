@@ -1,10 +1,17 @@
 <div class="d-flex justify-content-between mb-3 text-center">
     <h5 class="card-title">Wishlist Anda</h5>
+    @if($wishlist->count() > 0 )
     <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#berihkanWishlist">Bersihkan Wishlit
         <i class="fa fa-trash" aria-hidden="true"></i>
     </button>
+    @else
+    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#berihkanWishlist" disabled>Bersihkan Wishlit
+        <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    @endif
 </div>
 <div class="row">
+    @if($wishlist->count() > 0 )
     @foreach($wishlist as $w)
     <div class="col-xl-3 col-lg-3 col-md-4 col-6">
         <div href="{{ URL::to('produk/'.$w->produk->slug) }}" class="card card-sm card-product-grid shadow-sm">
