@@ -72,6 +72,18 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/simpan', 'ApiKonfirmasiController@simpan');
     });
 
+    //bank
+    Route::group(['prefix' => 'bank'], function () {
+        Route::get('/', 'ApiBankController@index');
+        Route::get('/rekening/{id_bank}', 'ApiBankController@rekAdmin');
+    });
+
+    //pesanan
+    Route::group(['prefix' => 'pesanan'], function () {
+        Route::get('/', 'ApiPesananController@index');
+        Route::get('/{id_detail}', 'ApiPesananController@getDetail');
+    });
+
     Route::group(['prefix' => 'gateway'], function () {
         Route::get('/provinsi', 'RajaOngkirGateway@provinsi');
         Route::get('/kota', 'RajaOngkirGateway@kota');
@@ -87,9 +99,8 @@ Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password');
 Route::get('/banner', 'Api\ApiTampilBanner@index');
-Route::get('/bank', 'Api\ApiBankController@index');
-Route::get('/pesanan', 'Api\ApiPesananController@index');
-Route::get('/pesanan/{id_detail}', 'Api\ApiPesananController@getDetail');
+
+
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');

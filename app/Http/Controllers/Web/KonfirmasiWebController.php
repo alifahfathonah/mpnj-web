@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Konfirmasi;
 use App\Models\Konsumen;
 use App\Models\Transaksi;
@@ -32,7 +33,7 @@ class KonfirmasiWebController extends Controller
 			return redirect('/pesanan')->with('trxNull', 'Kode transaksi tidak ditemukan.');
 		}
 
-		$cek['rekening_admin'] = Rekening_Admin::with('bank')->get();
+		$cek['rekening_admin'] = Bank::with('rekening_admin')->get();
 		if ($cek['transaksi']->status_transaksi != 'batal') {
 			if ($cek['transaksi']->proses_pembayaran == 'belum') {
 				return view('web/web_konfirmasi', $cek);
