@@ -60,10 +60,11 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'checkout'], function () {
-        Route::get('/', 'CheckoutWebController@index');
+        Route::post('/', 'CheckoutWebController@index');
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
         Route::post('batal', 'CheckoutWebController@batal');
+        Route::post('simpanKurir', 'CheckoutWebController@simpanKurir');
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
@@ -107,6 +108,14 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('produk/{id}', 'ReviewWebController@index');
         Route::post('produk', 'ReviewWebController@postReview');
         Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
+    });
+
+    //wishlist
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/', 'WishlistWebController@index')->name('wishlist')->middleware('checkUserLogin');
+        Route::get('/add/{id}', 'WishlistWebController@add')->middleware('checkUserLogin');
+        Route::get('/delete/{id}', 'WishlistWebController@delete');
+        Route::get('/clear/{id_user}', 'WishlistWebController@deleteAll');
     });
 });
 

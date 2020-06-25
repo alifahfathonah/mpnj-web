@@ -7,7 +7,10 @@ use App\Models\Keranjang;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\TransaksiRepository;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ApiTransaksiController extends Controller
@@ -22,11 +25,11 @@ class ApiTransaksiController extends Controller
     public function index(Request $request)
     {
         $id = $request->query('id');
-//        $keranjangs = $this->keranjangRepository->all($role, $id);
-        $keranjang = Keranjang::orderBy('id_keranjang')
-            ->with('produk')
+        $id_keranjang = $request->id_keranjang;
+
+        $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.alamat'])
             ->where('user_id', $id)
-            ->where('status', 'Y')
+            ->whereIn('id_keranjang', $id_keranjang)
             ->get()
             ->groupBy('produk.user.nama_toko');
 
@@ -59,6 +62,10 @@ class ApiTransaksiController extends Controller
                 'id_kabupaten' => $keranjang[$key][0]->produk->user->alamatToko->city_id,
                 'nama_kota' => $keranjang[$key][0]->produk->user->alamatToko->nama_kota,
                 'total_berat' => $total_berat,
+                'kurir' => $keranjang[$key][0]->kurir,
+                'service' => $keranjang[$key][0]->service,
+                'ongkir' => $keranjang[$key][0]->ongkir,
+                'etd' => $keranjang[$key][0]->etd,
                 'item' => $item
             ]);
             $data['pembeli'] = [
@@ -72,32 +79,49 @@ class ApiTransaksiController extends Controller
 
     public function simpan(Request $request)
     {
-        $id = Session::get('id_user');
-        //$id = Session::get('id');
-        //$konsumen_id = $request->user($role)->$id;
+        DB::beginTransaction();
+        try {
+            $user = User::where('id_user', $request->user_id)->first();
+            $trx = [
+                'kode_transaksi' => time(),
+                'user_id' => $request->user_id,
+                'total_bayar' => $request->totalBayar,
+                'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
+                'to' => $user->alamat_fix->getAlamatLengkapAttribute()
+            ];
+            $simpanTrx = Transaksi::create($trx);
+            $keranjang = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->get();
+            foreach ($keranjang as $k) {
+                $trxDetail = [
+                    'transaksi_id' => $simpanTrx->id_transaksi,
+                    'produk_id' => $k->produk_id,
+                    'jumlah' => $k->jumlah,
+                    'harga_jual' => $k->harga_jual,
+                    'diskon' => $k->produk->diskon,
+                    'kurir' => $k->kurir,
+                    'service' => $k->service,
+                    'ongkir' => $k->ongkir,
+                    'etd' => $k->etd,
+                    'sub_total' => $k->jumlah * $k->harga_jual + $k->ongkir,
+                    'user_id' => $k->produk->user_id
+                ];
 
-        $data = array(
-            'user_id' => $request->id_user,
-            'kode_transaksi' => time(),
-            'waktu_transaksi' => date('Y-m-d H:i:s'),
-            'total_bayar' => $request->total_bayar
-        );
-
-        $transaksi = $this->transaksiRepository->create($data);
-        if ($transaksi) {
-            // foreach ($request->trxDetail as $detail) {
-            //     $detail['transaksi_id'] = $transaksi->id_transaksi;
-            //     Transaksi_Detail::create($detail);
-            // }
+                Transaksi_Detail::create($trxDetail);
+            }
+            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->delete();
+            DB::commit();
             return response()->json(
                 [
-                    'kode_transaksi' => $transaksi->kode_transaksi,
-                    'total_bayar' => $transaksi->total_bayar
+                    'kode_transaksi' => $simpanTrx->kode_transaksi,
+                    'total_bayar' => $request->total_bayar
                 ],
                 200
             );
-        } else {
-            return response()->json('gagal', 400);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 404);
         }
     }
 
@@ -116,6 +140,25 @@ class ApiTransaksiController extends Controller
         } else {
             return response()->json('gagal', 400);
         }
+    }
 
+    public function simpanKurir(Request $request)
+    {
+        $data = [
+            'kurir' => $request->kurir,
+            'service' => $request->service,
+            'ongkir' => $request->ongkir,
+            'etd' => $request->etd
+        ];
+
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)
+            ->update($data);
+
+        return response()->json([
+            'pesan' => 'sukses',
+            'status' => 200
+        ], 200);
     }
 }
