@@ -1,53 +1,107 @@
-{{-- <div class="row">
-    <h4>cok</h4>
-    <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
-@csrf
-<div class="form-row">
-    <div class="col form-group">
-        <label>Nama</label>
-        <input type="text" name="nama" class="form-control" required>
-    </div> <!-- form-group end.// -->
-    <div class="col form-group">
-        <label>Nomor Telepon</label>
-        <input type="tel" name="nomor_telepon" id="phone" class="form-control phone" required>
-        <small id="teleponError" style="color: red"></small>
-    </div> <!-- form-group end.// -->
+<div class="d-flex justify-content-between mb-3 text-center">
+    <h5 class="card-title">Wishlist Anda</h5>
+    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#berihkanWishlist">Bersihkan Wishlit
+        <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
 </div>
-<div class="form-row">
-    <div class="col form-group">
-        <label>Provinsi</label>
-        <select name="provinsi" id="provinsi" class="form-control" required>
-            <option id="provinsi_option">-- PILIH PROVINSI --</option>
-        </select>
-        <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
-    </div> <!-- form-group end.// -->
-    <div class="col form-group">
-        <label>Kota</label>
-        <select name="kota" id="kota" class="form-control" disabled required>
-            <option>-- PILIH KOTA --</option>
-        </select>
-        <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
-    </div> <!-- form-group end.// -->
-    <div class="col form-group">
-        <label>Kecamatan</label>
-        <select name="kecamatan" id="kecamatan" class="form-control" disabled required>
-            <option>-- PILIH Kecamatan --</option>
-        </select>
-        <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
+<div class="row">
+    @foreach($wishlist as $w)
+    <div class="col-xl-3 col-lg-3 col-md-4 col-6">
+        <div href="{{ URL::to('produk/'.$w->produk->slug) }}" class="card card-sm card-product-grid shadow-sm">
+            <a href="{{ URL::to('produk/'.$w->produk->slug) }}" class=""> <img class="card-img-top"
+                    src="{{ env('FILES_ASSETS').$w->produk->foto_produk[0]->foto_produk }}"> </a>
+            <span class="topbar">
+                @if($w->where('user_id', Auth::id())->count()==0)
+                <a href="{{ URL::to('wishlist/add/'.$w->produk->id_produk)}}" class="float-right"
+                    data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                        class="fas fa-heart"></i> </a>
+                @else
+                <a href="{{ URL::to('wishlist/delete/'.$w->produk->id_produk)}}" class="float-right"
+                    data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                        class="fas fa-heart text-primary"></i>
+                </a>
+                @endif
+            </span>
+            <figcaption class="info-wrap">
+                <div class="namaProduk-rapi">
+                    <a href="{{ URL::to('produk/'.$w->produk->slug) }}" class="title">{{ $w->produk->nama_produk }}</a>
+                </div>
+                <div class="price mt-1">
+                    @if($w->produk->diskon == 0)
+                    <span>
+                        <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                            style="font-size:14px;">@currency($w->produk->harga_jual)</span>
+                    </span>
+                    @else
+
+                    <span style="color: green">
+                        <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                            style="font-size:14px;">@currency($w->produk->harga_jual - ($w->produk->diskon / 100
+                            *
+                            $w->produk->harga_jual))</span>
+                    </span>
+                    <span style="color: gray">
+                        <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                                style="font-size:12px;">@currency($w->produk->harga_jual)</span></strike>
+                    </span>
+                    @endif
+                </div> <!-- price-wrap.// -->
+                <div class="row">
+                    <div class="col">
+                        <ul class="rating-stars">
+                            <li style="width:50%" class="stars-active">
+                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                    style="font-size:small"></i>
+                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                    style="font-size:small"></i>
+                                <i class="fa fa-star" style="font-size:small"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                    style="font-size:small"></i>
+                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                    style="font-size:small"></i>
+                                <i class="fa fa-star" style="font-size:small"></i>
+                            </li>
+                        </ul>
+                        <span class="rating-stars" style="font-size:small;">(125)</span>
+                    </div> <!-- rating-wrap.// -->
+
+                </div>
+                <div class="row">
+                    <div class="col" style="font-size:small">PAITON {{$w->produk->kota}}</div>
+                    <!-- selesaikan API nya ya -->
+                    <div class="text-right col text-success" style="font-size:small;">{{$w->produk->terjual}}
+                        terjual
+                    </div>
+                </div>
+            </figcaption>
+        </div>
+    </div>
+    @endforeach
+</div> <!-- card-body.// -->
+<div class="modal fade rating_modal item_remove_modal" id="berihkanWishlist" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Anda Yakin Ingin Menghapus Data Ini</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="GET" id="formHapusAlamat">
+                    <a href="{{ URL::to('wishlist/clear/'.Auth::id())}}"
+                        class="btn btn--icon btn--round btn-danger">Hapus
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <button class="btn--round modal_close btn btn-outline-success" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
     </div>
 </div>
-<div class="form-row">
-    <div class="col form-group">
-        <label>Kode Pos</label>
-        <input type="text" name="kode_pos" id="kode_pos" class="form-control" required>
-        <small id="kodePosError" style="color: red"></small>
-    </div> <!-- form-group end.// -->
-    <div class="col form-group">
-        <label>Alamat Lengkap</label>
-        <textarea name="alamat_lengkap" rows="1" class="form-control" required></textarea>
-    </div> <!-- form-group end.// -->
-</div>
-<button type="submit" id="simpan" class="btn btn--round btn-danger btn--default">Simpan</button>
-<button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
-</form>
-</div> --}}
