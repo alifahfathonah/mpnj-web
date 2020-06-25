@@ -24,23 +24,28 @@
                     <div class="col-md-10">
                         <ul class="list-inline">
                             <li class="list-inline-item mr-3 dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="filterByKategori">Kategori</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                    id="filterByKategori">Kategori</a>
                                 <div class="dropdown-menu">
                                     <a href="{{ URL::to('produk') }}" class="dropdown-item">Semua</a>
                                     @foreach($kategori as $k)
-                                    <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}" class="dropdown-item">{{ $k->nama_kategori }}</a>
+                                    <a href="{{ URL::to('produk?kategori='.strtolower($k->nama_kategori)) }}"
+                                        class="dropdown-item">{{ $k->nama_kategori }}</a>
                                     @endforeach
                                 </div>
                             </li>
-                            @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '') 
-                                <label>Filter:</label>
-                                <select class="list-inline-item mr-3 dropdown" id="price">
-                                    <option selected>--Harga Produk--</option>
-                                    <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>Termurah</option>
-                                    <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>Termahal</option>
-                                    <option value="laris" {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
-                                </select>                                
-                            @endif                            
+                            @if(app('request')->input('kategori') != '' OR app('request')->input('cari') != '')
+                            <label>Filter:</label>
+                            <select class="list-inline-item mr-3 dropdown" id="price">
+                                <option selected>--Harga Produk--</option>
+                                <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>
+                                    Termurah</option>
+                                <option value="high" {{ app('request')->input('order') == 'high' ? 'selected' : ''  }}>
+                                    Termahal</option>
+                                <option value="laris"
+                                    {{ app('request')->input('order') == 'laris' ? 'selected' : ''  }}>Terlaris</option>
+                            </select>
+                            @endif
                         </ul>
                     </div> <!-- col.// -->
                 </div> <!-- row.// -->
@@ -51,7 +56,20 @@
             @forelse($produk as $p)
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                 <div href="{{ URL::to('produk/'.$p->slug) }}" class="card card-sm card-product-grid shadow-sm">
-                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top" src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}"> </a>
+                    <a href="{{ URL::to('produk/'.$p->slug) }}" class=""> <img class="card-img-top"
+                            src="{{ env('FILES_ASSETS').$p->foto_produk[0]->foto_produk }}"> </a>
+                    <span class="topbar">
+                        @if($p->wishlists->where('user_id', Auth::id())->count()==0)
+                        <a href="{{ URL::to('wishlist/add/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
+                        @else
+                        <a href="{{ URL::to('wishlist/delete/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart text-primary"></i>
+                        </a>
+                        @endif
+                    </span>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$p->slug) }}" class="title">{{ $p->nama_produk }}</a>
@@ -59,15 +77,19 @@
                         <div class="price mt-1">
                             @if($p->diskon == 0)
                             <span>
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual)</span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                                    style="font-size:14px;">@currency($p->harga_jual)</span>
                             </span>
                             @else
 
                             <span style="color: green">
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 * $p->harga_jual))</span>
+                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                                    style="font-size:14px;">@currency($p->harga_jual - ($p->diskon / 100 *
+                                    $p->harga_jual))</span>
                             </span>
                             <span style="color: gray">
-                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span style="font-size:12px;">@currency($p->harga_jual)</span></strike>
+                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span
+                                        style="font-size:12px;">@currency($p->harga_jual)</span></strike>
                             </span>
                             @endif
                         </div> <!-- price-wrap.// -->
@@ -75,13 +97,17 @@
                             <div class="col" style="">
                                 <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
-                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
-                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                            style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                            style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                     <li>
-                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
-                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star" style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                            style="font-size:small"></i>
+                                        <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
+                                            style="font-size:small"></i>
                                         <i class="fa fa-star" style="font-size:small"></i>
                                     </li>
                                 </ul>
@@ -90,8 +116,10 @@
 
                         </div>
                         <div class="row">
-                            <div class="col" style="font-size:small">PAITON {{$p->kota}}</div> <!-- selesaikan API nya ya -->
-                            <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual</div>
+                            <div class="col" style="font-size:small">PAITON {{$p->kota}}</div>
+                            <!-- selesaikan API nya ya -->
+                            <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}} terjual
+                            </div>
                         </div>
                     </figcaption>
                 </div>
@@ -110,7 +138,9 @@
                 <li class="page-item"><a class="page-link" href="{{ $produk->previousPageUrl() }}">Previous</a></li>
                 @endif
                 @for($i = 1; $i <= $produk->lastPage(); $i++)
-                    <li class="page-item active"><a class="page-link {{ $i == $produk->currentPage() ? 'current' : '' }}" href="{{ $produk->url($i) }}">{{ $i }}</a></li>
+                    <li class="page-item active"><a
+                            class="page-link {{ $i == $produk->currentPage() ? 'current' : '' }}"
+                            href="{{ $produk->url($i) }}">{{ $i }}</a></li>
                     @endfor
                     @if($produk->currentPage() != $produk->lastPage())
                     <li class="page-item"><a class="page-link" href="{{ $produk->nextPageUrl()  }}">Next</a></li>
