@@ -11,8 +11,9 @@ class WishlistWebController extends Controller
 {
     public function index()
     {
-        // $data['wishlist'] = Wishlist::with('user', 'produk')->where('user_id', Auth::id())->get();
+        $data['wishlist'] = Wishlist::with('user', 'produk')->where('user_id', Auth::id())->get();
         // return $data;
-        return view('web/web_profile');
+        return view('web.web_profile', $data);
+    }
     }
 }
