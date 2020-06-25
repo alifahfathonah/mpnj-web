@@ -132,10 +132,13 @@
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
-                                @if($produk->wishlist == null)
-                                <a href="#" class="btn btn-light"> <i class="fas fa-heart"></i> </a>
+                                @if($produk->wishlists->where('user_id', Auth::id())->count()==0)
+                                <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                        class="fas fa-heart"></i> </a>
                                 @else
-                                <a href="#" class="btn btn-light" aria-placeholder="d"> <i
+                                <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
                                         class="fas fa-heart text-primary"></i> </a>
                                 @endif
                             </figcaption>
@@ -187,10 +190,13 @@
                     <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top"
                             src="{{ env('FILES_ASSETS').$pl->foto_produk[0]->foto_produk }}"> </a>
                     <span class="topbar">
-                        @if($pl->wishlist == null)
-                        <a href="#" class="float-right" title="Tambah Ke W"> <i class="fas fa-heart"></i> </a>
+                        @if($pl->wishlists->where('user_id', Auth::id())->count()==0)
+                        <a href="{{ URL::to('wishlist/add/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
                         @else
-                        <a href="#" class="float-right" title="Hapus Wishlist"> <i
+                        <a href="{{ URL::to('wishlist/delete/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
                                 class="fas fa-heart text-primary"></i>
                         </a>
                         @endif
