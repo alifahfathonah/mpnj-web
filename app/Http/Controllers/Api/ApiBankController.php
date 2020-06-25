@@ -26,4 +26,18 @@ class ApiBankController extends Controller
             'data' => $banks
         ], 200);
     }
+
+    public function rekAdmin($id_bank)
+    {
+        $data = Rekening_Admin::where('bank_id', $id_bank)->get();
+        if (count($data) > 0) {
+            $rek = $this->bankRepository->dataRek($id_bank);
+            $res['data'] = $rek;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+            return response()->json($res2);
+        };
+    }
 }
