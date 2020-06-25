@@ -22,7 +22,7 @@
         </div>
         @endif
         <div class="row">
-            <aside class="col-md-3">
+            <aside class="col-md-3 mb-3">
                 <div class="list-group">
                     <a href="{{ URL::to('profile') }}"
                         class="{{ Route::currentRouteName() == 'profile' ? 'active' : '' }} list-group-item list-group-item-action">Profil</a>
