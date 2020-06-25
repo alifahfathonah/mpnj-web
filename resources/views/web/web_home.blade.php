@@ -148,9 +148,12 @@
                     </a>
                     <span class="topbar">
                         @if($p->wishlists->where('user_id', Auth::id())->count()==0)
-                        <a href="#" class="float-right" title="Tambah Ke Wishlist"> <i class="fas fa-heart"></i> </a>
+                        <a href="{{ URL::to('wishlist/add/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
                         @else
-                        <a href="#" class="float-right" title="Hapus Wishlist"> <i
+                        <a href="{{ URL::to('wishlist/delete/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
                                 class="fas fa-heart text-primary"></i>
                         </a>
                         @endif
@@ -241,9 +244,12 @@
                     </a>
                     <span class="topbar">
                         @if($p->wishlists->where('user_id', Auth::id())->count()==0)
-                        <a href="#" class="float-right" title="Tambah Ke Wishlist"> <i class="fas fa-heart"></i> </a>
+                        <a href="{{ URL::to('wishlist/add/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
                         @else
-                        <a href="#" class="float-right" title="Hapus Wishlist"> <i
+                        <a href="{{ URL::to('wishlist/delete/'.$p->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
                                 class="fas fa-heart text-primary"></i>
                         </a>
                         @endif
