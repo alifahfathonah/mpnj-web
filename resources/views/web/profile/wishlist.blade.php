@@ -86,6 +86,24 @@
         </div>
     </div>
     @endforeach
+    @else
+    <article class="container">
+        <div class="row no-gutters">
+            <aside class="col-md-4 text-center" style="align-self: center">
+                <a href="{{ URL::to('/') }}" style="height: 200px; width: 200px">
+                    <img src="{{ asset('assets/logo/belanj-hijau.png') }}" style="height: 100px; width: 200px">
+                </a>
+            </aside> <!-- col.// -->
+            <div class="col-md-8">
+                <div class="info-main">
+                    <h4 class="h5 title mr-5"> Anda Bisa Melihat Wishlist Anda di Sini</h4>
+                    <a href="{{ URL::to('produk') }}" class="btn btn-primary btn-block" type="submit">Cari Produk <i
+                            class="fa fa-search"></i></a>
+                </div> <!-- info-main.// -->
+            </div> <!-- col.// -->
+        </div> <!-- row.// -->
+    </article>
+    @endif
 </div> <!-- card-body.// -->
 <div class="modal fade rating_modal item_remove_modal" id="berihkanWishlist" tabindex="-1" role="dialog"
     aria-labelledby="myModal2">
