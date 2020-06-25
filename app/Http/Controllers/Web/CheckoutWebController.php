@@ -98,7 +98,7 @@ class CheckoutWebController extends Controller
                 'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
-            $keranjang = Keranjang::select()->whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get();
+            $keranjang = Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get();
             foreach ($keranjang as $k) {
                 $trxDetail = [
                   'transaksi_id' => $simpanTrx->id_transaksi,
