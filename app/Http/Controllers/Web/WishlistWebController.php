@@ -35,5 +35,12 @@ class WishlistWebController extends Controller
             return redirect()->back();
         }
     }
+
+    public function deleteAll($id_user)
+    {
+        $hapus = Wishlist::where('user_id', $id_user)->delete();
+        if ($hapus) {
+            return redirect()->back();
+        }
     }
 }
