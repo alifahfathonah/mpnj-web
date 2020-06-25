@@ -17,8 +17,6 @@ class KeranjangWebController extends Controller
     {
         $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix'])
             ->where('user_id', Auth::id())
-//            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-            ->where('status', 'N')
             ->get()
             ->groupBy('produk.user.nama_toko');
 

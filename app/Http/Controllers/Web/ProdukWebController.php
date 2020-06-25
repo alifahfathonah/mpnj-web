@@ -18,9 +18,11 @@ class ProdukWebController extends Controller
         $nama_produk = $request->query('cari');
 
         if ($nama_produk != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->get();
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])
+                ->where('nama_produk', 'like', '%' . $nama_produk . '%')->get();
         } else {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->get();
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])
+                ->get();
         }
 
         $data['latestProduk']  =  Kategori_Produk::with(['latestProduk' => function ($query) {
@@ -32,7 +34,7 @@ class ProdukWebController extends Controller
         $data['produkDiskon'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('diskon', '!=', 0)->orderBy('diskon', 'desc')->take(5)->get();
         $data['banner'] = Banner::select('id_banner', 'nama_banner', 'status', 'foto_banner')->where('status', 'Y')->get();
         return view('web/web_home', $data);
-        //         return $data['produkDiskon'];
+        // return $data['produk'];
     }
 
     public function produk(Request $request)
@@ -42,16 +44,16 @@ class ProdukWebController extends Controller
         $order = $request->query('order');
 
         if ($kategori != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->when($kategori != '', function ($query) use ($kategori) {
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->when($kategori != '', function ($query) use ($kategori) {
                 $query->whereHas('kategori', function ($query) use ($kategori) {
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
                 });
             })->orderBy($order == 'laris' ? 'terjual' : DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? ('DESC') : ($order == 'laris' ? ('DESC') : ('ASC')))->paginate(12);
             // })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->orderBy('terjual', $order == 'laris' , 'DESC')->paginate(12);
         } else if ($nama_produk != '') {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('nama_produk', 'like', '%' . $nama_produk . '%')->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')->paginate(12);
         } else {
-            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->paginate(12);
+            $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->paginate(12);
         }
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_produk', $data);
@@ -59,7 +61,7 @@ class ProdukWebController extends Controller
 
     public function popular(Request $request)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak'])->orderBy('terjual', 'DESC')->paginate(12);
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'pelapak', 'wishlists'])->orderBy('terjual', 'DESC')->paginate(12);
 
         $data['kategori'] = Kategori_Produk::Select('id_kategori_produk', 'nama_kategori')->get();
         return view('web/web_produk', $data);
@@ -67,7 +69,7 @@ class ProdukWebController extends Controller
 
     public function produkId(Request $request, $slug)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('slug', $slug)->first();
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('slug', $slug)->first();
         $data['produk_pelapak'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('user_id', $data['produk']->user->id_user)->get();
 
         $data['review'] = Review::with('user')->where('produk_id', $data['produk']->id_produk)->paginate(2);

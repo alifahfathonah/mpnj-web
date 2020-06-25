@@ -132,6 +132,15 @@
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
+                                @if($produk->wishlists->where('user_id', Auth::id())->count()==0)
+                                <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                        class="fas fa-heart"></i> </a>
+                                @else
+                                <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                        class="fas fa-heart text-primary"></i> </a>
+                                @endif
                             </figcaption>
                         </figure>
                     </div>
@@ -180,6 +189,18 @@
                 <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top"
                             src="{{ env('FILES_ASSETS').$pl->foto_produk[0]->foto_produk }}"> </a>
+                    <span class="topbar">
+                        @if($pl->wishlists->where('user_id', Auth::id())->count()==0)
+                        <a href="{{ URL::to('wishlist/add/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
+                        @else
+                        <a href="{{ URL::to('wishlist/delete/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart text-primary"></i>
+                        </a>
+                        @endif
+                    </span>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>

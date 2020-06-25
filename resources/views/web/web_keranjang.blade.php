@@ -93,8 +93,12 @@
                         </tbody>
                     </table>
                     <div class="card-body border-top">
-                        <button class="btn btn-primary float-md-right" id="checkout">Lanjut Checkout <i
-                                class="fa fa-chevron-right"></i></button>
+                        <form action="{{ URL::to('checkout') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="id_keranjang[]" id="id_keranjang">
+                            <button class="btn btn-primary float-md-right" type="submit">Lanjut Checkout <i
+                                        class="fa fa-chevron-right"></i></button>
+                        </form>
                         <a href="{{ URL::to('produk') }}" class="btn btn-light"> <i class="fa fa-chevron-left"></i>
                             Lanjut Belanja </a>
                     </div>
@@ -133,8 +137,15 @@
                 $("#checkout").prop('disabled', true);
             }
 
+            var id_keranjang = [];
+            $("input:checkbox[name=check]:checked").each(function () {
+                id_keranjang.push($(this).val());
+            });
+
+            $('#id_keranjang').val(JSON.stringify(id_keranjang));
+
             $("input:checkbox[name=check]").on('click', function () {
-                let keranjang_id = [];
+                let keranjang_id =  [];
                 let id = $(this).val();
                 let total = 0;
                 // $(`#check${id}`).attr('checked', false);
@@ -145,7 +156,7 @@
                 keranjang_id.forEach(function (val) {
                     total += $(`#data_keranjang${val}`).data('subtotal');
                 });
-
+                $('#id_keranjang').val(JSON.stringify(keranjang_id));
                 $("#total").html("Rp. " + numberFormat(parseInt(total)));
 
             });
@@ -176,31 +187,6 @@
                         updateJumlah(id_cart, qty, diskon, n);
                     }
                 }
-            });
-
-            $("#checkout").click(function () {
-                let keranjang_id = [];
-                $("input:checkbox[name=check]:checked").each(function () {
-                    keranjang_id.push($(this).val());
-                });
-
-                $.ajax({
-                    url: '{{ URL::to('keranjang/go_checkout') }}',
-                    type: 'POST',
-                    data: {
-                        'id_keranjang': keranjang_id
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function (response) {
-                        // $("#total").html("Rp. " + numberFormat(parseInt(response)));
-                        window.location.href = '{{ URL::to('checkout') }}';
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
             });
 
         });

@@ -54,9 +54,10 @@ Route::group(['namespace' => 'Api'], function () {
 
     //transaksi
     Route::group(['prefix' => 'transaksi'], function () {
-        Route::get('/', 'ApiTransaksiController@index');
+        Route::post('/', 'ApiTransaksiController@index');
         Route::post('/simpan', 'ApiTransaksiController@simpan');
         Route::put('/batal', 'ApiTransaksiController@batal');
+        Route::post('/simpanKurir', 'ApiTransaksiController@simpanKurir');
     });
 
     //kategori
@@ -69,6 +70,18 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'konfirmasi'], function () {
         Route::get('/{kode_transaksi}', 'ApiKonfirmasiController@tampilData');
         Route::post('/simpan', 'ApiKonfirmasiController@simpan');
+    });
+
+    //bank
+    Route::group(['prefix' => 'bank'], function () {
+        Route::get('/', 'ApiBankController@index');
+        Route::get('/rekening/{id_bank}', 'ApiBankController@rekAdmin');
+    });
+
+    //pesanan
+    Route::group(['prefix' => 'pesanan'], function () {
+        Route::get('/', 'ApiPesananController@index');
+        Route::get('/{id_detail}', 'ApiPesananController@getDetail');
     });
 
     Route::group(['prefix' => 'gateway'], function () {
@@ -86,7 +99,8 @@ Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password');
 Route::get('/banner', 'Api\ApiTampilBanner@index');
-Route::get('/bank', 'Api\ApiBankController@index');
+
+
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');

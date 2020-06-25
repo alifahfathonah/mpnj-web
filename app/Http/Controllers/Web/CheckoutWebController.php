@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Foto_Produk;
 use App\Models\Rekening_Admin;
 use App\Models\Keranjang;
@@ -21,25 +22,36 @@ class CheckoutWebController extends Controller
 {
     public function index(Request $request)
     {
+        $id_keranjang = $request->id_keranjang;
+
+        $reset = Keranjang::whereIn('id_keranjang', json_decode($id_keranjang[0], true))->update([
+            'kurir' => null,
+            'ongkir' => 0,
+            'etd' => null,
+            'service' => null
+        ]);
+
         $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix', 'user.alamat'])
             ->where('user_id', Auth::id())
-            ->where('status', 'Y')
+            ->whereIn('id_keranjang', json_decode($id_keranjang[0], true))
             ->get()
             ->groupBy('produk.user.nama_toko');
 
-        if ($keranjang->count() == 0) {
-            return redirect('keranjang');
-        }
+        //        if ($keranjang->count() == 0) {
+        //            return redirect('keranjang');
+        //        }
 
         $data['data_keranjang'] = collect();
         $total_berat = 0;
         $data['pembeli'] = [];
+        $data['ongkir'] = 0;
         $data['total'] = 0;
 
         foreach ($keranjang as $key => $value) {
             $item = collect();
             foreach ($value as $val) {
                 $data['total'] += ($val->harga_jual - ($val->produk->diskon / 100 * $val->harga_jual)) * $val->jumlah;
+                $data['ongkir'] += $val->ongkir;
                 $item->push([
                     'id_keranjang' => $val->id_keranjang,
                     'jumlah' => $val->jumlah,
@@ -62,37 +74,54 @@ class CheckoutWebController extends Controller
                 'nama_toko' => $key,
                 'alamat' => $keranjang[$key][0]->produk->user->alamatToko,
                 'total_berat' => $total_berat,
+                'kurir' => $keranjang[$key][0]->kurir,
+                'service' => $keranjang[$key][0]->service,
+                'ongkir' => $keranjang[$key][0]->ongkir,
+                'etd' => $keranjang[$key][0]->etd,
                 'item' => $item,
             ]);
             $data['pembeli'] = $keranjang[$key][0]->user;
             $total_berat = 0;
         }
 
-        return view('web/web_checkout', $data);
+        return view('web/web_checkout', $data, ['id_keranjang' => json_decode($id_keranjang[0], true)]);
     }
 
     public function simpanTransaksi(Request $request)
     {
-        $simpanTrx = Transaksi::create([
-            'user_id' => Auth::id(),
-            'kode_transaksi' => time(),
-            'to' => $request->to,
-            'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
-            'total_bayar' => $request->totalBayar
-        ]);
-        if ($simpanTrx) {
-            foreach ($request->trxDetail as $detail) {
-                //buat trigger ketika data masuk ke transaksi detail untuk mengurangi stok produk dan memperbarui field terjual
-                $detail['transaksi_id'] = $simpanTrx->id_transaksi;
-                Transaksi_Detail::create($detail);
+        DB::beginTransaction();
+        try {
+            $trx = [
+                'kode_transaksi' => time(),
+                'user_id' => Auth::id(),
+                'total_bayar' => $request->totalBayar,
+                'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
+                'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
+            ];
+            $simpanTrx = Transaksi::create($trx);
+            $keranjang = Keranjang::select()->whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get();
+            foreach ($keranjang as $k) {
+                $trxDetail = [
+                    'transaksi_id' => $simpanTrx->id_transaksi,
+                    'produk_id' => $k->produk_id,
+                    'jumlah' => $k->jumlah,
+                    'harga_jual' => $k->harga_jual,
+                    'diskon' => $k->produk->diskon,
+                    'kurir' => $k->kurir,
+                    'service' => $k->service,
+                    'ongkir' => $k->ongkir,
+                    'etd' => $k->etd,
+                    'sub_total' => $k->jumlah * $k->harga_jual + $k->ongkir,
+                    'user_id' => $k->produk->user_id
+                ];
+
+                Transaksi_Detail::create($trxDetail);
             }
-            foreach ($request->prosesData as $produk) {
-                foreach ($request->idp as $i) {
-                    Produk::where('id_produk', $i)->update($produk);
-                }
-            }
-            Keranjang::whereIn('id_keranjang', $request->idKeranjang)->delete();
+            Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->delete();
+            DB::commit();
             return response()->json($simpanTrx, 200);
+        } catch (\Exception $exception) {
+            DB::rollBack();
         }
     }
 
@@ -105,7 +134,7 @@ class CheckoutWebController extends Controller
         $data['order_detail'] = Transaksi_Detail::where('transaksi_id', $data['order_sukses']->id_transaksi)->get();
         $data['order_total'] =  $data['order_detail']->sum("sub_total");
         $data['order_ongkir'] =  $data['order_detail']->sum("ongkir");
-        $data['rekening_admin'] = Rekening_Admin::with('bank')->get();
+        $data['rekening_admin'] = Bank::with('rekening_admin')->get();
         return view('web/web_checkout_sukses', $data);
     }
 
@@ -115,5 +144,23 @@ class CheckoutWebController extends Controller
         if ($batal) {
             return redirect(URL::to('keranjang'));
         }
+    }
+
+    public function simpanKurir(Request $request)
+    {
+        $data = [
+            'kurir' => $request->kurir,
+            'service' => $request->service,
+            'ongkir' => $request->ongkir,
+            'etd' => $request->etd
+        ];
+
+        $id_keranjang = $request->id_keranjang;
+
+        $update = Keranjang::where('user_id', Auth::id())
+            ->whereIn('id_keranjang', $id_keranjang)
+            ->update($data);
+
+        return $update;
     }
 }

@@ -30,6 +30,7 @@ class CreateProdukTable extends Migration
             $table->foreign('user_id')->references('id_user')->on('users');
             $table->integer('wishlist')->default(0);
             $table->integer('terjual')->default(0);
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
         });
     }
