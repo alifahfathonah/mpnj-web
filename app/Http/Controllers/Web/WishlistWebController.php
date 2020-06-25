@@ -15,5 +15,17 @@ class WishlistWebController extends Controller
         // return $data;
         return view('web.web_profile', $data);
     }
+
+    public function add($id)
+    {
+        $simpan = Wishlist::create([
+            'produk_id' => $id,
+            'user_id' => Auth::id()
+        ]);
+
+        if ($simpan) {
+            return redirect()->back();
+        }
+    }
     }
 }
