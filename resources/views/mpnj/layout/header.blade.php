@@ -72,13 +72,24 @@
                                     </div>
                                 </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right mt-2">
+
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mt-2">
                                 @if(Auth::check())
-                                <a class="dropdown-item" href="{{ URL::to('/profile') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
-                                <a class="dropdown-item" href="{{ URL::to('wishlist') }}">Wishlist</a>
-                                <hr class="dropdown-divider">
-                                <a class="dropdown-item" href="{{ route('keluar') }}">Sign Out</a>
+                                <a href="{{ URL::to('/profile') }}" class="dropdown-item" style="padding-bottom: 0%">
+                                    <i class="fas fa-users-cog mr-5"></i> Atur Profil
+                                </a>
+                                <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
+                                <a href="{{ URL::to('pesanan') }}" class="dropdown-item">
+                                    <i class="fas fa-shopping-basket mr-5"></i> Pesanan
+                                </a>
+                                <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
+                                <a href="{{ URL::to('wishlist') }}" class="dropdown-item ">
+                                    <i class="fas fa-heart mr-5"></i> Wishlist
+                                </a>
+                                <hr class="dropdown-divider-lg" style="margin-top: 0%;margin-bottom: 0%">
+                                <a href="{{ route('keluar') }}" class="dropdown-item ">
+                                    <i class="fas fa-sign-out-alt mr-5"></i> Sign Out
+                                </a>
                                 @endif
                             </div> <!--  dropdown-menu .// -->
                         </div>
