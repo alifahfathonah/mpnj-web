@@ -55,6 +55,7 @@ Route::group(['namespace' => 'Api'], function () {
     //transaksi
     Route::group(['prefix' => 'transaksi'], function () {
         Route::post('/', 'ApiTransaksiController@index');
+        Route::get('/tgl/{kode_transaksi}', 'ApiTransaksiController@transaksiDate');
         Route::post('/simpan', 'ApiTransaksiController@simpan');
         Route::put('/batal', 'ApiTransaksiController@batal');
         Route::post('/simpanKurir', 'ApiTransaksiController@simpanKurir');
