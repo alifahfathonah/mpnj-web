@@ -127,8 +127,6 @@ Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId'
 Auth::routes(['verify' => true]);
 Route::get('/verify', 'Auth\VerificationController@verify')->name('verify');
 //reset password
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
-Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 Route::get('/home', 'HomeController@index')->name('home');
