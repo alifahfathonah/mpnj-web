@@ -20,8 +20,6 @@ class ApiBankController extends Controller
 
     public function index()
     {
-        $bank = $this->bankRepository->dataBank();
-        return $bank;
         $banks = $this->bankRepository->dataBank();
         return response()->json([
             'pesan' => 'Sukses!',

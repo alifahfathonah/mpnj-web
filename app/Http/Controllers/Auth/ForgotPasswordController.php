@@ -8,10 +8,12 @@ use App\Mail\ResetPassword;
 use App\Models\Konsumen;
 use App\Models\Password_Reset;
 use App\Models\Pelapak;
+use App\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
@@ -31,18 +33,15 @@ class ForgotPasswordController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        $cek = Konsumen::whereEmail($request->email)->count();
-        if ($cek > 0) {
-            Mail::to($request->email)->send(new ResetPassword(Str::random()));
-            return redirect()->back();
+        $cek = User::whereEmail($request->email)->first();
+        if ($cek != '') {
+            $url = URL::temporarySignedRoute('password.confirm', now()->addMinutes(30), ['id' => $cek->id_user]);
+            Mail::to($request->email)->send(new ResetPassword($url, $cek));
+            return view('auth/passwords/email_exist');
         } else {
-            $cekPelapak = Pelapak::whereEmail($request->email)->count();
-
-            if ($cekPelapak > 0) {
-                Mail::to($request->email)->send(new ResetPassword(Str::random()));
-                return redirect()->back();
-            }
+            return redirect()->back()->with(["emailNotFound" => "Email tidak ditemukan"]);
         }
 
+        return redirect()->back()->withInput();
     }
 }
