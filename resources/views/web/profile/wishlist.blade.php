@@ -17,18 +17,6 @@
         <div href="{{ URL::to('produk/'.$w->produk->slug) }}" class="card card-sm card-product-grid shadow-sm">
             <a href="{{ URL::to('produk/'.$w->produk->slug) }}" class=""> <img class="card-img-top"
                     src="{{ env('FILES_ASSETS').$w->produk->foto_produk[0]->foto_produk }}"> </a>
-            <span class="topbar">
-                @if($w->where('user_id', Auth::id())->count()==0)
-                <a href="{{ URL::to('wishlist/add/'.$w->produk->id_produk)}}" class="float-right"
-                    data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
-                        class="fas fa-heart"></i> </a>
-                @else
-                <a href="{{ URL::to('wishlist/delete/'.$w->produk->id_produk)}}" class="float-right"
-                    data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
-                        class="fas fa-heart text-primary"></i>
-                </a>
-                @endif
-            </span>
             <figcaption class="info-wrap">
                 <div class="namaProduk-rapi">
                     <a href="{{ URL::to('produk/'.$w->produk->slug) }}" class="title">{{ $w->produk->nama_produk }}</a>
@@ -55,32 +43,22 @@
                 </div> <!-- price-wrap.// -->
                 <div class="row">
                     <div class="col">
-                        <ul class="rating-stars">
-                            <li style="width:50%" class="stars-active">
-                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
-                                    style="font-size:small"></i>
-                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
-                                    style="font-size:small"></i>
-                                <i class="fa fa-star" style="font-size:small"></i>
-                            </li>
-                            <li>
-                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
-                                    style="font-size:small"></i>
-                                <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
-                                    style="font-size:small"></i>
-                                <i class="fa fa-star" style="font-size:small"></i>
-                            </li>
-                        </ul>
-                        <span class="rating-stars" style="font-size:small;">(125)</span>
-                    </div> <!-- rating-wrap.// -->
-
-                </div>
-                <div class="row">
-                    <div class="col" style="font-size:small">PAITON {{$w->produk->kota}}</div>
-                    <!-- selesaikan API nya ya -->
-                    <div class="text-right col text-success" style="font-size:small;">{{$w->produk->terjual}}
-                        terjual
+                        <form action="{{ URL::to('keranjang')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="id_produk" id="id_produk" value="{{ $w->produk->id_produk }}">
+                            <input type="hidden" name="harga_jual" id="harga_jual" value="{{ $w->produk->harga_jual }}">
+                            <input type="hidden" class="form-control input-number" id="jumlah" name="jumlah" value="1">
+                            <button type="submit" id="btnKeranjang" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                title="" data-original-title="Masukkan Keranjang">
+                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </form>
                     </div>
+                    <!-- selesaikan API nya ya -->
+                    <a href="{{ URL::to('wishlist/delete/'.$w->produk->id_produk)}}" class="btn btn-danger btn-sm"
+                        data-toggle="tooltip" title="" data-original-title="Hapus Wishlist"> <i class="fa fa-times"></i>
+                    </a>
                 </div>
             </figcaption>
         </div>

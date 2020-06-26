@@ -77,6 +77,20 @@ class ApiTransaksiController extends Controller
         return response()->json($data, 200);
     }
 
+    public function transaksiDate($kode_trk)
+    {
+        $data = Transaksi::where('kode_transaksi', $kode_trk)->get();
+        if (count($data) > 0) {
+            $tgl_trk = $this->transaksiRepository->tglTransaksi($kode_trk);
+            $res['data'] = $tgl_trk;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+            return response()->json($res2);
+        };
+    }
+
     public function simpan(Request $request)
     {
         DB::beginTransaction();
