@@ -17,13 +17,21 @@
                     <div class="card-body">
                         <h4 class="card-title" style="text-align: center">Login</h4>
                         @if(session('loginError'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <span class="alert_icon lnr lnr-warning"></span>
-                            {{ session('loginError') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span class="fas fa-times h6" aria-hidden="true"></span>
-                            </button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span class="alert_icon lnr lnr-warning"></span>
+                                    {{ session('loginError') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span class="fas fa-times h6" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        @elseif(session('resetPasswordSuskes'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span class="alert_icon lnr lnr-warning"></span>
+                                    {{ session('resetPasswordSuskes') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span class="fas fa-times h6" aria-hidden="true"></span>
+                                </button>
+                            </div>
                         @endif
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
