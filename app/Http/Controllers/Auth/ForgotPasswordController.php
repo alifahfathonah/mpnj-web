@@ -37,7 +37,7 @@ class ForgotPasswordController extends Controller
         if ($cek != '') {
             $url = URL::temporarySignedRoute('password.confirm', now()->addMinutes(30), ['id' => $cek->id_user]);
             Mail::to($request->email)->send(new ResetPassword($url, $cek));
-            return view('auth/passwords/email_exist');
+            return redirect()->back()->with(["emailSuccess" => "Sukses. Email konfirmasi telah dikirimkan ke email anda. Silahkan cek email anda untuk melanjutkan proses."]);
         } else {
             return redirect()->back()->with(["emailNotFound" => "Email tidak ditemukan"]);
         }
