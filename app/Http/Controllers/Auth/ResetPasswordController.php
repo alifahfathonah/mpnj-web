@@ -45,6 +45,6 @@ class ResetPasswordController extends Controller
         }
 
         $update = User::where('id_user', $request->id)->update(['password' => Hash::make($request->password)]);
-        return view('auth/passwords/reset_sukses');
+        return redirect()->to('login')->with(['resetPasswordSuskes' => 'Password anda beru saja diperbarui. Silahkan login dengan password baru anda.']);
     }
 }
