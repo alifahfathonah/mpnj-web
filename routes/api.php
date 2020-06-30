@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');
         Route::get('/{id_pelapak}', 'ApiPelapakController@getDetail');
         Route::post('/upload', 'ApiPelapakController@upload');
+        Route::get('/find/{username}', 'ApiPelapakController@findPelapak');
     });
 
     //keranjang
