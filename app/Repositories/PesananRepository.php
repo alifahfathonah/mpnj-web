@@ -30,7 +30,8 @@ class PesananRepository
                         'jumlah' => $pesanan->jumlah,
                         'harga' => $pesanan->produk->harga_jual,
                         'total_bayar' => $pesanan->transaksi->total_bayar,
-                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi
+                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi,
+                        'status_order' => $pesanan->status_order
                     ];
                 }
             );
@@ -57,7 +58,8 @@ class PesananRepository
                         'tujuan' => $pesanan->transaksi->to,
                         'no_pesanan' => $pesanan->transaksi->kode_transaksi,
                         'waktu_pesan' => $pesanan->transaksi->waktu_transaksi,
-                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi
+                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi,
+                        'status_order' => $pesanan->status_order
                     ];
                 }
             );
