@@ -71,12 +71,12 @@
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}}</var>
-                        <span class="text">Belum ada diskon</span>
+                            <var class="price h4">@currency($produk->harga_jual) / {{$produk->satuan}}</var>
+                            <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
-                            $produk->harga_jual)),00 / {{$produk->satuan}}</var>
-                        <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
+                            <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
+                                $produk->harga_jual)),00 / {{$produk->satuan}}</var>
+                            <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
@@ -207,21 +207,20 @@
                         </div>
                         <div class="price mt-1">
                             @if($pl->diskon == 0)
-                            <span>
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                    style="font-size:14px;">@currency($pl->harga_jual)</span>
-                            </span>
+                                <span>
+                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                        style="font-size:14px;">@currency($pl->harga_jual)</span>
+                                </span>
                             @else
-
-                            <span style="color: green">
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                    style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
-                                    $pl->harga_jual))</span>
-                            </span>
-                            <span style="color: gray">
-                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                        style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
-                            </span>
+                                <span style="color: green">
+                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                        style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
+                                        $pl->harga_jual))</span>
+                                </span>
+                                <span style="color: gray">
+                                    <strike><span style="font-size:12px;margin-right:-2px;"></span> <span
+                                            style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
+                                </span>
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">
