@@ -7,9 +7,7 @@ use App\Models\Bank;
 use App\Models\Konfirmasi;
 use App\Models\Konsumen;
 use App\Models\Transaksi;
-use App\Models\Rekening_Admin;
 use Illuminate\Http\Request;
-use File;
 use Illuminate\Support\Facades\Validator;
 
 class KonfirmasiWebController extends Controller
@@ -20,11 +18,6 @@ class KonfirmasiWebController extends Controller
 	{
 		$this->kode = null;
 	}
-
-	//	public function index(Request $request)
-	//	{
-	//		return view('web/web_konfirmasi');
-	//	}
 
 	public function data(Request $request, $id_trx)
 	{
