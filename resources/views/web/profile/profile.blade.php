@@ -23,8 +23,7 @@
     @endif
     <div class="card-body">
         <h4 class="card-title mb-4">Profile</h4>
-        <form action="{{ URL::to('profile/ubah/'.Auth::id()) }}" method="post"
-            enctype="multipart/form-data">
+        <form action="{{ URL::to('profile/ubah/'.Auth::id()) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 @if( Auth::user()->foto_profil == null)
@@ -38,7 +37,7 @@
                 </div>
                 @else
                 <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
-                    class="img-md rounded-circle border">
+                    class="img-md rounded-circle border" data-target="#modalProfil" data-toggle="modal">
                 @endif
             </div>
             <div class="form-row">
