@@ -62,10 +62,31 @@
                 <div class="col form-group">
                     <label for="foto">Foto</label>
                     <input type="file" id="foto_profil" name="foto_profil" class="form-control">
+                    @if($errors->has('foto_profil'))
+                    <small style="color: red">{{ $errors->first('foto_profil') }}</small> @endif
                 </div>
             </div>
 
             <button class="btn btn-primary btn-block" type="submit">Simpan</button>
         </form>
     </div> <!-- card-body.// -->
+</div>
+
+<div class="modal modal-fullscreen fade" id="modalProfil" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
+                    class="img-lg rounded-circle border">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
