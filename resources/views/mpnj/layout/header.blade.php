@@ -76,7 +76,7 @@
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mt-2">
                                 @if(Auth::check())
                                     @if(Auth::user()->role == 'pelapak')
-                                        <a href="{{ URL::to('jual') }}" class="dropdown-item" style="padding-bottom: 0%">
+                                        <a href="http://seller.belanj.id" class="dropdown-item" style="padding-bottom: 0%">
                                             <i class="fas fa-users-cog mr-5"></i> Jual
                                         </a>
                                     @endif
