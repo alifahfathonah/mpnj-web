@@ -89,14 +89,15 @@
                             <img src="{{ asset('assets/foto_profil_konsumen/'.Auth::user()->foto_profil) }}"
                                 class="img-sm rounded-circle border">
                         </div>
-                        {{-- @if($review != null )
-                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                        @if($produk->wishlists->where('user_id', Auth::id())->count()==0)
+                        <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light btn-block"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> Tambah Wishlist</a>
                         @else
-                        <button type="submit" class="btn btn-primary btn-block">Send</button>
-                        @endif --}}
-                        <button class="btn btn-light btn-block"><i class="fa fa-heart"></i>
-                            <span class="text">Wishlist</span>
-                        </button>
+                        <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light btn-block"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart text-primary"></i> Hapus Wishlist</a>
+                        @endif
                         </form>
                     </div> <!-- info-aside.// -->
                 </aside> <!-- col.// -->
