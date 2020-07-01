@@ -68,16 +68,21 @@
                             </label>
 
                             <div class="form-group">
-                                    <textarea name="review" class="form-control" rows="3"
-                                              placeholder="Beri komentar Barang yang Sesuai.">{{ $review != null ? $review->review : '' }}
+                                <textarea name="review" class="form-control" rows="3"
+                                    placeholder="Beri komentar Barang yang Sesuai.">{{ $review != null ? $review->review : '' }}
                                     </textarea>
                             </div>
                             <div class="form-group">
                                 <label>{{ $review != null && $review->foto_review != null ? 'Ganti Foto Produk' : 'Foto Produk' }}</label><br>
                                 <input type="file" name="foto_review" id="foto_review" class="form-control">
-                                @if($review != null && $review->foto_review != null)<small>foto review <a href="{{ asset('assets/foto_review/'.$review->foto_review) }}" target="_blank">disini</a></small>@endif
+                                @if($review != null && $review->foto_review != null)<small>foto review <a
+                                        href="{{ asset('assets/foto_review/'.$review->foto_review) }}"
+                                        target="_blank">disini</a></small>@endif
+                                @if($errors->has('foto_review'))
+                                <small style="color: red">{{ $errors->first('foto_review') }}</small> @endif
                             </div>
-                            <button type="submit" class="btn btn-danger btn-block">{{ $review != null ? 'Update' : 'Simpan' }}</button>
+                            <button type="submit"
+                                class="btn btn-danger btn-block">{{ $review != null ? 'Update' : 'Simpan' }}</button>
                         </form>
                     </div> <!-- info-main.// -->
                 </div> <!-- col.// -->
