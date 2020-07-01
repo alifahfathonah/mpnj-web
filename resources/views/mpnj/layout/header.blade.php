@@ -75,21 +75,26 @@
 
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mt-2">
                                 @if(Auth::check())
-                                <a href="{{ URL::to('/profile') }}" class="dropdown-item" style="padding-bottom: 0%">
-                                    <i class="fas fa-users-cog mr-5"></i> Atur Profil
-                                </a>
-                                <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
-                                <a href="{{ URL::to('pesanan') }}" class="dropdown-item">
-                                    <i class="fas fa-shopping-basket mr-5"></i> Pesanan
-                                </a>
-                                <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
-                                <a href="{{ URL::to('wishlist') }}" class="dropdown-item ">
-                                    <i class="fas fa-heart mr-5"></i> Wishlist
-                                </a>
-                                <hr class="dropdown-divider-lg" style="margin-top: 0%;margin-bottom: 0%">
-                                <a href="{{ route('keluar') }}" class="dropdown-item ">
-                                    <i class="fas fa-sign-out-alt mr-5"></i> Sign Out
-                                </a>
+                                    @if(Auth::user()->role == 'pelapak')
+                                        <a href="{{ URL::to('jual') }}" class="dropdown-item" style="padding-bottom: 0%">
+                                            <i class="fas fa-users-cog mr-5"></i> Jual
+                                        </a>
+                                    @endif
+                                    <a href="{{ URL::to('/profile') }}" class="dropdown-item" style="padding-bottom: 0%">
+                                        <i class="fas fa-users-cog mr-5"></i> Atur Profil
+                                    </a>
+                                    <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
+                                    <a href="{{ URL::to('pesanan') }}" class="dropdown-item">
+                                        <i class="fas fa-shopping-basket mr-5"></i> Pesanan
+                                    </a>
+                                    <hr class="dropdown-divider-lg" style="margin-top: 0%; margin-bottom: 0%">
+                                    <a href="{{ URL::to('wishlist') }}" class="dropdown-item ">
+                                        <i class="fas fa-heart mr-5"></i> Wishlist
+                                    </a>
+                                    <hr class="dropdown-divider-lg" style="margin-top: 0%;margin-bottom: 0%">
+                                    <a href="{{ route('keluar') }}" class="dropdown-item ">
+                                        <i class="fas fa-sign-out-alt mr-5"></i> Sign Out
+                                    </a>
                                 @endif
                             </div> <!--  dropdown-menu .// -->
                         </div>
