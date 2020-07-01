@@ -37,7 +37,7 @@
                             <div class="carousel-inner">
                                 @foreach($banner as $key => $bn)
                                 <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
-                                    <img src="{{ url('assets/banner/'.$bn->foto_banner) }}"
+                                    <img src="{{ env('FILES_BANNER').$bn->foto_banner }}"
                                         alt="Slide {{$bn->nama_banner}}">
                                 </div>
                                 @endforeach
