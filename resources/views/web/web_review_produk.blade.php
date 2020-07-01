@@ -16,51 +16,58 @@
             @endif
             <div class="row no-gutters">
                 <aside class="col-md-3 my-auto">
-                    <a href="#" class="img-wrap">
+                    <a href="{{ URL::to('produk/'.$produk->slug) }}" class="img-wrap">
                         <img src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}">
                     </a>
                 </aside> <!-- col.// -->
                 <div class="col-md-6">
                     <div class="info-main">
-                        <a href="#" class="h5 title"> {{ $produk->nama_produk}} </a>
-                        <form method="post" action="{{ $review != null ? URL::to('review/produk/update/'.$produk->id_produk) : URL::to('review/produk') }}"
-                              enctype="multipart/form-data">
+                        <a href="{{ URL::to('produk/'.$produk->slug) }}" class="h5 title"> {{ $produk->nama_produk}}
+                        </a>
+                        <form method="post"
+                            action="{{ $review != null ? URL::to('review/produk/update/'.$produk->id_produk) : URL::to('review/produk') }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id_produk" value="{{ $produk->id_produk }}">
 
                             <label>Bintang</label><br>
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 1) checked="true"
-                                       checked="false" @else @endif class="custom-control-input" value="1">
+                                <input type="radio" name="bintang" @if($review !=null && $review->bintang == 1)
+                                checked="true"
+                                checked="false" @else @endif class="custom-control-input" value="1">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i>
                                 </div>
                             </label>
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 2) checked="true"
-                                       checked="false" @else @endif class="custom-control-input" value="2">
+                                <input type="radio" name="bintang" @if($review !=null && $review->bintang == 2)
+                                checked="true"
+                                checked="false" @else @endif class="custom-control-input" value="2">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 </div>
                             </label>
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 3) checked="true"
-                                       checked="false" @else @endif class="custom-control-input" value="3">
+                                <input type="radio" name="bintang" @if($review !=null && $review->bintang == 3)
+                                checked="true"
+                                checked="false" @else @endif class="custom-control-input" value="3">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 </div>
                             </label>
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 4) checked="true"
-                                       checked="false" @else @endif class="custom-control-input" value="4">
+                                <input type="radio" name="bintang" @if($review !=null && $review->bintang == 4)
+                                checked="true"
+                                checked="false" @else @endif class="custom-control-input" value="4">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
                             </label>
                             <label class="custom-control custom-radio">
-                                <input type="radio" name="bintang" @if($review != null && $review->bintang == 5) checked="true"
-                                       checked="false" @else @endif class="custom-control-input" value="5">
+                                <input type="radio" name="bintang" @if($review !=null && $review->bintang == 5)
+                                checked="true"
+                                checked="false" @else @endif class="custom-control-input" value="5">
                                 <div class="custom-control-label text-warning">
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>
