@@ -8,11 +8,25 @@
     <div class="container">
         <article class="card card-product-list">
             @if ( session()->has('message') )
-            <div class="alert alert-secondary alert-dismissable mr-5 ml-5 mt-2">{{ session()->get('message') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="alert alert-secondary alert-dismissable mr-5 ml-5 mt-2">{{ session()->get('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session('tambahWishlistSukses'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('tambahWishlistSukses') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session('hapusWishlistSukses'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('hapusWishlistSukses') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
             <div class="row no-gutters">
                 <aside class="col-md-3 my-auto">
