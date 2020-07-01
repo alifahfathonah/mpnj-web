@@ -32,7 +32,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
                     <a href="{{ URL::to('/') }}" class="brand-wrap">
-                        <img class="logo" src="{{ asset('assets/logo/belanj-hijau.png') }}">
+                        <img class="logo" src="{{ asset('assets/logo/belaNJ-hijau.png') }}">
                     </a> <!-- brand-wrap.// -->
                 </div>
                 <div class="col-lg-6 col-sm-12 order-3 order-lg-2">
