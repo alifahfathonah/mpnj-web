@@ -160,6 +160,39 @@ class ApiTransaksiController extends Controller
         }
     }
 
+    public function batalTrx(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $trx_detail = Transaksi_Detail::with('transaksi')->where('transaksi_id', $request->transaksi_id)->get();
+            foreach ($trx_detail as $td) {
+                $trxDetail = [
+                    'produk_id' => $td->produk_id,
+                    'user_id' => $td->transaksi->user_id,
+                    'status' => 'N',
+                    'jumlah' => $td->jumlah,
+                    'harga_jual' => $td->harga_jual,
+                    'kurir' => $td->kurir,
+                    'service' => $td->service,
+                    'ongkir' => $td->ongkir,
+                    'etd' => $td->etd
+                ];
+                Keranjang::create($trxDetail);
+            }
+            Transaksi::where('id_transaksi', $request->transaksi_id)->delete();
+            Transaksi_Detail::where('transaksi_id', $request->transaksi_id)->delete();
+            DB::commit();
+            return response()->json([
+                'pesan' => 'sukses'
+            ], 200);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 404);
+        }
+    }
+
     public function simpanKurir(Request $request)
     {
         $data = [
