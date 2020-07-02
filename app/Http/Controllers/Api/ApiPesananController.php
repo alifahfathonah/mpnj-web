@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaksi_Detail;
 use App\Repositories\PesananRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiPesananController extends Controller
 {
@@ -37,6 +38,7 @@ class ApiPesananController extends Controller
             return response()->json($res2);
         };
     }
+
     public function batal($id_trx)
     {
         $update = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Dibatalkan']);
@@ -48,6 +50,26 @@ class ApiPesananController extends Controller
             $res2['pesan'] = "Gagal Dibatalkan!";
             // $res2['data'] = [];
             return response()->json($res2);
+        }
+    }
+
+    public function terima($id_trx)
+    {
+        DB::beginTransaction();
+        try {
+            $find = Transaksi_Detail::with('user')->where('id_transaksi_detail', $id_trx)->first();
+            if ($find->update(['status_order' => 'Telah Sampai'])) {
+                $updateSaldo = $find->user->update(['saldo' => $find->user->saldo + $find->sub_total]);
+                DB::commit();
+                return response()->json([
+                    'pesan' => 'sukses cok'
+                ], 200);
+            }
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 404);
         }
     }
 }
