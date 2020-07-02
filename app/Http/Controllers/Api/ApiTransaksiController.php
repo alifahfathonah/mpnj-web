@@ -99,7 +99,8 @@ class ApiTransaksiController extends Controller
             $trx = [
                 'kode_transaksi' => time(),
                 'user_id' => $request->user_id,
-                'total_bayar' => $request->totalBayar,
+                'total_bayar' => $request->total_bayar,
+                'waktu_transaksi' => date('Y-m-d H:i:s'),
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
                 'to' => $user->alamat_fix->getAlamatLengkapAttribute()
             ];
@@ -127,7 +128,9 @@ class ApiTransaksiController extends Controller
             return response()->json(
                 [
                     'kode_transaksi' => $simpanTrx->kode_transaksi,
-                    'total_bayar' => $request->total_bayar
+                    'total_bayar' => $request->total_bayar,
+                    'tanggal_pemesanan' => $simpanTrx->waktu_transaksi,
+                    'batas_pembayaran' => $simpanTrx->batas_transaksi
                 ],
                 200
             );
