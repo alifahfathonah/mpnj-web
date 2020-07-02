@@ -127,6 +127,7 @@ class ApiTransaksiController extends Controller
             DB::commit();
             return response()->json(
                 [
+                    'id_transaksi' => $simpanTrx->id_transaksi,
                     'kode_transaksi' => $simpanTrx->kode_transaksi,
                     'total_bayar' => $request->total_bayar,
                     'tanggal_pemesanan' => $simpanTrx->waktu_transaksi,
