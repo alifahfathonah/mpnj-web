@@ -39,16 +39,26 @@ class ApiPesananController extends Controller
         };
     }
 
-    public function terima($id_trx)
+    public function terima(Request $request)
     {
         DB::beginTransaction();
         try {
-            $find = Transaksi_Detail::with('user')->where('id_transaksi_detail', $id_trx)->first();
-            if ($find->update(['status_order' => 'Telah Sampai'])) {
-                $updateSaldo = $find->user->update(['saldo' => $find->user->saldo + $find->sub_total]);
+            $find = Transaksi_Detail::with('user')->where('id_transaksi_detail', $request->id_transaksi_detail)->get();
+            $update = $find->each(function ($trx) {
+                $trx->update(['status_order' => 'Telah Sampai']);
+                // exit;
+            });
+            if ($update) {
+                // $findw = Transaksi_Detail::with('user')->where('transaksi_id', $find->transaksi_id)->get();
+                // $findUser = User::where('id_user', $find->user->user_id)->first();
+                // $updateSaldo = $find->user->each(function ($sld) {
+                //     $sld->update(['saldo' => '3000']);
+                // });
                 DB::commit();
                 return response()->json([
-                    'pesan' => 'sukses cok'
+                    'pesan' => 'sukses cok',
+                    'data' => $find,
+                    // 'data2' => $findUser
                 ], 200);
             }
         } catch (\Exception $exception) {
