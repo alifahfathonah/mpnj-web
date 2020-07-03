@@ -39,20 +39,6 @@ class ApiPesananController extends Controller
         };
     }
 
-    public function batal($id_trx)
-    {
-        $update = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Dibatalkan']);
-        if ($update) {
-            $res['pesan'] = "Sukses Dibatalkan!";
-            // $res['data'] = [];
-            return response()->json($res);
-        } else {
-            $res2['pesan'] = "Gagal Dibatalkan!";
-            // $res2['data'] = [];
-            return response()->json($res2);
-        }
-    }
-
     public function terima($id_trx)
     {
         DB::beginTransaction();
