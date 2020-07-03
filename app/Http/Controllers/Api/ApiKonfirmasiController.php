@@ -36,7 +36,7 @@ class ApiKonfirmasiController extends Controller
 
     public function simpan(Request $request)
     {
-        $file = $request->file('bukti_transfer');
+        $file = $request->file('file');
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
         $dataKonfirmasi = [
