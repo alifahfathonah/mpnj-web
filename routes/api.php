@@ -85,7 +85,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'ApiPesananController@index');
         Route::get('/{id_detail}', 'ApiPesananController@getDetail');
-        Route::put('/batal/{id_trx}', 'ApiPesananController@batal');
         Route::post('/terima/{id_trx}', 'ApiPesananController@terima');
     });
 
