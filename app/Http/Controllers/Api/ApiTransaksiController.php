@@ -96,15 +96,16 @@ class ApiTransaksiController extends Controller
     {
         DB::beginTransaction();
         try {
+            $user = User::find($request->user_id)->first();
             $trx = [
                 'kode_transaksi' => time(),
-                'user_id' => Auth::id(),
+                'user_id' => $request->user_id,
                 'total_bayar' => $request->totalBayar,
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
-                'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
+                'to' => $user->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
-            $keranjang = Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get()->groupby('produk.user_id');
+            $keranjang = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->get()->groupby('produk.user_id');
             $latestId = Pengiriman::all()->last();
             $n = 0;
             if (is_null($latestId)) {
@@ -141,12 +142,12 @@ class ApiTransaksiController extends Controller
                 $n++;
             }
 
-            Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->delete();
+            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->delete();
             DB::commit();
             return response()->json(
                 [
                     'kode_transaksi' => $simpanTrx->kode_transaksi,
-                    'total_bayar' => $request->total_bayar
+                    'total_bayar' => $request->totalBayar
                 ],
                 200
             );
