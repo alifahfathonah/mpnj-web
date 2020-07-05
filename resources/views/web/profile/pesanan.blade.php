@@ -23,7 +23,7 @@
                 <a href="{{ URL::to('pesanan?tab=pending') }}"
                    class="nav-item nav-link @if(app('request')->input('tab') == 'pending') active @endif"
                    id="pending" href="#pending" role="tab" aria-controls="nav-home"
-                   aria-selected="true">Menunggu Konfirmasi</a>
+                   aria-selected="true">Menunggu Pembayaran/Konfirmasi</a>
                 <a href="{{ URL::to('pesanan?tab=verifikasi') }}"
                    class="nav-item nav-link @if(app('request')->input('tab') == 'verifikasi') active @endif"
                    id="verifikasi" role="tab" aria-controls="nav-profile"
@@ -49,53 +49,112 @@
             <div class="tab-pane fade {{ app('request')->input('tab') }} show active "
                  id="tab-result" role="tabpanel" aria-labelledby="nav-semua-tab">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="table-pesanan">
-                        <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th></th>
-{{--                            <th>Informasi Tambahan</th>--}}
-                            <th>Total</th>
-                            <th>Keterangan</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tab-body table-responsive">
-                        <tbody>
-                        @if(COUNT($order) > 0)
-                            @foreach($order as $v)
-                                <tr>
-                                    <td width="65">
-                                        <img src="{{ env('FILES_ASSETS').$v->produk->foto_produk[0]->foto_produk }}"
-                                             class="img-xs border">
-                                    </td>
-                                    <td>
-                                        <p class="title mb-0">{{ $v->produk->nama_produk }}</p>
-                                        <var class="price text-muted">
-                                            @if($v->diskon == 0)
-                                                <span style="color: black">@currency($v->harga_jual) x {{ $v->jumlah }} @<a href="{{ URL::to('pelapak/'.$v->user->username) }}">{{ $v->user->nama_toko }}</a></span>
-                                            @else
-                                                <span style="color: black">@currency($v->harga_jual - ($v->diskon / 100 *
-                                                            $v->harga_jual)) x {{ $v->jumlah }} @<a href="{{ URL::to('pelapak/'.$v->user->username) }}">{{ $v->user->nama_toko }}</a></span>
+                    <br>
+                    @if(COUNT($order))
+                        @foreach($order as $v)
+                            @foreach($v->transaksi_detail->groupBy('user.nama_toko') as $key => $de)
+                                <article class="card">
+                                    <header class="card-header">
+                                        <strong class="d-inline-block mr-3">{{ $key }}</strong>
+                                        <div style="float: right; color: {{ $v->proses_pembayaran == 'belum' ? ('red') : ($v->proses_pembayaran == 'sudah' ? 'blue' : ($v->proses_pembayaran == 'terima' ? 'green' : 'black')) }};">
+                                            <strong>
+                                                @if($de[0]->status_order != 'Dibatalkan')
+                                                    @if($v->proses_pembayaran == 'terima')
+                                                        PEMBAYARAN DITERIMA
+                                                    @else
+                                                        {{ Str::upper($v->proses_pembayaran) }} BAYAR
+                                                    @endif
+                                                @else
+                                                    DIBATALKAN
+                                                @endif
+                                            </strong>
+                                        </div>
+                                    </header>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <tbody>
+                                            @foreach($de as $d)
+                                                <tr>
+                                                    <td width="65">
+                                                        <img src="{{ env('FILES_ASSETS').$d->produk->foto_produk[0]->foto_produk }}"
+                                                             class="img-xs border">
+                                                    </td>
+                                                    <td width="600">
+                                                        <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
+                                                        <var class="price text-muted">
+                                                            @if($d->diskon == 0)
+                                                                <span style="color: black">@currency($d->harga_jual) x {{ $d->jumlah }} </span>
+                                                            @else
+                                                                <span style="color: black">@currency($d->harga_jual - ($d->diskon / 100 *
+                                                            $d->harga_jual)) x {{ $d->jumlah }} </span>
+                                                            @endif
+                                                        </var>
+                                                    </td>
+                                                    <td>@currency($d->sub_total)</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                            @if($v->proses_pembayaran != 'belum')
+                                                <table class="table table-hover table-bordered">
+                                                    <tr>
+                                                        <td width="665">Total Bayar (tidak termasuk ongkir)</td>
+                                                        <td>@currency($de->sum('sub_total'))</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            @if($v->proses_pembayaran == 'belum')
+                                                                Bayar
+                                                                sebelum {{ \Carbon\Carbon::parse($v->batas_transaksi)->format('d M, Y H:m:s') }}
+                                                            @else
+                                                                Rincian
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ URL::to('pesanan/detail?id='.$v->id_transaksi.'&inv='.$d->kode_invoice) }}"
+                                                               class="btn btn-outline-success">Rincian</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             @endif
-                                        </var>
-                                    </td>
-                                    <td> @currency((($v->harga_jual - ($v->diskon / 100 * $v->harga_jual)) *
-                                        $v->jumlah) + $v->ongkir)</td>
-                                    <td width="250">
-                                        <a href="{{ URL::to('pesanan/detail/'.$v->id_transaksi_detail) }}" class="btn btn-light"> Details </a>
-                                    </td>
-                                </tr>
+                                        </table>
+                                    </div> <!-- table-responsive .end// -->
+                                </article>
                             @endforeach
+                            @if($v->proses_pembayaran == 'belum')
+                                <table class="table table-hover table-bordered">
+                                    <tr>
+                                        <td width="665">Total Bayar (termasuk ongkir)</td>
+                                        <td>@currency($v->total_bayar)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if($de[0]->status_order != 'Dibatalkan')
+                                                @if($v->proses_pembayaran == 'belum')
+                                                    Bayar
+                                                    sebelum {{ \Carbon\Carbon::parse($v->batas_transaksi)->format('d M, Y H:m:s') }}
+                                                @else
+                                                    Rincian
+                                                @endif
+                                            @else
+                                                Dibatalkan
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ URL::to('pesanan/detail?id='.$v->id_transaksi) }}"
+                                               class="btn btn-outline-success">Rincian</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            @endif
+                        @endforeach
+                    @else
+                        <table class="table table-hover">
                             <tr>
-                                <td colspan="5">{{ $order->links() }}</td>
+                                <td>Tidak ada data</td>
                             </tr>
-                        @else
-                            <tr>
-                                <td colspan="5" style="text-align: center">Tidak ada data</td>
-                            </tr>
-                        @endif
-                        </tbody>
-                    </table>
+                        </table>
+                    @endif
+                    {{--                    {{ $order->links() }}--}}
                 </div>
             </div>
         </div>
