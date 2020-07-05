@@ -68,13 +68,13 @@ class KonfirmasiWebController extends Controller
 			'total_transfer' => $request->total_bayar,
 			'rekening_admin_id' => $request->rekening,
 			'nama_pengirim' => $request->nama_pengirim,
-			'tanggal_transfer' => date('Y-m-d'),
+			'tanggal_transfer' => date('Y-m-d H:i:s'),
 			'bukti_transfer' => $filename
 		]);
 
 		if ($simpanKonfirmasi) {
 			Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
-			$folder = 'assets/konfirmasi';
+			$folder = 'assets/foto_bukti_tf';
 			$foto->move($folder, $filename);
 			return redirect()->to('/pesanan');
 		}

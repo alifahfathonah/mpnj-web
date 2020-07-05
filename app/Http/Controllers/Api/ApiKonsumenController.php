@@ -102,9 +102,12 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function update_alamat_utama(Request $request, $alamat_id)
+    public function update_alamat_utama(Request $request, $id_user)
     {
-        $user = User::where('id_user', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+        $data = [
+            'alamat_utama' => $request->id_alamat,
+        ];
+        $user = User::where('id_user', $id_user)->update($data);
         if ($user) {
             return response()->json([
                 'status' => 200,
