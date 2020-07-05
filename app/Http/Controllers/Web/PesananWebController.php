@@ -44,18 +44,14 @@ class PesananWebController extends Controller
             ->where('id_transaksi', $id)
             ->first();
 
-    public function diterima(Request $request, $id_trx)
-    {
-        DB::beginTransaction();
-        try {
-            $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->first();
-            if ($terima->update(['status_order' => 'Telah Sampai'])) {
-                $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
-                DB::commit();
-                return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+        if ($data['detail'] != '') {
+            if ($data['detail']->transaksi_detail->count() > 0) {
+                return view('web/web_profile', $data);
+            } else {
+                return redirect()->back();
             }
-        } catch (\Exception $e) {
-            DB::rollBack();
+        } else {
+            return redirect()->to('pesanan');
         }
     }
 
