@@ -81,10 +81,20 @@ class PesananWebController extends Controller
             return redirect()->back();
         }
     }
+
+    public function exportInvoice(Request $request)
+    {
+        $id_transaksi = $request->query('id');
+        $invoice = $request->query('inv');
+        $data['d'] = Transaksi::with(['transaksi_detail' => function ($query) use ($invoice) {
+            $query->where('kode_invoice', $invoice);
+        }])
+            ->where('id_transaksi', $id_transaksi)
+            ->first();
+        $data['pengiriman'] = Pengiriman::where('kode_invoice', $invoice)->first();
         $pdf = PDF::loadView('web.profile.pesanan_invoice', $data);
         set_time_limit(60);
-        return $pdf->download('invoiceBelaNj-' . $data['d']->id_transaksi . '.pdf');
-        // return view('web.profile.pesanan_invoice', $data);
+        return $pdf->download('invoiceBelaNj-' . $invoice . '.pdf');
     }
 
     public function tracking($id)
