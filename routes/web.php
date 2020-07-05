@@ -94,8 +94,8 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('detail', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('diterima/{kode_invoice}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
-        Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
         Route::get('export_invoice', 'PesananWebController@exportInvoice');
+        Route::get('tracking/{kode_invoice}', 'PesananWebController@tracking')->name('tracking');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {
