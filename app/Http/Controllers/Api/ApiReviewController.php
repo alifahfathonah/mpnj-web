@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use App\Repositories\ReviewRepository;
 use Illuminate\Http\Request;
+use File;
 
 class ApiReviewController extends Controller
 {
@@ -48,6 +49,45 @@ class ApiReviewController extends Controller
             $file->move('assets/foto_review/', $name);
             $res['pesan'] = "Sukses Review!";
             $res['data'] = $simpanReview;
+
+            return response()->json($res, 201);
+        } else {
+            $res2['pesan'] = "Gagal Review!";
+            return response()->json($res2);
+        }
+    }
+
+    public function update(Request $request, $id_user, $id_produk)
+    {
+        $file = $request->file('file');
+        if ($request->hasFile('file')) {
+
+            $name = uniqid() . '_foto_review_' . trim($file->getClientOriginalName());
+
+            $review = [
+                'review' => $request->review,
+                'bintang' => $request->bintang,
+                'foto_review' => $name
+            ];
+
+            $file->move('assets/foto_review/', $name);
+        } else {
+            $review = [
+                'review' => $request->review,
+                'bintang' => $request->bintang
+            ];
+        }
+
+        $find = Review::where('user_id', $id_user)->where('produk_id', $id_produk)->first();
+
+        if ($file != null) {
+            File::delete('assets/foto_review/', $find->foto_review);
+        }
+        $updateReview = $find->update($review);
+        if ($updateReview) {
+            // $file->move('assets/foto_review/', $name);
+            $res['pesan'] = "Sukses Review!";
+            $res['data'] = $review;
 
             return response()->json($res, 201);
         } else {
