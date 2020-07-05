@@ -70,7 +70,8 @@ class PesananWebController extends Controller
                 DB::commit();
                 return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
             }
-        } else {
+        } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->to('pesanan');
         }
     }
