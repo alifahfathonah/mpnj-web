@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
+use App\Models\Pengiriman;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\TransaksiRepository;
@@ -95,34 +96,52 @@ class ApiTransaksiController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user = User::where('id_user', $request->user_id)->first();
             $trx = [
                 'kode_transaksi' => time(),
-                'user_id' => $request->user_id,
+                'user_id' => Auth::id(),
                 'total_bayar' => $request->totalBayar,
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
-                'to' => $user->alamat_fix->getAlamatLengkapAttribute()
+                'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
-            $keranjang = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->get();
-            foreach ($keranjang as $k) {
-                $trxDetail = [
-                    'transaksi_id' => $simpanTrx->id_transaksi,
-                    'produk_id' => $k->produk_id,
-                    'jumlah' => $k->jumlah,
-                    'harga_jual' => $k->harga_jual,
-                    'diskon' => $k->produk->diskon,
+            $keranjang = Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get()->groupby('produk.user_id');
+            $latestId = Pengiriman::all()->last();
+            $n = 0;
+            if (is_null($latestId)) {
+                $n = 1;
+            } else {
+                $n = $latestId->id + 1;
+            }
+            foreach ($keranjang as $key => $k) {
+                foreach ($k as $k) {
+                    $trxDetail = [
+                        'transaksi_id' => $simpanTrx->id_transaksi,
+                        'produk_id' => $k->produk_id,
+                        'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-'.$n,
+                        'jumlah' => $k->jumlah,
+                        'harga_jual' => $k->harga_jual,
+                        'diskon' => $k->produk->diskon,
+                        'kurir' => $k->kurir,
+                        'service' => $k->service,
+                        'ongkir' => $k->ongkir,
+                        'etd' => $k->etd,
+                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : $k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual),
+                        'user_id' => $k->produk->user_id
+                    ];
+                    Transaksi_Detail::create($trxDetail);
+                }
+                Pengiriman::create([
+                    'kode_invoice' => 'NJ-'.$n,
                     'kurir' => $k->kurir,
                     'service' => $k->service,
                     'ongkir' => $k->ongkir,
                     'etd' => $k->etd,
-                    'sub_total' => $k->jumlah * $k->harga_jual + $k->ongkir,
-                    'user_id' => $k->produk->user_id
-                ];
 
-                Transaksi_Detail::create($trxDetail);
+                ]);
+                $n++;
             }
-            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->delete();
+
+            Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->delete();
             DB::commit();
             return response()->json(
                 [
