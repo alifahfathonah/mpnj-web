@@ -40,12 +40,12 @@ class ApiKonfirmasiController extends Controller
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
         $dataKonfirmasi = [
-          'kode_transaksi' => $request->kode_transaksi,
-          'total_transfer' => $request->total_transfer,
-          'rekening_admin_id' => $request->rekening_admin_id,
-          'nama_pengirim' => $request->nama_pengirim,
-          'tanggal_transfer' => date('Y-m-d'),
-          'bukti_transfer' => $name
+            'kode_transaksi' => $request->kode_transaksi,
+            'total_transfer' => $request->total_transfer,
+            'rekening_admin_id' => $request->rekening_admin_id,
+            'nama_pengirim' => $request->nama_pengirim,
+            'tanggal_transfer' => date('Y-m-d H:i:s'),
+            'bukti_transfer' => $name
         ];
 
         $simpanKonfirmasi = Konfirmasi::create($dataKonfirmasi);

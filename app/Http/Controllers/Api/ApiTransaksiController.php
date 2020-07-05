@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
+use App\Models\Pengiriman;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\TransaksiRepository;
@@ -99,7 +100,8 @@ class ApiTransaksiController extends Controller
             $trx = [
                 'kode_transaksi' => time(),
                 'user_id' => $request->user_id,
-                'total_bayar' => $request->totalBayar,
+                'total_bayar' => $request->total_bayar,
+                'waktu_transaksi' => date('Y-m-d H:i:s'),
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
                 'to' => $user->alamat_fix->getAlamatLengkapAttribute()
             ];
@@ -126,8 +128,11 @@ class ApiTransaksiController extends Controller
             DB::commit();
             return response()->json(
                 [
+                    'id_transaksi' => $simpanTrx->id_transaksi,
                     'kode_transaksi' => $simpanTrx->kode_transaksi,
-                    'total_bayar' => $request->total_bayar
+                    'total_bayar' => $request->total_bayar,
+                    'tanggal_pemesanan' => $simpanTrx->waktu_transaksi,
+                    'batas_pembayaran' => $simpanTrx->batas_transaksi
                 ],
                 200
             );
@@ -153,6 +158,43 @@ class ApiTransaksiController extends Controller
             );
         } else {
             return response()->json('gagal', 400);
+        }
+    }
+
+    public function batalTrx(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $trx_detail = Transaksi_Detail::with('transaksi')->where('transaksi_id', $request->transaksi_id)->get();
+            $kode_invoice = [];
+            foreach ($trx_detail as $td) {
+                $pengiriman = Pengiriman::where('kode_invoice', $trx_detail->kode_invoice)->first();
+                array_push($kode_invoice, $td->kode_invoice);
+                $trxDetail = [
+                    'produk_id' => $td->produk_id,
+                    'user_id' => $td->transaksi->user_id,
+                    'status' => 'N',
+                    'jumlah' => $td->jumlah,
+                    'harga_jual' => $td->harga_jual,
+                    'kurir' => $pengiriman->kurir,
+                    'service' => $pengiriman->service,
+                    'ongkir' => $pengiriman->ongkir,
+                    'etd' => $pengiriman->etd
+                ];
+                Keranjang::create($trxDetail);
+            }
+            Pengiriman::whereIn('kode_invoice', $kode_invoice)->delete();
+            Transaksi_Detail::where('transaksi_id', $request->transaksi_id)->delete();
+            Transaksi::where('id_transaksi', $request->transaksi_id)->delete();
+            DB::commit();
+            return response()->json([
+                'pesan' => 'sukses'
+            ], 200);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 404);
         }
     }
 

@@ -46,7 +46,7 @@ class PesananWebController extends Controller
         try {
             $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->first();
             if ($terima->update(['status_order' => 'Telah Sampai'])) {
-                $updateSaldo = $terima->user->update(['saldo' => $terima->sub_total]);
+                $updateSaldo = $terima->user->update(['saldo' => $terima->user->saldo + $terima->sub_total]);
                 DB::commit();
                 return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
             }
