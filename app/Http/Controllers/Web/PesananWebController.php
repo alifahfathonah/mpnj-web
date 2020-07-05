@@ -20,17 +20,16 @@ class PesananWebController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab');
-        $data['order'] = Transaksi_Detail::whereHas('transaksi', function ($query) use ($tab) {
-            $query->where('user_id', Auth::id());
-        })
-            ->when($tab != '', function ($query) use ($tab) {
+        $data['order'] = Transaksi::with(['transaksi_detail' => function ($query) use ($tab) {
+            $query->when($tab != '', function ($query) use ($tab) {
                 $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
-            })
+            });
+        }])
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'DESC')
-            ->paginate(5);
+            ->get();
 
         return view('web/web_profile', $data);
-        // return $data;
     }
 
     public function detail(Request $request, $id_trx_detail)
