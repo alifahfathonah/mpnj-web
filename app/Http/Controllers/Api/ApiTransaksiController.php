@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
+use App\Models\Pengiriman;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\TransaksiRepository;
@@ -165,22 +166,26 @@ class ApiTransaksiController extends Controller
         DB::beginTransaction();
         try {
             $trx_detail = Transaksi_Detail::with('transaksi')->where('transaksi_id', $request->transaksi_id)->get();
+            $kode_invoice = [];
             foreach ($trx_detail as $td) {
+                $pengiriman = Pengiriman::where('kode_invoice', $trx_detail->kode_invoice)->first();
+                array_push($kode_invoice, $td->kode_invoice);
                 $trxDetail = [
                     'produk_id' => $td->produk_id,
                     'user_id' => $td->transaksi->user_id,
                     'status' => 'N',
                     'jumlah' => $td->jumlah,
                     'harga_jual' => $td->harga_jual,
-                    'kurir' => $td->kurir,
-                    'service' => $td->service,
-                    'ongkir' => $td->ongkir,
-                    'etd' => $td->etd
+                    'kurir' => $pengiriman->kurir,
+                    'service' => $pengiriman->service,
+                    'ongkir' => $pengiriman->ongkir,
+                    'etd' => $pengiriman->etd
                 ];
                 Keranjang::create($trxDetail);
             }
-            Transaksi::where('id_transaksi', $request->transaksi_id)->delete();
+            Pengiriman::whereIn('kode_invoice', $kode_invoice)->delete();
             Transaksi_Detail::where('transaksi_id', $request->transaksi_id)->delete();
+            Transaksi::where('id_transaksi', $request->transaksi_id)->delete();
             DB::commit();
             return response()->json([
                 'pesan' => 'sukses'
