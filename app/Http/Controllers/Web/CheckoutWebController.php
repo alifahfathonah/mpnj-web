@@ -23,7 +23,8 @@ class CheckoutWebController extends Controller
     public function index(Request $request)
     {
         $id_keranjang = $request->id_keranjang;
-
+        $count = json_decode($id_keranjang[0], true);
+        if (count($count) == 0) return redirect()->back();
         $reset = Keranjang::whereIn('id_keranjang', json_decode($id_keranjang[0], true))->update([
             'kurir' => null,
             'ongkir' => 0,
