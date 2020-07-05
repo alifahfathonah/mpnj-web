@@ -77,6 +77,9 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                beforeSend: function() {
+                    $.LoadingOverlay("show");
+                },
                 success: function (response) {
                     const res = response.waybill.rajaongkir.result;
                     $("#status").html(res.summary.status)
@@ -90,7 +93,7 @@
                        )
                     });
 
-                    console.log(res.manifest.length);
+                    $.LoadingOverlay("hide");
                 },
                 error: function (error) {
                     console.log(error);
