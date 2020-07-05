@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\PesananRepository;
 use App\User;
@@ -20,10 +21,12 @@ class ApiPesananController extends Controller
 
     public function index(Request $request)
     {
-        $tab = $request->query('tab');
-        $id = $request->query('id');
-        $pesanan = $this->pesananRepository->all($id, $tab);
-        return $pesanan;
+        $pesanan = Transaksi::with('transaksi_detail.produk.foto_produk')->get();
+        return response()->json($pesanan, 200);
+//        $tab = $request->query('tab');
+//        $id = $request->query('id');
+//        $pesanan = $this->pesananRepository->all($id, $tab);
+//        return $pesanan;
     }
 
     public function getDetail($id_detail)
