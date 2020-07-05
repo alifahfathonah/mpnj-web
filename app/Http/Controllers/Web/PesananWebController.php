@@ -32,12 +32,17 @@ class PesananWebController extends Controller
         return view('web/web_profile', $data);
     }
 
-    public function detail(Request $request, $id_trx_detail)
+    public function detail(Request $request)
     {
-        $data['detail'] = Transaksi_Detail::with('transaksi', 'transaksi.konfirmasi')->where('id_transaksi_detail', $id_trx_detail)->first();
-
-        return view('web/web_profile', $data);
-    }
+        $inv = $request->query('inv');
+        $id = $request->query('id');
+        $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($inv) {
+            $query->with('pengiriman')->when(!is_null($inv), function ($query) use ($inv) {
+                $query->where('kode_invoice', $inv);
+            });
+        }])
+            ->where('id_transaksi', $id)
+            ->first();
 
     public function diterima(Request $request, $id_trx)
     {
