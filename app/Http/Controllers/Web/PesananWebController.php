@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
 use App\Models\Pelapak;
+use App\Models\Pengiriman;
 use App\Models\Review;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
@@ -97,9 +98,9 @@ class PesananWebController extends Controller
         return $pdf->download('invoiceBelaNj-' . $invoice . '.pdf');
     }
 
-    public function tracking($id)
+    public function tracking($kode_invoice)
     {
-        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id)->first();
+        $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
         return view('web/web_profile', $data);
     }
 }
