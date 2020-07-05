@@ -92,6 +92,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'review'], function () {
         Route::get('/{id_produk}', 'ApiReviewController@getReview');
         Route::post('/simpan', 'ApiReviewController@simpan');
+        Route::post('/edit/{id_user}/{id_produk}', 'ApiReviewController@update');
     });
 
     //wishlist
