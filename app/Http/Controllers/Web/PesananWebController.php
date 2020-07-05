@@ -21,7 +21,7 @@ class PesananWebController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab');
-        $data['order'] = Transaksi::with(['transaksi_detail' => function ($query) use ($tab) {
+        $transaksi = Transaksi::with(['transaksi_detail' => function ($query) use ($tab) {
             $query->when($tab != '', function ($query) use ($tab) {
                 $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
             });
@@ -30,6 +30,12 @@ class PesananWebController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
+        $data['order'] = [];
+        foreach ($transaksi as $t) {
+            if ($t->transaksi_detail->count() > 0) {
+                array_push($data['order'], $t);
+            }
+        }
         return view('web/web_profile', $data);
     }
 
