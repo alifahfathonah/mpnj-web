@@ -63,10 +63,24 @@ class PesananWebController extends Controller
         }
     }
 
-    public function exportInvoice(Request $request, $id_transaksi_detail)
+    public function diterima(Request $request, $kode_invoice)
     {
-        // $id_transaksi = $request->query('id_transaksi');
-        $data['d'] = Transaksi_Detail::with(['transaksi', 'user'])->where('id_transaksi_detail', $id_transaksi_detail)->first();
+        DB::beginTransaction();
+        try {
+            $terima = Transaksi_Detail::where('kode_invoice', $kode_invoice)->get();
+            $ongkir = Pengiriman::select('ongkir')->where('kode_invoice', $kode_invoice)->first();
+            foreach ($terima as $t) {
+                $t->update(['status_order' => 'Telah Sampai']);
+            }
+            $saldo = $terima->sum('sub_total') + $ongkir->ongkir;
+            $updateSaldo = $terima[0]->user->update(['saldo' => $terima[0]->user->saldo + $saldo]);
+            DB::commit();
+            return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back();
+        }
+    }
         $pdf = PDF::loadView('web.profile.pesanan_invoice', $data);
         set_time_limit(60);
         return $pdf->download('invoiceBelaNj-' . $data['d']->id_transaksi . '.pdf');
