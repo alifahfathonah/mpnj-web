@@ -60,22 +60,6 @@ class PesananWebController extends Controller
         }
     }
 
-    public function diterima(Request $request, $id_trx)
-    {
-        DB::beginTransaction();
-        try {
-            $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->first();
-            if ($terima->update(['status_order' => 'Telah Sampai'])) {
-                $updateSaldo = $terima->user->update(['saldo' => $terima->user->saldo + $terima->sub_total]);
-                DB::commit();
-                return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->to('pesanan');
-        }
-    }
-
     public function dibatalkan($id)
     {
         $batalTrx = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
