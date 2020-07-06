@@ -24,7 +24,6 @@ class ApiKeranjangController extends Controller
         $keranjang = Keranjang::orderBy('id_keranjang')
             ->with('produk')
             ->where('user_id', $id)
-            ->where('status', 'N')
             ->get()
             ->groupBy('produk.user.nama_toko');
 
