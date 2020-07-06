@@ -100,7 +100,7 @@ class ApiTransaksiController extends Controller
             $trx = [
                 'kode_transaksi' => time(),
                 'user_id' => $request->user_id,
-                'total_bayar' => $request->total_bayar,
+                'total_bayar' => $request->totalBayar,
                 'waktu_transaksi' => date('Y-m-d H:i:s'),
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
                 'to' => $user->alamat_fix->getAlamatLengkapAttribute()
@@ -123,10 +123,6 @@ class ApiTransaksiController extends Controller
                         'jumlah' => $k->jumlah,
                         'harga_jual' => $k->harga_jual,
                         'diskon' => $k->produk->diskon,
-                        'kurir' => $k->kurir,
-                        'service' => $k->service,
-                        'ongkir' => $k->ongkir,
-                        'etd' => $k->etd,
                         'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : $k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual),
                         'user_id' => $k->produk->user_id
                     ];
@@ -134,11 +130,10 @@ class ApiTransaksiController extends Controller
                 }
                 Pengiriman::create([
                     'kode_invoice' => 'NJ-'.$n,
-                    'kurir' => $k->kurir,
-                    'service' => $k->service,
-                    'ongkir' => $k->ongkir,
-                    'etd' => $k->etd,
-
+                    'kurir' => $keranjang[$key][0]->kurir,
+                    'service' => $keranjang[$key][0]->service,
+                    'ongkir' => $keranjang[$key][0]->ongkir,
+                    'etd' => $keranjang[$key][0]->etd,
                 ]);
                 $n++;
             }
