@@ -64,15 +64,12 @@ class ApiReviewController extends Controller
     {
         $file = $request->file('file');
         if ($request->hasFile('file')) {
-
             $name = uniqid() . '_foto_review_' . trim($file->getClientOriginalName());
-
             $review = [
                 'review' => $request->review,
                 'bintang' => $request->bintang,
                 'foto_review' => $name
             ];
-
             $file->move('assets/foto_review/', $name);
         } else {
             $review = [
@@ -84,14 +81,13 @@ class ApiReviewController extends Controller
         $find = Review::where('user_id', $id_user)->where('produk_id', $id_produk)->first();
 
         if ($file != null) {
-            File::delete('assets/foto_review/', $find->foto_review);
+            File::delete('assets/foto_review/' . $find->foto_review);
         }
         $updateReview = $find->update($review);
         if ($updateReview) {
             // $file->move('assets/foto_review/', $name);
             $res['pesan'] = "Sukses Review!";
             $res['data'] = $review;
-
             return response()->json($res, 201);
         } else {
             $res2['pesan'] = "Gagal Review!";
