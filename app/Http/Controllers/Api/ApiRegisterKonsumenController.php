@@ -38,9 +38,9 @@ class ApiRegisterKonsumenController extends Controller
     public function update(Request $request, $kosumenId)
     {
         $data = [
-          'nama_lengkap' => $request->nama_lengkap,
-          'nomor_hp' => $request->nomor_hp,
-          'email' => $request->email
+            'nama_lengkap' => $request->nama_lengkap,
+            'nomor_hp' => $request->nomor_hp,
+            'email' => $request->email
         ];
 
         $update = User::where('id_user', $kosumenId)->update($data);
@@ -61,13 +61,13 @@ class ApiRegisterKonsumenController extends Controller
         $user = User::where('id_user', $request->id_konsumen)->first();
         $file = $request->file('file');
         $name = $this->acakhuruf(15) . '.' . $file->getClientOriginalExtension();
-        
+
         if (is_null($user->foto_profil)) {
             $file->move('assets/foto_profil_konsumen', $name);
             $user->foto_profil = $name;
             $update = $user->save();
         } else {
-            $hapusFoto = File::delete('assets/foto_profil_konsumen/' .$user->foto_profil);
+            $hapusFoto = File::delete('assets/foto_profil_konsumen/' . $user->foto_profil);
             if ($hapusFoto) {
                 $file->move('assets/foto_profil_konsumen', $name);
                 $user->foto_profil = $name;
