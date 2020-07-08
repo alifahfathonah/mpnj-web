@@ -84,6 +84,15 @@ class CheckoutWebController extends Controller
 
     public function simpanTransaksi(Request $request)
     {
+        $cek = Keranjang::where('user_id', Auth::id())->where('status', 'Y')->get();
+        foreach ($cek as $c) {
+            if (is_null($c->kurir) OR is_null($c->service) OR is_null($c->ongkir) OR is_null($c->etd)) {
+                return response()->json([
+                    'pesan' => 'Anda belum memilih kurir'
+                ], 400);
+                break;
+            }
+        }
         DB::beginTransaction();
         try {
             $trx = [
