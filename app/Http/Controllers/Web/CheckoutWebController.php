@@ -79,7 +79,7 @@ class CheckoutWebController extends Controller
             $total_berat = 0;
         }
 
-        return view('web/web_checkout', $data, ['id_keranjang' => json_decode($id_keranjang[0], true)]);
+        return view('web/web_checkout', $data);
     }
 
     public function simpanTransaksi(Request $request)
