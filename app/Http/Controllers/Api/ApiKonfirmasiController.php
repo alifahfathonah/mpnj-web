@@ -36,7 +36,7 @@ class ApiKonfirmasiController extends Controller
 
     public function simpan(Request $request)
     {
-        $file = $request->file('bukti_transfer');
+        $file = $request->file('file');
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
         $dataKonfirmasi = [
@@ -51,13 +51,14 @@ class ApiKonfirmasiController extends Controller
         $simpanKonfirmasi = Konfirmasi::create($dataKonfirmasi);
 
         if ($simpanKonfirmasi) {
+            Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
             $file->move('assets/foto_bukti_tf', $name);
-            $res['pesan'] = "Tambah Data Produk Sukses!";
+            $res['pesan'] = "Konfirmasi Pembayaran Sukses Sukses!";
             $res['data'] = $dataKonfirmasi;
 
             return response()->json($res, 201);
         } else {
-            $res2['pesan'] = "Tambah Data produk Gagal!";
+            $res2['pesan'] = "Konfirmasi Pembayaran Sukses Gagal!";
             return response()->json($res2);
         }
     }
