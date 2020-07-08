@@ -60,7 +60,7 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'checkout'], function () {
-        Route::post('/', 'CheckoutWebController@index');
+        Route::get('/', 'CheckoutWebController@index');
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
         Route::post('batal', 'CheckoutWebController@batal');
