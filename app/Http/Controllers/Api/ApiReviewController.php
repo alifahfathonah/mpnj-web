@@ -18,14 +18,17 @@ class ApiReviewController extends Controller
 
     public function getReview(Request $request, $id_produk)
     {
-        $data = Review::where('produk_id', $id_produk)->get();
-        if (count($data) > 0) {
+        $id = $request->query('id');
+        $data = Review::where('produk_id', $id_produk)->where('user_id', $id)->get();
+        if (count($data) != Null) {
             $review = $this->reviewRepository->findById($id_produk);
+            $res['pesan'] = "Sudah Ada review";
             $res['data'] = $review;
             return response()->json($res);
         } else {
-            $res2['pesan'] = "Gagal!";
-            $res2['data'] = [];
+            $review = $this->reviewRepository->reviewNull($id_produk);
+            $res2['pesan'] = "Belum Ada review";
+            $res2['data'] = $review;
             return response()->json($res2);
         };
     }
