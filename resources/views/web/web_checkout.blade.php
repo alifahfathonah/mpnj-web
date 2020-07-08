@@ -373,6 +373,25 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalKurirKosong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gagal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Pastikan anda telah memilih opsi pengiriman disemua toko.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -600,9 +619,7 @@
             url: "{{ URL::to('checkout/simpanTransaksi') }}",
             type: 'POST',
             data: {
-                'totalBayar': $("#totalBayar").data('totalbayar'),
-                'to': $("#dataPembeli").data('destination') == undefined ? '' : $("#dataPembeli").data('alamat'),
-                'id_keranjang': '@json($id_keranjang)'
+                'totalBayar': $("#totalBayar").data('totalbayar')
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -613,10 +630,12 @@
             success: function(response) {
                 $.LoadingOverlay("hide");
                 window.location.href = `{{URL::to('checkout/sukses')}}/${response.kode_transaksi}`;
-                // console.log(response);
+                console.log(response);
             },
             error: function(error) {
+                $.LoadingOverlay("hide");
                 console.log(error);
+                $("#modalKurirKosong").modal('show');
             }
         });
     }
