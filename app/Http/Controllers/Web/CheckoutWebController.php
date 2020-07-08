@@ -93,6 +93,7 @@ class CheckoutWebController extends Controller
                 break;
             }
         }
+
         DB::beginTransaction();
         try {
             $trx = [
@@ -103,7 +104,10 @@ class CheckoutWebController extends Controller
                 'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
-            $keranjang = Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->get()->groupby('produk.user_id');
+            $keranjang = Keranjang::where('status', 'Y')
+                ->where('user_id', Auth::id())
+                ->get()->groupby('produk.user_id');
+
             $latestId = Pengiriman::all()->last();
             $n = 0;
             if (is_null($latestId)) {
@@ -116,7 +120,7 @@ class CheckoutWebController extends Controller
                     $trxDetail = [
                         'transaksi_id' => $simpanTrx->id_transaksi,
                         'produk_id' => $k->produk_id,
-                        'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-'.$n,
+                        'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-' . $n,
                         'jumlah' => $k->jumlah,
                         'harga_jual' => $k->harga_jual,
                         'diskon' => $k->produk->diskon,
@@ -130,7 +134,7 @@ class CheckoutWebController extends Controller
                     Transaksi_Detail::create($trxDetail);
                 }
                 Pengiriman::create([
-                   'kode_invoice' => 'NJ-'.$n,
+                    'kode_invoice' => 'NJ-' . $n,
                     'kurir' => $k->kurir,
                     'service' => $k->service,
                     'ongkir' => $k->ongkir,
@@ -140,7 +144,7 @@ class CheckoutWebController extends Controller
                 $n++;
             }
 
-            Keranjang::whereIn('id_keranjang', json_decode($request->id_keranjang, true))->delete();
+            Keranjang::where('status', 'Y')->where('user_id', Auth::id())->delete();
             DB::commit();
             return response()->json($simpanTrx, 200);
         } catch (\Exception $exception) {
@@ -155,8 +159,8 @@ class CheckoutWebController extends Controller
             return redirect('pesanan')->with('trxNull', 'Kode transaksi tidak ditemukan');
         }
         $data['order_detail'] = Transaksi_Detail::where('transaksi_id', $data['order_sukses']->id_transaksi)->get();
-        $data['order_total'] =  $data['order_detail']->sum("sub_total");
-        $data['order_ongkir'] =  $data['order_detail']->sum("ongkir");
+        $data['order_total'] = $data['order_detail']->sum("sub_total");
+        $data['order_ongkir'] = $data['order_detail']->sum("ongkir");
         $data['rekening_admin'] = Bank::with('rekening_admin')->get();
         return view('web/web_checkout_sukses', $data);
     }
