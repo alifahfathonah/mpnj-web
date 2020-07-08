@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Konsumen;
 use App\Models\Alamat;
-
+use App\Models\Keranjang;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
@@ -51,7 +51,8 @@ class ApiKonsumenController extends Controller
                     return response()->json($res);
                 }
             } else {
-                return response()->json($res);}
+                return response()->json($res);
+            }
         } else {
             $res2['pesan'] = "Gagal!";
             $res2['data'] = [];
@@ -114,7 +115,6 @@ class ApiKonsumenController extends Controller
                 'status' => 200,
                 'pesan' => 'Sukses Update Alamat Utama!'
             ]);
-            // return response()->json($data, 200);
         } else {
             return response()->json([
                 'pesan' => 'Gagal Update Alamat Utama!'
@@ -140,7 +140,7 @@ class ApiKonsumenController extends Controller
     public function profile($id_konsumen)
     {
         $konsumen = User::with('daftar_alamat')->where('id_user', $id_konsumen)->first(
-            ['id_user', 'nama_lengkap', 'username', 'nomor_hp','foto_profil', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
+            ['id_user', 'nama_lengkap', 'username', 'nomor_hp', 'foto_profil', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
         );
 
         //        return $konsumen->daftar_alamat[0]['id_alamat'];
@@ -162,9 +162,9 @@ class ApiKonsumenController extends Controller
     {
         $userEmail = User::whereEmail($email)->first();
         if ($userEmail) {
-//            $res['pesan'] = "Sukses!";
-//            $hasil['id_konsumen'] = $konsumen->id_konsumen;
-//            $res['data'] = $hasil;
+            //            $res['pesan'] = "Sukses!";
+            //            $hasil['id_konsumen'] = $konsumen->id_konsumen;
+            //            $res['data'] = $hasil;
             return response()->json([
                 'pesan' => 'Sukses!',
                 'data' => $userEmail
@@ -197,10 +197,9 @@ class ApiKonsumenController extends Controller
         } else {
             $res2['pesan'] = "Gagal";
             return response()->json($res2);
-
         }
     }
-    
+
     public function hapus_akun($id_konsumen)
     {
         $hapus_akun = Konsumen::find($id_konsumen)->delete();
