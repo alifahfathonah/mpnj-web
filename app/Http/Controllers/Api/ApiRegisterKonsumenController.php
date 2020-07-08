@@ -14,12 +14,12 @@ class ApiRegisterKonsumenController extends Controller
     public function create(request $request)
     {
         $register = User::create([
-           'nama_lengkap' =>  $request->nama_lengkap,
-           'username' => $request->username,
-           'password' => Hash::make($request->password),
-           'nomor_hp' => $request->nomor_hp,
-           'email' => $request->email,
-           'status' => $request->status
+            'nama_lengkap' =>  $request->nama_lengkap,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'nomor_hp' => $request->nomor_hp,
+            'email' => $request->email,
+            'role' => 'konsumen'
         ]);
 
         if ($register) {
