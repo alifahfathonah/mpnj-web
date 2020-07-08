@@ -108,11 +108,13 @@ class ApiKonsumenController extends Controller
             'alamat_utama' => $request->id_alamat,
         ];
         $user = User::where('id_user', $id_user)->update($data);
+        $findKeranjang = Keranjang::with('user', 'produk')->where('user_id', $id_user)->where('status', 'Y')->update(['kurir' => NULL, 'service' => NULL, 'ongkir' => 0, 'etd' => NULL,]);
         if ($user) {
             return response()->json([
                 'status' => 200,
-                'pesan' => 'Sukses Update Alamat Utama!',
+                'pesan' => 'Sukses Update Alamat Utama!'
             ]);
+            // return response()->json($data, 200);
         } else {
             return response()->json([
                 'pesan' => 'Gagal Update Alamat Utama!'
