@@ -30,21 +30,28 @@ class ApiWishlistController extends Controller
         }
     }
 
-    public function add(Request $request, $id_user)
+    public function add(Request $request)
     {
-        $data = [
-            'user_id' => $id_user,
-            'produk_id' => $request->id_produk
-        ];
-        $simpan = Wishlist::create($data);
-        if ($simpan) {
-            $res['pesan'] = "Sukses Cok!";
-            $res['data'] = $data;
+
+        $cekWishlist = Wishlist::where([['produk_id', '=', $request->id_produk], ['user_id', '=', $request->id_user]])->first();
+        if ($cekWishlist != null) {
+            $res['pesan'] = "Produk Sudah Ada Di Favorit";
             return response()->json($res);
         } else {
-            $res1['pesan'] = "Gagal Cok!";
-            $res1['data'] = [];
-            return response()->json($res1);
+            $data = [
+                'user_id' => $request->id_user,
+                'produk_id' => $request->id_produk
+            ];
+            $simpan = Wishlist::create($data);
+            if ($simpan) {
+                $res['pesan'] = "Sukses Cok!";
+                $res['data'] = $data;
+                return response()->json($res);
+            } else {
+                $res1['pesan'] = "Gagal Cok!";
+                $res1['data'] = [];
+                return response()->json($res1);
+            }
         }
     }
 
