@@ -37,9 +37,9 @@ class PesananRepository
             );
     }
 
-    public function detail($id_detail)
+    public function detail($kode_invoice)
     {
-        return Transaksi_Detail::where('id_transaksi_detail', $id_detail)
+        return Transaksi_Detail::where('kode_invoice', $kode_invoice)
             ->with('produk', 'user', 'transaksi', 'transaksi.konfirmasi')
             ->get()
             ->map(
