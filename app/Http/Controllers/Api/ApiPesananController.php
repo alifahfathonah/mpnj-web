@@ -61,11 +61,11 @@ class ApiPesananController extends Controller
         ], 200);
     }
 
-    public function getDetail($id_detail)
+    public function getDetail($kode_invoice)
     {
-        $data = Transaksi_Detail::where('id_transaksi_detail', $id_detail)->get();
+        $data = Transaksi_Detail::where('kode_invoice', $kode_invoice)->get();
         if (count($data) > 0) {
-            $pesanan = $this->pesananRepository->detail($id_detail);
+            $pesanan = $this->pesananRepository->detail($kode_invoice);
             $res['data'] = $pesanan;
             return response()->json($res);
         } else {
