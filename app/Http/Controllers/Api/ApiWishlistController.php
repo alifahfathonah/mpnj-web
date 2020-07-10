@@ -55,9 +55,9 @@ class ApiWishlistController extends Controller
         }
     }
 
-    public function delete(Request $request, $id_user)
+    public function delete($id_wishlist)
     {
-        $find = Wishlist::where([['produk_id', '=', $request->id_produk], ['user_id', '=', $id_user]])->first();
+        $find = Wishlist::where('id_wishlist', $id_wishlist)->first();
         if ($find == true) {
             $find->delete();
             $res['pesan'] = "Sukses Cok!";
