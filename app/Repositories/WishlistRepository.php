@@ -21,7 +21,7 @@ class WishlistRepository
                         'id_produk' => $wishlist->produk_id,
                         'nama_produk' => $wishlist->produk->nama_produk,
                         'kategori' => [
-                            'id_kategori' => $wishlist->produk->kategori->id_kategori_produk,
+                            'id_kategori_produk' => $wishlist->produk->kategori->id_kategori_produk,
                             'nama_kategori' => $wishlist->produk->kategori->nama_kategori
                         ],
                         'satuan' => $wishlist->produk->satuan,
@@ -36,7 +36,7 @@ class WishlistRepository
                         'terjual' => $wishlist->produk->terjual,
                         'foto' => $wishlist->produk->foto_produk->map(function ($foto) {
                             return [
-                                'id_foto_poroduk' => $foto->id_foto_produk,
+                                'id_foto_produk' => $foto->id_foto_produk,
                                 'foto_produk' => $foto->foto_produk
                             ];
                         }),
@@ -44,7 +44,13 @@ class WishlistRepository
                             'id_pelapak' => $wishlist->produk->user->id_user,
                             'nama_toko' => $wishlist->produk->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $wishlist->produk->user->foto_profil),
-                            'alamat' => $wishlist->produk->user->alamatToko->alamat_lengkap,
+                            'alamat_toko' => $wishlist->produk->user->alamatToko->alamat_lengkap,
+                            'bergabung' => $wishlist->produk->user->created_at
+                        ]
+                    ];
+                }
+            );
+    }
                             'bergabung' => $wishlist->produk->user->created_at
                         ]
                     ];
