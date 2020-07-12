@@ -30,6 +30,24 @@ class ApiWishlistController extends Controller
         }
     }
 
+    public function findByName(Request $request)
+    {
+        $id = $request->id_user;
+        $nama = $request->nama_produk;
+        $data = Wishlist::orderBy('id_wishlist')->with('produk')->where('user_id', $id)->whereHas('produk', function ($rty) use ($nama) {
+            $rty->with('kategori', 'foto_produk')->where('nama_produk', 'like', '%' . $nama . '%');
+        })->get();
+        if (count($data) > 0) {
+            $wish = $this->wishlistRepository->cariWishlist($id, $nama);
+            $res['data'] = $wish;
+            return response()->json($res);
+        } else {
+            $res1['pesan'] = "Data Kosong!";
+            $res1['data'] = [];
+            return response()->json($res1);
+        }
+    }
+
     public function add(Request $request)
     {
 
