@@ -30,27 +30,52 @@ class ApiWishlistController extends Controller
         }
     }
 
-    public function add(Request $request, $id_user)
+    public function findByName(Request $request)
     {
-        $data = [
-            'user_id' => $id_user,
-            'produk_id' => $request->id_produk
-        ];
-        $simpan = Wishlist::create($data);
-        if ($simpan) {
-            $res['pesan'] = "Sukses Cok!";
-            $res['data'] = $data;
+        $id = $request->id_user;
+        $nama = $request->nama_produk;
+        $data = Wishlist::orderBy('id_wishlist')->with('produk')->where('user_id', $id)->whereHas('produk', function ($rty) use ($nama) {
+            $rty->with('kategori', 'foto_produk')->where('nama_produk', 'like', '%' . $nama . '%');
+        })->get();
+        if (count($data) > 0) {
+            $wish = $this->wishlistRepository->cariWishlist($id, $nama);
+            $res['data'] = $wish;
             return response()->json($res);
         } else {
-            $res1['pesan'] = "Gagal Cok!";
+            $res1['pesan'] = "Data Kosong!";
             $res1['data'] = [];
             return response()->json($res1);
         }
     }
 
-    public function delete(Request $request, $id_user)
+    public function add(Request $request)
     {
-        $find = Wishlist::where([['produk_id', '=', $request->id_produk], ['user_id', '=', $id_user]])->first();
+
+        $cekWishlist = Wishlist::where([['produk_id', '=', $request->id_produk], ['user_id', '=', $request->id_user]])->first();
+        if ($cekWishlist != null) {
+            $res['pesan'] = "Produk Sudah Ada Di Favorit";
+            return response()->json($res);
+        } else {
+            $data = [
+                'user_id' => $request->id_user,
+                'produk_id' => $request->id_produk
+            ];
+            $simpan = Wishlist::create($data);
+            if ($simpan) {
+                $res['pesan'] = "Sukses Cok!";
+                $res['data'] = $data;
+                return response()->json($res);
+            } else {
+                $res1['pesan'] = "Gagal Cok!";
+                $res1['data'] = [];
+                return response()->json($res1);
+            }
+        }
+    }
+
+    public function delete($id_wishlist)
+    {
+        $find = Wishlist::where('id_wishlist', $id_wishlist)->first();
         if ($find == true) {
             $find->delete();
             $res['pesan'] = "Sukses Cok!";
