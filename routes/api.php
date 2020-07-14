@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/alamat', 'ApiKonsumenController@simpan_alamat');
         Route::get('/tampil/alamat/{id_alamat}', 'ApiKonsumenController@show_alamat');
         Route::put('/edit/alamat/{id_alamat}', 'ApiKonsumenController@update_alamat');
-        Route::post('/edit/alamat/utama/{id_alamat}', 'ApiKonsumenController@update_alamat_utama');
+        Route::put('/edit/alamat/utama/{id_user}', 'ApiKonsumenController@update_alamat_utama');
         Route::delete('/hapus/alamat/{id_alamat}', 'ApiKonsumenController@hapus_alamat');
         Route::put('/hapus/{id_konsumen}', 'ApiKonsumenController@hapus_akun');
         Route::put('/aktif/{id_konsumen}', 'ApiKonsumenController@aktif_kembali');
@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');
         Route::get('/{id_pelapak}', 'ApiPelapakController@getDetail');
         Route::post('/upload', 'ApiPelapakController@upload');
+        Route::get('/find/{username}', 'ApiPelapakController@findPelapak');
     });
 
     //keranjang
@@ -59,6 +60,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/simpan', 'ApiTransaksiController@simpan');
         Route::put('/batal', 'ApiTransaksiController@batal');
         Route::post('/simpanKurir', 'ApiTransaksiController@simpanKurir');
+        Route::post('/batal_transaksi', 'ApiTransaksiController@batalTrx');
     });
 
     //kategori
@@ -83,6 +85,22 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'ApiPesananController@index');
         Route::get('/{id_detail}', 'ApiPesananController@getDetail');
+        Route::post('/terima', 'ApiPesananController@terima');
+    });
+
+    //review
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('/{id_produk}', 'ApiReviewController@getReview');
+        Route::post('/simpan', 'ApiReviewController@simpan');
+        Route::post('/edit/{id_user}/{id_produk}', 'ApiReviewController@update');
+    });
+
+    //wishlist
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/tampil/{id_user}', 'ApiWishlistController@index');
+        Route::post('/cari', 'ApiWishlistController@findByName');
+        Route::post('/simpan', 'ApiWishlistController@add');
+        Route::delete('/hapus/{id_wishlist}', 'ApiWishlistController@delete');
     });
 
     Route::group(['prefix' => 'gateway'], function () {
