@@ -66,6 +66,8 @@
                                 @include('web.profile.wishlist')
                                 @elseif(Route::currentRouteName() == 'komplain')
                                 @include('web.profile.komplain')
+                                @elseif(Route::currentRouteName() == 'komplainPengajuan')
+                                @include('web.profile.komplain_pengajuan')
                                 @elseif(Route::currentRouteName() == 'tracking')
                                 @include('web.profile.tracking')
                                 @endif
