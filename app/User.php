@@ -97,6 +97,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Complain::class, 'user_id', 'id_user');
     }
 
+    public function komplainKonsumen()
+    {
+        return $this->hasMany(Complain::class, 'konsumen_id', 'id_user');
+    }
+
+
     /**
      * The attributes that should be cast to native types.
      *
