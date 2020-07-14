@@ -9,11 +9,17 @@ class Complain extends Model
 {
     protected $table = 'complains';
     protected $primaryKey = 'id_complain';
-    protected $fillable = ['id_complain', 'user_id', 'produk_id', 'komplain', 'deskripsi', 'foto_komplain'];
+    protected $fillable = ['id_complain', 'user_id', 'produk_id', 'komplain', 'deskripsi', 'foto_komplain', 'konsumen_id'];
     public $timestamps = true;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
+
+    public function konsumen()
+    {
+        return $this->belongsTo(User::class, 'konsumen_id', 'id_user');
     }
 
     public function produk()
