@@ -24,7 +24,7 @@ class WishlistWebController extends Controller
         ]);
 
         if ($simpan) {
-            return redirect()->back();
+            return redirect()->back()->with(['tambahWishlistSukses' => 'Sukses menambahkan data wishlist']);
         }
     }
 
@@ -32,7 +32,7 @@ class WishlistWebController extends Controller
     {
         $hapus = Wishlist::where([['produk_id', '=', $id], ['user_id', '=', Auth::id()]])->delete();
         if ($hapus) {
-            return redirect()->back();
+            return redirect()->back()->with(['hapusWishlistSukses' => 'Sukses menghapus data wishlist']);;
         }
     }
 

@@ -23,18 +23,18 @@
                         <hr>
                         <p class="text-center">
                             @if(is_null($pembeli->alamat_fix))
-                            <div class="information_module order_summary">
-                                <div class="toggle_title">
-                                    <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </p>
+                                <div class="information_module order_summary">
+                                    <div class="toggle_title">
+                                        <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </p>
+                                    </div>
                                 </div>
-                            </div>
                             @else
-                            <div class="order_summary">
-                                <div class="toggle_title" id="dataPembeli"
-                                     data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
-                                    <p>{{ $pembeli->alamat_fix->getAlamatLengkapAttribute() }}</p>
+                                <div class="order_summary">
+                                    <div class="toggle_title" id="dataPembeli"
+                                         data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
+                                        <p>{{ $pembeli->alamat_fix->getAlamatLengkapAttribute() }}</p>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </p>
                     </div> <!-- card-body.// -->
@@ -133,7 +133,7 @@
                                                        data-row="{{ $loop->iteration }}"
                                                        data-idkeranjang="{{ $k['id_keranjang'] }}"
                                                        name="kurir"
-                                                       value="Pilih Kurir">
+                                                       value="Pilih Kurir" {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
                                             </div>
                                             <div class="card-body">
                                                 <table class="table">
@@ -174,7 +174,7 @@
                     <div class="card-body border-top">
                         <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
                             onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar
+                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()" {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>Bayar
                             Sekarang <i class="fa fa-chevron-right"></i></button>
                     </div>
                 </div> <!-- card.// -->
@@ -235,6 +235,21 @@
                 <div id="kurir" class="custom-radio"></div>
             </div>
             <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="kurirTidakDipilih" tabindex="-1" role="dialog"
+     aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title">Pastikan anda telah memilih kurir untuk semua toko.</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
         </div>
     </div>
 </div>
@@ -397,8 +412,6 @@
 @push('scripts')
 <script>
     $(function () {
-       $("#dataPembeli").data('destination') == undefined ? $("#bayar").prop('disabled', true) : $("#bayar").prop('disabled', false);
-        {{--console.log('@json($id_keranjang[0])');--}}
         let input = document.querySelector('#phone');
         var n;
         var id_keranjang = [];
@@ -610,6 +623,18 @@
         $('#totalOngkir').html("Rp. " + numberFormat(ko));
         $("#totalBayar").html('Rp. ' + numberFormat(parseInt("{{ $total }}") + ko));
         $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
+    }
+
+    function cekPilihKurir() {
+        for (let index = 1; index < parseInt("{{ $m }}"); index++) {
+            if ($(`#dataPelapak${index}`).data('ongkir') == 0) {
+                return 1;
+                break;
+            } else {
+                return 0;
+                break;
+            }
+        }
     }
 
     function bayarSekarang() {

@@ -55,17 +55,17 @@
                                                onclick="alamatUtamaConfirm({{ $a->id_alamat }})">Jadikan Alamat Utama
                                                 <i class="fa fa-podcast" aria-hidden="true"></i>
                                             </a>
+                                            <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal"
+                                               data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}"
+                                               onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
                                         @endif
                                         <button class="btn btn--icon btn-sm btn--round btn-secondary btnEditALamat"
                                                 @if($a->santri == 'Y') data-santri="Y"
                                                 @endif data-id_alamat="{{ $a->id_alamat }}">Edit
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </button>
-                                        <a href="#" class="btn btn--icon btn-sm btn--round btn-danger" data-toggle="modal"
-                                           data-target="#hapusAlamatConfirm" data-alamatid="{{ $a->id_alamat }}"
-                                           onclick="hapusAlamat({{ $a->id_alamat }})">Hapus
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
