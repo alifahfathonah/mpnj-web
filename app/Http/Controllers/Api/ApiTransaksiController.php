@@ -123,7 +123,7 @@ class ApiTransaksiController extends Controller
                         'jumlah' => $k->jumlah,
                         'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->harga_jual / 100 * $k->harga_jual),
                         'diskon' => $k->produk->diskon,
-                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k-jumlah,
+                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah,
                         'user_id' => $k->produk->user_id
                     ];
                     Transaksi_Detail::create($trxDetail);

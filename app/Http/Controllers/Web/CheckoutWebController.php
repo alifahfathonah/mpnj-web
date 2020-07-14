@@ -128,7 +128,7 @@ class CheckoutWebController extends Controller
                         'service' => $k->service,
                         'ongkir' => $k->ongkir,
                         'etd' => $k->etd,
-                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k-jumlah,
+                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah,
                         'user_id' => $k->produk->user_id
                     ];
                     Transaksi_Detail::create($trxDetail);
