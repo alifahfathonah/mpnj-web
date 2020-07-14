@@ -45,6 +45,7 @@ class WishlistRepository
                             'nama_toko' => $wishlist->produk->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $wishlist->produk->user->foto_profil),
                             'alamat_toko' => $wishlist->produk->user->alamatToko->alamat_lengkap,
+                            'kabupaten' => $wishlist->produk->user->alamatToko->nama_kota,
                             'bergabung' => $wishlist->produk->user->created_at
                         ]
                     ];
@@ -89,6 +90,7 @@ class WishlistRepository
                             'nama_toko' => $wishlist->produk->user->nama_toko,
                             'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $wishlist->produk->user->foto_profil),
                             'alamat_toko' => $wishlist->produk->user->alamatToko->alamat_lengkap,
+                            'kabupaten' => $wishlist->produk->user->alamatToko->nama_kota,
                             'bergabung' => $wishlist->produk->user->created_at
                         ]
                     ];
