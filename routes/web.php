@@ -122,6 +122,7 @@ Route::group(['namespace' => 'Web'], function () {
     Route::group(['prefix' => 'komplain'], function () {
         Route::get('/', 'KomplainWebController@index')->name('komplain');
         Route::get('/pengajuan/{kode_transaksi}', 'KomplainWebController@pengajuan')->name('komplainPengajuan');
+        Route::post('/simpan', 'KomplainWebController@save');
     });
 });
 
