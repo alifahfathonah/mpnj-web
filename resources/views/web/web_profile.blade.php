@@ -32,6 +32,8 @@
                         class="{{ Route::currentRouteName() == 'pesanan' ? 'active' : '' }} list-group-item list-group-item-action">Transaksi</a>
                     <a href="{{ URL::to('wishlist') }}"
                         class="{{ Route::currentRouteName() == 'wishlist' ? 'active' : '' }} list-group-item list-group-item-action">Wishlist</a>
+                    <a href="{{ URL::to('komplain') }}"
+                        class="{{ Route::currentRouteName() == 'komplain' ? 'active' : '' }} list-group-item list-group-item-action">Komplain</a>
                     <a href="#" class="list-group-item list-group-item-action" data-target="#modalPassword"
                         data-toggle="modal">Ganti Password</a>
                 </div>
@@ -62,6 +64,8 @@
                                 @include('web.profile.pesanan_detail')
                                 @elseif(Route::currentRouteName() == 'wishlist')
                                 @include('web.profile.wishlist')
+                                @elseif(Route::currentRouteName() == 'komplain')
+                                @include('web.profile.komplain')
                                 @elseif(Route::currentRouteName() == 'tracking')
                                 @include('web.profile.tracking')
                                 @endif
