@@ -117,6 +117,11 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/delete/{id}', 'WishlistWebController@delete');
         Route::get('/clear/{id_user}', 'WishlistWebController@deleteAll');
     });
+
+    //komplain
+    Route::group(['prefix' => 'komplain'], function () {
+        Route::get('/', 'KomplainWebController@index')->name('komplain');
+    });
 });
 
 //daftar
