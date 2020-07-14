@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Alamat;
+use App\Models\Complain;
 use App\Models\Keranjang;
 use App\Models\Produk;
 use App\Models\Transaksi;
@@ -89,6 +90,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class, 'user_id', 'id_user');
+    }
+
+    public function komplain()
+    {
+        return $this->hasMany(Complain::class, 'user_id', 'id_user');
     }
 
     /**
