@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Api\RajaOngkirGateway;
 use App\Http\Controllers\Controller;
 use App\Models\Alamat;
-use App\Models\Konsumen;
-use App\Models\Pelapak;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -35,6 +31,17 @@ class ProfileWebController extends Controller
 
     public function ubah(Request $request, $id)
     {
+
+        $validator = Validator::make($request->except('token'), [
+            'foto_profil' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
         $foto = $request->file('foto_profil');
 
         if ($foto == null) {
@@ -106,7 +113,7 @@ class ProfileWebController extends Controller
                 'alamat_lengkap' => $request->alamat_lengkap,
                 'user_id' => Auth::id()
             ];
-            if ($request->has('wilayah') AND $request->has('kamar')) {
+            if ($request->has('wilayah') and $request->has('kamar')) {
                 $data['wilayah'] = $request->wilayah;
                 $data['kamar'] = $request->kamar;
                 $data['santri'] = $request->santri;
@@ -183,9 +190,6 @@ class ProfileWebController extends Controller
         $hashlama = Auth::user()->password;
         $hashbaru = Hash::make($passwordbaru);
 
-
-//        $fix_role = $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak';
-
         if (Hash::check($passwordlama, $hashlama)) {
             $ubah = User::where('id_user', $id)->update(['password' => $hashbaru]);
             if ($ubah) {
@@ -195,5 +199,4 @@ class ProfileWebController extends Controller
             return redirect()->back()->with('gagalGantiPassword', 'Gagal. Periksa Kembali Data Anda. Pastikan data yang anda masukkan sudah benar.');
         }
     }
-
 }

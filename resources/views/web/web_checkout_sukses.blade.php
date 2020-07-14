@@ -20,11 +20,11 @@
                             <h6 class="text">Pembayaran</h6>
                             <span class="text-success font-weight-bold">
                                 @foreach($rekening_admin as $ra)
-                                @if($ra->nama_bank == 'BNI')
-                                <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
-                                @elseif($ra->nama_bank == 'Mandiri')
-                                <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
-                                @endif
+                                    @if($ra->nama_bank == 'BNI')
+                                        <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
+                                    @elseif($ra->nama_bank == 'Mandiri')
+                                        <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
+                                    @endif
                                 | {{$ra->rekening_admin->nomor_rekening}} |
                                 {{$ra->rekening_admin->atas_nama_rekening}}<br>
                                 @endforeach

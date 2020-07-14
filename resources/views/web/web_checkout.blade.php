@@ -13,11 +13,12 @@
                     <div class="card-body">
                         <p><strong>Pilih Alamat Pengiriman</strong> |
                             @if(is_null($pembeli->alamat_fix))
-                                <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
+                            <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             @else
-                                <a href="#" class="btn btn-outline-success" data-target="#pilihAlamat" data-toggle="modal">Ubah</a>
+                            <a href="#" class="btn btn-outline-success" data-target="#pilihAlamat"
+                                data-toggle="modal">Ubah</a>
                             @endif
                         </p>
                         <hr>
@@ -25,13 +26,15 @@
                             @if(is_null($pembeli->alamat_fix))
                             <div class="information_module order_summary">
                                 <div class="toggle_title">
-                                    <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </p>
+                                    <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}"
+                                            target="_blank">disini</a> </p>
                                 </div>
                             </div>
                             @else
                             <div class="order_summary">
                                 <div class="toggle_title" id="dataPembeli"
-                                     data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
+                                    data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}"
+                                    data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
                                     <p>{{ $pembeli->alamat_fix->getAlamatLengkapAttribute() }}</p>
                                 </div>
                             </div>
@@ -66,8 +69,7 @@
                             @foreach($data_keranjang as $val)
                             <tr id="dataPelapak{{ $loop->iteration }}" data-origin="{{ $val['alamat']['city_id'] }}"
                                 data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}"
-                                data-mulai="{{ $n }}"
-                                data-ongkir="{{ $val['ongkir'] }}"
+                                data-mulai="{{ $n }}" data-ongkir="{{ $val['ongkir'] }}"
                                 data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
                                 <td colspan="7">
                                     <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
@@ -108,10 +110,10 @@
                                 </td>
                                 <td id="subHarga{{ $n }}">
                                     @if($k['diskon'] == 0)
-                                        @currency($k['harga_jual'] * $k['jumlah'])
+                                    @currency($k['harga_jual'] * $k['jumlah'])
                                     @else
-                                        @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
-                                        $k['jumlah'])
+                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
+                                    $k['jumlah'])
                                     @endif
                                 </td>
                             </tr>
@@ -127,13 +129,14 @@
                                     <div class="card-deck text-center">
                                         <div class="card">
                                             <div class="card-header">
-{{--                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih Opsi Pengiriman</h5>--}}
+                                                {{--                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih
+                                                Opsi Pengiriman</h5>--}}
                                                 <input type="button" class="btn btn-outline-success"
-                                                       data-namatoko="{{ $val['nama_toko'] }}"
-                                                       data-row="{{ $loop->iteration }}"
-                                                       data-idkeranjang="{{ $k['id_keranjang'] }}"
-                                                       name="kurir"
-                                                       value="Pilih Kurir">
+                                                    data-namatoko="{{ $val['nama_toko'] }}"
+                                                    data-row="{{ $loop->iteration }}"
+                                                    data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir"
+                                                    value="Pilih Kurir"
+                                                    {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
                                             </div>
                                             <div class="card-body">
                                                 <table class="table">
@@ -147,9 +150,9 @@
                                                         <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
                                                         <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
                                                         <td>@if($val['ongkir'] == 0)
-                                                                {{ '-' }}
+                                                            {{ '-' }}
                                                             @else
-                                                                @currency($val['ongkir'])
+                                                            @currency($val['ongkir'])
                                                             @endif
                                                         </td>
                                                         <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
@@ -174,7 +177,8 @@
                     <div class="card-body border-top">
                         <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
                             onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar
+                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()"
+                            {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>Bayar
                             Sekarang <i class="fa fa-chevron-right"></i></button>
                     </div>
                 </div> <!-- card.// -->
@@ -213,7 +217,7 @@
 </section>
 
 <div class="modal fade rating_modal item_remove_modal" id="modalPilihKurir" tabindex="-1" role="dialog"
-     aria-labelledby="myModal2">
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,6 +239,21 @@
                 <div id="kurir" class="custom-radio"></div>
             </div>
             <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="kurirTidakDipilih" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title">Pastikan anda telah memilih kurir untuk semua toko.</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
         </div>
     </div>
 </div>
@@ -279,25 +298,26 @@
 
             <div class="modal-body">
                 @if(count($pembeli->daftar_alamat) > 0)
-                    @foreach($pembeli->daftar_alamat as $v)
-                        <div class="card border-success">
-                            <div class="card-body text-success" data-destination="{{ $v->kecamatan_id }}">
-                                <p class="card-text">
-                                    {{ $v->nama }} <br> {{ $v->nomor_telepon }}, {{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
-                                </p>
-                                <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
-                                    <button type="submit" class="btn btn-outline-success">Pilih
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <div class="information_module order_summary">
-                        <div class="toggle_title">
-                            Anda tidak memiliki alamat
-                        </div>
+                @foreach($pembeli->daftar_alamat as $v)
+                <div class="card border-success">
+                    <div class="card-body text-success" data-destination="{{ $v->kecamatan_id }}">
+                        <p class="card-text">
+                            {{ $v->nama }} <br> {{ $v->nomor_telepon }}, {{ $v->alamat_lengkap }}, {{ $v->nama_kota }},
+                            {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
+                        </p>
+                        <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
+                            <button type="submit" class="btn btn-outline-success">Pilih
+                            </button>
+                        </form>
                     </div>
+                </div>
+                @endforeach
+                @else
+                <div class="information_module order_summary">
+                    <div class="toggle_title">
+                        Anda tidak memiliki alamat
+                    </div>
+                </div>
                 @endif
             </div>
             <!-- end /.modal-body -->
@@ -306,7 +326,7 @@
 </div>
 
 <div class="modal fade rating_modal item_remove_modal" id="modalAlamat" tabindex="-1" role="dialog"
-     aria-labelledby="myModal2">
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -374,7 +394,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalKurirKosong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalKurirKosong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -397,8 +418,6 @@
 @push('scripts')
 <script>
     $(function () {
-       $("#dataPembeli").data('destination') == undefined ? $("#bayar").prop('disabled', true) : $("#bayar").prop('disabled', false);
-        {{--console.log('@json($id_keranjang[0])');--}}
         let input = document.querySelector('#phone');
         var n;
         var id_keranjang = [];
@@ -610,6 +629,18 @@
         $('#totalOngkir').html("Rp. " + numberFormat(ko));
         $("#totalBayar").html('Rp. ' + numberFormat(parseInt("{{ $total }}") + ko));
         $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
+    }
+
+    function cekPilihKurir() {
+        for (let index = 1; index < parseInt("{{ $m }}"); index++) {
+            if ($(`#dataPelapak${index}`).data('ongkir') == 0) {
+                return 1;
+                break;
+            } else {
+                return 0;
+                break;
+            }
+        }
     }
 
     function bayarSekarang() {
