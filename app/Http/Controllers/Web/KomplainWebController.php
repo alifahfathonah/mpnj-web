@@ -7,6 +7,7 @@ use App\Models\Complain;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class KomplainWebController extends Controller
 {
@@ -42,10 +43,11 @@ class KomplainWebController extends Controller
 
         $simpanKomplain = Complain::create([
             'user_id' => $request->id_user,
-            'produk_user' => $request->id_produk,
+            'produk_id' => $request->id_produk,
             'komplain' => $request->komplain,
             'deskripsi' => $request->deskripsi,
-            'foto_komplain' => $name
+            'foto_komplain' => $name,
+            'konsumen_id' =>  Auth::id()
         ]);
 
         if ($simpanKomplain) {
