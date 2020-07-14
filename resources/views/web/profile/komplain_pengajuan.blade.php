@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title mb-4">Apa Masalah Yang Anda Temui ?</h5>
-        <form action="{{ URL::to('konfirmasi/simpan') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ URL::to('komplain/simpan') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>Pilih Toko Yang Bermasalah !</label>
@@ -23,18 +23,21 @@
             <div class="form-group">
                 <label>Pilih Masalah Yang Anda Temukan !</label>
                 <select class="form-control" name="komplain" id="komplain">
-                    <option value="TS">Produk Tidak Sesuai Deskripsi</option>
-                    <option value="TL">Produk Tidak Lengkap</option>
-                    <option value="RS">Produk Rusak</option>
+                    <option value="Tidak Sesuai">Produk Tidak Sesuai Deskripsi</option>
+                    <option value="Tidak Lengkap">Produk Tidak Lengkap</option>
+                    <option value="Rusak">Produk Rusak</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Masukkan Deskripsi Masalah</label>
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" name="deskripsi" id="deskripsi"
+                    placeholder="Berikan Deskripsi Lengkap Anda"></textarea>
             </div>
             <div class="form-group">
                 <label>Masukkan Bukti Masalah</label>
-                <input type="file" class="form-control">
+                <input type="file" class="form-control" name="foto_komplain" id="foto_komplain">
+                @if($errors->has('foto_komplain'))
+                <small style="color: red">{{ $errors->first('foto_komplain') }}</small> @endif
             </div>
             <button class="btn btn-primary btn-block" type="submit">Kirim</button>
         </form>
