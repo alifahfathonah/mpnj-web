@@ -97,9 +97,10 @@ Route::group(['namespace' => 'Api'], function () {
 
     //wishlist
     Route::group(['prefix' => 'wishlist'], function () {
-        Route::get('/{id_user}', 'ApiWishlistController@index');
-        Route::post('/{id_user}', 'ApiWishlistController@add');
-        Route::delete('/{id_user}', 'ApiWishlistController@delete');
+        Route::get('/tampil/{id_user}', 'ApiWishlistController@index');
+        Route::post('/cari', 'ApiWishlistController@findByName');
+        Route::post('/simpan', 'ApiWishlistController@add');
+        Route::delete('/hapus/{id_wishlist}', 'ApiWishlistController@delete');
     });
 
     Route::group(['prefix' => 'gateway'], function () {
