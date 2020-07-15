@@ -13,7 +13,12 @@ class KomplainWebController extends Controller
 {
     public function index()
     {
-        return view('web/web_profile');
+        $data['komplain'] = Complain::with('transaksi', 'produk', 'produk.foto_produk', 'user')->get();
+        $data['komplain_respon'] = Complain::with('transaksi', 'produk', 'produk.foto_produk', 'user')->where('status', 'Butuh Direspon')->get();
+        $data['komplain_dibaca'] = Complain::with('transaksi', 'produk', 'produk.foto_produk', 'user')->where('status', 'Sudah Dibaca')->get();
+        $data['komplain_selesai'] = Complain::with('transaksi', 'produk', 'produk.foto_produk', 'user')->where('status', 'Selesai')->get();
+        return view('web/web_profile', $data);
+        return $data;
     }
 
     public function pengajuan($kode_transaksi)
