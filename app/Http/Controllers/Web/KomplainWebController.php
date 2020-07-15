@@ -21,13 +21,17 @@ class KomplainWebController extends Controller
         return $data;
     }
 
-    public function pengajuan($kode_transaksi)
+    public function pengajuan(Request $request)
     {
-        $data['komplain'] = Transaksi::with(['transaksi_detail' => function ($status) {
-            $status->where('status_order', 'Telah Sampai')->with('user', 'produk');
-        }])->where('kode_transaksi', $kode_transaksi)->first();
+        $id = $request->query('id_trk');
+        $inv = $request->query('kd_inv');
+        $data['komplain'] = Transaksi::with(['transaksi_detail' => function ($status) use ($inv) {
+            $status->with('produk', 'user')->when(!is_null($inv), function ($query) use ($inv) {
+                $query->where('kode_invoice', $inv);
+            });
+        }])->where('id_transaksi', $id)->first();
         return view('web/web_profile', $data);
-        // return $data;
+        return $data;
     }
 
     public function save(Request $request)
@@ -49,10 +53,13 @@ class KomplainWebController extends Controller
         $simpanKomplain = Complain::create([
             'user_id' => $request->id_user,
             'produk_id' => $request->id_produk,
+            'konsumen_id' =>  Auth::id(),
+            'transaksi_id' => $request->id_transaksi,
+            'kode_invoice' => $request->kode_invoice,
             'komplain' => $request->komplain,
             'deskripsi' => $request->deskripsi,
-            'foto_komplain' => $name,
-            'konsumen_id' =>  Auth::id()
+            'foto_komplain' => $name
+
         ]);
 
         if ($simpanKomplain) {
