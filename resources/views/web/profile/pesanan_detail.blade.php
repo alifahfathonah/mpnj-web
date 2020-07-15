@@ -111,7 +111,7 @@
                         'Telah Sampai')
                         <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
                             class="btn btn-sm btn-outline-success mb-2">Tracking</a>
-                        <a href="{{ URL::to('komplain/pengajuan/'.$detail->kode_transaksi)}}"
+                        <a href="{{ URL::to('komplain/pengajuan?id_trk='.$detail->id_transaksi.'&kd_inv='.$detail->transaksi_detail[0]->kode_invoice)}}"
                             class="btn btn-sm btn-outline-success mb-2">Komplain Pesanan</a>
                         <a href="#" class="btn btn-sm btn-outline-success mb-2" data-target="#modalBatalTransaksi"
                             data-toggle="modal">Beri Ulasan</a>
