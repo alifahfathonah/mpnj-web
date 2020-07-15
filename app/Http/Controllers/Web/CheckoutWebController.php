@@ -122,13 +122,13 @@ class CheckoutWebController extends Controller
                         'produk_id' => $k->produk_id,
                         'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-' . $n,
                         'jumlah' => $k->jumlah,
-                        'harga_jual' => $k->harga_jual,
+                        'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->harga_jual / 100 * $k->harga_jual),
                         'diskon' => $k->produk->diskon,
                         'kurir' => $k->kurir,
                         'service' => $k->service,
                         'ongkir' => $k->ongkir,
                         'etd' => $k->etd,
-                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : $k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual),
+                        'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah,
                         'user_id' => $k->produk->user_id
                     ];
                     Transaksi_Detail::create($trxDetail);
