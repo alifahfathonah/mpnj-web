@@ -19,6 +19,12 @@ class CreateComplainsTable extends Migration
             $table->foreign('user_id')->references('id_user')->on('users');
             $table->integer('produk_id')->unsigned();
             $table->foreign('produk_id')->references('id_produk')->on('produk');
+            $table->integer('konsumen_id')->unsigned();
+            $table->foreign('konsumen_id')->references('id_user')->on('users');
+            $table->integer('transaksi_id')->unsigned();
+            $table->foreign('transaksi_id')->references('id_transaksi')->on('transaksi');
+            $table->string('kode_invoice')->nullable();
+            $table->enum('status', ['Butuh Direspon', 'Sudah Dibaca', 'Selesai'])->default('Butuh Direspon');
             $table->enum('komplain', ['Tidak Sesuai', 'Tidak Lengkap', 'Rusak'])->default('Tidak Sesuai');
             $table->text('deskripsi')->nullable();
             $table->string('foto_komplain')->nullable();
