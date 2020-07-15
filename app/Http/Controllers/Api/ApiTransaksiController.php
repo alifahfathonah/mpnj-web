@@ -96,7 +96,7 @@ class ApiTransaksiController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user = User::find($request->user_id)->first();
+            $user = User::where('id_user', $request->user_id)->first();
             $trx = [
                 'kode_transaksi' => time(),
                 'user_id' => $request->user_id,
