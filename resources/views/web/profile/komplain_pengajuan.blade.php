@@ -1,22 +1,24 @@
-<h5 class="card-title">Wishlist Anda</h5>
+<h5 class="card-title">Komplain Anda</h5>
 <div class="card">
     <div class="card-body">
         <h5 class="card-title mb-4">Apa Masalah Yang Anda Temui ?</h5>
         <form action="{{ URL::to('komplain/simpan') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" id="id_transaksi" name="id_transaksi" value="{{$komplain->id_transaksi}}">
             <div class="form-group">
-                <label>Pilih Toko Yang Bermasalah !</label>
-                <select class="form-control" name="id_user" id="id_user">
-                    @foreach($komplain->transaksi_detail->unique('user_id') as $toko)
-                    <option value="{{$toko->user_id}}">{{$toko->user->nama_toko}}</option>
-                    @endforeach
-                </select>
+                <label>Toko Yang Bermasalah !</label>
+                @foreach($komplain->transaksi_detail->unique('user_id') as $toko)
+                <input type="text" id="nama_toko" name="nama_toko" class="form-control"
+                    value="{{$toko->user->nama_toko}}" maxlength="225" disabled>
+                <input type="hidden" id="id_user" name="id_user" value="{{$toko->user_id}}">
+                <input type="hidden" id="kode_invoice" name="kode_invoice" value="{{$toko->kode_invoice}}">
+                @endforeach
             </div>
             <div class="form-group">
                 <label>Pilih Produk Yang Bermasalah !</label>
                 <select class="form-control" name="id_produk" id="id_produk">
                     @foreach($komplain->transaksi_detail as $produk)
-                    <option value="{{$produk->produk_id}}">{{$produk->produk->nama_produk}}</option>
+                    <option value="{{$produk->produk_id}}" id="produk">{{$produk->produk->nama_produk}}</option>
                     @endforeach
                 </select>
             </div>
