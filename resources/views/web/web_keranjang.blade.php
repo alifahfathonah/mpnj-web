@@ -50,7 +50,7 @@
                                         <figcaption class="info">
                                             <a href="{{ URL::to('produk/'.$k['slug']) }}"
                                                 class="title text-dark">{{ $k['nama_produk'] }}</a>
-                                            <p class="text-muted small" style="color: black">Kategori:
+                                            <p class="small" style="color: black">Kategori:
                                                 {{ $k['kategori'] }}</p>
                                         </figcaption>
                                     </figure>
