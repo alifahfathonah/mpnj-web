@@ -9,7 +9,7 @@ class Complain extends Model
 {
     protected $table = 'complains';
     protected $primaryKey = 'id_complain';
-    protected $fillable = ['id_complain', 'user_id', 'produk_id', 'komplain', 'deskripsi', 'foto_komplain', 'konsumen_id'];
+    protected $fillable = ['id_complain', 'user_id', 'produk_id', 'konsumen_id', 'transaksi_id', 'kode_invoice', 'komplain', 'deskripsi', 'foto_komplain'];
     public $timestamps = true;
 
     public function user()
