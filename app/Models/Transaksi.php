@@ -39,4 +39,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
+
+    public function komplain()
+    {
+        return $this->hasOne(Complain::class, 'transaksi_id', 'id_transaksi');
+    }
 }
