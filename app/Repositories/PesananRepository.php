@@ -52,7 +52,7 @@ class PesananRepository
                         'nama_produk' => $pesanan->produk->nama_produk,
                         'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
                         'jumlah' => $pesanan->jumlah,
-                        'harga' => $pesanan->diskon == 0 ? $pesanan->produk->harga_jual : $pesanan->produk->harga_jual - ($pesanan->produk->harga_jual / 100 * $pesanan->produk->harga_jual),
+                        'harga' => $pesanan->diskon == 0 ? $pesanan->harga_jual : $pesanan->harga_jual - ($pesanan->harga_jual / 100 * $pesanan->harga_jual),
                         'kurir' => $pesanan->pengiriman->kurir,
                         'ongkir' => $pesanan->pengiriman->ongkir,
                         'service' => $pesanan->pengiriman->service,
