@@ -20,6 +20,7 @@ class BankRepository
                     return [
                         'id_bank' => $bank->id_bank,
                         'nama_bank' => $bank->nama_bank,
+                        'foto_bank' =>  $bank->foto_bank,
                         'rekening' => $bank->rekening_admin->nomor_rekening,
                         'atas_nama' => $bank->rekening_admin->atas_nama_rekening
                     ];
