@@ -37,10 +37,10 @@ class PesananRepository
             );
     }
 
-    public function detail($id_detail)
+    public function detail($kode_invoice)
     {
-        return Transaksi_Detail::where('id_transaksi_detail', $id_detail)
-            ->with('produk', 'user', 'transaksi', 'transaksi.konfirmasi')
+        return Transaksi_Detail::where('kode_invoice', $kode_invoice)
+            ->with('produk', 'user', 'transaksi', 'transaksi.konfirmasi', 'pengiriman')
             ->get()
             ->map(
                 function ($pesanan) {
@@ -52,9 +52,11 @@ class PesananRepository
                         'nama_produk' => $pesanan->produk->nama_produk,
                         'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
                         'jumlah' => $pesanan->jumlah,
-                        'harga' => $pesanan->produk->harga_jual,
-                        'kurir' => $pesanan->kurir,
-                        'ongkir' => $pesanan->ongkir,
+                        'harga' => $pesanan->diskon == 0 ? $pesanan->harga_jual : $pesanan->harga_jual - ($pesanan->diskon / 100 * $pesanan->harga_jual),
+                        'kurir' => $pesanan->pengiriman->kurir,
+                        'ongkir' => $pesanan->pengiriman->ongkir,
+                        'service' => $pesanan->pengiriman->service,
+                        'etd' => $pesanan->pengiriman->etd,
                         'tujuan' => $pesanan->transaksi->to,
                         'no_pesanan' => $pesanan->transaksi->kode_transaksi,
                         'waktu_pesan' => $pesanan->transaksi->waktu_transaksi,

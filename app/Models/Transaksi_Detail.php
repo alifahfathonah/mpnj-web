@@ -16,13 +16,9 @@ class Transaksi_Detail extends Model
         'jumlah',
         'harga_jual',
         'diskon',
-        'kurir',
-        'service',
-        'ongkir',
-        'etd',
         'sub_total',
         'status_order',
-        'resi',
+        'kode_invoice',
     ];
     public $timestamps = true;
 
@@ -39,5 +35,10 @@ class Transaksi_Detail extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
+    }
+
+    public function pengiriman()
+    {
+        return $this->hasOne(Pengiriman::class, 'kode_invoice', 'kode_invoice');
     }
 }

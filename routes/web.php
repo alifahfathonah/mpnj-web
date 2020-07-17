@@ -60,7 +60,7 @@ Route::group(['namespace' => 'Web'], function () {
     });
 
     Route::group(['prefix' => 'checkout'], function () {
-        Route::post('/', 'CheckoutWebController@index');
+        Route::get('/', 'CheckoutWebController@index');
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
         Route::post('batal', 'CheckoutWebController@batal');
@@ -91,11 +91,11 @@ Route::group(['namespace' => 'Web'], function () {
 
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'PesananWebController@index')->name('pesanan')->middleware('checkUserLogin');
-        Route::get('detail/{id_trx_detail}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
-        Route::post('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::get('detail', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::post('diterima/{kode_invoice}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
-        Route::get('export_invoice/{id}', 'PesananWebController@exportInvoice');
-        Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
+        Route::get('export_invoice', 'PesananWebController@exportInvoice');
+        Route::get('tracking/{kode_invoice}', 'PesananWebController@tracking')->name('tracking');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {

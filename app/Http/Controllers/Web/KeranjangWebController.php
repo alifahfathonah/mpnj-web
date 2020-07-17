@@ -107,12 +107,24 @@ class KeranjangWebController extends Controller
 
     public function go_checkout(Request $request)
     {
-        $id_keranjang = $request->id_keranjang;
-
-        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
-
-        if ($update) {
-            return $update;
+        if (is_null($request->id_keranjang)) {
+            return response()->json([
+                'pesan' => 'Data belum dipilih'
+            ], 400);
+        }
+        DB::beginTransaction();
+        try {
+            Keranjang::where('user_id', Auth::id())->update(['status' => 'N']);
+            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->update(['status' => 'Y']);
+            DB::commit();
+            return response()->json([
+                'pesan' => 'sukses'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 400);
         }
     }
 }

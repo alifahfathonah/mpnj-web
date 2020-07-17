@@ -40,8 +40,6 @@ class AppServiceProvider extends ServiceProvider
 
                 $keranjang = Keranjang::with(['produk', 'user'])
                     ->where('user_id', Auth::id())
-//                    ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-                    ->where('status', 'N')
                     ->limit(2)
                     ->get();
 

@@ -21,19 +21,51 @@ class ApiPesananController extends Controller
 
     public function index(Request $request)
     {
-        $pesanan = Transaksi::with('transaksi_detail.produk.foto_produk')->get();
-        return response()->json($pesanan, 200);
-//        $tab = $request->query('tab');
-//        $id = $request->query('id');
-//        $pesanan = $this->pesananRepository->all($id, $tab);
-//        return $pesanan;
+        $id = $request->query('id');
+        $tab = $request->query('tab');
+
+        $pesanan = Transaksi_Detail::orderBy('created_at', 'DESC')
+            ->with('produk', 'transaksi')
+            ->whereHas('transaksi', function ($query) use ($id) {
+                $query->where('user_id', $id);
+            })
+            ->when($tab != '', function ($query) use ($tab) {
+                $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
+            })
+            ->get()
+            ->groupBy('kode_invoice');
+
+        $invoice = collect();
+        foreach ($pesanan as $key => $p) {
+            $item = collect();
+            foreach ($p as $p) {
+                $item->push([
+                    'nama_produk' => $p->produk->nama_produk,
+                    'foto' => $p->produk->foto_produk[0]->foto_produk,
+                    'harga_jual' => $p->produk->harga_jual,
+                    'status_order' => $p->status_order
+                ]);
+            }
+            $invoice->push([
+                'kode_invoice' => $key,
+                'nama_toko' => $p->user->nama_toko,
+                'jumlah_pesanan' => $pesanan[$key]->count(),
+                'waktu_transaksi' => $p->transaksi->waktu_transaksi,
+                'total_pembayaran' => $pesanan[$key]->sum('sub_total'),
+                'item' => $item
+            ]);
+        }
+
+        return response()->json([
+            'data_pesanan' => $invoice
+        ], 200);
     }
 
-    public function getDetail($id_detail)
+    public function getDetail($kode_invoice)
     {
-        $data = Transaksi_Detail::where('id_transaksi_detail', $id_detail)->get();
+        $data = Transaksi_Detail::where('kode_invoice', $kode_invoice)->get();
         if (count($data) > 0) {
-            $pesanan = $this->pesananRepository->detail($id_detail);
+            $pesanan = $this->pesananRepository->detail($kode_invoice);
             $res['data'] = $pesanan;
             return response()->json($res);
         } else {

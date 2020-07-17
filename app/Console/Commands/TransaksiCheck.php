@@ -50,6 +50,7 @@ class TransaksiCheck extends Command
                 try {
 //                    $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal', 'proses_pembayaran' => 'tolak']);
                     $update = Transaksi_Detail::where('transaksi_id', $t->id_transaksi)->update(['status_order' => 'Dibatalkan']);
+                    $t->update(['proses_pembayaran' => 'tolak']);
                     $kirimEmail = dispatch(new sendOutdateTransaction($t));
                     DB::commit();
                 } catch (Exception $e) {

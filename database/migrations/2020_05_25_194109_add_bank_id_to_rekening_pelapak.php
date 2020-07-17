@@ -24,7 +24,7 @@ class AddBankIdToRekeningPelapak extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(Blueprint $table)
     {
         $table->dropForeign('bank_id');
     }
