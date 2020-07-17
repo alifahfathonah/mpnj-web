@@ -8,7 +8,7 @@ class Bank extends Model
 {
     protected $table = 'bank';
     protected $primaryKey = 'id_bank';
-    protected $fillable = ['nama_bank'];
+    protected $fillable = ['nama_bank', 'foto_bank'];
     public $timestamps = false;
 
     public function rekening_admin()
