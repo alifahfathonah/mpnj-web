@@ -2,7 +2,8 @@
     <article class="card">
         <header class="card-header">
             <strong class="d-inline-block mr-3">ID Transaksi: {{ $detail->kode_transaksi }} -
-                <span>Waktu Pemesanan: {{ \Carbon\Carbon::parse($detail->created_at)->format('d M, Y') }}</span></strong>
+                <span>Waktu Pemesanan:
+                    {{ \Carbon\Carbon::parse($detail->created_at)->format('d M, Y') }}</span></strong>
         </header>
         <div class="card-body">
             <div class="row">
@@ -14,22 +15,22 @@
         </div> <!-- card-body .// -->
         <div class="table-responsive">
             @if(session()->has('trxBatalSukses'))
-                <div class="alert alert-danger alert-dismissable">{{ session()->get('trxBatalSukses') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-danger alert-dismissable">{{ session()->get('trxBatalSukses') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @elseif(session()->has('trxSukses'))
-                <div class="alert alert-success alert-dismissable">{{ session()->get('trxSukses') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-success alert-dismissable">{{ session()->get('trxSukses') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @endif
             <br>
             <table class="table table-hover">
                 <tbody>
-                @foreach($detail->transaksi_detail->groupBy('user.nama_toko') as $key => $de)
+                    @foreach($detail->transaksi_detail->groupBy('user.nama_toko') as $key => $de)
                     <article class="card">
                         <header class="card-header">
                             <strong class="d-inline-block mr-3">{{ $key }}</strong>
@@ -37,43 +38,52 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <tbody>
-                                @foreach($de as $d)
+                                    @foreach($de as $d)
                                     <tr>
                                         <td width="65">
                                             <img src="{{ env('FILES_ASSETS').$d->produk->foto_produk[0]->foto_produk }}"
-                                                 class="img-xs border">
+                                                class="img-xs border">
                                         </td>
                                         <td width="600">
                                             <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
                                             <var class="price text-muted">
                                                 @if($d->diskon == 0)
-                                                    <span style="color: black">@currency($d->harga_jual) x {{ $d->jumlah }} </span>
+                                                <span style="color: black">@currency($d->harga_jual) x {{ $d->jumlah }}
+                                                </span>
                                                 @else
-                                                    <span style="color: black">@currency($d->harga_jual - ($d->diskon / 100 *
-                                                            $d->harga_jual)) x {{ $d->jumlah }} </span>
+                                                <span style="color: black">@currency($d->harga_jual - ($d->diskon / 100
+                                                    *
+                                                    $d->harga_jual)) x {{ $d->jumlah }} </span>
                                                 @endif
                                             </var>
+                                            @if($detail->transaksi_detail[0]->status_order ==
+                                            'Telah Sampai')
+                                            <a href="{{URL::to('review/produk/'.$d->produk->slug) }}"
+                                                class="btn btn-sm btn-outline-success ml-2" style="float: right">Beri
+                                                Ulasan</a>
+                                            @endif
                                         </td>
                                         <td>@currency($d->sub_total)</td>
                                     </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="2">Ongkir ({{ $d->pengiriman->kurir }}, {{ $d->pengiriman->service }}
-                                        )
-                                    </td>
-                                    <td>@currency($d->pengiriman->ongkir)</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">Total</td>
-                                    <td>
-                                        @currency($de->sum('sub_total') + $d->pengiriman->ongkir)
-                                    </td>
-                                </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="2">Ongkir ({{ $d->pengiriman->kurir }},
+                                            {{ $d->pengiriman->service }}
+                                            )
+                                        </td>
+                                        <td>@currency($d->pengiriman->ongkir)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Total</td>
+                                        <td>
+                                            @currency($de->sum('sub_total') + $d->pengiriman->ongkir)
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div> <!-- table-responsive .end// -->
                     </article>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
             <br>
@@ -82,9 +92,9 @@
                     <td width="665">Total Bayar</td>
                     <td>
                         @if($detail->proses_pembayaran == 'belum')
-                            @currency($detail->total_bayar)
+                        @currency($detail->total_bayar)
                         @else
-                            @currency($detail->transaksi_detail->sum('sub_total') + $d->pengiriman->ongkir)
+                        @currency($detail->transaksi_detail->sum('sub_total') + $d->pengiriman->ongkir)
                         @endif
                     </td>
                 </tr>
@@ -92,32 +102,35 @@
                     <td>Aksi</td>
                     <td>
                         @if($detail->transaksi_detail[0]->status_order != 'Dibatalkan')
-                            @if($detail->proses_pembayaran == 'belum')
-                                <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
-                                   class="btn btn-sm btn-outline-success">Bayar Sekarang</a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" data-target="#modalBatalTransaksi"
-                                   data-toggle="modal">Batalkan Pesanan</a>
-                            @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order == 'Dikirim')
-                                <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalPesananDiterima"
-                                   data-toggle="modal">Pesanan Diterima</a>
-                                <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                                   class="btn btn-sm btn-outline-success">Tracking</a>
-                            @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order == 'Telah Sampai')
-                                <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                                   class="btn btn-sm btn-outline-success">Tracking</a>
-                                <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalBatalTransaksi"
-                                   data-toggle="modal">Beri Ulasan</a>
-                            @endif
+                        @if($detail->proses_pembayaran == 'belum')
+                        <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
+                            class="btn btn-sm btn-outline-success">Bayar Sekarang</a>
+                        <a href="#" class="btn btn-sm btn-outline-danger" data-target="#modalBatalTransaksi"
+                            data-toggle="modal">Batalkan Pesanan</a>
+                        @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
+                        'Dikirim')
+                        <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalPesananDiterima"
+                            data-toggle="modal">Pesanan Diterima</a>
+                        <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
+                            class="btn btn-sm btn-outline-success">Tracking</a>
+                        @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
+                        'Telah Sampai')
+                        <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
+                            class="btn btn-sm btn-outline-success">Tracking</a>
+                        {{-- <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalBatalTransaksi"
+                            data-toggle="modal">Beri Ulasan</a> --}}
+                        @endif
                         @endif
                         <a href="{{ URL::to('pesanan/export_invoice?id='.$detail->id_transaksi.'&inv='.$detail->transaksi_detail[0]->kode_invoice) }}"
-                           class="btn btn-sm btn-outline-success">Cetak Invoice</a>
+                            class="btn btn-sm btn-outline-success">Cetak Invoice</a>
                     </td>
                 </tr>
                 {{--                @if($detail->proses_pembayaran == 'belum')--}}
                 {{--                    <tr>--}}
                 {{--                        <td>Aksi</td>--}}
                 {{--                        <td>--}}
-                {{--                            <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}" class="btn btn-outline-danger">Bayar Sekarang</a>--}}
+                {{--                            <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
+                class="btn btn-outline-danger">Bayar Sekarang</a>--}}
                 {{--                            <a href="#" class="btn btn-outline-danger" data-target="#modalBatalTransaksi" data-toggle="modal">Batalkan Pesanan</a>--}}
                 {{--                        </td>--}}
                 {{--                    </tr>--}}
@@ -136,7 +149,7 @@
 
 
 <div class="modal fade" id="modalPesananDiterima" role="dialog" aria-labelledby="exampleModalCenterTitle"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -151,7 +164,7 @@
                 <br>
                 <br>
                 <form action="{{ URL::to('pesanan/diterima/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                      method="POST">
+                    method="POST">
                     @csrf
                     <button type="submit" class="btn btn-outline-success">Lanjutkan</button>
                 </form>
@@ -184,7 +197,7 @@
 </div>
 
 <div class="modal fade" id="modalBatalTransaksi" role="dialog" aria-labelledby="exampleModalCenterTitle"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
