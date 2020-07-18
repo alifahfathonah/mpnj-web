@@ -60,10 +60,10 @@ class ReviewWebController extends Controller
 
         $cekReviewer = Review::with(['user', 'produk'])->where('produk_id', $request->id_produk)->where('user_id', Auth::id())->get()->count(1);
         if ($cekReviewer) {
-            return redirect()->back()->with('message', 'Anda Sudah Mereview Produk Ini');
+            return redirect()->back()->with('message', 'Anda Sudah Mengulas Produk Ini');
         } else {
             Review::create($review);
-            return redirect()->back()->with('message', 'Terimakasih Atas Review Anda');
+            return redirect()->back()->with('message', 'Terimakasih Atas Ulasan Anda');
         }
     }
 
@@ -108,6 +108,6 @@ class ReviewWebController extends Controller
             File::delete('assets/foto_review/' . $find->foto_review);
         }
         $find->update($review);
-        return redirect()->back()->with('message', 'Review Diupdate');
+        return redirect()->back()->with('message', 'Ulasan Diupdate');
     }
 }
