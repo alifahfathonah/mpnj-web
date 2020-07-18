@@ -8,10 +8,10 @@ class ProdukRepository
 {
     public function all($nama = null)
     {
-        return Produk::orderBy('id_produk')
+        return Produk::orderBy('id_produk', 'DESC')
             ->with('foto_produk', 'user', 'kategori')
             ->when($nama != null, function ($query) use ($nama) {
-                $query->where('nama_produk', 'like', '%'.$nama.'%');
+                $query->where('nama_produk', 'like', '%' . $nama . '%');
             })
             ->get()
             ->map(
