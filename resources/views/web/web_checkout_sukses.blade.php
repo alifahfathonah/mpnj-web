@@ -18,17 +18,16 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h6 class="text">Pembayaran</h6>
+
+                            @foreach($rekening_admin as $ra)
                             <span class="text-success font-weight-bold">
-                                @foreach($rekening_admin as $ra)
-                                    @if($ra->nama_bank == 'BNI')
-                                        <img src="{{ asset('assets/logo/ic_bni.png') }}" height="26">
-                                    @elseif($ra->nama_bank == 'Mandiri')
-                                        <img src="{{ asset('assets/logo/ic_mandiri.png') }}" height="26">
-                                    @endif
+                                <img src="{{ asset('assets/foto_bank/'.$ra->foto_bank) }}" height="26" class=" border"
+                                    style="border-radius: 5px">
                                 | {{$ra->rekening_admin->nomor_rekening}} |
                                 {{$ra->rekening_admin->atas_nama_rekening}}<br>
-                                @endforeach
                             </span>
+                            @endforeach
+                            {{-- </span> --}}
                             <p>Total Ongkir : @currency($order_ongkir) <br>
                                 <span class="b">Total Bayar: @currency($order_sukses->total_bayar)</span>
                             </p>
