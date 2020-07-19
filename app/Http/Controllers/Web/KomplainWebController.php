@@ -68,4 +68,11 @@ class KomplainWebController extends Controller
             return redirect()->to('/komplain');
         }
     }
+
+    public function view($id_komplain)
+    {
+        $data['komplain'] = Complain::with(['transaksi', 'user', 'produk', 'produk.foto_produk'])->where('id_complain', $id_komplain)->first();
+        return view('web/web_profile', $data);
+        return $data;
+    }
 }
