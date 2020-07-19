@@ -2,7 +2,7 @@
     <div class="card-header p-2">
         <ul class="nav nav-pills">
             <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">Semua</a></li>
-            <li class="nav-item"><a class="nav-link" href="#respon" data-toggle="tab">Butuh Direspon</a></li>
+            <li class="nav-item"><a class="nav-link" href="#respon" data-toggle="tab">Menunggu Respon</a></li>
             <li class="nav-item"><a class="nav-link" href="#baca" data-toggle="tab">Sudah Dibaca</a></li>
             <li class="nav-item"><a class="nav-link" href="#selesai" data-toggle="tab">Selesai</a></li>
         </ul>
@@ -57,9 +57,8 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light"
-                                        data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-                                    <a href="" class="btn btn-light"> Remove</a>
+                                    <a href="{{URL::to('komplain/preview/'.$k->id_complain)}}" class="btn btn-light">
+                                        Preview</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -117,9 +116,8 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light"
-                                        data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-                                    <a href="" class="btn btn-light"> Remove</a>
+                                    <a href="{{URL::to('komplain/preview/'.$k->id_complain)}}" class="btn btn-light">
+                                        Preview</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -182,9 +180,8 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light"
-                                        data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-                                    <a href="" class="btn btn-light"> Remove</a>
+                                    <a href="{{URL::to('komplain/preview/'.$k->id_complain)}}" class="btn btn-light">
+                                        Preview</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -246,9 +243,8 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light"
-                                        data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-                                    <a href="" class="btn btn-light"> Remove</a>
+                                    <a href="{{URL::to('komplain/preview/'.$k->id_complain)}}" class="btn btn-light">
+                                        Preview</a>
                                 </td>
                             </tr>
                             @endforeach
