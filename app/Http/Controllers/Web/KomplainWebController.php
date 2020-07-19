@@ -75,4 +75,12 @@ class KomplainWebController extends Controller
         return view('web/web_profile', $data);
         return $data;
     }
+
+    public function status($id_complain)
+    {
+        $find = Complain::where('id_complain', $id_complain)->update(['status' => 'Selesai']);
+        if ($find) {
+            return redirect()->back();
+        }
+    }
 }
