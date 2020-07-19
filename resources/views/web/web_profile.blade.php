@@ -7,19 +7,19 @@
     <br>
     <div class="container">
         @if(session('emailVerified'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('emailVerified') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('emailVerified') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @elseif(session('hasVerified'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('hasVerified') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('hasVerified') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @endif
         <div class="row">
             <aside class="col-md-3 mb-3">
@@ -68,6 +68,8 @@
                                 @include('web.profile.komplain')
                                 @elseif(Route::currentRouteName() == 'komplainPengajuan')
                                 @include('web.profile.komplain_pengajuan')
+                                @elseif(Route::currentRouteName() == 'komplainPreview')
+                                @include('web.profile.komplain_preview')
                                 @elseif(Route::currentRouteName() == 'tracking')
                                 @include('web.profile.tracking')
                                 @endif
