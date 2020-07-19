@@ -242,7 +242,7 @@ class MessagesController extends Controller
             ->orWhere('messages.to_id', Auth::id())
             ->orderBy('messages.created_at', 'desc')
             ->get()
-            ->unique('users.id_user');
+            ->unique('id_user');
 
         if ($users->count() > 0) {
             // fetch contacts
