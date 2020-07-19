@@ -123,6 +123,8 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/', 'KomplainWebController@index')->name('komplain');
         Route::get('/pengajuan', 'KomplainWebController@pengajuan')->name('komplainPengajuan');
         Route::post('/simpan', 'KomplainWebController@save');
+        Route::get('/preview/{id_komplain}', 'KomplainWebController@view')->name('komplainPreview');
+        Route::get('/update/{id_komplain}', 'KomplainWebController@status');
     });
 });
 
