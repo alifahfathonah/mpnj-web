@@ -27,7 +27,7 @@
                 <span class="activeStatus"></span>
             @endif
         <div class="avatar av-m" 
-        style="background-image: url('{{ asset('/storage/'.config('chatify.user_avatar.folder').'/'.$user->avatar) }}');">
+        style="background-image: url('{{ is_null($user->foto_profil) ? asset('/storage/'.config('chatify.user_avatar.folder').'/'.$user->avatar) : asset('assets/foto_profil_konsumen/'.$user->foto_profil) }}');">
         </div>
         </td>
         {{-- center side --}}
