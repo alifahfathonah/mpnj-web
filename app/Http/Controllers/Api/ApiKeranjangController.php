@@ -43,6 +43,12 @@ class ApiKeranjangController extends Controller
                     'id_produk' => $val->produk->id_produk,
                     'nama_produk' => $val->produk->nama_produk,
                     'stok' => $val->produk->stok,
+                    'terjual' => $val->produk->terjual,
+                    'kategori' => [
+                        'id_kategori' => $val->produk->kategori->id_kategori_produk,
+                        'nama_kategori' => $val->produk->kategori->nama_kategori
+                    ],
+                    'keterangan' => $val->produk->keterangan,
                     'foto' => $val->produk->foto_produk[0]->foto_produk
                 ]);
             }
