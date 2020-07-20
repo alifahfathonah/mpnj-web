@@ -189,7 +189,7 @@ class ApiTransaksiController extends Controller
                     'user_id' => $td->transaksi->user_id,
                     'status' => 'N',
                     'jumlah' => $td->jumlah,
-                    'harga_jual' => $td->harga_jual,
+                    'harga_jual' => $td->produk->harga_jual,
                     'kurir' => null,
                     'service' => null,
                     'ongkir' => 0,
