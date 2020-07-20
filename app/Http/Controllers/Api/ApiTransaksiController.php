@@ -190,10 +190,10 @@ class ApiTransaksiController extends Controller
                     'status' => 'N',
                     'jumlah' => $td->jumlah,
                     'harga_jual' => $td->harga_jual,
-                    'kurir' => 'null',
-                    'service' => 'null',
-                    'ongkir' => 'null',
-                    'etd' => 'null'
+                    'kurir' => null,
+                    'service' => null,
+                    'ongkir' => 0,
+                    'etd' => null
                 ];
                 Keranjang::create($trxDetail);
             }
