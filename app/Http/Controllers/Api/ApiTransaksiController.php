@@ -182,7 +182,7 @@ class ApiTransaksiController extends Controller
             $trx_detail = Transaksi_Detail::with('transaksi')->where('transaksi_id', $request->transaksi_id)->get();
             $kode_invoice = [];
             foreach ($trx_detail as $td) {
-                $pengiriman = Pengiriman::where('kode_invoice', $trx_detail->kode_invoice)->first();
+                $pengiriman = Pengiriman::where('kode_invoice', $td->kode_invoice)->first();
                 array_push($kode_invoice, $td->kode_invoice);
                 $trxDetail = [
                     'produk_id' => $td->produk_id,
@@ -190,10 +190,10 @@ class ApiTransaksiController extends Controller
                     'status' => 'N',
                     'jumlah' => $td->jumlah,
                     'harga_jual' => $td->harga_jual,
-                    'kurir' => $pengiriman->kurir,
-                    'service' => $pengiriman->service,
-                    'ongkir' => $pengiriman->ongkir,
-                    'etd' => $pengiriman->etd
+                    'kurir' => null,
+                    'service' => null,
+                    'ongkir' => null,
+                    'etd' => null
                 ];
                 Keranjang::create($trxDetail);
             }
