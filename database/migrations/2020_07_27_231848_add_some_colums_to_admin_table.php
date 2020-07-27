@@ -14,8 +14,6 @@ class AddSomeColumsToAdminTable extends Migration
     public function up()
     {
         Schema::table('admin', function (Blueprint $table) {
-            $table->string('username')->unique();
-            $table->string('password');
             $table->string('nama_lengkap')->nullable();
             $table->char('nomor_hp', 12)->nullable();
             $table->string('email')->unique();
