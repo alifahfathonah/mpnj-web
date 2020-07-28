@@ -122,9 +122,9 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function hapus_alamat(Request $request, $alamat_id)
+    public function hapus_alamat($alamat_id, $id_user)
     {
-        $id_user = $request->id_user;
+        // $id_user = $request->id_user;
         $find = User::with('alamat')->where('id_user', $id_user)->first();
         // $alamat = Alamat::where('id_alamat', $find->alamat_utama)->first();
         if ($find->alamat_utama == $alamat_id) {
@@ -133,7 +133,7 @@ class ApiKonsumenController extends Controller
                 'pesan' => 'Alamat Utama Tidak Dapat Dihapus'
             ]);
         } else {
-            Alamat::find($alamat_id)->delete();
+            Alamat::where('id_alamat', $alamat_id)->delete();
             return response()->json([
                 'pesan' => 'Alamat Berhasil Dihapus'
             ]);
