@@ -51,4 +51,9 @@ class Produk extends Model
     {
         return $this->hasMany(Wishlist::class, 'produk_id', 'id_produk');
     }
+
+    public function komplain()
+    {
+        return $this->hasMany(Complain::class, 'produk_id', 'id_produk');
+    }
 }

@@ -117,6 +117,15 @@ Route::group(['namespace' => 'Web'], function () {
         Route::get('/delete/{id}', 'WishlistWebController@delete');
         Route::get('/clear/{id_user}', 'WishlistWebController@deleteAll');
     });
+
+    //komplain
+    Route::group(['prefix' => 'komplain'], function () {
+        Route::get('/', 'KomplainWebController@index')->name('komplain');
+        Route::get('/pengajuan', 'KomplainWebController@pengajuan')->name('komplainPengajuan');
+        Route::post('/simpan', 'KomplainWebController@save');
+        Route::get('/preview/{id_komplain}', 'KomplainWebController@view')->name('komplainPreview');
+        Route::get('/update/{id_komplain}', 'KomplainWebController@status');
+    });
 });
 
 //daftar

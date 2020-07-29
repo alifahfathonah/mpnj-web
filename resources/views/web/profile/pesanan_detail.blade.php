@@ -56,12 +56,6 @@
                                                     $d->harga_jual)) x {{ $d->jumlah }} </span>
                                                 @endif
                                             </var>
-                                            @if($detail->transaksi_detail[0]->status_order ==
-                                            'Telah Sampai')
-                                            <a href="{{URL::to('review/produk/'.$d->produk->slug) }}"
-                                                class="btn btn-sm btn-outline-success ml-2" style="float: right">Beri
-                                                Ulasan</a>
-                                            @endif
                                         </td>
                                         <td>@currency($d->sub_total)</td>
                                     </tr>
@@ -104,21 +98,23 @@
                         @if($detail->transaksi_detail[0]->status_order != 'Dibatalkan')
                         @if($detail->proses_pembayaran == 'belum')
                         <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
-                            class="btn btn-sm btn-outline-success">Bayar Sekarang</a>
-                        <a href="#" class="btn btn-sm btn-outline-danger" data-target="#modalBatalTransaksi"
+                            class="btn btn-sm btn-outline-success mb-2">Bayar Sekarang</a>
+                        <a href="#" class="btn btn-sm btn-outline-danger mb-2" data-target="#modalBatalTransaksi"
                             data-toggle="modal">Batalkan Pesanan</a>
                         @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
                         'Dikirim')
-                        <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalPesananDiterima"
+                        <a href="#" class="btn btn-sm btn-outline-success mb-2" data-target="#modalPesananDiterima"
                             data-toggle="modal">Pesanan Diterima</a>
                         <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                            class="btn btn-sm btn-outline-success">Tracking</a>
+                            class="btn btn-sm btn-outline-success mb-2">Tracking</a>
                         @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
                         'Telah Sampai')
                         <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                            class="btn btn-sm btn-outline-success">Tracking</a>
-                        {{-- <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalBatalTransaksi"
-                            data-toggle="modal">Beri Ulasan</a> --}}
+                            class="btn btn-sm btn-outline-success mb-2">Tracking</a>
+                        <a href="{{ URL::to('komplain/pengajuan?id_trk='.$detail->id_transaksi.'&kd_inv='.$detail->transaksi_detail[0]->kode_invoice)}}"
+                            class="btn btn-sm btn-outline-success mb-2">Komplain Pesanan</a>
+                        <a href="#" class="btn btn-sm btn-outline-success mb-2" data-target="#modalBatalTransaksi"
+                            data-toggle="modal">Beri Ulasan</a>
                         @endif
                         @endif
                         <a href="{{ URL::to('pesanan/export_invoice?id='.$detail->id_transaksi.'&inv='.$detail->transaksi_detail[0]->kode_invoice) }}"

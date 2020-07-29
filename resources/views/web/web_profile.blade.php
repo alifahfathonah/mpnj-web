@@ -7,19 +7,19 @@
     <br>
     <div class="container">
         @if(session('emailVerified'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('emailVerified') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('emailVerified') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @elseif(session('hasVerified'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('hasVerified') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('hasVerified') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @endif
         <div class="row">
             <aside class="col-md-3 mb-3">
@@ -32,6 +32,8 @@
                         class="{{ Route::currentRouteName() == 'pesanan' ? 'active' : '' }} list-group-item list-group-item-action">Transaksi</a>
                     <a href="{{ URL::to('wishlist') }}"
                         class="{{ Route::currentRouteName() == 'wishlist' ? 'active' : '' }} list-group-item list-group-item-action">Wishlist</a>
+                    <a href="{{ URL::to('komplain') }}"
+                        class="{{ Route::currentRouteName() == 'komplain' ? 'active' : '' }} list-group-item list-group-item-action">Komplain</a>
                     <a href="#" class="list-group-item list-group-item-action" data-target="#modalPassword"
                         data-toggle="modal">Ganti Password</a>
                 </div>
@@ -62,6 +64,12 @@
                                 @include('web.profile.pesanan_detail')
                                 @elseif(Route::currentRouteName() == 'wishlist')
                                 @include('web.profile.wishlist')
+                                @elseif(Route::currentRouteName() == 'komplain')
+                                @include('web.profile.komplain')
+                                @elseif(Route::currentRouteName() == 'komplainPengajuan')
+                                @include('web.profile.komplain_pengajuan')
+                                @elseif(Route::currentRouteName() == 'komplainPreview')
+                                @include('web.profile.komplain_preview')
                                 @elseif(Route::currentRouteName() == 'tracking')
                                 @include('web.profile.tracking')
                                 @endif
