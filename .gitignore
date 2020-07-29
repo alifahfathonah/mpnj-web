@@ -9,7 +9,9 @@
 /public/assets/konfirmasi
 /public/assets/foto_bukti_tf
 /public/assets/foto_review
-/vendor
+!/vendor/
+/vendor/*
+!/vendor/munafio/
 .idea
 .env
 .env.backup
