@@ -8,6 +8,7 @@ use App\Models\Pelapak;
 use App\Models\Pengiriman;
 use App\Models\Review;
 use App\Models\Transaksi;
+use App\Models\Produk;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
