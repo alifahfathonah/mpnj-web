@@ -8,6 +8,7 @@ use App\Models\Transaksi;
 use App\Repositories\KonfirmasiRepository;
 use Illuminate\Http\Request;
 use File;
+use ImageResize;
 
 class ApiKonfirmasiController extends Controller
 {
@@ -52,7 +53,9 @@ class ApiKonfirmasiController extends Controller
 
         if ($simpanKonfirmasi) {
             Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
-            $file->move('assets/foto_bukti_tf', $name);
+            // $file->move('assets/foto_bukti_tf', $name);
+            $img = ImageResize::make($file->path());
+            $img->resize(150, 200)->save('assets/foto_bukti_tf/'.$name);
             $res['pesan'] = "Konfirmasi Pembayaran Sukses Sukses!";
             $res['data'] = $dataKonfirmasi;
 
