@@ -148,6 +148,30 @@
             </div> <!-- row.// -->
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->
+    
+    <nav class="navbar navbar-main navbar-expand-lg border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('/') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ URL::to('/produk') }}">Semua Produk</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ URL::to('/profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ URL::to('/wishlist') }}">Wishlist</a>
+                </li>
+            </ul>
+            </div> <!-- collapse .// -->
+        </div> <!-- container .// -->
+    </nav>
     <div class="corner-ribbon bottom-right sticky blue shadow">COMMIT UNUJA</div>
 </header>

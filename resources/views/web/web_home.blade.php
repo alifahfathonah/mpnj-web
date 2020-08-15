@@ -181,7 +181,7 @@
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">
-                            <div class="col" style="">
+                            <!-- <div class="col" style="">
                                 <ul class="rating-stars">
                                     <li style="width:50%" class="stars-active">
                                         <i class="fa fa-star" style="font-size:small"></i> <i class="fa fa-star"
@@ -199,11 +199,12 @@
                                     </li>
                                 </ul>
                                 <span class="rating-stars" style="font-size:small;">(125)</span>
-                            </div> <!-- rating-wrap.// -->
+                            </div>  -->
 
                         </div>
+                        <br>
                         <div class="row">
-                            <div class="col" style="font-size:small">PAITON {{$p->kota}}</div>
+                            <div class="col" style="font-size:small">{{$p->user->alamatToko->nama_kota}}</div>
                             <!-- selesaikan API nya ya -->
                             <div class="text-right col text-success" style="font-size:small;">{{$p->terjual}}
                                 terjual

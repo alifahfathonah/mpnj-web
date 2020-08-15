@@ -44,8 +44,7 @@
                                 </tr>
                                 <tr>
                                     <th>Alamat</th>
-                                    <td>{{ $a->alamat_lengkap }}, {{ $a->nama_kota }}, {{ $a->nama_provinsi }}
-                                        , {{ $a->kode_pos }}</td>
+                                    <td>{{ $a->getAlamat() }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">

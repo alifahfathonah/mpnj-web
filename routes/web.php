@@ -105,7 +105,7 @@ Route::group(['namespace' => 'Web'], function () {
 
     //review
     Route::group(['prefix' => 'review'], function () {
-        Route::get('produk/{id}', 'ReviewWebController@index');
+        Route::get('produk/{slug}', 'ReviewWebController@index');
         Route::post('produk', 'ReviewWebController@postReview');
         Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
     });

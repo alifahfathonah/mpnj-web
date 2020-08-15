@@ -101,7 +101,7 @@ class CheckoutWebController extends Controller
                 'user_id' => Auth::id(),
                 'total_bayar' => $request->totalBayar,
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
-                'to' => Auth::user()->alamat_fix->getAlamatLengkapAttribute()
+                'to' => Auth::user()->alamat_fix->getAlamat()
             ];
             $simpanTrx = Transaksi::create($trx);
             $keranjang = Keranjang::where('status', 'Y')

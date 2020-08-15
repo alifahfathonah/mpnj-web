@@ -1,32 +1,32 @@
 @extends('mpnj.layout.main')
 
-@section('title','Market Place PP Nurul Jadid')
+@section('title','Produk | Review')
 
 @section('content')
 <br />
 <section class="signup_area section--padding2">
     <div class="container">
-        <article class="card card-product-list">
+        <article class="card card-product-list" style="padding: 2%; border-radius: 10px">
             @if ( session()->has('message') )
-                <div class="alert alert-secondary alert-dismissable mr-5 ml-5 mt-2">{{ session()->get('message') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-secondary alert-dismissable ">{{ session()->get('message') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @elseif(session('tambahWishlistSukses'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ session('tambahWishlistSukses') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('tambahWishlistSukses') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @elseif(session('hapusWishlistSukses'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ session('hapusWishlistSukses') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('hapusWishlistSukses') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @endif
             <div class="row no-gutters">
                 <aside class="col-md-3 my-auto">
@@ -116,13 +116,13 @@
                                 class="img-sm rounded-circle border">
                         </div>
                         @if($produk->wishlists->count() > 0)
-                            <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light btn-block"
-                               data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
-                                        class="fas fa-heart text-primary"></i> Hapus Wishlist</a>
+                        <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light btn-block"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart text-primary"></i> Hapus Wishlist</a>
                         @else
-                            <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light btn-block"
-                               data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
-                                        class="fas fa-heart"></i> Tambah Wishlist</a>
+                        <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light btn-block"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> Tambah Wishlist</a>
                         @endif
                         </form>
                     </div> <!-- info-aside.// -->
