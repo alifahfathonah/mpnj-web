@@ -8,6 +8,7 @@ use App\Models\Pelapak;
 use App\Models\Pengiriman;
 use App\Models\Review;
 use App\Models\Transaksi;
+use App\Models\Produk;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -76,6 +77,7 @@ class PesananWebController extends Controller
             $ongkir = Pengiriman::select('ongkir')->where('kode_invoice', $kode_invoice)->first();
             foreach ($terima as $t) {
                 $t->update(['status_order' => 'Telah Sampai']);
+                Produk::where('id_produk', $t->produk_id)->decrement('stok', $t->jumlah);
             }
             $saldo = $terima->sum('sub_total') + $ongkir->ongkir;
             $updateSaldo = $terima[0]->user->update(['saldo' => $terima[0]->user->saldo + $saldo]);
@@ -106,5 +108,11 @@ class PesananWebController extends Controller
     {
         $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
         return view('web/web_profile', $data);
+    }
+
+    public function trackingwebv($kode_invoice)
+    {
+        $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
+        return view('web/profile/tracking_webview', $data);
     }
 }
