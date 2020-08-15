@@ -32,7 +32,7 @@
                                 <div class="order_summary">
                                     <div class="toggle_title" id="dataPembeli"
                                          data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
-                                        <p>{{ $pembeli->alamat_fix->getAlamatLengkapAttribute() }}</p>
+                                        <p>{{ $pembeli->alamat_fix->getAlamat() }}</p>
                                     </div>
                                 </div>
                             @endif

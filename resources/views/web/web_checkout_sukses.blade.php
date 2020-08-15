@@ -28,7 +28,8 @@
                             </span>
                             @endforeach
                             {{-- </span> --}}
-                            <p>Total Ongkir : @currency($order_ongkir) <br>
+                            <p>
+                            <!-- Total Ongkir : @currency($order_ongkir) <br> -->
                                 <span class="b">Total Bayar: @currency($order_sukses->total_bayar)</span>
                             </p>
                         </div>
@@ -39,7 +40,7 @@
                         </div>
                         <div class="col-md-4">
                             <h6 class="text">Alamat Pengiriman</h6>
-                            <p> {{ $order_sukses->user->alamat_fix->alamat_lengkap }} </p>
+                            <p> {{ $order_sukses->user->alamat_fix->getAlamat() }} </p>
                         </div>
                     </div>
                     <hr>
