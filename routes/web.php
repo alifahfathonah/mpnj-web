@@ -96,6 +96,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
         Route::get('export_invoice', 'PesananWebController@exportInvoice');
         Route::get('tracking/{kode_invoice}', 'PesananWebController@tracking')->name('tracking');
+        Route::get('trackingwebv/{kode_invoice}', 'PesananWebController@trackingwebv')->name('trackingwebv');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {
