@@ -109,4 +109,10 @@ class PesananWebController extends Controller
         $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
         return view('web/web_profile', $data);
     }
+
+    public function trackingwebv($kode_invoice)
+    {
+        $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
+        return view('web/profile/tracking_webview', $data);
+    }
 }
