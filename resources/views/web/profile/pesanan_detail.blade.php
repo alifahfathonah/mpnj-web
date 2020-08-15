@@ -56,12 +56,6 @@
                                                     $d->harga_jual)) x {{ $d->jumlah }} </span>
                                                 @endif
                                             </var>
-                                            @if($detail->transaksi_detail[0]->status_order ==
-                                            'Telah Sampai')
-                                            <a href="{{URL::to('review/produk/'.$d->produk->slug) }}"
-                                                class="btn btn-sm btn-outline-success ml-2" style="float: right">Beri
-                                                Ulasan</a>
-                                            @endif
                                         </td>
                                         <td>@currency($d->sub_total)</td>
                                     </tr>
@@ -79,6 +73,17 @@
                                             @currency($de->sum('sub_total') + $d->pengiriman->ongkir)
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>Aksi</td>
+                                        <td>@if($detail->transaksi_detail[0]->status_order ==
+                                            'Telah Sampai')
+                                            <a href="{{URL::to('review/produk/'.$d->produk->slug) }}"
+                                                class="btn btn-sm btn-outline-success ml-2" style="float: right">Beri
+                                                Ulasan</a>
+                                            @endif
+                                        </td>
+                                        <td></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div> <!-- table-responsive .end// -->
@@ -92,9 +97,9 @@
                     <td width="665">Total Bayar</td>
                     <td>
                         @if($detail->proses_pembayaran == 'belum')
-                        @currency($detail->total_bayar)
+                            @currency($detail->total_bayar)
                         @else
-                        @currency($detail->transaksi_detail->sum('sub_total') + $d->pengiriman->ongkir)
+                            @currency($detail->transaksi_detail->sum('sub_total') + $d->pengiriman->ongkir)
                         @endif
                     </td>
                 </tr>
@@ -102,24 +107,24 @@
                     <td>Aksi</td>
                     <td>
                         @if($detail->transaksi_detail[0]->status_order != 'Dibatalkan')
-                        @if($detail->proses_pembayaran == 'belum')
-                        <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
-                            class="btn btn-sm btn-outline-success">Bayar Sekarang</a>
-                        <a href="#" class="btn btn-sm btn-outline-danger" data-target="#modalBatalTransaksi"
-                            data-toggle="modal">Batalkan Pesanan</a>
-                        @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
-                        'Dikirim')
-                        <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalPesananDiterima"
-                            data-toggle="modal">Pesanan Diterima</a>
-                        <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                            class="btn btn-sm btn-outline-success">Tracking</a>
-                        @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
-                        'Telah Sampai')
-                        <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
-                            class="btn btn-sm btn-outline-success">Tracking</a>
-                        {{-- <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalBatalTransaksi"
-                            data-toggle="modal">Beri Ulasan</a> --}}
-                        @endif
+                            @if($detail->proses_pembayaran == 'belum')
+                            <a href="{{ URL::to('konfirmasi/data/'.$detail->kode_transaksi) }}"
+                                class="btn btn-sm btn-outline-success">Bayar Sekarang</a>
+                            <a href="#" class="btn btn-sm btn-outline-danger" data-target="#modalBatalTransaksi"
+                                data-toggle="modal">Batalkan Pesanan</a>
+                            @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
+                            'Dikirim')
+                            <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalPesananDiterima"
+                                data-toggle="modal">Pesanan Diterima</a>
+                            <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
+                                class="btn btn-sm btn-outline-success">Tracking</a>
+                            @elseif($detail->proses_pembayaran == 'terima' && $detail->transaksi_detail[0]->status_order ==
+                            'Telah Sampai')
+                            <a href="{{ URL::to('pesanan/tracking/'.$detail->transaksi_detail[0]->kode_invoice) }}"
+                                class="btn btn-sm btn-outline-success">Tracking</a>
+                            {{-- <a href="#" class="btn btn-sm btn-outline-success" data-target="#modalBatalTransaksi"
+                                data-toggle="modal">Beri Ulasan</a> --}}
+                            @endif
                         @endif
                         <a href="{{ URL::to('pesanan/export_invoice?id='.$detail->id_transaksi.'&inv='.$detail->transaksi_detail[0]->kode_invoice) }}"
                             class="btn btn-sm btn-outline-success">Cetak Invoice</a>
