@@ -27,7 +27,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/tampil/alamat/{id_alamat}', 'ApiKonsumenController@show_alamat');
         Route::put('/edit/alamat/{id_alamat}', 'ApiKonsumenController@update_alamat');
         Route::put('/edit/alamat/utama/{id_user}', 'ApiKonsumenController@update_alamat_utama');
-        Route::delete('/hapus/alamat/{id_alamat}', 'ApiKonsumenController@hapus_alamat');
+        Route::delete('/hapus/alamat/{id_alamat}/{id_user}', 'ApiKonsumenController@hapus_alamat');
         Route::put('/hapus/{id_konsumen}', 'ApiKonsumenController@hapus_akun');
         Route::put('/aktif/{id_konsumen}', 'ApiKonsumenController@aktif_kembali');
         Route::post('/upload', 'ApiRegisterKonsumenController@upload');
