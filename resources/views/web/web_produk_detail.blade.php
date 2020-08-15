@@ -45,7 +45,7 @@
                     <h2 class="title mt-3">{{ $produk->nama_produk}} </h2>
 
                     <div class="rating-wrap my-3">
-                        <ul class="rating-stars">
+                        <!-- <ul class="rating-stars">
                             <li style="width:80%" class="stars-active">
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -56,8 +56,8 @@
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </li>
-                        </ul>
-                        <small class="label-rating text">132 reviews</small>
+                        </ul> -->
+                        <!-- <small class="label-rating text">132 reviews</small> -->
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i>
                             {{$produk->terjual}} orders </small>
                         @if($produk->stok <= 10) <small class="label-rating text-primary"> <i class="fa fa-box"></i>
@@ -121,9 +121,21 @@
                     <div class="form-row">
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
-                            <div class="aside"><img
-                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
-                                    class="icon icon-md rounded-circle"></div>
+                            <div class="aside">
+                            @if(is_null($produk->user->foto_profil))
+                                <div class="icontext mr-4" style="max-width: 300px;">
+                                    <span class="icon icon-lg rounded-circle border border-primary">
+                                        <i class="fa fa-user text-primary"></i>
+                                    </span>
+                                    <h6 class="text">
+                                        Belum Ada Foto Profil
+                                    </h6>
+                                </div>
+                            @else
+                            <img src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
+                                    class="icon icon-md rounded-circle">
+                            @endif
+                            </div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
                                     class="title text-dark">{{ $produk->user->nama_toko }}</a>
