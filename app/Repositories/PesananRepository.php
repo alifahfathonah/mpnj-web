@@ -28,7 +28,7 @@ class PesananRepository
                         'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
                         'nama_produk' => $pesanan->produk->nama_produk,
                         'jumlah' => $pesanan->jumlah,
-                        'harga' => $pesanan->produk->harga_jual,
+                        'harga' => $pesanan->harga_jual,
                         'total_bayar' => $pesanan->transaksi->total_bayar,
                         'bayar_sebelum' => $pesanan->transaksi->batas_transaksi,
                         'status_order' => $pesanan->status_order
@@ -52,7 +52,7 @@ class PesananRepository
                         'nama_produk' => $pesanan->produk->nama_produk,
                         'foto_produk' => $pesanan->produk->foto_produk[0]->foto_produk,
                         'jumlah' => $pesanan->jumlah,
-                        'harga' => $pesanan->diskon == 0 ? $pesanan->harga_jual : $pesanan->harga_jual - ($pesanan->diskon / 100 * $pesanan->harga_jual),
+                        'harga' => $pesanan->harga_jual,
                         'kurir' => $pesanan->pengiriman->kurir,
                         'ongkir' => $pesanan->pengiriman->ongkir,
                         'service' => $pesanan->pengiriman->service,
