@@ -121,7 +121,7 @@ class ApiTransaksiController extends Controller
                         'produk_id' => $k->produk_id,
                         'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-'.$n,
                         'jumlah' => $k->jumlah,
-                        'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->harga_jual / 100 * $k->harga_jual),
+                        'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual),
                         'diskon' => $k->produk->diskon,
                         'sub_total' => $k->produk->diskon == 0 ? $k->jumlah * $k->harga_jual : ($k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual)) * $k->jumlah,
                         'user_id' => $k->produk->user_id
@@ -182,18 +182,18 @@ class ApiTransaksiController extends Controller
             $trx_detail = Transaksi_Detail::with('transaksi')->where('transaksi_id', $request->transaksi_id)->get();
             $kode_invoice = [];
             foreach ($trx_detail as $td) {
-                $pengiriman = Pengiriman::where('kode_invoice', $trx_detail->kode_invoice)->first();
+                $pengiriman = Pengiriman::where('kode_invoice', $td->kode_invoice)->first();
                 array_push($kode_invoice, $td->kode_invoice);
                 $trxDetail = [
                     'produk_id' => $td->produk_id,
                     'user_id' => $td->transaksi->user_id,
                     'status' => 'N',
                     'jumlah' => $td->jumlah,
-                    'harga_jual' => $td->harga_jual,
-                    'kurir' => $pengiriman->kurir,
-                    'service' => $pengiriman->service,
-                    'ongkir' => $pengiriman->ongkir,
-                    'etd' => $pengiriman->etd
+                    'harga_jual' => $td->produk->harga_jual,
+                    'kurir' => null,
+                    'service' => null,
+                    'ongkir' => 0,
+                    'etd' => null
                 ];
                 Keranjang::create($trxDetail);
             }
