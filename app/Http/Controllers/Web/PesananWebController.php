@@ -64,7 +64,12 @@ class PesananWebController extends Controller
     public function dibatalkan($id)
     {
         $batalTrx = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
+        $batal = Transaksi_Detail::where('transaksi_id', $id)->get();
+
         if ($batalTrx) {
+            foreach ($batal as $b) {
+                Produk::where('id_produk', $b->produk_id)->increment('stok', $b->jumlah);
+            }
             return redirect()->back()->with('trxBatalSukses', 'Transaksi ini sudah dibatalkan dan akan diproses lagi');
         }
     }
