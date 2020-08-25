@@ -56,7 +56,7 @@ class KeranjangWebController extends Controller
     public function simpan(Request $request)
     {
         $cekExistData = Keranjang::where('produk_id', $request->id_produk)->where('user_id', Auth::id())->first();
-        $cekStok = Produk::where('id_produk', $cekExistData->produk_id)->select('stok')->first();
+        $cekStok = Produk::where('id_produk', $request->id_produk)->select('stok')->first();
         if ($cekExistData != '') {
             $tambah = $cekExistData->jumlah += $request->jumlah;
             if ($tambah > $cekStok->stok) {
