@@ -22,13 +22,13 @@ class ApiReviewController extends Controller
         $data = Review::where('produk_id', $id_produk)->where('user_id', $id)->get();
         if (count($data) != Null) {
             $review = $this->reviewRepository->findById($id_produk);
-            $res['pesan'] = "Sudah Ada review";
-            $res['data'] = $review;
-            return response()->json($res);
+            // $res['pesan'] = "Sudah Ada review";
+            // $res['data'] = $review;
+            return response()->json($review);
         } else {
-            $review = $this->reviewRepository->reviewNull($id_produk);
-            $res2['pesan'] = "Belum Ada review";
-            $res2['data'] = $review;
+            // $review = $this->reviewRepository->reviewNull($id_produk);
+            // $res2['pesan'] = "Belum Ada review";
+            $res2['data'] = $data;
             return response()->json($res2);
         };
     }
