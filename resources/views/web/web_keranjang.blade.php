@@ -69,6 +69,9 @@
                                         class="form-control form-control-sm"
                                         value="{{ $k['jumlah'] != 0 ? $k['jumlah'] : 1 }}">
                                     <small id="stokLebih{{ $n }}" style="color: red;"></small>
+                                    @if(session('lebih'))
+                                    <small id="stok" style="color: red;">{{ session('lebih') }}</small>
+                                    @endif
                                 </td>
                                 <td id="subHarga{{ $n }}">
                                     @if($k['diskon'] == 0)
@@ -185,6 +188,7 @@
 
             });
 
+            setTimeout(function(){ $('#stok').addClass('d-none');}, 1000);
             $("input[name='qty']").on('input', function (e) {
                 let n = $("input[name='qty']").index(this);
                 let qty = $("#qty" + parseInt(n + 1)).val();
@@ -199,8 +203,11 @@
                         $("#stokLebih" + parseInt(n + 1)).html('');
                     }, 1000);
                 } else if (qty < 1) {
-                    // $(this).closest('td').find('input[name="qty"]').val(stok);
+                    // $(this).closest('td').find('input[name="qty"]').val(1);
                     $("#stokLebih" + parseInt(n + 1)).html('Min Pesan 1');
+                    setTimeout(function () {
+                        $("#stokLebih" + parseInt(n + 1)).html('');
+                    }, 1000);
                 }
                 // let qty = $("#qty" + parseInt(n + 1)).val();
                 console.log(stok);
