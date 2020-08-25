@@ -56,8 +56,9 @@ class KeranjangWebController extends Controller
     public function simpan(Request $request)
     {
         $cekExistData = Keranjang::where('produk_id', $request->id_produk)->where('user_id', Auth::id())->first();
-        $cekStok = Produk::where('id_produk', $cekExistData->produk_id)->select('stok')->first();
+
         if ($cekExistData != '') {
+            $cekStok = Produk::where('id_produk', $cekExistData->produk_id)->select('stok')->first();
             $tambah = $cekExistData->jumlah += $request->jumlah;
             if ($tambah > $cekStok->stok) {
                 $data = [
@@ -66,6 +67,7 @@ class KeranjangWebController extends Controller
                 $cekExistData->update($data);
                 return redirect('/keranjang')->with('lebih', 'Max Stok ' . $cekStok->stok);
             }
+            // $cekExistData->jumlah += $request->jumlah;
             $cekExistData->save();
             return redirect('/keranjang');
         }
