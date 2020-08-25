@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use Illuminate\Console\Command;
@@ -45,9 +46,13 @@ class TransaksiCheck extends Command
         $dateTime = date('Y-m-d H:i:s');
         $outdateTrx = Transaksi::with('user', 'transaksi_detail')->where('proses_pembayaran', 'belum')->get();
         foreach ($outdateTrx as $t) {
+        $forStok = Transaksi_Detail::with('produk')->where('transaksi_id', $t->id_transaksi)->get();
             if ($dateTime > $t->batas_transaksi) {
                 DB::beginTransaction();
                 try {
+                    foreach ($forStok as $s) {
+                        Produk::where('id_produk', $s->produk_id)->increment('stok', $s->jumlah);
+                    }
 //                    $update = Transaksi::where('id_transaksi', $t->id_transaksi)->update(['status_transaksi' => 'batal', 'proses_pembayaran' => 'tolak']);
                     $update = Transaksi_Detail::where('transaksi_id', $t->id_transaksi)->update(['status_order' => 'Dibatalkan']);
                     $t->update(['proses_pembayaran' => 'tolak']);
