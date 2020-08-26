@@ -44,12 +44,17 @@ class ProdukWebController extends Controller
         $kategori = $request->query('kategori');
         $nama_produk = $request->query('cari');
         $order = $request->query('order');
+        $dari = $request->query('dari');
+        $sampai = $request->query('sampai');
 
         if ($kategori != '') {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->when($kategori != '', function ($query) use ($kategori) {
                 $query->whereHas('kategori', function ($query) use ($kategori) {
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
                 });
+            })
+            ->when($dari != 0 OR $sampai != 0, function ($query) use ($dari, $sampai) {
+                $query->whereBetween('harga_jual', [$dari, $sampai]);
             })
             ->where('status', 'aktif')
             ->orderBy($order == 'laris' ? 'terjual' : DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? ('DESC') : ($order == 'laris' ? ('DESC') : ('ASC')))->paginate(12);

@@ -123,7 +123,7 @@ class CheckoutWebController extends Controller
                         'produk_id' => $k->produk_id,
                         'kode_invoice' => is_null($n) ? 'NJ-1' : 'NJ-' . $n,
                         'jumlah' => $k->jumlah,
-                        'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->harga_jual / 100 * $k->harga_jual),
+                        'harga_jual' => $k->produk->diskon == 0 ? $k->harga_jual : $k->harga_jual - ($k->produk->diskon / 100 * $k->harga_jual),
                         'diskon' => $k->produk->diskon,
                         'kurir' => $k->kurir,
                         'service' => $k->service,
