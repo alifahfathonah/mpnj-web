@@ -10,7 +10,4 @@
 <!-- custom javascript -->
 <script src="{{ url('assets/mpnj/js/script.js') }}" type="text/javascript"></script>
 
-<!-- bootstrapValidator -->
-<script src="{{ url('assets/mpnj/js/bootstrapvalidator.js') }}" type="text/javascript"></script>
-<script src="{{ url('assets/mpnj/js/bootstrapvalidatorID.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
