@@ -65,11 +65,12 @@ class KeranjangWebController extends Controller
                     'jumlah' => $cekStok->stok
                 ];
                 $cekExistData->update($data);
-                return redirect('/keranjang')->with('lebih', 'Max Stok ' . $cekStok->stok);
+                return redirect('/keranjang')->with('lebih', ' ' . $cekStok->stok);
+            } else {
+                // $cekExistData->jumlah += $request->jumlah;
+                $cekExistData->save();
+                return redirect('/keranjang');
             }
-            // $cekExistData->jumlah += $request->jumlah;
-            $cekExistData->save();
-            return redirect('/keranjang');
         }
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
