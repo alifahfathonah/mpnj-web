@@ -70,7 +70,14 @@
                                         value="{{ $k['jumlah'] != 0 ? $k['jumlah'] : 1 }}">
                                     <small id="stokLebih{{ $n }}" style="color: red;"></small>
                                     @if(session('lebih'))
-                                    <small id="stok" style="color: red;">{{ session('lebih') }}</small>
+                                    {{-- <small id="stok" style="color: red;">{{ session('lebih') }}</small> --}}
+                                    @push('scripts')
+                                    <script>
+                                        $(function() {
+                                            $('#modalStokMax').modal('show');
+                                        });
+                                    </script>
+                                    @endpush
                                     @endif
                                 </td>
                                 <td id="subHarga{{ $n }}">
