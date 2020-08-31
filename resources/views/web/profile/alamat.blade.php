@@ -109,21 +109,21 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label>Provinsi</label>
-                            <select name="provinsi" id="provinsi" class="form-control" required>
+                            <select name="provinsi" id="provinsi" class="form-control" style="width: 100%" required>
                                 <option id="provinsi_option">-- PILIH PROVINSI --</option>
                             </select>
                             <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
                         </div> <!-- form-group end.// -->
                         <div class="col form-group">
                             <label>Kota</label>
-                            <select name="kota" id="kota" class="form-control" disabled required>
+                            <select name="kota" id="kota" class="form-control" style="width: 100%;" disabled required>
                                 <option>-- PILIH KOTA --</option>
                             </select>
                             <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
                         </div> <!-- form-group end.// -->
                         <div class="col form-group">
                             <label>Kecamatan</label>
-                            <select name="kecamatan" id="kecamatan" class="form-control" disabled required>
+                            <select name="kecamatan" id="kecamatan" class="form-control" style="width: 100%;" disabled required>
                                 <option>-- PILIH Kecamatan --</option>
                             </select>
                             <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
@@ -703,6 +703,9 @@
                     success: function (response) {
                         $("#provinsi option").remove();
                         $("#modalAlamat").modal('show');
+                        $('#provinsi').select2();
+                        $('#kota').select2();
+                        $('#kecamatan').select2();
                         response.provinsi.rajaongkir.results.map(e => {
                             $("#provinsi").append(`
                                 <option value='${e.province_id}'>${e.province}</option>
@@ -866,6 +869,10 @@
                             $("#editNomorTelepon").val(response.nomor_telepon);
                             $("#editKodePos").val(response.kode_pos);
                             $("#editAlamatLengkap").val(response.alamat_lengkap);
+
+                            $('#editProvinsi').select2();
+                            $('#editKota').select2();
+                            $('#editKecamatan').select2();
 
                             let provinsi = $.ajax({
                                 url: '{{ URL::to('api/gateway/provinsi') }}',

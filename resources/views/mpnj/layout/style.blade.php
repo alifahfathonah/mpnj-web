@@ -21,3 +21,4 @@
 
 <!-- bootstrapvalidator -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+<link href="{{ url('assets/mpnj/css/select2/select2.css') }}" rel="stylesheet" type="text/css" />
