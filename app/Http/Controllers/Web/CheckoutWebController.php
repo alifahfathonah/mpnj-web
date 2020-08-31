@@ -117,6 +117,7 @@ class CheckoutWebController extends Controller
             }
             foreach ($keranjang as $key => $k) {
                 foreach ($k as $k) {
+                Produk::where('id_produk', $k->produk_id)->decrement('stok', $k->jumlah);
                     $trxDetail = [
                         'transaksi_id' => $simpanTrx->id_transaksi,
                         'produk_id' => $k->produk_id,

@@ -25,21 +25,25 @@
                             <ul class="list-inline">
                                 <form method="GET" action="{{ URL::to('/produk') }}">
                                     <div class="form-inline">
-                                        <select class="form-control-sm" id="filterByKategori" name="kategori">
-                                            <option selected>-- Kategori --</option>
-                                            @foreach($kategori as $k)
-                                                @if(strtolower($k->nama_kategori) == app('request')->input('kategori'))
-                                                    <option value="{{ strtolower($k->nama_kategori) }}" selected>
-                                                        {{ $k->nama_kategori }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ strtolower($k->nama_kategori) }}">
-                                                        {{ $k->nama_kategori }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @if(app('request')->input('kategori') != '')
+                                        @if(empty(app('request')->input('cari')))
+                                            <select class="form-control-sm" id="filterByKategori" name="kategori">
+                                                <option value="0">-- Kategori --</option>
+                                                @foreach($kategori as $k)
+                                                    @if(strtolower($k->nama_kategori) == app('request')->input('kategori'))
+                                                        <option value="{{ strtolower($k->nama_kategori) }}" selected>
+                                                            {{ $k->nama_kategori }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ strtolower($k->nama_kategori) }}">
+                                                            {{ $k->nama_kategori }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        @else
+                                            <input type="hidden" name="cari" value="{{ app('request')->input('cari') }}" />
+                                        @endif
+                                        @if(!empty(app('request')->input('kategori')) OR !empty(app('request')->input('cari')))
                                             <select class="form-control-sm" id="price" name="order" style="margin-left: 10px">
                                                 <option selected>--Harga Produk--</option>
                                                 <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>
