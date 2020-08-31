@@ -39,7 +39,7 @@
                     <form action="{{ URL::to('/produk') }}" class="search-wrap">
                         <div class="input-group w-100">
                             <input type="text" name="cari" class="form-control" style="width:60%;"
-                                placeholder="Cari produk disini...">
+                                placeholder="Cari produk disini..." value="{{ app('request')->input('cari') == '' ? '' : app('request')->input('cari') }}">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
