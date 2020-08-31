@@ -64,7 +64,12 @@ class PesananWebController extends Controller
     public function dibatalkan($id)
     {
         $batalTrx = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
+        $batal = Transaksi_Detail::where('transaksi_id', $id)->get();
+
         if ($batalTrx) {
+            foreach ($batal as $b) {
+                Produk::where('id_produk', $b->produk_id)->increment('stok', $b->jumlah);
+            }
             return redirect()->back()->with('trxBatalSukses', 'Transaksi ini sudah dibatalkan dan akan diproses lagi');
         }
     }
@@ -77,7 +82,7 @@ class PesananWebController extends Controller
             $ongkir = Pengiriman::select('ongkir')->where('kode_invoice', $kode_invoice)->first();
             foreach ($terima as $t) {
                 $t->update(['status_order' => 'Telah Sampai']);
-                Produk::where('id_produk', $t->produk_id)->decrement('stok', $t->jumlah);
+                Produk::where('id_produk', $t->produk_id)->increment('terjual', $t->jumlah);
             }
             $saldo = $terima->sum('sub_total') + $ongkir->ongkir;
             $updateSaldo = $terima[0]->user->update(['saldo' => $terima[0]->user->saldo + $saldo]);
