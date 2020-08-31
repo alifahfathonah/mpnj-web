@@ -120,43 +120,35 @@
                             <?php $n++; ?>
                             @endforeach
                             <tr>
-                                <td colspan="6">
-                                    <div class="card-deck text-center">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                {{--                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih
-                                                Opsi Pengiriman</h5>--}}
-                                                <input type="button" class="btn btn-outline-success"
-                                                    data-namatoko="{{ $val['nama_toko'] }}"
-                                                    data-row="{{ $loop->iteration }}"
-                                                    data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir"
-                                                    value="Pilih Kurir"
-                                                    {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table">
-                                                    <tr>
-                                                        <th>Kurir</th>
-                                                        <th>Service</th>
-                                                        <th>Ongkir</th>
-                                                        <th>Etd</th>
-                                                    </tr>
-                                                    <tr id="body{{ $loop->iteration }}">
-                                                        <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
-                                                        <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
-                                                        <td>@if($val['ongkir'] == 0)
-                                                            {{ '-' }}
-                                                            @else
-                                                            @currency($val['ongkir'])
-                                                            @endif
-                                                        </td>
-                                                        <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
+                                <table style=" margin: 5px ">
+                                    <td style="vertical-align: inherit;" align="center">
+                                        <input type="button" class="btn btn-outline-success"
+                                            data-namatoko="{{ $val['nama_toko'] }}" data-row="{{ $loop->iteration }}"
+                                            data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir" value="Pilih Kurir"
+                                            {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
+                                    </td>
+                                    <td>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Kurir</th>
+                                                <th>Service</th>
+                                                <th>Ongkir</th>
+                                                <th>Etd</th>
+                                            </tr>
+                                            <tr id="body{{ $loop->iteration }}">
+                                                <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
+                                                <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
+                                                <td>@if($val['ongkir'] == 0)
+                                                    {{ '-' }}
+                                                    @else
+                                                    @currency($val['ongkir'])
+                                                    @endif
+                                                </td>
+                                                <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </table>
                             </tr>
                         </tbody>
                     </table>
