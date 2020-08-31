@@ -405,7 +405,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Pastikan anda telah memilih opsi pengiriman disemua toko.
+                Pastikan anda telah memilih kurir untuk semua toko.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
