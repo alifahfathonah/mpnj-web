@@ -82,12 +82,7 @@
                                                     <td width="600">
                                                         <p class="title mb-0">{{ $d->produk->nama_produk }}</p>
                                                         <var class="price text-muted">
-                                                            @if($d->diskon == 0)
-                                                                <span style="color: black">@currency($d->harga_jual) x {{ $d->jumlah }} </span>
-                                                            @else
-                                                                <span style="color: black">@currency($d->harga_jual - ($d->diskon / 100 *
-                                                            $d->harga_jual)) x {{ $d->jumlah }} </span>
-                                                            @endif
+                                                            <span style="color: black">@currency($d->harga_jual) x {{ $d->jumlah }} </span>
                                                         </var>
                                                     </td>
                                                     <td>@currency($d->sub_total)</td>
