@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerification;
 use App\Models\Konsumen;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use File;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class ApiRegisterKonsumenController extends Controller
@@ -34,6 +37,8 @@ class ApiRegisterKonsumenController extends Controller
         ]);
 
         if ($register) {
+            $url = URL::temporarySignedRoute('verify', now()->addMinutes(30), ['id' => $register->id_user]);
+            $kirimEmailRegistrasi = Mail::to($register->email)->send(new EmailVerification($register, $url));
             $res['pesan'] = "Sukses!";
             $res['data'] = User::orderby('created_at', 'desc')->first();
 
