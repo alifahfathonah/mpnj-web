@@ -8,11 +8,22 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use File;
+use Illuminate\Support\Facades\Validator;
 
 class ApiRegisterKonsumenController extends Controller
 {
     public function create(request $request)
     {
+        $validator = Validator::make($request->all(), [
+           'username' => 'required|unique:users',
+            'nomor_hp' => 'required|unique:users',
+            'email' => 'required|email|unique:users'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
         $register = User::create([
             'nama_lengkap' =>  $request->nama_lengkap,
             'username' => $request->username,
