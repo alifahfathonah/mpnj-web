@@ -7,9 +7,9 @@
 <section class="section-content padding-y">
     <div class="container">
 
-        <div class="row">
+        <div class="row mb-3">
             <aside class="col-md-12">
-                <div class="card">
+                <div class="card" style="border-radius: 5px">
                     <div class="card-body">
                         <p><strong>Pilih Alamat Pengiriman</strong> |
                             @if(is_null($pembeli->alamat_fix))
@@ -31,23 +31,32 @@
                                 </div>
                             </div>
                             @else
-                                <div class="order_summary">
-                                    <div class="toggle_title" id="dataPembeli"
-                                         data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}" data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
-                                        <p>{{ $pembeli->alamat_fix->getAlamat() }}</p>
-                                    </div>
+                            <div class="order_summary">
+                                <div class="toggle_title" id="dataPembeli"
+                                    data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}"
+                                    data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
+                                    <p>{{ $pembeli->alamat_fix->getAlamat() }}</p>
                                 </div>
                             </div>
-                            @endif
-                        </p>
-                    </div> <!-- card-body.// -->
-                </div> <!-- card .// -->
-            </aside> <!-- col.// -->
-        </div>
-        <br>
+                    </div>
+                    @endif
+                    </p>
+                </div> <!-- card-body.// -->
+            </aside>
+        </div> <!-- card .// -->
+
         <div class="row">
             <main class="col-md-9">
-                <div class="card table-responsive">
+
+                <?php $o = 0;
+                $n = 1;
+                $x = 1;
+                $m = 1;
+                $total = 0; ?>
+                @foreach($data_keranjang as $val)
+                <h5 class="doc-title-sm">{{ $val['nama_toko'] }}</h5>
+                <hr class="divider">
+                <div class="card table-responsive mb-3" style="border-radius: 5px">
 
                     <table class="table table-borderless table-shopping-cart">
                         <thead class="text-dark">
@@ -57,23 +66,13 @@
                                 <th scope="col">Harga</th>
                                 <th scope="col" width="120">Jumlah</th>
                                 <th scope="col" width="120">Sub Harga</th>
-                                <th scope="col">Pilihan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $o = 0;
-                            $n = 1;
-                            $x = 1;
-                            $m = 1;
-                            $total = 0; ?>
-                            @foreach($data_keranjang as $val)
                             <tr id="dataPelapak{{ $loop->iteration }}" data-origin="{{ $val['alamat']['city_id'] }}"
                                 data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}"
                                 data-mulai="{{ $n }}" data-ongkir="{{ $val['ongkir'] }}"
                                 data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
-                                <td colspan="7">
-                                    <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
-                                </td>
                             </tr>
                             <?php $x++; ?>
                             @foreach ($val['item'] as $k)
@@ -86,7 +85,8 @@
                                 <td>
                                     <figure class="itemside">
                                         <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}"
-                                                class="img-sm"></div>
+                                                class="img-sm">
+                                        </div>
                                         <figcaption class="info">
                                             <a href="{{ URL::to('produk/'.$k['slug']) }}"
                                                 class="title text-dark">{{ $k['nama_produk'] }}</a>
@@ -120,76 +120,55 @@
                             <?php $n++; ?>
                             @endforeach
                             <tr>
-                                <td>
-
-                                </td>
+                                <table style=" margin: 5px ">
+                                    <td style="vertical-align: inherit;" align="center">
+                                        <input type="button" class="btn btn-outline-success"
+                                            data-namatoko="{{ $val['nama_toko'] }}" data-row="{{ $loop->iteration }}"
+                                            data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir" value="Pilih Kurir"
+                                            {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
+                                    </td>
+                                    <td>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Kurir</th>
+                                                <th>Service</th>
+                                                <th>Ongkir</th>
+                                                <th>Etd</th>
+                                            </tr>
+                                            <tr id="body{{ $loop->iteration }}">
+                                                <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
+                                                <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
+                                                <td>@if($val['ongkir'] == 0)
+                                                    {{ '-' }}
+                                                    @else
+                                                    @currency($val['ongkir'])
+                                                    @endif
+                                                </td>
+                                                <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </table>
                             </tr>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="card-deck text-center">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                {{--                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih
-                                                Opsi Pengiriman</h5>--}}
-                                                <input type="button" class="btn btn-outline-success"
-                                                    data-namatoko="{{ $val['nama_toko'] }}"
-                                                    data-row="{{ $loop->iteration }}"
-                                                    data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir"
-                                                    value="Pilih Kurir"
-                                                    {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table">
-                                                    <tr>
-                                                        <th>Kurir</th>
-                                                        <th>Service</th>
-                                                        <th>Ongkir</th>
-                                                        <th>Etd</th>
-                                                    </tr>
-                                                    <tr id="body{{ $loop->iteration }}">
-                                                        <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
-                                                        <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
-                                                        <td>@if($val['ongkir'] == 0)
-                                                            {{ '-' }}
-                                                            @else
-                                                            @currency($val['ongkir'])
-                                                            @endif
-                                                        </td>
-                                                        <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                </td>
-                            </tr>
-                            <?php $o++;
-                            $m++; ?>
-                            @endforeach
                         </tbody>
                     </table>
-
-                    <div class="card-body border-top">
-                        <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
-                            onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()"
-                            {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>Bayar
-                            Sekarang <i class="fa fa-chevron-right"></i></button>
-                    </div>
                 </div> <!-- card.// -->
-
+                <?php $o++;
+                $m++; ?>
+                @endforeach
+                <div class="card-body border-top">
+                    <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
+                        onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                    <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()"
+                        {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>Bayar
+                        Sekarang <i class="fa fa-chevron-right"></i></button>
+                </div>
                 <div class="alert alert-success mt-3">
                     <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
                 </div>
-
             </main> <!-- col.// -->
             <aside class="col-md-3">
-                <div class="card">
+                <div class="card" style="border-radius: 5px">
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Sub Total:</dt>
