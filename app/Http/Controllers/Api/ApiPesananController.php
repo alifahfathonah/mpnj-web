@@ -7,6 +7,7 @@ use App\Models\Transaksi;
 use App\Models\Transaksi_Detail;
 use App\Repositories\PesananRepository;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,7 +51,7 @@ class ApiPesananController extends Controller
                 'kode_invoice' => $key,
                 'nama_toko' => $p->user->nama_toko,
                 'jumlah_pesanan' => $pesanan[$key]->count(),
-                'waktu_transaksi' => $p->transaksi->waktu_transaksi,
+                'waktu_transaksi' => Carbon::parse($p->transaksi->waktu_transaksi)->format('d M Y'),
                 'total_pembayaran' => $pesanan[$key]->sum('sub_total'),
                 'item' => $item
             ]);
