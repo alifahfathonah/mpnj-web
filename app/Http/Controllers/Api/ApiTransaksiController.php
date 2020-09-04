@@ -97,6 +97,12 @@ class ApiTransaksiController extends Controller
         DB::beginTransaction();
         try {
             $user = User::where('id_user', $request->user_id)->first();
+            if ($user->status != 'aktif') {
+                DB::rollBack();
+                return response()->json([
+                    'pesan' => 'Anda tidak bisa melakukan transaksi karena akun anda belum aktif'
+                ], 400);
+            }
             $trx = [
                 'kode_transaksi' => time(),
                 'user_id' => $request->user_id,
