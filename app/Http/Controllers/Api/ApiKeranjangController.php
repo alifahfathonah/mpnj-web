@@ -76,14 +76,16 @@ class ApiKeranjangController extends Controller
 
         if ($cekExistData != '') {
             $cekExistData->jumlah += $request->jumlah;
-            $update = $cekExistData->save();
-            if ($update) {
+            if ($cekExistData->produk->stok < $cekExistData->jumlah) {
+                return response()->json([
+                    'pesan' => 'Gagal, jumlah dalam keranjang melebihi stok.'
+                ], 400);
+            } else {
+                $cekExistData->save();
                 return response()->json([
                     'pesan' => 'sukses',
                     'data' => $cekExistData
                 ], 200);
-            } else {
-                return response()->json('gagal', 400);
             }
         }
 
