@@ -31,7 +31,7 @@ class ApiRegisterKonsumenController extends Controller
             $pesan .= 'sudah ada';
             return response()->json([
                 'pesan' => $pesan
-            ], 400);
+            ], 200);
         }
 
         $register = User::create([
