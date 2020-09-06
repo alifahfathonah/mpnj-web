@@ -80,7 +80,7 @@ class ApiKeranjangController extends Controller
             if ($cekExistData->produk->stok < $cekExistData->jumlah) {
                 return response()->json([
                     'pesan' => 'Gagal, jumlah dalam keranjang melebihi stok.'
-                ], 400);
+                ], 200);
             } else {
                 $cekExistData->save();
                 return response()->json([
@@ -93,7 +93,7 @@ class ApiKeranjangController extends Controller
             if ($produk->stok < $request->jumlah) {
                 return response()->json([
                     'pesan' => 'Gagal, jumlah dalam keranjang melebihi stok.'
-                ], 400);
+                ], 200);
             }
         }
 
