@@ -146,7 +146,7 @@
                                     Pelapak Belum Mengisi
                                     @else
                                     @foreach($kurir as $k)
-                                    <strong>{{$k->kurir}}</strong>-
+                                    <strong>{{$k->kurir->kurir}}</strong>-
                                     @endforeach
                                     @endif
                                 </p>
