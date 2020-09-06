@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Kategori_Produk;
 use App\Models\Kurir;
+use App\Models\Kurir_Pelapak;
 use App\Models\Produk;
 use DB;
 use App\Models\Review;
@@ -87,7 +88,7 @@ class ProdukWebController extends Controller
     {
         $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('slug', $slug)->first();
         $data['produk_pelapak'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('user_id', $data['produk']->user->id_user)->get();
-        $data['kurir'] = Kurir::where('user_id', $data['produk']->user->id_user)->get();
+        $data['kurir'] = Kurir_Pelapak::where([['user_id', $data['produk']->user->id_user], ['status', '=', 'aktif']])->with('kurir')->get();
         $data['review'] = Review::with('user')->where('produk_id', $data['produk']->id_produk)->paginate(2);
         $data['counts'] = $data['review']->total();
 
