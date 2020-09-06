@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
+use App\Models\Produk;
 use App\Repositories\KeranjangRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -86,6 +87,13 @@ class ApiKeranjangController extends Controller
                     'pesan' => 'sukses',
                     'data' => $cekExistData
                 ], 200);
+            }
+        } else {
+            $produk = Produk::where('id_produk', $request->produk_id)->first();
+            if ($produk->stok < $request->jumlah) {
+                return response()->json([
+                    'pesan' => 'Gagal, jumlah dalam keranjang melebihi stok.'
+                ], 400);
             }
         }
 
