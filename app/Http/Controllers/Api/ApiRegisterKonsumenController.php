@@ -24,7 +24,14 @@ class ApiRegisterKonsumenController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            $pesan = '';
+            for ($i = 0; $i < count($validator->errors()->keys()); $i++) {
+                $pesan .= $validator->errors()->keys()[$i] . ', ';
+                }
+            $pesan .= 'sudah ada';
+            return response()->json([
+                'pesan' => $pesan
+            ], 400);
         }
 
         $register = User::create([
