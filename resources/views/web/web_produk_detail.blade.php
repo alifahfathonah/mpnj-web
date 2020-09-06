@@ -71,12 +71,12 @@
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                            <var class="price h4">@currency($produk->harga_jual) / {{$produk->satuan}}</var>
-                            <span class="text">Belum ada diskon</span>
+                        <var class="price h4">@currency($produk->harga_jual) / {{$produk->satuan}}</var>
+                        <span class="text">Belum ada diskon</span>
                         @else
-                            <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
-                                $produk->harga_jual)),00 / {{$produk->satuan}}</var>
-                            <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
+                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
+                            $produk->harga_jual)),00 / {{$produk->satuan}}</var>
+                        <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
@@ -122,7 +122,7 @@
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
                             <div class="aside">
-                            @if(is_null($produk->user->foto_profil))
+                                @if(is_null($produk->user->foto_profil))
                                 <div class="icontext mr-4" style="max-width: 300px;">
                                     <span class="icon icon-lg rounded-circle border border-primary">
                                         <i class="fa fa-user text-primary"></i>
@@ -131,16 +131,25 @@
                                         Belum Ada Foto Profil
                                     </h6>
                                 </div>
-                            @else
-                            <img src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
+                                @else
+                                <img src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
                                     class="icon icon-md rounded-circle">
-                            @endif
+                                @endif
                             </div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
                                     class="title text-dark">{{ $produk->user->nama_toko }}</a>
-                                <p class="text small">Bergabung Sejak :
+                                <p class="text small">Bergabung Sejak <i class="fa fa-clock"></i> :
                                     {{ \Carbon\Carbon::parse($produk->user->created_at)->format('d M, Y') }}</p>
+                                <p class="text small">Kurir Tersedia <i class="fa fa-truck"></i> :
+                                    @if($kurir->count()==0)
+                                    Pelapak Belum Mengisi
+                                    @else
+                                    @foreach($kurir as $k)
+                                    <strong>{{$k->kurir}}</strong>-
+                                    @endforeach
+                                    @endif
+                                </p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
@@ -219,20 +228,20 @@
                         </div>
                         <div class="price mt-1">
                             @if($pl->diskon == 0)
-                                <span>
-                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
-                                        style="font-size:14px;">@currency($pl->harga_jual)</span>
-                                </span>
+                            <span>
+                                <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                    style="font-size:14px;">@currency($pl->harga_jual)</span>
+                            </span>
                             @else
-                                <span style="color: green">
-                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
-                                        style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
-                                        $pl->harga_jual))</span>
-                                </span>
-                                <span style="color: gray">
-                                    <strike><span style="font-size:12px;margin-right:-2px;"></span> <span
-                                            style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
-                                </span>
+                            <span style="color: green">
+                                <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                    style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
+                                    $pl->harga_jual))</span>
+                            </span>
+                            <span style="color: gray">
+                                <strike><span style="font-size:12px;margin-right:-2px;"></span> <span
+                                        style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
+                            </span>
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">
