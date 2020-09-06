@@ -28,7 +28,7 @@ class ApiRegisterKonsumenController extends Controller
             for ($i = 0; $i < count($validator->errors()->keys()); $i++) {
                 $pesan .= $validator->errors()->keys()[$i] . ', ';
                 }
-            $pesan .= 'sudah ada';
+            $pesan .= 'sudah digunakan';
             return response()->json([
                 'pesan' => $pesan
             ], 200);
