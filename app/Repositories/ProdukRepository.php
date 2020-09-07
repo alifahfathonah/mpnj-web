@@ -6,12 +6,15 @@ use App\Models\Produk;
 
 class ProdukRepository
 {
-    public function all($nama = null)
+    public function all($nama = null, $id_toko = null)
     {
         return Produk::orderBy('id_produk', 'DESC')
             ->with('foto_produk', 'user', 'kategori')
             ->when($nama != null, function ($query) use ($nama) {
                 $query->where('nama_produk', 'like', '%' . $nama . '%');
+            })
+            ->when(!is_null($id_toko), function ($query) use ($id_toko) {
+                $query->where('user_id', $id_toko);
             })
             ->get()
             ->map(
