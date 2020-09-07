@@ -14,6 +14,7 @@ Route::group(['namespace' => 'Api'], function () {
         Route::get('/', 'ApiProdukController@index');
         Route::get('/diskon/', 'ApiProdukController@diskonProduk');
         Route::get('/laris/', 'ApiProdukController@larisProduk');
+        Route::get('/terkait', 'ApiProdukController@terkait');
         Route::get('/{id_produk}', 'ApiProdukController@getDetail');
         Route::post('/', 'ApiProdukController@create');
     });
