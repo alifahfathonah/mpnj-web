@@ -97,4 +97,11 @@ class ApiProdukController extends Controller
         $produks = $this->produkRepository->all(null, $id_toko);
         return $produks;
     }
+
+    public function lain(Request $request)
+    {
+        $id_toko = $request->query('id_toko');
+        $produks = $this->produkRepository->lain(null, $id_toko);
+        return $produks;
+    }
 }
