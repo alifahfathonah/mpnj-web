@@ -90,4 +90,11 @@ class ApiProdukController extends Controller
             return response()->json($res2);
         }
     }
+
+    public function terkait(Request $request)
+    {
+        $id_toko = $request->query('id_toko');
+        $produks = $this->produkRepository->all(null, $id_toko);
+        return $produks;
+    }
 }
