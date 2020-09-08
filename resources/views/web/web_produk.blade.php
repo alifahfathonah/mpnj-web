@@ -27,7 +27,7 @@
                                     <div class="form-inline">
                                         @if(empty(app('request')->input('cari')))
                                             <select class="form-control-sm" id="filterByKategori" name="kategori">
-                                                <option value="0">-- Kategori --</option>
+                                                <option value="0" selected disabled>-- Kategori --</option>
                                                 @foreach($kategori as $k)
                                                     @if(strtolower($k->nama_kategori) == app('request')->input('kategori'))
                                                         <option value="{{ strtolower($k->nama_kategori) }}" selected>
@@ -45,7 +45,7 @@
                                         @endif
                                         @if(!empty(app('request')->input('kategori')) OR !empty(app('request')->input('cari')))
                                             <select class="form-control-sm" id="price" name="order" style="margin-left: 10px">
-                                                <option selected>--Harga Produk--</option>
+                                                <option selected disabled>--Harga Produk--</option>
                                                 <option value="low" {{ app('request')->input('order') == 'low' ? 'selected' : ''  }}>
                                                     Termurah
                                                 </option>
