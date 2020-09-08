@@ -8,6 +8,7 @@ use App\Models\Transaksi;
 use App\Repositories\KonfirmasiRepository;
 use Illuminate\Http\Request;
 use File;
+use ImageResize;
 
 class ApiKonfirmasiController extends Controller
 {
@@ -36,28 +37,31 @@ class ApiKonfirmasiController extends Controller
 
     public function simpan(Request $request)
     {
-        $file = $request->file('bukti_transfer');
+        $file = $request->file('file');
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
         $dataKonfirmasi = [
-          'kode_transaksi' => $request->kode_transaksi,
-          'total_transfer' => $request->total_transfer,
-          'rekening_admin_id' => $request->rekening_admin_id,
-          'nama_pengirim' => $request->nama_pengirim,
-          'tanggal_transfer' => date('Y-m-d'),
-          'bukti_transfer' => $name
+            'kode_transaksi' => $request->kode_transaksi,
+            'total_transfer' => $request->total_transfer,
+            'rekening_admin_id' => $request->rekening_admin_id,
+            'nama_pengirim' => $request->nama_pengirim,
+            'tanggal_transfer' => date('Y-m-d H:i:s'),
+            'bukti_transfer' => $name
         ];
 
         $simpanKonfirmasi = Konfirmasi::create($dataKonfirmasi);
 
         if ($simpanKonfirmasi) {
-            $file->move('assets/foto_bukti_tf', $name);
-            $res['pesan'] = "Tambah Data Produk Sukses!";
+            Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['proses_pembayaran' => 'sudah']);
+            // $file->move('assets/foto_bukti_tf', $name);
+            $img = ImageResize::make($file->path());
+            $img->resize(150, 200)->save('assets/foto_bukti_tf/'.$name);
+            $res['pesan'] = "Konfirmasi Pembayaran Sukses Sukses!";
             $res['data'] = $dataKonfirmasi;
 
             return response()->json($res, 201);
         } else {
-            $res2['pesan'] = "Tambah Data produk Gagal!";
+            $res2['pesan'] = "Konfirmasi Pembayaran Sukses Gagal!";
             return response()->json($res2);
         }
     }

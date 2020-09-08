@@ -5,79 +5,119 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Konsumen;
 use App\Models\Pelapak;
+use App\Models\Pengiriman;
 use App\Models\Review;
 use App\Models\Transaksi;
+use App\Models\Produk;
 use App\Models\Transaksi_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use PDF;
 
 class PesananWebController extends Controller
 {
     public function index(Request $request)
     {
         $tab = $request->query('tab');
-        $order = Transaksi::with(['transaksi_detail', 'user', 'transaksi_detail.produk.foto_produk'])
-            ->when($tab != '', function ($query) use ($tab) {
-                $query->whereHas('transaksi_detail', function ($query) use ($tab) {
-                    $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
-                });
-            })
+        $transaksi = Transaksi::with(['transaksi_detail' => function ($query) use ($tab) {
+            $query->when($tab != '', function ($query) use ($tab) {
+                $query->where('status_order', $tab == 'pending' ? ('Menunggu Konfirmasi') : ($tab == 'verifikasi' ? 'Telah Dikonfirmasi' : ($tab == 'packing' ? 'Dikemas' : ($tab == 'dikirim' ? 'Dikirim' : ($tab == 'sukses' ? 'Telah Sampai' : ($tab == 'batal' ? 'Dibatalkan' : ''))))));
+            });
+        }])
             ->where('user_id', Auth::id())
-            ->groupBy('kode_transaksi')
+            ->orderBy('created_at', 'DESC')
             ->get();
-        // $data['order'] = Transaksi_Detail::with('transaksi')->get()->where('transaksi.pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-        //     ->where('transaksi.pembeli_id', $konsumen_id)->groupBy('transaksi.kode_transaksi');
-        $orderCollect = collect();
-        foreach ($order as $key => $value) {
-            $orderCollect->push([
-                'kode_transaksi' => $value->kode_transaksi,
-                'waktu_transaksi' => $value->waktu_transaksi,
-                'status_transaksi' => $value->status_transaksi,
-                'total_bayar' => $value->total_bayar,
-                'proses_pembayaran' => $value->proses_pembayaran,
-                'item' => $value->transaksi_detail
-            ]);
+
+        $data['order'] = [];
+        foreach ($transaksi as $t) {
+            if ($t->transaksi_detail->count() > 0) {
+                array_push($data['order'], $t);
+            }
         }
-
-        $page = $request->query('page');
-
-        $data['order'] = new LengthAwarePaginator(array_slice($orderCollect->toArray(), ($page - 3) * 3, 3), count($orderCollect), 3, $page, ["path" => $tab == '' ? 'pesanan' : 'pesanan?tab='.$tab]);
         return view('web/web_profile', $data);
     }
 
-    public function detail(Request $request, $id_trx)
+    public function detail(Request $request)
     {
-        $data['detail'] = Transaksi::with('transaksi_detail','transaksi_detail.produk.foto_produk', 'konfirmasi')->where('kode_transaksi', $id_trx)->first();
-//        $data['review'] = Review::where('produk_id', $data['detail']->produk_id)->where('konsumen_id', $konsumen_id)->first();
+        $inv = $request->query('inv');
+        $id = $request->query('id');
+        $data['detail'] = Transaksi::with(['transaksi_detail' => function ($query) use ($inv) {
+            $query->with('pengiriman')->when(!is_null($inv), function ($query) use ($inv) {
+                $query->where('kode_invoice', $inv);
+            });
+        }])
+            ->where('id_transaksi', $id)
+            ->first();
 
-        return view('web/web_profile', $data);
+        if ($data['detail'] != '') {
+            if ($data['detail']->transaksi_detail->count() > 0) {
+                return view('web/web_profile', $data);
+            } else {
+                return redirect()->back();
+            }
+        }
     }
 
-    public function diterima(Request $request, $id_trx)
+    public function dibatalkan($id)
     {
-        $terima = Transaksi_Detail::where('id_transaksi_detail', $id_trx)->update(['status_order' => 'Telah Sampai']);
-        if ($terima) {
+        $batalTrx = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
+        $batal = Transaksi_Detail::where('transaksi_id', $id)->get();
+
+        if ($batalTrx) {
+            foreach ($batal as $b) {
+                Produk::where('id_produk', $b->produk_id)->increment('stok', $b->jumlah);
+            }
+            return redirect()->back()->with('trxBatalSukses', 'Transaksi ini sudah dibatalkan dan akan diproses lagi');
+        }
+    }
+
+    public function diterima(Request $request, $kode_invoice)
+    {
+        DB::beginTransaction();
+        try {
+            $terima = Transaksi_Detail::where('kode_invoice', $kode_invoice)->get();
+            $ongkir = Pengiriman::select('ongkir')->where('kode_invoice', $kode_invoice)->first();
+            foreach ($terima as $t) {
+                $t->update(['status_order' => 'Telah Sampai']);
+                Produk::where('id_produk', $t->produk_id)->increment('terjual', $t->jumlah);
+            }
+            $saldo = $terima->sum('sub_total') + $ongkir->ongkir;
+            $updateSaldo = $terima[0]->user->update(['saldo' => $terima[0]->user->saldo + $saldo]);
+            DB::commit();
+            return redirect()->back()->with('trxSukses', 'Selamat, transaksi anda telah selesai. Terima kasih.');
+        } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back();
         }
     }
 
-    public function dibatalkan(Request $request, $id)
+    public function exportInvoice(Request $request)
     {
-        
-       $batalTrx = Transaksi::where('kode_transaksi', $request->kode_transaksi)->update(['status_transaksi' => 'batal']);
-       if ($batalTrx) {
-           $batalTrxDetail = Transaksi_Detail::where('transaksi_id', $id)->update(['status_order' => 'Dibatalkan']);
-           if ($batalTrxDetail) {
-               return redirect()->back();
-           }
-       }
+        $id_transaksi = $request->query('id');
+        $invoice = $request->query('inv');
+        $data['d'] = Transaksi::with(['transaksi_detail' => function ($query) use ($invoice) {
+            $query->where('kode_invoice', $invoice);
+        }])
+            ->where('id_transaksi', $id_transaksi)
+            ->first();
+        $data['pengiriman'] = Pengiriman::where('kode_invoice', $invoice)->first();
+        $pdf = PDF::loadView('web.profile.pesanan_invoice', $data);
+        set_time_limit(60);
+        return $pdf->download('invoiceBelaNj-' . $invoice . '.pdf');
     }
 
-    public function tracking($id)
+    public function tracking($kode_invoice)
     {
-        $data['detail'] = Transaksi_Detail::with('transaksi')->where('id_transaksi_detail', $id)->first();
+        $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
         return view('web/web_profile', $data);
+    }
+
+    public function trackingwebv($kode_invoice)
+    {
+        $data['detail'] = Pengiriman::where('kode_invoice', $kode_invoice)->first();
+        return view('web/profile/tracking_webview', $data);
     }
 }

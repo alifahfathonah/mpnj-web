@@ -7,13 +7,13 @@ use App\Http\Resources\DetailProdukResource as DetailProdukResource;
 use App\Models\Produk;
 use App\Models\Kategori_Produk;
 
-
 //Refactor routing api
 Route::group(['namespace' => 'Api'], function () {
-
     //produk
     Route::group(['prefix' => 'produk', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiProdukController@index');
+        Route::get('/diskon/', 'ApiProdukController@diskonProduk');
+        Route::get('/laris/', 'ApiProdukController@larisProduk');
         Route::get('/{id_produk}', 'ApiProdukController@getDetail');
         Route::post('/', 'ApiProdukController@create');
     });
@@ -26,8 +26,8 @@ Route::group(['namespace' => 'Api'], function () {
         Route::post('/alamat', 'ApiKonsumenController@simpan_alamat');
         Route::get('/tampil/alamat/{id_alamat}', 'ApiKonsumenController@show_alamat');
         Route::put('/edit/alamat/{id_alamat}', 'ApiKonsumenController@update_alamat');
-        Route::post('/edit/alamat/utama/{id_alamat}', 'ApiKonsumenController@update_alamat_utama');
-        Route::delete('/hapus/alamat/{id_alamat}', 'ApiKonsumenController@hapus_alamat');
+        Route::put('/edit/alamat/utama/{id_user}', 'ApiKonsumenController@update_alamat_utama');
+        Route::delete('/hapus/alamat/{id_alamat}/{id_user}', 'ApiKonsumenController@hapus_alamat');
         Route::put('/hapus/{id_konsumen}', 'ApiKonsumenController@hapus_akun');
         Route::put('/aktif/{id_konsumen}', 'ApiKonsumenController@aktif_kembali');
         Route::post('/upload', 'ApiRegisterKonsumenController@upload');
@@ -40,11 +40,12 @@ Route::group(['namespace' => 'Api'], function () {
         Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');
         Route::get('/{id_pelapak}', 'ApiPelapakController@getDetail');
         Route::post('/upload', 'ApiPelapakController@upload');
+        Route::get('/find/{username}', 'ApiPelapakController@findPelapak');
     });
 
     //keranjang
-    Route::group(['prefix' => 'keranjang', 'middleware' => 'jwt.verify'], function () {
-        Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?role=konsumen&id=1
+    Route::group(['prefix' => 'keranjang'], function () {
+        Route::get('/', 'ApiKeranjangController@index'); //http://localhost:8000/api/keranjang?id=1
         Route::post('/', 'ApiKeranjangController@simpan');
         Route::delete('/{id_keranjang}', 'ApiKeranjangController@hapus');
         Route::put('/ganti_jumlah/{id_keranjang}', 'ApiKeranjangController@gantiJumlah');
@@ -54,8 +55,12 @@ Route::group(['namespace' => 'Api'], function () {
 
     //transaksi
     Route::group(['prefix' => 'transaksi'], function () {
-        Route::get('/', 'ApiTransaksiController@index');
+        Route::post('/', 'ApiTransaksiController@index');
+        Route::get('/tgl/{kode_transaksi}', 'ApiTransaksiController@transaksiDate');
         Route::post('/simpan', 'ApiTransaksiController@simpan');
+        Route::put('/batal', 'ApiTransaksiController@batal');
+        Route::post('/simpanKurir', 'ApiTransaksiController@simpanKurir');
+        Route::post('/batal_transaksi', 'ApiTransaksiController@batalTrx');
     });
 
     //kategori
@@ -68,6 +73,34 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['prefix' => 'konfirmasi'], function () {
         Route::get('/{kode_transaksi}', 'ApiKonfirmasiController@tampilData');
         Route::post('/simpan', 'ApiKonfirmasiController@simpan');
+    });
+
+    //bank
+    Route::group(['prefix' => 'bank'], function () {
+        Route::get('/', 'ApiBankController@index');
+        Route::get('/rekening/{id_bank}', 'ApiBankController@rekAdmin');
+    });
+
+    //pesanan
+    Route::group(['prefix' => 'pesanan'], function () {
+        Route::get('/', 'ApiPesananController@index');
+        Route::get('/detail/{kode_invoice}', 'ApiPesananController@getDetail');
+        Route::post('/terima', 'ApiPesananController@terima');
+    });
+
+    //review
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('/{id_produk}', 'ApiReviewController@getReview');
+        Route::post('/simpan', 'ApiReviewController@simpan');
+        Route::post('/edit/{id_user}/{id_produk}', 'ApiReviewController@update');
+    });
+
+    //wishlist
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/tampil/{id_user}', 'ApiWishlistController@index');
+        Route::post('/cari', 'ApiWishlistController@findByName');
+        Route::post('/simpan', 'ApiWishlistController@add');
+        Route::delete('/hapus/{id_wishlist}', 'ApiWishlistController@delete');
     });
 
     Route::group(['prefix' => 'gateway'], function () {
@@ -84,6 +117,9 @@ Route::get('/email/{email}', 'Api\ApiKonsumenController@cek_email');
 Route::post('/login', 'Api\Auth\ApiLoginController@login');
 Route::post('/keluar', 'Api\Auth\ApiLoginController@keluar');
 Route::put('/password/{id_konsumen}', 'Api\ApiKonsumenController@ganti_password');
+Route::get('/banner', 'Api\ApiTampilBanner@index');
+
+
 
 //rajaongkir gateway
 Route::post('/ongkir', 'Api\RajaOngkirGateway@ongkir');

@@ -10,16 +10,18 @@ use Illuminate\Queue\SerializesModels;
 class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $token;
+    protected $url;
+    protected $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($url, $user)
     {
-        $this->token = $token;
+        $this->url = $url;
+        $this->user = $user;
     }
 
     /**
@@ -29,10 +31,11 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->from('blogsayailham@gmail.com')
+        return $this->from(env('MAIL_USERNAME'))
             ->view('email/reset_password')
             ->with([
-                'token' => $this->token
+                'url' => $this->url,
+                'user' => $this->user
             ]);
     }
 }

@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Models\Alamat;
+use App\Models\Complain;
 use App\Models\Keranjang;
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Models\Wishlist;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -76,10 +78,31 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany(Alamat::class, 'user_id', 'id_user');
     }
 
+    public function alamatToko()
+    {
+        return $this->hasOne(Alamat::class, 'id_alamat', 'alamat_toko');
+    }
+
     public function produk()
     {
         return $this->hasMany(Produk::class, 'user_id', 'id_user');
     }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'user_id', 'id_user');
+    }
+
+    public function komplain()
+    {
+        return $this->hasMany(Complain::class, 'user_id', 'id_user');
+    }
+
+    public function komplainKonsumen()
+    {
+        return $this->hasMany(Complain::class, 'konsumen_id', 'id_user');
+    }
+
 
     /**
      * The attributes that should be cast to native types.

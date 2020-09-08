@@ -32,4 +32,9 @@ class Alamat extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id_user');
     }
+
+    function getAlamat()
+    {
+        return $this->attributes['nama'] . ', ' . $this->attributes['alamat_lengkap'].', '.$this->attributes['nama_kecamatan'].', '.$this->attributes['nama_kota'].', '.$this->attributes['nama_provinsi'].', '.$this->attributes['kode_pos'].', '.$this->attributes['nomor_telepon'];
+    }
 }

@@ -36,7 +36,7 @@ class Produk extends Model
     {
         return $this->hasOne(Kategori_Produk::class, 'id_kategori_produk', 'kategori_produk_id');
     }
-    
+
     public function user()
     {
         return $this->hasOne(User::class, 'id_user', 'user_id');
@@ -45,5 +45,15 @@ class Produk extends Model
     public function review()
     {
         return $this->hasMany(Review::class, 'produk_id', 'id_produk');
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class, 'produk_id', 'id_produk');
+    }
+
+    public function komplain()
+    {
+        return $this->hasMany(Complain::class, 'produk_id', 'id_produk');
     }
 }

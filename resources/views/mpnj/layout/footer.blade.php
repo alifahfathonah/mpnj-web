@@ -4,7 +4,7 @@
 		<div class="row">
 			<aside class="col-md-4">
 				<article class="mr-3">
-				<img src="{{ asset('assets/logo/belanj-putih.png') }}" class="logo-footer">
+				<img src="{{ asset('assets/logo/belaNJ-putih.png') }}" class="logo-footer">
 					<p class="mt-3">Belanj adalah market place pertama yang dikembangkan oleh santri Pondok Pesantren Nurul Jadid.</p>
 					<ul class="list-icon">
 						<li> <i class="fa fa-map-marker-alt"> </i> Jln. KH. Zaini Mun'im , Karang Anyar, Paiton Probolinggo </li>

@@ -13,6 +13,6 @@ class Rekening_Admin extends Model
 
     public function bank()
     {
-        return $this->hasOne(Bank::class, 'id_bank', 'bank_id');
+        return $this->belongsTo(Bank::class, 'id_bank', 'bank_id');
     }
 }

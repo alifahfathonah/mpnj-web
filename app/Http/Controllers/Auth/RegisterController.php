@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\sendRegistrationEmail;
+use App\Mail\EmailVerification;
 use App\Mail\RegistrasiConfirm;
 use App\Models\Produk;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -103,6 +107,7 @@ class RegisterController extends Controller
             return redirect()
                 ->back()
                 ->with('registerError', 'Register Error. Pastikan data anda sudah benar')
+                ->withErrors($this->validator($data))
                 ->withInput();
         }
 
@@ -110,12 +115,11 @@ class RegisterController extends Controller
         if ($simpan) {
             $credential = $request->only('username','password');
             if (Auth::attempt($credential)) {
-                $kirimEmailRegistrasi = Mail::to($request->email)->send(new RegistrasiConfirm($simpan->id_user));
-                if ($kirimEmailRegistrasi) {
-                    $request->session()->put('role', Auth::user()->role);
-                }
+                $url = URL::temporarySignedRoute('verify', now()->addMinutes(30), ['id' => $simpan->id_user]);
+                $kirimEmailRegistrasi = Mail::to($request->email)->send(new EmailVerification($simpan, $url));
+                $request->session()->put('role', Auth::user()->role);
+                return redirect('/');
             }
-            return redirect('/');
         }
     }
 }

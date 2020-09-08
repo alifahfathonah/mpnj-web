@@ -59,12 +59,12 @@ class ApiPelapakController extends Controller
                 'pelapak' => [
                     'id_pelapak' => $produks->user->id_user,
                     'nama_toko' => $produks->user->nama_toko,
-                    'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
+                    'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $produks->user->foto_profil),
                     'alamat' => $produks->user->alamat[0]->alamat_lengkap
                 ]
             ];
         });
-//        return new PelapakResource($id_pelapak);
+        //        return new PelapakResource($id_pelapak);
     }
 
     public function create(request $request)
@@ -118,6 +118,21 @@ class ApiPelapakController extends Controller
             return response()->json($res2);
         }
     }
+
+    public function findPelapak($username)
+    {
+        $pelapak = User::where('username', $username)->get();
+        if (count($pelapak) > 0) {
+            $pelapak = $this->pelapakRepository->findByName($username);
+            $res['data'] = $pelapak;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
+            return response()->json($res2);
+        };
+    }
+
     public static function acakhuruf($length)
     {
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

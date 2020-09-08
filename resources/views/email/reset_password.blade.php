@@ -1,234 +1,234 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Konfirmasi Pendaftaran Akun</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-        /**
-         * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
-         */
-        @media screen {
-            @font-face {
-                font-family: 'Source Sans Pro';
-                font-style: normal;
-                font-weight: 400;
-                src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
-            }
-
-            @font-face {
-                font-family: 'Source Sans Pro';
-                font-style: normal;
-                font-weight: 700;
-                src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
-            }
-        }
-
-        /**
-         * Avoid browser level font resizing.
-         * 1. Windows Mobile
-         * 2. iOS / OSX
-         */
-        body,
-        table,
-        td,
-        a {
-            -ms-text-size-adjust: 100%; /* 1 */
-            -webkit-text-size-adjust: 100%; /* 2 */
-        }
-
-        /**
-         * Remove extra space added to tables and cells in Outlook.
-         */
-        table,
-        td {
-            mso-table-rspace: 0pt;
-            mso-table-lspace: 0pt;
-        }
-
-        /**
-         * Better fluid images in Internet Explorer.
-         */
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
-
-        /**
-         * Remove blue links for iOS devices.
-         */
-        a[x-apple-data-detectors] {
-            font-family: inherit !important;
-            font-size: inherit !important;
-            font-weight: inherit !important;
-            line-height: inherit !important;
-            color: inherit !important;
-            text-decoration: none !important;
-        }
-
-        /**
-         * Fix centering issues in Android 4.4.
-         */
-        div[style*="margin: 16px 0;"] {
-            margin: 0 !important;
-        }
-
-        body {
-            width: 100% !important;
-            height: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        /**
-         * Collapse table borders to avoid space between cells.
-         */
-        table {
-            border-collapse: collapse !important;
-        }
-
-        a {
-            color: #1a82e2;
-        }
-
-        img {
-            height: auto;
-            line-height: 100%;
-            text-decoration: none;
-            border: 0;
-            outline: none;
-        }
-    </style>
-
+    <title>Pembatalan Transaksi</title>
+    <link href="{{ url('assets/mpnj/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 </head>
-<body style="background-color: #e9ecef;">
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
 
-<!-- start body -->
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    html {
+        -webkit-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+    }
 
-    <!-- start logo -->
-    <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <!--[if (gte mso 9)|(IE)]>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-                <tr>
-                    <td align="center" valign="top" width="600">
-            <![endif]-->
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td align="center" valign="top" style="padding: 36px 24px;">
-                        <a href="#" target="_blank" style="display: inline-block;">
-                            <img src="./img/paste-logo-light@2x.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <!--[if (gte mso 9)|(IE)]>
+    @media only screen and (max-device-width: 680px), only screen and (max-width: 680px) {
+        *[class="table_width_100"] {
+            width: 96% !important;
+        }
+
+        *[class="border-right_mob"] {
+            border-right: 1px solid #dddddd;
+        }
+
+        *[class="mob_100"] {
+            width: 100% !important;
+        }
+
+        *[class="mob_center"] {
+            text-align: center !important;
+        }
+
+        *[class="mob_center_bl"] {
+            float: none !important;
+            display: block !important;
+            margin: 0px auto;
+        }
+
+        .iage_footer a {
+            text-decoration: none;
+            color: #929ca8;
+        }
+
+        img.mob_display_none {
+            width: 0px !important;
+            height: 0px !important;
+            display: none !important;
+        }
+
+        img.mob_width_50 {
+            width: 40% !important;
+            height: auto !important;
+        }
+    }
+
+    .table_width_100 {
+        width: 680px;
+    }
+
+    .btn {
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Green */
+    .success {
+        border-color: #4CAF50;
+        color: green;
+    }
+
+    .success:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+<body>
+<div id="mailsub" class="notification" align="center">
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width: 320px;">
+        <tr>
+            <td align="center" bgcolor="#eff3f8">
+
+
+                <!--[if gte mso 10]>
+                <table width="680" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                <![endif]-->
+
+                <table border="0" cellspacing="0" cellpadding="0" class="table_width_100" width="100%"
+                       style="max-width: 680px; min-width: 300px;">
+                    <tr>
+                        <td>
+                            <!-- padding -->
+                            <div style="height: 80px; line-height: 80px; font-size: 10px;"> </div>
+                        </td>
+                    </tr>
+                    <!--header -->
+                    <tr>
+                        <td align="center" bgcolor="#ffffff">
+                            <!-- padding -->
+                            <div style="height: 30px; line-height: 30px; font-size: 10px;"> </div>
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="left"><!--
+
+				Item -->
+                                        <div class="mob_center_bl"
+                                             style="float: left; display: inline-block; width: 115px;">
+                                            <table class="mob_center" width="115" border="0" cellspacing="0"
+                                                   cellpadding="0" align="left" style="border-collapse: collapse;">
+                                                <tr>
+                                                    <td align="left" valign="middle">
+                                                        <!-- padding -->
+                                                        <div style="height: 20px; line-height: 20px; font-size: 10px;">
+                                                             
+                                                        </div>
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="http://belanj/id" target="_blank">
+                                                                        <img src="http://belanj.id/assets/logo/belaNJ-hijau.png" alt="Belanj" width="150"/>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div><!-- Item END--><!--[if gte mso 10]> -->
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- padding -->
+                            <div style="height: 50px; line-height: 50px; font-size: 10px;"> </div>
+                        </td>
+                    </tr>
+                    <!--header END-->
+
+                    <!--content 1 -->
+                    <tr>
+                        <td align="center" bgcolor="#fbfcfd">
+                            <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center">
+                                        <!-- padding -->
+                                        <div style="height: 60px; line-height: 60px; font-size: 10px;"> </div>
+                                        <div style="line-height: 44px;">
+                                            <font face="Arial, Helvetica, sans-serif" size="5" color="#57697e"
+                                                  style="font-size: 34px;">
+					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #57697e;">
+						Halo {{ $user->nama_lengkap }}
+					</span></font>
+                                        </div>
+                                        <!-- padding -->
+                                        <div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <div style="line-height: 24px;">
+                                            <font face="Arial, Helvetica, sans-serif" size="4" color="#57697e"
+                                                  style="font-size: 15px;">
+                                                <span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
+                                                    Anda baru saja mencoba untuk mereset ulang password anda pada akun Belanj. <br>
+                                                    Silahkan ikuti tautan dibawah ini untuk melakukan reset password <br> Tautan ini hanya bisa digunakan 30 menit.
+                                                </span>
+                                            </font>
+                                        </div>
+                                        <!-- padding -->
+                                        <div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <div style="line-height: 24px;">
+                                            <a href="{{ $url }}" target="_blank" class="btn success">Reset Password</a>
+                                        </div>
+                                        <!-- padding -->
+                                        <div style="height: 60px; line-height: 60px; font-size: 10px;"> </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!--content 1 END-->
+                    <!--footer -->
+                    <tr>
+                        <td class="iage_footer" align="center" bgcolor="#ffffff">
+                            <!-- padding -->
+                            <div style="height: 80px; line-height: 80px; font-size: 10px;"> </div>
+
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center">
+                                        <font face="Arial, Helvetica, sans-serif" size="3" color="#96a5b5"
+                                              style="font-size: 13px;">
+				<span style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #96a5b5;">
+					2020 © Belanj. ALL Rights Reserved.
+				</span></font>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- padding -->
+                            <div style="height: 30px; line-height: 30px; font-size: 10px;"> </div>
+                        </td>
+                    </tr>
+                    <!--footer END-->
+                    <tr>
+                        <td>
+                            <!-- padding -->
+                            <div style="height: 80px; line-height: 80px; font-size: 10px;"> </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if gte mso 10]>
+                </td></tr>
+                </table>
+                <![endif]-->
+
             </td>
-            </tr>
-            </table>
-            <![endif]-->
-        </td>
-    </tr>
-    <!-- end logo -->
+        </tr>
+    </table>
 
-    <!-- start hero -->
-    <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <!--[if (gte mso 9)|(IE)]>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-                <tr>
-                    <td align="center" valign="top" width="600">
-            <![endif]-->
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
-                        <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Reset Password Kamu</h1>
-                    </td>
-                </tr>
-            </table>
-            <!--[if (gte mso 9)|(IE)]>
-            </td>
-            </tr>
-            </table>
-            <![endif]-->
-        </td>
-    </tr>
-    <!-- end hero -->
-
-    <!-- start copy block -->
-    <tr>
-        <td align="center" bgcolor="#e9ecef">
-            <!--[if (gte mso 9)|(IE)]>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-                <tr>
-                    <td align="center" valign="top" width="600">
-            <![endif]-->
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-
-                <!-- start copy -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">
-                            Ikuti panduan ini untuk dapat mereset password akun anda
-                        </p>
-                    </td>
-                </tr>
-                <!-- end copy -->
-
-                <!-- start button -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <td align="center" bgcolor="#ffffff" style="padding: 12px;">
-                                    <table border="0" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                                                <a href="{{ URL::to('password/reset/'.$token) }}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Reset Password</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <!-- end button -->
-
-                <!-- start copy -->
-            {{--                <tr>--}}
-            {{--                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">--}}
-            {{--                        <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>--}}
-            {{--                        <p style="margin: 0;"><a href="https://sendgrid.com" target="_blank">https://same-link-as-button.url/xxx-xxx-xxxx</a></p>--}}
-            {{--                    </td>--}}
-            {{--                </tr>--}}
-            <!-- end copy -->
-
-                <!-- start copy -->
-                <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-                        <p style="margin: 0;">Pondok Pesantren Nurul Jadid</p>
-                    </td>
-                </tr>
-                <!-- end copy -->
-
-            </table>
-            <!--[if (gte mso 9)|(IE)]>
-            </td>
-            </tr>
-            </table>
-            <![endif]-->
-        </td>
-    </tr>
-    <!-- end copy block -->
-
-    <!-- start footer -->
-    <!-- end footer -->
-
-</table>
-<!-- end body -->
-
+</div>
 </body>
 </html>

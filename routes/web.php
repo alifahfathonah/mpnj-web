@@ -64,6 +64,7 @@ Route::group(['namespace' => 'Web'], function () {
         Route::post('simpanTransaksi', 'CheckoutWebController@simpanTransaksi');
         Route::get('sukses/{kodeTrx}', 'CheckoutWebController@sukses')->middleware('checkUserLogin');
         Route::post('batal', 'CheckoutWebController@batal');
+        Route::post('simpanKurir', 'CheckoutWebController@simpanKurir');
     });
 
     Route::group(['prefix' => 'konfirmasi'], function () {
@@ -77,7 +78,7 @@ Route::group(['namespace' => 'Web'], function () {
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', 'ProfileWebController@index')->name('profile')->middleware('checkUserLogin');
-        Route::post('ubah/{role}/{id}', 'ProfileWebController@ubah');
+        Route::post('ubah/{id}', 'ProfileWebController@ubah');
         Route::post('gantipassword/{id}', 'ProfileWebController@gantipassword');
         Route::get('rekening', 'ProfileWebController@rekening')->name('rekening');
         Route::get('alamat', 'ProfileWebController@alamat')->name('alamat')->middleware('checkUserLogin');
@@ -90,10 +91,12 @@ Route::group(['namespace' => 'Web'], function () {
 
     Route::group(['prefix' => 'pesanan'], function () {
         Route::get('/', 'PesananWebController@index')->name('pesanan')->middleware('checkUserLogin');
-        Route::get('detail/{id_trx}', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
-        Route::get('diterima/{id}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::get('detail', 'PesananWebController@detail')->name('pesananDetail')->middleware('checkUserLogin');
+        Route::post('diterima/{kode_invoice}', 'PesananWebController@diterima')->name('pesananDetail')->middleware('checkUserLogin');
         Route::post('dibatalkan/{id}', 'PesananWebController@dibatalkan');
-        Route::get('tracking/{id}', 'PesananWebController@tracking')->name('tracking');
+        Route::get('export_invoice', 'PesananWebController@exportInvoice');
+        Route::get('tracking/{kode_invoice}', 'PesananWebController@tracking')->name('tracking');
+        Route::get('trackingwebv/{kode_invoice}', 'PesananWebController@trackingwebv')->name('trackingwebv');
     });
 
     Route::group(['prefix' => 'pelapak'], function () {
@@ -103,9 +106,26 @@ Route::group(['namespace' => 'Web'], function () {
 
     //review
     Route::group(['prefix' => 'review'], function () {
-        Route::get('produk/{id}', 'ReviewWebController@index');
+        Route::get('produk/{slug}', 'ReviewWebController@index');
         Route::post('produk', 'ReviewWebController@postReview');
         Route::post('produk/update/{id}', 'ReviewWebController@updateReview');
+    });
+
+    //wishlist
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('/', 'WishlistWebController@index')->name('wishlist')->middleware('checkUserLogin');
+        Route::get('/add/{id}', 'WishlistWebController@add')->middleware('checkUserLogin');
+        Route::get('/delete/{id}', 'WishlistWebController@delete');
+        Route::get('/clear/{id_user}', 'WishlistWebController@deleteAll');
+    });
+
+    //komplain
+    Route::group(['prefix' => 'komplain'], function () {
+        Route::get('/', 'KomplainWebController@index')->name('komplain');
+        Route::get('/pengajuan', 'KomplainWebController@pengajuan')->name('komplainPengajuan');
+        Route::post('/simpan', 'KomplainWebController@save');
+        Route::get('/preview/{id_komplain}', 'KomplainWebController@view')->name('komplainPreview');
+        Route::get('/update/{id_komplain}', 'KomplainWebController@status');
     });
 });
 
@@ -115,17 +135,11 @@ Route::post('daftar/simpan', 'Web\KonsumenWebController@simpan')->name('daftarSi
 Route::get('kotaByProvinsiId/{id}', 'Web\KonsumenWebController@kotaByProvinsiId');
 
 Auth::routes(['verify' => true]);
+Route::get('/verify', 'Auth\VerificationController@verify')->name('verify');
 //reset password
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@upadate_password');
-Route::post('password/update', 'Auth\ResetPasswordController@upadate_password');
 Route::get('keluar', 'Auth\LoginController@keluar')->name('keluar');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 //pelapak
 Route::get('jual', 'Pelapak\PelapakController@index');
-
-//review
-// Route::get('review/produk/{id}', 'Web\ReviewWebController@index');
-// Route::post('review/produk', 'Web\ReviewWebController@postReview');
-// Route::post('review/produk/update/{id}', 'Web\ReviewWebController@updateReview');

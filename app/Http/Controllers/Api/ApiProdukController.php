@@ -20,25 +20,37 @@ class ApiProdukController extends Controller
         $this->produkRepository = $produkRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $produks = $this->produkRepository->all();
+        $nama = $request->query('cari');
+        $produks = $this->produkRepository->all($nama);
+        return $produks;
+    }
+
+    public function diskonProduk()
+    {
+        $produks = $this->produkRepository->produkDiskon();
+        return $produks;
+    }
+
+    public function larisProduk()
+    {
+        $produks = $this->produkRepository->produkLaris();
         return $produks;
     }
 
     public function getDetail($id_produk)
     {
-        $data = Produk::where('id_produk',$id_produk)->get();
-        if (count($data) > 0 ){
+        $data = Produk::where('id_produk', $id_produk)->get();
+        if (count($data) > 0) {
             $produk = $this->produkRepository->findById($id_produk);
-            $res ['data'] = $produk;
-        return response()->json($res);
-        }else{
-            $res2 ['pesan'] = "Gagal!";
-            $res2 ['data'] = [];
+            $res['data'] = $produk;
+            return response()->json($res);
+        } else {
+            $res2['pesan'] = "Gagal!";
+            $res2['data'] = [];
             return response()->json($res2);
         };
-        
     }
 
     public function create(request $request)
@@ -55,28 +67,27 @@ class ApiProdukController extends Controller
         $produk->harga_jual = $request->harga_jual;
         $produk->diskon = $request->diskon;
         $produk->stok = $request->stok;
-        
+
         $file = $request->file('foto');
 
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
 
         $file->move('assets/foto_produk', $name);
 
-        if($produk->save()){
+        if ($produk->save()) {
 
-        $foto = new Foto_Produk;
-        $foto->foto_produk = $name;
-        $foto->produk_id = $produk->id_produk;
-        $foto->save();
+            $foto = new Foto_Produk;
+            $foto->foto_produk = $name;
+            $foto->produk_id = $produk->id_produk;
+            $foto->save();
 
-            $res ['pesan'] = "Tambah Data Produk Sukses!";
-            $res ['data'] = [$produk,$foto];
+            $res['pesan'] = "Tambah Data Produk Sukses!";
+            $res['data'] = [$produk, $foto];
 
-            return response()->json($res,201);
-        }else{
-            $res2 ['pesan'] = "Tambah Data produk Gagal!";
+            return response()->json($res, 201);
+        } else {
+            $res2['pesan'] = "Tambah Data produk Gagal!";
             return response()->json($res2);
         }
     }
-
 }

@@ -26,14 +26,12 @@
                 <div class="card">
                     <article class="gallery-wrap">
                         <div class="img-big-wrap">
-                            <div> <a href="#"><img
-                                        src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}"
+                            <div> <a href="#"><img src="{{ env('FILES_ASSETS').$produk->foto_produk[0]->foto_produk }}"
                                         id="thumbFoto" alt="{{ $produk->nama_produk }}"></a></div>
                         </div> <!-- slider-product.// -->
                         <div class="thumbs-wrap">
                             @foreach($produk->foto_produk as $img)
-                            <a href="#" class="item-thumb"> <img
-                                    src="{{ env('FILES_ASSETS').$img->foto_produk }}"
+                            <a href="#" class="item-thumb"> <img src="{{ env('FILES_ASSETS').$img->foto_produk }}"
                                     alt="{{ $produk->nama_produk }}" id="foto_produk{{ $img->id_foto_produk }}"
                                     onclick="gantiFoto({{ $img->id_foto_produk }})"></a>
                             @endforeach
@@ -47,7 +45,7 @@
                     <h2 class="title mt-3">{{ $produk->nama_produk}} </h2>
 
                     <div class="rating-wrap my-3">
-                        <ul class="rating-stars">
+                        <!-- <ul class="rating-stars">
                             <li style="width:80%" class="stars-active">
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -58,8 +56,8 @@
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </li>
-                        </ul>
-                        <small class="label-rating text">132 reviews</small>
+                        </ul> -->
+                        <!-- <small class="label-rating text">132 reviews</small> -->
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i>
                             {{$produk->terjual}} orders </small>
                         @if($produk->stok <= 10) <small class="label-rating text-primary"> <i class="fa fa-box"></i>
@@ -73,12 +71,12 @@
 
                     <div class="mb-3">
                         @if($produk->diskon == 0)
-                        <var class="price h4">@currency ($produk->harga_jual),00 / {{$produk->satuan}}</var>
-                        <span class="text">Belum ada diskon</span>
+                            <var class="price h4">@currency($produk->harga_jual) / {{$produk->satuan}}</var>
+                            <span class="text">Belum ada diskon</span>
                         @else
-                        <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
-                            $produk->harga_jual)),00 / {{$produk->satuan}}</var>
-                        <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
+                            <var class="price h4">@currency($produk->harga_jual - ($produk->diskon / 100 *
+                                $produk->harga_jual)),00 / {{$produk->satuan}}</var>
+                            <span class="text">Harga Awal, @currency($produk->harga_jual),00</span>
                         @endif
                     </div> <!-- price-detail-wrap .// -->
 
@@ -96,8 +94,8 @@
                                     <button class="btn btn-light btn-number" type="button" id="button-minus"> -
                                     </button>
                                 </div>
-                                <input type="text" class="form-control input-number" id="jml" value="1" min="1"
-                                    max="99">
+                                <input type="text" class="form-control input-number" id="jml" value="1" min="1" max="99"
+                                    style="padding: 0%; width: auto">
                                 <input type="hidden" class="form-control input-number" id="stok" name="stok"
                                     value="{{$produk->stok}}">
                                 <div class="input-group-prepend">
@@ -123,17 +121,38 @@
                     <div class="form-row">
                         <h2 class="title">Informasi Pelapak</h2>
                         <figure class="itemside">
-                            <div class="aside"><img
-                                    src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
-                                    class="icon icon-md rounded-circle"></div>
+                            <div class="aside">
+                            @if(is_null($produk->user->foto_profil))
+                                <div class="icontext mr-4" style="max-width: 300px;">
+                                    <span class="icon icon-lg rounded-circle border border-primary">
+                                        <i class="fa fa-user text-primary"></i>
+                                    </span>
+                                    <h6 class="text">
+                                        Belum Ada Foto Profil
+                                    </h6>
+                                </div>
+                            @else
+                            <img src="{{ url('assets/foto_profil_konsumen/'. $produk->user->foto_profil) }}"
+                                    class="icon icon-md rounded-circle">
+                            @endif
+                            </div>
                             <figcaption class="info">
                                 <a href="{{ URL::to('pelapak/'.$produk->user->username )}}"
                                     class="title text-dark">{{ $produk->user->nama_toko }}</a>
                                 <p class="text small">Bergabung Sejak :
-                                    {{ $produk->user->created_at->format("d, M Y") }}</p>
+                                    {{ \Carbon\Carbon::parse($produk->user->created_at)->format('d M, Y') }}</p>
                                 <a href="#" class="btn btn-light">
                                     <i class="fas fa-envelope"></i> <span class="text">Hubungi Pelapak</span>
                                 </a>
+                                @if($produk->wishlists->where('user_id', Auth::id())->count()==0)
+                                <a href="{{ URL::to('wishlist/add/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                        class="fas fa-heart"></i> </a>
+                                @else
+                                <a href="{{ URL::to('wishlist/delete/'.$produk->id_produk)}}" class="btn btn-light"
+                                    data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                        class="fas fa-heart text-primary"></i> </a>
+                                @endif
                             </figcaption>
                         </figure>
                     </div>
@@ -182,27 +201,38 @@
                 <div href="{{ URL::to('produk/'.$pl->slug) }}" class="card card-sm card-product-grid shadow-sm">
                     <a href="{{ URL::to('produk/'.$pl->slug) }}" class=""> <img class="card-img-top"
                             src="{{ env('FILES_ASSETS').$pl->foto_produk[0]->foto_produk }}"> </a>
+                    <span class="topbar">
+                        @if($pl->wishlists->where('user_id', Auth::id())->count()==0)
+                        <a href="{{ URL::to('wishlist/add/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Tambah Ke Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart"></i> </a>
+                        @else
+                        <a href="{{ URL::to('wishlist/delete/'.$pl->id_produk)}}" class="float-right"
+                            data-original-title="Hapus Wishlist" title="" data-toggle="tooltip"> <i
+                                class="fas fa-heart text-primary"></i>
+                        </a>
+                        @endif
+                    </span>
                     <figcaption class="info-wrap">
                         <div class="namaProduk-rapi">
                             <a href="{{ URL::to('produk/'.$pl->slug) }}" class="title">{{ $pl->nama_produk }}</a>
                         </div>
                         <div class="price mt-1">
                             @if($pl->diskon == 0)
-                            <span>
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                    style="font-size:14px;">@currency($pl->harga_jual)</span>
-                            </span>
+                                <span>
+                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                        style="font-size:14px;">@currency($pl->harga_jual)</span>
+                                </span>
                             @else
-
-                            <span style="color: green">
-                                <span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                    style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
-                                    $pl->harga_jual))</span>
-                            </span>
-                            <span style="color: gray">
-                                <strike><span style="font-size:12px;margin-right:-2px;">Rp</span> <span
-                                        style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
-                            </span>
+                                <span style="color: green">
+                                    <span style="font-size:12px;margin-right:-2px;"></span> <span
+                                        style="font-size:14px;">@currency($pl->harga_jual - ($pl->diskon / 100 *
+                                        $pl->harga_jual))</span>
+                                </span>
+                                <span style="color: gray">
+                                    <strike><span style="font-size:12px;margin-right:-2px;"></span> <span
+                                            style="font-size:12px;">@currency($pl->harga_jual)</span></strike>
+                                </span>
                             @endif
                         </div> <!-- price-wrap.// -->
                         <div class="row">

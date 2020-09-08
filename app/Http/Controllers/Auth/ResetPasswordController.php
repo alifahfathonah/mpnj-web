@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Konsumen;
-use App\Models\Pelapak;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {
@@ -32,28 +32,19 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    public function showResetForm(Request $request, $token) {
-        return view('auth/passwords/reset');
-    }
+    public function reset(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:6',
+        ]);
 
-    public function upadate_password(Request $request) {
-        $email = $request->email;
-
-        $cekKonsumen = Konsumen::whereEmail($email)->first();
-
-        if ($cekKonsumen) {
-            $cekKonsumen->password = Hash::make($request->password);
-            $cekKonsumen->save();
-            return redirect()->back();
-        } else {
-            $cekPelapak = Pelapak::whereEmail($email)->first();
-
-            if ($cekPelapak) {
-                $cekPelapak->password = Hash::make($request->password);
-                $cekPelapak->save();
-                return redirect()->back();
-            }
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
         }
 
+        $update = User::where('id_user', $request->id)->update(['password' => Hash::make($request->password)]);
+        return redirect()->to('login')->with(['resetPasswordSuskes' => 'Password anda beru saja diperbarui. Silahkan login dengan password baru anda.']);
     }
 }

@@ -6,27 +6,35 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Produk;
-use App\Models\Transaksi;
-use App\Models\Konsumen;
-use App\Models\Pelapak;
-use App\Models\Kategori_Produk;
 use File;
 use Illuminate\Support\Facades\Auth;
 use ImageResize;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class ReviewWebController extends Controller
 {
 
     public function index(Request $request, $slug)
     {
-        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('slug', $slug)->first();
+        $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('slug', $slug)->first();
         $data['review'] = Review::with(['user', 'produk'])->where('produk_id', $data['produk']->id_produk)->where('user_id', Auth::id())->first();
         return view('web/web_review_produk', $data);
     }
 
     public function postReview(Request $request)
     {
+
+        $validator = Validator::make($request->except('token'), [
+            'foto_review' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+
         if ($request->hasFile('foto_review')) {
 
             $foto_review = $request->file('foto_review');
@@ -52,15 +60,27 @@ class ReviewWebController extends Controller
 
         $cekReviewer = Review::with(['user', 'produk'])->where('produk_id', $request->id_produk)->where('user_id', Auth::id())->get()->count(1);
         if ($cekReviewer) {
-            return redirect()->back()->with('message', 'Anda Sudah Mereview Produk Ini');
+            return redirect()->back()->with('message', 'Anda Sudah Mengulas Produk Ini');
         } else {
             Review::create($review);
-            return redirect()->back()->with('message', 'Terimakasih Atas Review Anda');
+            return redirect()->back()->with('message', 'Terimakasih Atas Ulasan Anda');
         }
     }
 
     public function updateReview(Request $request, $id)
     {
+
+        $validator = Validator::make($request->except('token'), [
+            'foto_review' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
+        }
+
         $foto_review = $request->file('foto_review');
         if ($request->hasFile('foto_review')) {
 
@@ -88,6 +108,6 @@ class ReviewWebController extends Controller
             File::delete('assets/foto_review/' . $find->foto_review);
         }
         $find->update($review);
-        return redirect()->back()->with('message', 'Review Diupdate');
+        return redirect()->back()->with('message', 'Ulasan Diupdate');
     }
 }

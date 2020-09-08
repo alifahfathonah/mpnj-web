@@ -17,8 +17,6 @@ class KeranjangWebController extends Controller
     {
         $keranjang = Keranjang::with(['produk', 'user', 'user.alamat_fix'])
             ->where('user_id', Auth::id())
-//            ->where('pembeli_type', $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak')
-            ->where('status', 'N')
             ->get()
             ->groupBy('produk.user.nama_toko');
 
@@ -57,10 +55,24 @@ class KeranjangWebController extends Controller
 
     public function simpan(Request $request)
     {
+        $cekExistData = Keranjang::where('produk_id', $request->id_produk)->where('user_id', Auth::id())->first();
+        $cekStok = Produk::where('id_produk', $request->id_produk)->select('stok')->first();
+        if ($cekExistData != '') {
+            $tambah = $cekExistData->jumlah += $request->jumlah;
+            if ($tambah > $cekStok->stok) {
+                $data = [
+                    'jumlah' => $cekStok->stok
+                ];
+                $cekExistData->update($data);
+                return redirect('/keranjang')->with('lebih', 'Max Stok ' . $cekStok->stok);
+            }
+            $cekExistData->save();
+            return redirect('/keranjang');
+        }
         $simpan = Keranjang::create([
             'produk_id' => $request->id_produk,
             'user_id' => Auth::id(),
-//            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
+            //            'pembeli_type' => $role == 'konsumen' ? 'App\Models\Konsumen' : 'App\Models\Pelapak',
             'jumlah' => $request->jumlah,
             'harga_jual' => $request->harga_jual
         ]);
@@ -102,12 +114,24 @@ class KeranjangWebController extends Controller
 
     public function go_checkout(Request $request)
     {
-        $id_keranjang = $request->id_keranjang;
-
-        $update = Keranjang::whereIn('id_keranjang', $id_keranjang)->update(['status' => 'Y']);
-
-        if ($update) {
-            return $update;
+        if (is_null($request->id_keranjang)) {
+            return response()->json([
+                'pesan' => 'Data belum dipilih'
+            ], 400);
+        }
+        DB::beginTransaction();
+        try {
+            Keranjang::where('user_id', Auth::id())->update(['status' => 'N']);
+            Keranjang::whereIn('id_keranjang', $request->id_keranjang)->update(['status' => 'Y']);
+            DB::commit();
+            return response()->json([
+                'pesan' => 'sukses'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'pesan' => 'gagal'
+            ], 400);
         }
     }
 }

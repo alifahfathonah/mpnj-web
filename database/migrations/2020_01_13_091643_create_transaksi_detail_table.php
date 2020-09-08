@@ -22,11 +22,6 @@ class CreateTransaksiDetailTable extends Migration
             $table->integer('jumlah')->default(0);
             $table->integer('harga_jual')->default(0);
             $table->integer('diskon')->default(0);
-            $table->string('kurir')->nullable();
-            $table->string('service')->nullable();
-            $table->integer('ongkir')->nullable();
-            $table->string('etd')->nullable();
-            $table->string('resi')->nullable();
             $table->integer('sub_total')->default(0);
             $table->enum('status_order', ['Menunggu Konfirmasi','Telah Dikonfirmasi','Dikemas','Dikirim','Telah Sampai', 'Dibatalkan'])->default('Menunggu Konfirmasi');
             $table->integer('user_id')->unsigned();

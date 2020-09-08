@@ -7,37 +7,56 @@
 <section class="section-content padding-y">
     <div class="container">
 
-        <div class="row">
+        <div class="row mb-3">
             <aside class="col-md-12">
-                <div class="card">
+                <div class="card" style="border-radius: 5px">
                     <div class="card-body">
-                        <h3>Pilih Alamat Pengiriman | <a href="#" class="btn btn--md btn--round" data-target="#pilihAlamat" data-toggle="modal">Ubah</a></h3>
+                        <p><strong>Pilih Alamat Pengiriman</strong> |
+                            @if(is_null($pembeli->alamat_fix))
+                            <button class="btn btn--md btn--round btn-primary" id="tambahAlamat">Tambah
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                            @else
+                            <a href="#" class="btn btn-outline-success" data-target="#pilihAlamat"
+                                data-toggle="modal">Ubah</a>
+                            @endif
+                        </p>
                         <hr>
-                        <p class="text-center mb-3">
-                            @if($pembeli->alamat_fix != null)
+                        <p class="text-center">
+                            @if(is_null($pembeli->alamat_fix))
                             <div class="information_module order_summary">
-                                <div class="toggle_title" id="dataPembeli" data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}">
-                                    <h5>{{ $pembeli->alamat_fix->nama }} | {{ $pembeli->alamat_fix->nomor_telepon }}</h5>
-                                    <h4>{{ $pembeli->alamat_fix->alamat_lengkap }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }}</h4>
+                                <div class="toggle_title">
+                                    <p>Anda belum mempunyai data alamat <a href="{{ URL::to('profile/alamat') }}"
+                                            target="_blank">disini</a> </p>
                                 </div>
                             </div>
                             @else
-                            <div class="information_module order_summary">
-                                <div class="toggle_title">
-                                    <h4>Anda belum mempunyai data alamat. Silahkan tambah data alamat <a href="{{ URL::to('profile/alamat') }}" target="_blank">disini</a> </h4>
+                            <div class="order_summary">
+                                <div class="toggle_title" id="dataPembeli"
+                                    data-destination="{{ $pembeli->alamat_fix->kecamatan_id }}"
+                                    data-alamat="{{ $pembeli->alamat_fix->alamat_lengkap }} <br> {{ $pembeli->alamat_fix->nama_kecamatan }}, {{ $pembeli->alamat_fix->nama_kota }}, {{ $pembeli->alamat_fix->nama_provinsi }}, {{ $pembeli->alamat_fix->kode_pos }} <br> {{ $pembeli->alamat_fix->nomor_telepon }}">
+                                    <p>{{ $pembeli->alamat_fix->getAlamat() }}</p>
                                 </div>
                             </div>
-                            @endif
-                        </p>
+                    </div>
+                    @endif
+                    </p>
+                </div> <!-- card-body.// -->
+            </aside>
+        </div> <!-- card .// -->
 
-                    </div> <!-- card-body.// -->
-                </div> <!-- card .// -->
-            </aside> <!-- col.// -->
-        </div>
-        <br>
         <div class="row">
             <main class="col-md-9">
-                <div class="card table-responsive">
+
+                <?php $o = 0;
+                $n = 1;
+                $x = 1;
+                $m = 1;
+                $total = 0; ?>
+                @foreach($data_keranjang as $val)
+                <h5 class="doc-title-sm">{{ $val['nama_toko'] }}</h5>
+                <hr class="divider">
+                <div class="card table-responsive mb-3" style="border-radius: 5px">
 
                     <table class="table table-borderless table-shopping-cart">
                         <thead class="text-dark">
@@ -47,29 +66,30 @@
                                 <th scope="col">Harga</th>
                                 <th scope="col" width="120">Jumlah</th>
                                 <th scope="col" width="120">Sub Harga</th>
-                                <th scope="col">Pilihan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $o = 0;
-                            $n = 1;
-                            $x = 1;
-                            $m = 1;
-                            $total = 0; ?>
-                            @foreach($data_keranjang as $val)
-                            <tr id="dataPelapak{{ $x }}" data-origin="{{ $val['alamat']['city_id'] }}" data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}" data-mulai="{{ $n }}" data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
-                                <td colspan="7">
-                                    <h4><strong>{{ $val['nama_toko'] }}</strong></h4>
-                                </td>
+                            <tr id="dataPelapak{{ $loop->iteration }}" data-origin="{{ $val['alamat']['city_id'] }}"
+                                data-berat="{{ $val['total_berat'] }}" data-jumlahbarang="{{ COUNT($val['item']) }}"
+                                data-mulai="{{ $n }}" data-ongkir="{{ $val['ongkir'] }}"
+                                data-akhir="{{ COUNT($val['item']) == 1 ? $n : $n + COUNT($val['item']) - 1}}">
                             </tr>
                             <?php $x++; ?>
                             @foreach ($val['item'] as $k)
-                            <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}" data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}" data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}" data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}" data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}" data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
+                            <tr id="data_keranjang{{ $n }}" data-idproduk="{{ $k['id_produk'] }}"
+                                data-hargajual="{{ $k['harga_jual'] }}" data-stok="{{ $k['stok'] }}"
+                                data-diskon="{{ $k['diskon'] }}" data-terjual="{{ $k['terjual'] }}"
+                                data-jumlah="{{ $k['jumlah'] }}" data-subtotal="{{ $k['jumlah'] * $k['harga_jual'] }}"
+                                data-idkeranjang="{{  $k['id_keranjang'] }}" data-idpelapak="{{ $val['id_toko'] }}"
+                                data-total="{{ $total += ($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'] }}">
                                 <td>
                                     <figure class="itemside">
-                                        <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}" class="img-sm"></div>
+                                        <div class="aside"><img src="{{ env('FILES_ASSETS').$k['foto'] }}"
+                                                class="img-sm">
+                                        </div>
                                         <figcaption class="info">
-                                            <a href="{{ URL::to('produk/'.$k['slug']) }}" class="title text-dark">{{ $k['nama_produk'] }}</a>
+                                            <a href="{{ URL::to('produk/'.$k['slug']) }}"
+                                                class="title text-dark">{{ $k['nama_produk'] }}</a>
                                             <p class="text-muted small">Kategori: {{ $k['kategori'] }}</p>
                                         </figcaption>
                                     </figure>
@@ -81,7 +101,8 @@
                                     @if($k['diskon'] == 0)
                                     @currency($k['harga_jual'])
                                     @else
-                                    <strike style="color: red">@currency($k['harga_jual'])</strike> | @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
+                                    <strike style="color: red">@currency($k['harga_jual'])</strike> |
+                                    @currency($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual']))
                                     @endif
                                 </td>
                                 <td>
@@ -91,64 +112,63 @@
                                     @if($k['diskon'] == 0)
                                     @currency($k['harga_jual'] * $k['jumlah'])
                                     @else
-                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) * $k['jumlah'])
+                                    @currency(($k['harga_jual'] - ($k['diskon'] / 100 * $k['harga_jual'])) *
+                                    $k['jumlah'])
                                     @endif
                                 </td>
                             </tr>
                             <?php $n++; ?>
                             @endforeach
                             <tr>
-                                <td>
-
-                                </td>
+                                <table style=" margin: 5px ">
+                                    <td style="vertical-align: inherit;" align="center">
+                                        <input type="button" class="btn btn-outline-success"
+                                            data-namatoko="{{ $val['nama_toko'] }}" data-row="{{ $loop->iteration }}"
+                                            data-idkeranjang="{{ $k['id_keranjang'] }}" name="kurir" value="Pilih Kurir"
+                                            {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>
+                                    </td>
+                                    <td>
+                                        <table class="table">
+                                            <tr>
+                                                <th>Kurir</th>
+                                                <th>Service</th>
+                                                <th>Ongkir</th>
+                                                <th>Etd</th>
+                                            </tr>
+                                            <tr id="body{{ $loop->iteration }}">
+                                                <td>{{ is_null($val['kurir']) ? '-' : $val['kurir'] }}</td>
+                                                <td>{{ is_null($val['service']) ? '-' : $val['service'] }}</td>
+                                                <td>@if($val['ongkir'] == 0)
+                                                    {{ '-' }}
+                                                    @else
+                                                    @currency($val['ongkir'])
+                                                    @endif
+                                                </td>
+                                                <td>{{ is_null($val['etd']) ? '-' : $val['etd'] }}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </table>
                             </tr>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="card-deck text-center">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="my-0" id="kurirDipilih{{ $o+1 }}">Pilih Opsi Pengiriman</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="modal-body">
-                                                    <select name="pilih_kurir" id="pilih_kurir{{ $m }}" class="form-control" onchange="getKurir({{ $m }})">
-                                                        <option>Pilih Kurir</option>
-                                                        <option value="jne">JNE</option>
-                                                        <option value="pos">POS</option>
-                                                        <option value="tiki">TIKI</option>
-                                                    </select>
-                                                    <br>
-                                                    <div id="kurir{{ $m }}" class="custom-radio"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                </td>
-                            </tr>
-                            <?php $o++;
-                            $m++; ?>
-                            @endforeach
                         </tbody>
                     </table>
-
-                    <div class="card-body border-top">
-                        <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout" onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
-                        <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()">Bayar Sekarang <i class="fa fa-chevron-right"></i></button>
-                    </div>
                 </div> <!-- card.// -->
-
+                <?php $o++;
+                $m++; ?>
+                @endforeach
+                <div class="card-body border-top">
+                    <button class="btn btn-primary" id="batal" data-toggle="modal" data-target="#batalCheckout"
+                        onclick="batalCheckoutConfirm()"><i class="fa fa-chevron-left"></i> Batal</button>
+                    <button class="btn btn-primary float-md-right" id="bayar" onclick="bayarSekarang()"
+                        {{ is_null($pembeli->alamat_fix) ? 'disabled' : '' }}>Bayar
+                        Sekarang <i class="fa fa-chevron-right"></i></button>
+                </div>
                 <div class="alert alert-success mt-3">
                     <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
                 </div>
-
             </main> <!-- col.// -->
             <aside class="col-md-3">
-                <div class="card">
+                <div class="card" style="border-radius: 5px">
                     <div class="card-body">
                         <dl class="dlist-align">
                             <dt>Sub Total:</dt>
@@ -156,11 +176,11 @@
                         </dl>
                         <dl class="dlist-align">
                             <dt>Ongkir:</dt>
-                            <dd class="text-right" id="totalOngkir">Rp. -</dd>
+                            <dd class="text-right" id="totalOngkir">@currency($ongkir)</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right  h5" id="totalBayar">@currency($total)</dd>
+                            <dd class="text-right  h5" id="totalBayar">@currency($total+$ongkir)</dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">
@@ -175,7 +195,50 @@
     </div> <!-- container .//  -->
 </section>
 
-<div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="modalPilihKurir" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="title">Pilih Kurir</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <select name="pilih_kurir" id="pilih_kurir" class="form-control">
+                    <option>Pilih Kurir</option>
+                    <option value="jne">JNE</option>
+                    <option value="pos">POS</option>
+                    <option value="tiki">TIKI</option>
+                </select>
+                <br>
+                <div id="kurir" class="custom-radio"></div>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="kurirTidakDipilih" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title">Pastikan anda telah memilih kurir untuk semua toko.</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="batalCheckout" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,7 +252,8 @@
             <div class="modal-body">
                 <form method="POST" id="formBatalCheckout">
                     @csrf
-                    <button type="submit" class="btn btn--round btn-danger btn--default" onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
+                    <button type="submit" class="btn btn--round btn-danger btn--default"
+                        onclick="submitBatalCheckout()">Ya, Lanjutkan</button>
                     <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
                 </form>
             </div>
@@ -198,8 +262,8 @@
     </div>
 </div>
 
-
-<div class="modal fade rating_modal item_remove_modal" id="pilihAlamat" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+<div class="modal fade rating_modal item_remove_modal" id="pilihAlamat" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -212,21 +276,119 @@
             <!-- end /.modal-header -->
 
             <div class="modal-body">
+                @if(count($pembeli->daftar_alamat) > 0)
                 @foreach($pembeli->daftar_alamat as $v)
-                <div class="information_module order_summary">
-                    <div class="toggle_title" data-destination="{{ $v->kecamatan_id }}">
-                        <h5>{{ $v->nama }} | {{ $v->nomor_telepon }}</h5>
-                        <h4>{{ $v->alamat_lengkap }}, {{ $v->nama_kota }}, {{ $v->nama_provinsi }}, {{ $v->kode_pos }}</h4>
-                        <br>
+                <div class="card border-success">
+                    <div class="card-body text-success" data-destination="{{ $v->kecamatan_id }}">
+                        <p class="card-text">
+                            {{ $v->nama }} <br> {{ $v->nomor_telepon }}, {{ $v->alamat_lengkap }}, {{ $v->nama_kota }},
+                            {{ $v->nama_provinsi }}, {{ $v->kode_pos }}
+                        </p>
                         <form action="{{ URL::to('profile/alamat/ubah/utama/'.$v->id_alamat) }}">
-                            <button type="submit" class="btn btn--round modal_close">Pilih
+                            <button type="submit" class="btn btn-outline-success">Pilih
                             </button>
                         </form>
                     </div>
                 </div>
                 @endforeach
+                @else
+                <div class="information_module order_summary">
+                    <div class="toggle_title">
+                        Anda tidak memiliki alamat
+                    </div>
+                </div>
+                @endif
             </div>
             <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="modalAlamat" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Data Alamat</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- end /.modal-header -->
+
+            <div class="modal-body">
+                <form method="post" action="{{ URL::to('profile/alamat/simpan') }}">
+                    @csrf
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" name="nomor_telepon" id="phone" class="form-control phone" required>
+                            <small id="teleponError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Provinsi</label>
+                            <select name="provinsi" id="provinsi" class="form-control" required>
+                                <option id="provinsi_option">-- PILIH PROVINSI --</option>
+                            </select>
+                            <input type="hidden" name="nama_provinsi" id="nama_provinsi" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kota</label>
+                            <select name="kota" id="kota" class="form-control" disabled required>
+                                <option>-- PILIH KOTA --</option>
+                            </select>
+                            <input type="hidden" name="nama_kota" id="nama_kota" class="form-control">
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Kecamatan</label>
+                            <select name="kecamatan" id="kecamatan" class="form-control" disabled required>
+                                <option>-- PILIH Kecamatan --</option>
+                            </select>
+                            <input type="hidden" name="nama_kecamatan" id="nama_kecamatan" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" id="kode_pos" class="form-control" required>
+                            <small id="kodePosError" style="color: red"></small>
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Alamat Lengkap</label>
+                            <textarea name="alamat_lengkap" rows="1" class="form-control" required></textarea>
+                        </div> <!-- form-group end.// -->
+                    </div>
+                    <button type="submit" id="simpan" class="btn btn--round btn-danger btn--default">Simpan</button>
+                    <button class="btn btn--round modal_close" data-dismiss="modal">Batal</button>
+                </form>
+            </div>
+            <!-- end /.modal-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalKurirKosong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gagal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Pastikan anda telah memilih kurir untuk semua toko.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -234,61 +396,209 @@
 
 @push('scripts')
 <script>
-    function getKurir(n) {
-        let kurir = $("#pilih_kurir" + n).val();
-        $.ajax({
-            url: '/api/ongkir',
-            type: 'POST',
-            data: {
-                'asal': $(`#dataPelapak${n}`).data('origin'),
-                'origin_type': 'city',
-                'tujuan': $(`#dataPembeli`).data('destination'),
-                'destinationType': 'subdistrict ',
-                'berat': $(`#dataPelapak${n}`).data('berat'),
-                'kurir': kurir
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                $(`.ok${n}`).remove();
-                response.ongkir.rajaongkir.results[0].costs.map(e => {
-                    $("#kurir" + n).append(`
-                            <div class="ok${n}">
-                                <input type="radio" id="${n + e.service}" class="" name="ongkir${n}" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}" onclick="fixKurir(${n})">
-                                <label for="${n + e.service}">
+    $(function () {
+        let input = document.querySelector('#phone');
+        var n;
+        var id_keranjang = [];
+
+        var iti = intlTelInput(input, {
+            initialCountry: "id",
+            allowDropdown: true,
+            utilsScript: "{{ url('assets/mpnj/js/utils.js') }}"
+        });
+
+        $("#phone").on('keyup', function () {
+            if (iti.isValidNumber()) {
+                $("#simpan").prop('disabled', false)
+                $("#teleponError").html('')
+            } else {
+                $("#simpan").prop('disabled', true);
+                $("#teleponError").html('Nomor telepon tidak valid')
+            }
+        });
+
+        $("#kode_pos").on('keyup', function () {
+            if ($(this).val().length > 5 || !$.isNumeric($(this).val())) {
+                $("#kodePosError").html('Kode pos tidak valid');
+                $("#simpan").prop('disabled', true);
+            } else {
+                $("#kodePosError").html('');
+                $("#simpan").prop('disabled', false);
+            }
+        });
+
+        $("#tambahAlamat").on('click', function () {
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/provinsi') }}',
+                type: 'GET',
+                success: function (response) {
+                    $("#provinsi option").remove();
+                    $("#modalAlamat").modal('show');
+                    response.provinsi.rajaongkir.results.map(e => {
+                        $("#provinsi").append(`
+                                <option value='${e.province_id}'>${e.province}</option>
+                            `);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#provinsi").on('change', function () {
+            $("#nama_provinsi").val($("#provinsi option:selected").html());
+            $("#kota").prop('disabled', true);
+            $("#kota option").remove();
+            $("#kota").append(`
+                    <option>-- PILIH KOTA --</option>
+               `);
+            $("#kecamatan option").remove();
+            $("#kecamatan").prop('disabled', true);
+            $("#kecamatan").append(`
+                    <option>-- PILIH Kecamatan --</option>
+               `);
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/kota?provinsi=') }}' + `${$(this).val()}`,
+                type: 'GET',
+                success: function (response) {
+                    $("#kota option").remove();
+                    response.kota.rajaongkir.results.map(e => {
+                        $("#kota").append(`
+                                <option value='${e.city_id}'>${e.type} ${e.city_name}</option>
+                            `);
+                    });
+                    $("#kota").prop('disabled', false);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#kota").on('change', function () {
+            $("#nama_kota").val($("#kota option:selected").html());
+            $("#kecamatan").prop('disabled', true);
+            $.ajax({
+                async: true,
+                url: '{{ URL::to('api/gateway/kecamatan?id=') }}' + $('#kota').val(),
+                type: 'GET',
+                success: function (response) {
+                    $("#kecamatan option").remove();
+                    response.kecamatan.rajaongkir.results.map(e => {
+                        $("#kecamatan").append(`
+                                <option value='${e.subdistrict_id}'>${e.subdistrict_name}</option>
+                           `);
+                    });
+                    $("#kecamatan").prop('disabled', false);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $("#kecamatan").on('change', function () {
+            $("#nama_kecamatan").val($("#kecamatan option:selected").html());
+        });
+
+        $("input[name = 'kurir']").on('click', function () {
+            id_keranjang = [];
+            $('.ok').remove();
+            $('#pilih_kurir option').eq(0).prop('selected', true);
+            n = $(this).data('row');
+            for (let i = $(`#dataPelapak${$(this).data('row')}`).data('mulai'); i <= $(`#dataPelapak${$(this).data('row')}`).data('akhir'); i++) {
+                id_keranjang.push($(`#data_keranjang${i}`).data('idkeranjang'));
+            }
+            $("#title").html("Pilih Kurir untuk "+$(this).data('namatoko'));
+            $("#modalPilihKurir").modal('show');
+        });
+
+        $("#pilih_kurir").on('change', function () {
+            $.ajax({
+                url: '{{URL::to('api/ongkir')}}',
+                type: 'POST',
+                data: {
+                    'asal': $(`#dataPelapak${n}`).data('origin'),
+                    'origin_type': 'city',
+                    'tujuan': $(`#dataPembeli`).data('destination'),
+                    'destinationType': 'subdistrict ',
+                    'berat': $(`#dataPelapak${n}`).data('berat'),
+                    'kurir': $(this).val()
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function() {
+                    $.LoadingOverlay("show");
+                },
+                success: function(response) {
+                    $.LoadingOverlay("hide");
+                    $('.ok').remove();
+                    response.ongkir.rajaongkir.results[0].costs.map(e => {
+                        $("#kurir").append(`
+                            <div class="ok">
+                                <input type="radio" name="ongkir" data-service="${e.service}" data-ongkir="${e.cost[0].value}" data-etd="${e.cost[0].etd}">
+                                <label for="${e.service}">
                                 <span class="circle"></span>${e.service} - Rp. ${numberFormat(e.cost[0].value)} - ${e.cost[0].etd}  hari</label>
                                 <br>
                             </div>
                         `);
-                });
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        })
-    }
+                    });
+                    $("input[name='ongkir']").on('click', function () {
+                        let kurir = $("#pilih_kurir").val();
+                        let service = $(this).data('service');
+                        let ongkir = $(this).data('ongkir');
+                        let etd = $(this).data('etd');
+                        $.ajax({
+                            url: '{{ URL::to('checkout/simpanKurir') }}',
+                            type: 'POST',
+                            data: {
+                                'kurir' : kurir,
+                                'service': service,
+                                'ongkir': ongkir,
+                                'etd': etd,
+                                'id_keranjang': id_keranjang
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            beforeSend: function() {
+                                $.LoadingOverlay("show");
+                            },
+                            success: function (response) {
+                                $.LoadingOverlay("hide");
+                                $("#modalPilihKurir").modal('hide');
+                                $(`#dataPelapak${n}`).data('ongkir', ongkir);
+                                $(`#body${n} td`).eq(0).html(kurir);
+                                $(`#body${n} td`).eq(1).html(service);
+                                $(`#body${n} td`).eq(2).html(numberFormat(ongkir));
+                                $(`#body${n} td`).eq(3).html(etd);
+                                hitungOngkir();
+                            },
+                            error: function (error) {
+                                console.log(error)
+                            }
+                        })
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        });
 
-    function fixKurir(i) {
-        let kurir = $("#pilih_kurir" + i).val();
-        let service = $(`input[name='ongkir${i}']:checked`).data('service');
-        let ongkir = $(`input[name='ongkir${i}']:checked`).data('ongkir');
-        let etd = $(`input[name='ongkir${i}']:checked`).data('etd');
+        $(window).bind('beforeunload', function () {
+            return 'Anda yakin akan mereload halaman ? semua data yang tersimpan sebelumnya akan hilang.';
+        });
 
-        $(`#dataPelapak${i}`).data('kurir', kurir);
-        $(`#dataPelapak${i}`).data('service', service);
-        $(`#dataPelapak${i}`).data('ongkir', ongkir);
-        $(`#dataPelapak${i}`).data('etd', etd);
-
-        console.log(i);
-
-        $(`#kurirDipilih${i}`).html(`<h6>Kurir : ${kurir} - ${service} - ${numberFormat(ongkir)} - ${etd}</h6>`);
-        hitungOngkir();
-    }
+    });
 
     function hitungOngkir() {
         let ko = 0;
-        for (let index = 1; index <= "{{ $m }}"; index++) {
+        for (let index = 1; index < parseInt("{{ $m }}"); index++) {
             if ($(`#dataPelapak${index}`).data('ongkir') == undefined) {
                 ko += 0;
             } else {
@@ -300,62 +610,42 @@
         $("#totalBayar").data('totalbayar', parseInt("{{ $total }}") + ko);
     }
 
-    function bayarSekarang() {
-        let dataTrxDetail = [];
-        let keranjangId = [];
-        let proses = [];
-        let produkId = [];
-
-            //ulasan
-            //1. saya harus tau jumlah pelapak nya
-            //2. saya harus tau jumlah barang yang dibeli dari setiap pelapak
-            //3. for pertama berdasarkan jumlah pelapak
-            //4. for kedua bedasarkan jumlah barang dari setiap pelapak
-
-            for (let index = 1; index <= "{{ $m }}"; index++) {
-                for (let j = $(`#dataPelapak${index}`).data('mulai'); j <= $(`#dataPelapak${index}`).data('akhir'); j++) {
-                    keranjangId.push($(`#data_keranjang${j}`).data('idkeranjang'));
-                    produkId.push($(`#data_keranjang${j}`).data('idproduk'));
-                    proses.push({
-                        'stok': $(`#data_keranjang${j}`).data('stok') - $(`#data_keranjang${j}`).data('jumlah'),
-                        'terjual' : $(`#data_keranjang${j}`).data('terjual') + $(`#data_keranjang${j}`).data('jumlah')
-                    });
-
-                    dataTrxDetail.push({
-                        'produk_id' : $(`#data_keranjang${j}`).data('idproduk'),
-                        'user_id' : $(`#data_keranjang${j}`).data('idpelapak'),
-                        'diskon' : $(`#data_keranjang${j}`).data('diskon'),
-                        'kurir': $(`#dataPelapak${index}`).data('kurir'),
-                        'service': $(`#dataPelapak${index}`).data('service'),
-                        'ongkir': $(`#dataPelapak${index}`).data('ongkir'),
-                        'etd': $(`#dataPelapak${index}`).data('etd'),
-                        'jumlah': $(`#data_keranjang${j}`).data('jumlah'),
-                        'harga_jual': $(`#data_keranjang${j}`).data('hargajual'),
-                        'sub_total': $(`#data_keranjang${j}`).data('diskon') == 0 ? parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') + $(`#dataPelapak${index}`).data('ongkir')) : parseInt($(`#data_keranjang${j}`).data('hargajual') * $(`#data_keranjang${j}`).data('jumlah') - $(`#data_keranjang${j}`).data('diskon') / 100 * $(`#data_keranjang${j}`).data('hargajual'))
-                    });
-                }
+    function cekPilihKurir() {
+        for (let index = 1; index < parseInt("{{ $m }}"); index++) {
+            if ($(`#dataPelapak${index}`).data('ongkir') == 0) {
+                return 1;
+                break;
+            } else {
+                return 0;
+                break;
             }
+        }
+    }
 
+    function bayarSekarang() {
+        $(window).unbind('beforeunload');
         $.ajax({
             async: true,
             url: "{{ URL::to('checkout/simpanTransaksi') }}",
             type: 'POST',
             data: {
-                'trxDetail': dataTrxDetail,
-                'totalBayar': $("#totalBayar").data('totalbayar'),
-                'idKeranjang': keranjangId,
-                'idp': produkId,
-                'prosesData': proses
+                'totalBayar': $("#totalBayar").data('totalbayar')
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
+            beforeSend: function() {
+                $.LoadingOverlay("show");
+            },
             success: function(response) {
-                window.location.href = `/checkout/sukses/${response.kode_transaksi}`;
-                // console.log(response);
+                $.LoadingOverlay("hide");
+                window.location.href = `{{URL::to('checkout/sukses')}}/${response.kode_transaksi}`;
+                console.log(response);
             },
             error: function(error) {
+                $.LoadingOverlay("hide");
                 console.log(error);
+                $("#modalKurirKosong").modal('show');
             }
         });
     }

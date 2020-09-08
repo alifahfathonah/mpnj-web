@@ -1,61 +1,67 @@
-<output>
-
-    <!-- =========================  COMPONENT TRACKING ========================= -->
+<style>
+    ul.timeline {
+        list-style-type: none;
+        position: relative;
+    }
+    ul.timeline:before {
+        content: ' ';
+        background: green;
+        display: inline-block;
+        position: absolute;
+        left: 29px;
+        width: 2px;
+        height: 100%;
+        z-index: 400;
+    }
+    ul.timeline > li {
+        margin: 20px 0;
+        padding-left: 20px;
+    }
+    ul.timeline > li:before {
+        content: ' ';
+        background: white;
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid green;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        z-index: 400;
+    }
+</style>
     <div class="col-md-12">
         <article class="card">
-            <header class="card-header"> My Orders / Tracking </header>
+            <header class="card-header"> Tracking </header>
             <div class="card-body">
-                <h6>Order ID: {{ $detail->transaksi->kode_transaksi }}</h6>
+                <h6>ID Pesanan: {{ $detail->id_transaksi_detail }}</h6>
                 <article class="card">
                     <div class="card-body row no-gutters">
                         <div class="col">
-                            <strong>Estimasi Pengiriman :</strong> <br> {{ $detail->etd }} hari
+                            <strong>Estimasi Pengiriman:</strong> <br>{{ $detail->etd }} hari
                         </div>
                         <div class="col">
-                            <strong>Kurir :</strong> <br> {{ $detail->kurir }}
+                            <strong>Kurir:</strong> <br> {{ $detail->kurir }} | {{ $detail->service }}
                         </div>
                         <div class="col">
-                            <strong>Status:</strong> <br> <div id="status">{{ $detail->status_order }}</div>
+                            <strong>Status:</strong> <br> <span id="status"></span>
                         </div>
                         <div class="col">
-                            <strong>Resi :</strong> <br> {{ $detail->resi }}
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <strong>Alamat :</strong> <br> <div id="alamat"></div>
-                            </div>
+                            <strong>Resi #:</strong> <br> {{ $detail->resi }}
                         </div>
                     </div>
                 </article>
 
-                <div class="tracking-wrap" id="trackingHistory">
+                <br>
 
-                </div>
+                <ul class="timeline" id="timeline">
 
-
-                <hr>
-                <ul class="row">
-                    <li class="col-md-12">
-                        <figure class="itemside  mb-3">
-                            <div class="aside"><img src="{{ env('FILES_ASSETS').$detail->produk->foto_produk[0]->foto_produk }}" class="img-sm border"></div>
-                            <figcaption class="info align-self-center">
-                                <p class="title">{{ $detail->produk->nama_produk }} <br></p>
-                                @if($detail->diskon == 0)
-                                    <span style="color: black">@currency($detail->harga_jual) x {{ $detail->jumlah }}</span>
-                                @else
-                                    <strike style="color: red;">{{ $detail->harga_jual }}</strike> | <span>{{ $detail->harga_jual - ($detail->diskon / 100 * $detail->harga_jual) }} x {{ $detail->jumlah }}</span>
-                                @endif
-                            </figcaption>
-                        </figure>
-                    </li>
                 </ul>
 
-                <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Kembali ke Pesanan</a>
+                <button class="btn btn-outline-success" onclick="self.history.back()"> <i class="fa fa-chevron-left"></i> Back to orders</button>
             </div> <!-- card-body.// -->
         </article>
     </div>
-    <!-- =========================  COMPONENT TRACKING END.// ========================= -->
-</output>
 
 @push('scripts')
     <script>
@@ -71,24 +77,23 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                beforeSend: function(xhr) {
-                    $("#cekTracking").html('WAIT');
+                beforeSend: function() {
+                    $.LoadingOverlay("show");
                 },
                 success: function (response) {
-                    $("#cekTracking").html('SUKSES');
                     const res = response.waybill.rajaongkir.result;
                     $("#status").html(res.summary.status)
-                    $("#alamat").html(res.details.receiver_name + " " + res.details.receiver_address1 + " " +res.details.receiver_address2 + " " + res.details.receiver_address3 + " " + res.details.receiver_city);
-                    res.manifest.forEach(item => {
-                       $("#trackingHistory").append(
-                           `<div class="step active">
-                                <span class="icon"> <i class="fa fa-check"></i> </span>
-                                <span class="text">${item.manifest_description} - ${item.manifest_date + " : " + item.manifest_time}</span>
-                            </div>`
+                    // $("#alamat").html(res.details.receiver_name + " " + res.details.receiver_address1 + " " +res.details.receiver_address2 + " " + res.details.receiver_address3 + " " + res.details.receiver_city);
+                    res.manifest.slice().reverse().forEach(item => {
+                       $("#timeline").append(
+                           `<li>
+                                <p class="float-right">${item.manifest_date + " : " + item.manifest_time}</p>
+                                <p>${item.manifest_description}</p>
+                            </li>`
                        )
                     });
 
-                    console.log(response);
+                    $.LoadingOverlay("hide");
                 },
                 error: function (error) {
                     console.log(error);

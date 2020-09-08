@@ -38,6 +38,23 @@ class TransaksiRepository
             ->groupBy('produk.pelapak');
     }
 
+    public function tglTransaksi($kode_transaksi)
+    {
+        return Transaksi::where('kode_transaksi', $kode_transaksi)
+            // select('id_transaksi', 'kode_transaksi', 'waktu_transaksi', 'batas_transaksi')
+            ->get()
+            ->map(
+                function ($tglTrk) {
+                    return [
+                        'id_transaksi' => $tglTrk->id_transaksi,
+                        'kode_transaksi' => $tglTrk->kode_transaksi,
+                        'waktu_transaksi' => $tglTrk->waktu_transaksi,
+                        'batas_transaksi' => $tglTrk->batas_transaksi
+                    ];
+                }
+            );
+    }
+
     public function create($data)
     {
         return Transaksi::create($data);

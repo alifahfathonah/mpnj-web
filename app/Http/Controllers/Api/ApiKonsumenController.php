@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Konsumen;
 use App\Models\Alamat;
-
+use App\Models\Keranjang;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
@@ -51,7 +51,8 @@ class ApiKonsumenController extends Controller
                     return response()->json($res);
                 }
             } else {
-                return response()->json($res);}
+                return response()->json($res);
+            }
         } else {
             $res2['pesan'] = "Gagal!";
             $res2['data'] = [];
@@ -102,13 +103,17 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function update_alamat_utama(Request $request, $alamat_id)
+    public function update_alamat_utama(Request $request, $id_user)
     {
-        $user = User::where('id_user', $request->user_id)->update(['alamat_utama' => $alamat_id]);
+        $data = [
+            'alamat_utama' => $request->id_alamat,
+        ];
+        $user = User::where('id_user', $id_user)->update($data);
+        $findKeranjang = Keranjang::with('user', 'produk')->where('user_id', $id_user)->update(['kurir' => NULL, 'service' => NULL, 'ongkir' => 0, 'etd' => NULL,]);
         if ($user) {
             return response()->json([
                 'status' => 200,
-                'pesan' => 'Sukses Update Alamat Utama!',
+                'pesan' => 'Sukses Update Alamat Utama!'
             ]);
         } else {
             return response()->json([
@@ -117,17 +122,20 @@ class ApiKonsumenController extends Controller
         }
     }
 
-    public function hapus_alamat($alamat_id)
+    public function hapus_alamat($alamat_id, $id_user)
     {
-        $hapus_alamat = Alamat::find($alamat_id)->delete();
-        if ($hapus_alamat) {
+        // $id_user = $request->id_user;
+        $find = User::with('alamat')->where('id_user', $id_user)->first();
+        // $alamat = Alamat::where('id_alamat', $find->alamat_utama)->first();
+        if ($find->alamat_utama == $alamat_id) {
+            // $hapus_alamat = Alamat::find($alamat_id)->delete();
             return response()->json([
-                'status' => 200,
-                'pesan' => 'Sukses!'
+                'pesan' => 'Alamat Utama Tidak Dapat Dihapus'
             ]);
         } else {
+            Alamat::where('id_alamat', $alamat_id)->delete();
             return response()->json([
-                'pesan' => 'Gagal!'
+                'pesan' => 'Alamat Berhasil Dihapus'
             ]);
         }
     }
@@ -135,7 +143,7 @@ class ApiKonsumenController extends Controller
     public function profile($id_konsumen)
     {
         $konsumen = User::with('daftar_alamat')->where('id_user', $id_konsumen)->first(
-            ['id_user', 'nama_lengkap', 'username', 'nomor_hp','foto_profil', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
+            ['id_user', 'nama_lengkap', 'username', 'nomor_hp', 'foto_profil', 'email', 'status', 'alamat_utama', 'status', 'created_at', 'updated_at']
         );
 
         //        return $konsumen->daftar_alamat[0]['id_alamat'];
@@ -157,9 +165,9 @@ class ApiKonsumenController extends Controller
     {
         $userEmail = User::whereEmail($email)->first();
         if ($userEmail) {
-//            $res['pesan'] = "Sukses!";
-//            $hasil['id_konsumen'] = $konsumen->id_konsumen;
-//            $res['data'] = $hasil;
+            //            $res['pesan'] = "Sukses!";
+            //            $hasil['id_konsumen'] = $konsumen->id_konsumen;
+            //            $res['data'] = $hasil;
             return response()->json([
                 'pesan' => 'Sukses!',
                 'data' => $userEmail
@@ -192,10 +200,9 @@ class ApiKonsumenController extends Controller
         } else {
             $res2['pesan'] = "Gagal";
             return response()->json($res2);
-
         }
     }
-    
+
     public function hapus_akun($id_konsumen)
     {
         $hapus_akun = Konsumen::find($id_konsumen)->delete();

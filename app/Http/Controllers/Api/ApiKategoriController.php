@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori_Produk;
 use App\Models\Produk;
+use App\Models\Transaksi_Detail;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApiKategoriController extends Controller
 {
@@ -20,7 +23,7 @@ class ApiKategoriController extends Controller
         $produk = Kategori_Produk::with('produk')->where('id_kategori_produk', $id)->first();
         if ($produk != null) {
             if ($produk->produk->count() > 0) {
-                return $produk->produk->map(function($produks) {
+                return $produk->produk->map(function ($produks) {
                     return [
                         'id_produk' => $produks->id_produk,
                         'nama_produk' => $produks->nama_produk,
@@ -47,8 +50,8 @@ class ApiKategoriController extends Controller
                         'pelapak' => [
                             'id_pelapak' => $produks->user->id_user,
                             'nama_toko' => $produks->user->nama_toko,
-                            'foto_pelapak' => asset('assets/foto_profil_konsumen/'.$produks->user->foto_profil),
-                            'alamat' => $produks->user->alamat_utama
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $produks->user->foto_profil),
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap
                         ]
                     ];
                 });

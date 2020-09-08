@@ -24,7 +24,6 @@ class ApiKeranjangController extends Controller
         $keranjang = Keranjang::orderBy('id_keranjang')
             ->with('produk')
             ->where('user_id', $id)
-            ->where('status', 'N')
             ->get()
             ->groupBy('produk.user.nama_toko');
 
@@ -44,7 +43,18 @@ class ApiKeranjangController extends Controller
                     'id_produk' => $val->produk->id_produk,
                     'nama_produk' => $val->produk->nama_produk,
                     'stok' => $val->produk->stok,
-                    'foto' => $val->produk->foto_produk[0]->foto_produk
+                    'terjual' => $val->produk->terjual,
+                    'kategori' => [
+                        'id_kategori' => $val->produk->kategori->id_kategori_produk,
+                        'nama_kategori' => $val->produk->kategori->nama_kategori
+                    ],
+                    'keterangan' => $val->produk->keterangan,
+                    'foto' => $val->produk->foto_produk->map(function ($foto) {
+                        return [
+                            'id_foto_poroduk' => $foto->id_foto_produk,
+                            'foto_produk' => $foto->foto_produk
+                        ];
+                    })
                 ]);
             }
 

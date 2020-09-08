@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBatasTransaksiToTransaksiTable extends Migration
+class AddMessengerColorToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddBatasTransaksiToTransaksiTable extends Migration
      */
     public function up()
     {
-        Schema::table('transaksi', function (Blueprint $table) {
-            $table->dateTime('batas_transaksi')->useCurrent();
+        Schema::table('users', function (Blueprint $table) {
+            // if not exist, add the new column
+            if (!Schema::hasColumn('users', 'messenger_color')) {
+                $table->string('messenger_color')->default('#2180f3')->after('email');
+            } 
         });
     }
 
@@ -25,7 +28,7 @@ class AddBatasTransaksiToTransaksiTable extends Migration
      */
     public function down()
     {
-        Schema::table('transaksi', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }
