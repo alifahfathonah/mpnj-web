@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Transaksi_Detail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PesananRepository
@@ -30,7 +31,7 @@ class PesananRepository
                         'jumlah' => $pesanan->jumlah,
                         'harga' => $pesanan->harga_jual,
                         'total_bayar' => $pesanan->transaksi->total_bayar,
-                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi,
+                        'bayar_sebelum' => Carbon::parse($pesanan->transaksi->batas_transaksi)->format('d-m-Y H:i:s'),
                         'status_order' => $pesanan->status_order
                     ];
                 }
@@ -59,8 +60,8 @@ class PesananRepository
                         'etd' => $pesanan->pengiriman->etd,
                         'tujuan' => $pesanan->transaksi->to,
                         'no_pesanan' => $pesanan->transaksi->kode_transaksi,
-                        'waktu_pesan' => $pesanan->transaksi->waktu_transaksi,
-                        'bayar_sebelum' => $pesanan->transaksi->batas_transaksi,
+                        'waktu_pesan' => Carbon::parse($pesanan->transaksi->waktu_transaksi)->format('d-m-Y H:i:s'),
+                        'bayar_sebelum' => Carbon::parse($pesanan->transaksi->batas_transaksi)->format('d-m-Y H:i:s'),
                         'status_order' => $pesanan->status_order
                     ];
                 }
