@@ -33,6 +33,18 @@ class ApiReviewController extends Controller
         };
     }
 
+    public function getAllReview(Request $request, $id_produk)
+    {
+        $data = Review::where('produk_id', $id_produk)->get();
+        if (count($data) != Null) {
+            $review = $this->reviewRepository->findById($id_produk);
+            return response()->json($review);
+        } else {
+            $res2['data'] = $data;
+            return response()->json($res2);
+        }
+    }
+
     public function simpan(Request $request)
     {
         $file = $request->file('file');
