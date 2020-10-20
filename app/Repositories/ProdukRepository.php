@@ -6,15 +6,62 @@ use App\Models\Produk;
 
 class ProdukRepository
 {
-    public function all($nama = null)
+    public function all($nama = null, $id_toko = null)
     {
         return Produk::orderBy('id_produk', 'DESC')
             ->with('foto_produk', 'user', 'kategori')
-            ->when($nama != null, function ($query) use ($nama) {
-                $query->WhereHas('kategori', function($query) use ($nama) {
-                    $query->where('nama_kategori', $nama);
-                });
-                $query->orWhere('nama_produk', 'like', '%' . $nama . '%');
+            ->when(!is_null($nama), function ($query) use ($nama) {
+                $query->where('nama_produk', 'like', '%' . $nama . '%');
+            })
+            ->when(!is_null($id_toko), function ($query) use ($id_toko) {
+                $query->where('user_id', $id_toko);
+            })
+            ->get()
+            ->map(
+                function ($produks) {
+                    return [
+                        'id_produk' => $produks->id_produk,
+                        'nama_produk' => $produks->nama_produk,
+                        'kategori' => [
+                            'id_kategori' => $produks->kategori->id_kategori_produk,
+                            'nama_kategori' => $produks->kategori->nama_kategori
+                        ],
+                        'satuan' => $produks->satuan,
+                        'berat' => $produks->berat,
+                        'harga_modal' => $produks->harga_modal,
+                        'harga_jual' => $produks->harga_jual,
+                        'diskon' => $produks->diskon,
+                        'stok' => $produks->stok,
+                        'keterangan' => $produks->keterangan,
+                        'tipe_produk' => $produks->tipe_produk,
+                        'wishlist' => $produks->wishlist,
+                        'terjual' => $produks->terjual,
+                        'foto' => $produks->foto_produk->map(function ($foto) {
+                            return [
+                                'id_foto_poroduk' => $foto->id_foto_produk,
+                                'foto_produk' => $foto->foto_produk
+                            ];
+                        }),
+                        'pelapak' => [
+                            'id_pelapak' => $produks->user->id_user,
+                            'nama_toko' => $produks->user->nama_toko,
+                            'foto_pelapak' => asset('assets/foto_profil_konsumen/' . $produks->user->foto_profil),
+                            'alamat' => $produks->user->alamatToko->alamat_lengkap
+                        ]
+                    ];
+                }
+            );
+    }
+
+    public function lain($nama = null, $id_toko = null)
+    {
+        return Produk::orderBy('id_produk', 'DESC')
+            ->with('foto_produk', 'user', 'kategori')
+            ->when(!is_null($nama), function ($query) use ($nama) {
+                $query->where('nama_produk', 'like', '%' . $nama . '%');
+            })
+            ->when(!is_null($id_toko), function ($query) use ($id_toko) {
+                $query->where('user_id', '!=', $id_toko);
             })
             ->get()
             ->map(
