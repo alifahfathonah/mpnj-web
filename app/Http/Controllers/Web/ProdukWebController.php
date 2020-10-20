@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Kategori_Produk;
+use App\Models\Kurir;
+use App\Models\Kurir_Pelapak;
 use App\Models\Produk;
 use DB;
 use App\Models\Review;
@@ -53,20 +55,20 @@ class ProdukWebController extends Controller
                     $query->where('nama_kategori', $kategori != '' ? $kategori : '');
                 });
             })
-            ->when($dari != 0 OR $sampai != 0, function ($query) use ($dari, $sampai) {
-                $query->whereBetween('harga_jual', [$dari, $sampai]);
-            })
-            ->where('status', 'aktif')
-            ->orderBy($order == 'laris' ? 'terjual' : DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? ('DESC') : ($order == 'laris' ? ('DESC') : ('ASC')))->paginate(12);
+                ->when($dari != 0 or $sampai != 0, function ($query) use ($dari, $sampai) {
+                    $query->whereBetween('harga_jual', [$dari, $sampai]);
+                })
+                ->where('status', 'aktif')
+                ->orderBy($order == 'laris' ? 'terjual' : DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? ('DESC') : ($order == 'laris' ? ('DESC') : ('ASC')))->paginate(12);
             // })->orderBy('harga_jual', $order == 'high' ? 'DESC' : 'ASC')->orderBy('terjual', $order == 'laris' , 'DESC')->paginate(12);
         } else if ($nama_produk != '') {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('status', 'aktif')
-                              ->when($dari != 0 OR $sampai != 0, function ($query) use ($dari, $sampai) {
-                                  $query->whereBetween('harga_jual', [$dari, $sampai]);
-                              })
-                              ->where('nama_produk', 'like', '%' . $nama_produk . '%')
-                              ->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')
-                              ->paginate(12);
+                ->when($dari != 0 or $sampai != 0, function ($query) use ($dari, $sampai) {
+                    $query->whereBetween('harga_jual', [$dari, $sampai]);
+                })
+                ->where('nama_produk', 'like', '%' . $nama_produk . '%')
+                ->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')
+                ->paginate(12);
         } else {
             $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('status', 'aktif')->paginate(12);
         }
@@ -86,10 +88,9 @@ class ProdukWebController extends Controller
     {
         $data['produk'] = Produk::with(['foto_produk', 'kategori', 'user', 'wishlists'])->where('slug', $slug)->first();
         $data['produk_pelapak'] = Produk::with(['foto_produk', 'kategori', 'user'])->where('user_id', $data['produk']->user->id_user)->get();
-
+        $data['kurir'] = Kurir_Pelapak::where([['user_id', $data['produk']->user->id_user], ['status', '=', 'aktif']])->with('kurir')->get();
         $data['review'] = Review::with('user')->where('produk_id', $data['produk']->id_produk)->paginate(2);
         $data['counts'] = $data['review']->total();
-
 
         if ($request->ajax()) {
             return view('web.load.paginate', $data);
