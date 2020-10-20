@@ -10,7 +10,7 @@ use App\Models\Kategori_Produk;
 //Refactor routing api
 Route::group(['namespace' => 'Api'], function () {
     //produk
-    Route::group(['prefix' => 'produk'], function () {
+    Route::group(['prefix' => 'produk', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiProdukController@index');
         Route::get('/diskon/', 'ApiProdukController@diskonProduk');
         Route::get('/laris/', 'ApiProdukController@larisProduk');
@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     //konsumen
-    Route::group(['prefix' => 'konsumen'], function () {
+    Route::group(['prefix' => 'konsumen', 'middleware' => 'jwt.verify'], function () {
         Route::post('/', 'ApiRegisterKonsumenController@create');
         Route::put('/{id_konsumen}', 'ApiRegisterKonsumenController@update');
         Route::get('/profil/{id_konsumen}', 'ApiKonsumenController@profile');
@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 
     //pelapak
-    Route::group(['prefix' => 'pelapak'], function () {
+    Route::group(['prefix' => 'pelapak', 'middleware' => 'jwt.verify'], function () {
         Route::get('/', 'ApiPelapakController@index');
         Route::post('/', 'ApiPelapakController@create');
         Route::delete('/{id_pelapak}', 'ApiPelapakController@delete');

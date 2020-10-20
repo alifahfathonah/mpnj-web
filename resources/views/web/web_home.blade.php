@@ -200,7 +200,6 @@
                                 </ul>
                                 <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div>  -->
-
                         </div>
                         <br>
                         <div class="row">
@@ -297,7 +296,6 @@
                                 </ul>
                                 <span class="rating-stars" style="font-size:small;">(125)</span>
                             </div> <!-- rating-wrap.// -->
-
                         </div>
                         <div class="row">
                             <div class="col" style="font-size:small">PAITON {{$p->kota}}</div>

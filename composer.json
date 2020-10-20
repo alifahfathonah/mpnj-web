@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "munafio/chatify": "^1.0",
-        "spatie/laravel-medialibrary": "^7.17"
+        "spatie/laravel-medialibrary": "^7.17",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
