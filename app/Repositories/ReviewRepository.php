@@ -20,7 +20,7 @@ class ReviewRepository
                         'id_user' => $review->user_id,
                         'review' => $review->review,
                         'bintang' => $review->bintang,
-                        'foto_review' => $review->foto_review,
+                        'foto_review' => asset('assets/foto_review/' . $review->foto_review),
                         'reviewer' => $review->user->nama_lengkap
                     ];
                 }
