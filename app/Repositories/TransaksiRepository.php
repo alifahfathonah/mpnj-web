@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Keranjang;
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,8 +49,8 @@ class TransaksiRepository
                     return [
                         'id_transaksi' => $tglTrk->id_transaksi,
                         'kode_transaksi' => $tglTrk->kode_transaksi,
-                        'waktu_transaksi' => $tglTrk->waktu_transaksi,
-                        'batas_transaksi' => $tglTrk->batas_transaksi
+                        'waktu_transaksi' => Carbon::parse($tglTrk->waktu_transaksi)->format('d-m-Y H:i:s'),
+                        'batas_transaksi' => Carbon::parse($tglTrk->batas_transaksi)->format('d-m-Y H:i:s')
                     ];
                 }
             );

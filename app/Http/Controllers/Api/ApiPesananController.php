@@ -51,7 +51,7 @@ class ApiPesananController extends Controller
                 'kode_invoice' => $key,
                 'nama_toko' => $p->user->nama_toko,
                 'jumlah_pesanan' => $pesanan[$key]->count(),
-                'waktu_transaksi' => Carbon::parse($p->transaksi->waktu_transaksi)->format('d M Y'),
+                'waktu_transaksi' => Carbon::parse($p->transaksi->waktu_transaksi)->format('d-m-Y H:i:s'),
                 'total_pembayaran' => $pesanan[$key]->sum('sub_total'),
                 'item' => $item
             ]);
