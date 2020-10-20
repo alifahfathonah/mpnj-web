@@ -51,25 +51,34 @@
 								<thead>
 									<tr>
 										<td><i class="fas fa-store"></i> Produk : <span
-												class="text-primary">{{ $pelapak->produk->count() }}</span></td>
+												class="text">{{ $pelapak->produk->count() }}</span></td>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td><i class="fas fa-store"></i> Waktu Pengemasan : <span
-												class="text-primary">Lambat (Lebih
+										<td><i class="fas fa-clock"></i> Waktu Pengemasan : <span class="text">Lambat
+												(Lebih
 												dari 2 hari)</span></td>
 									</tr>
 									<tr>
-										<td><i class="fas fa-store"></i> Mengikuti : <span
-												class="text-primary">20</span>
+										<td><i class="fas fa-users"></i> Mengikuti : <span class="text">20</span>
 										</td>
 									</tr>
 									<tr>
-										<td><i class="fas fa-store"></i> Total Ranting : <span
-												class="text-primary">Lambat
+										<td><i class="fas fa fa-star"></i> Total Ranting : <span class="text">Lambat
 												(Lebih
 												dari 2 hari)</span></td>
+									</tr>
+									<tr>
+										<td><i class="fas fa fa-truck"></i> Kurir Tersedia : <span class="text">
+												@if($kurir->count()==0)
+												Pelapak Belum Mengisi
+												@else
+												@foreach($kurir as $k)
+												<strong>{{$k->kurir->kurir}}</strong>-
+												@endforeach
+												@endif</span>
+										</td>
 									</tr>
 								</tbody>
 							</table>
