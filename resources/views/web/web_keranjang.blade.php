@@ -70,7 +70,14 @@
                                         value="{{ $k['jumlah'] != 0 ? $k['jumlah'] : 1 }}">
                                     <small id="stokLebih{{ $n }}" style="color: red;"></small>
                                     @if(session('lebih'))
-                                    <small id="stok" style="color: red;">{{ session('lebih') }}</small>
+                                    {{-- <small id="stok" style="color: red;">{{ session('lebih') }}</small> --}}
+                                    @push('scripts')
+                                    <script>
+                                        $(function() {
+                                            $('#modalStokMax').modal('show');
+                                        });
+                                    </script>
+                                    @endpush
                                     @endif
                                 </td>
                                 <td id="subHarga{{ $n }}">
@@ -146,6 +153,28 @@
             </div>
             <div class="modal-body">
                 Anda harus memilih minimal 1 barang pada keranjang untuk melakukan transaksi.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rating_modal item_remove_modal" id="modalStokMax" tabindex="-1" role="dialog"
+    aria-labelledby="myModal2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Stok Maksimal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if(session('lebih'))
+                Anda Tidak Bisa Membeli Lebih Dari {{ session('lebih') }} Barang!
+                @endif
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
