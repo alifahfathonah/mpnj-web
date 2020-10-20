@@ -11,7 +11,10 @@ class ProdukRepository
         return Produk::orderBy('id_produk', 'DESC')
             ->with('foto_produk', 'user', 'kategori')
             ->when($nama != null, function ($query) use ($nama) {
-                $query->where('nama_produk', 'like', '%' . $nama . '%');
+                $query->WhereHas('kategori', function($query) use ($nama) {
+                    $query->where('nama_kategori', $nama);
+                });
+                $query->orWhere('nama_produk', 'like', '%' . $nama . '%');
             })
             ->get()
             ->map(
