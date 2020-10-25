@@ -267,7 +267,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col" style="font-size:small">{{$pl->user->alamat_fix->nama_kecamatan}}</div>
+                            <div class="col" style="font-size:small">PAITON {{$pl->kota}}</div>
                             <!-- selesaikan API nya ya -->
                             <div class="text-right col text-success" style="font-size:small;">{{$pl->terjual}} terjual
                             </div>

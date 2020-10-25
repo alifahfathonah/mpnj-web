@@ -12,7 +12,6 @@
 !/vendor/
 /vendor/*
 !/vendor/munafio/
-composer.lock
 .idea
 .env
 .env.backup

@@ -71,7 +71,7 @@ class ApiTransaksiController extends Controller
             ]);
             $data['pembeli'] = [
                 'id_user' => $keranjang[$key][0]->user->id_user,
-                'alamat_utama' => $keranjang[$key][0]->user->alamat_fix->getAlamat(),
+                'alamat_utama' => $keranjang[$key][0]->user->alamat_fix->getAlamatLengkapAttribute(),
                 'id_kecamatan' => $keranjang[$key][0]->user->alamat_fix->kecamatan_id,
             ];
         }
@@ -109,7 +109,7 @@ class ApiTransaksiController extends Controller
                 'total_bayar' => $request->totalBayar,
                 'waktu_transaksi' => date('Y-m-d H:i:s'),
                 'batas_transaksi' => date('Y-m-d H:i:s', strtotime(' + 1 days')),
-                'to' => $user->alamat_fix->getAlamat()
+                'to' => $user->alamat_fix->getAlamatLengkapAttribute()
             ];
             $simpanTrx = Transaksi::create($trx);
             $keranjang = Keranjang::whereIn('id_keranjang', $request->id_keranjang)->get()->groupby('produk.user_id');
