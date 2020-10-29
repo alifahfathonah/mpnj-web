@@ -73,7 +73,7 @@ class ProdukWebController extends Controller
                                   $query->whereBetween('harga_jual', [$dari, $sampai]);
                               })
                               ->orderBy(DB::raw('harga_jual - (diskon / 100 * harga_jual)'), $order == 'high' ? 'DESC' : 'ASC')
-                              ->paginate(12);
+                              ->paginate(12)
                           ->when($dari != 0 or $sampai != 0, function ($query) use ($dari, $sampai) {
                               $query->whereBetween('harga_jual', [$dari, $sampai]);
                           })
